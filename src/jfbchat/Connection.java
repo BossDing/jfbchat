@@ -20,6 +20,8 @@
   *###########################################################################
   *
   */
+
+
 package jfbchat;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
