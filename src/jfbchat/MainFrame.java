@@ -1,6 +1,6 @@
  /* ###########################################################################
   *
-  *  JFBChat it's a simple software written in Java that let you int contact
+  *  JFBChat it's a simple software written in Java that let you in contact
   *  with yours Facebook friends without your browser.
   *  Copyright (C) 2011  Digitex (Giuseppe Federico)
   *
@@ -22,26 +22,30 @@
   */
 
 package jfbchat;
-import javax.swing.*;
+
+
+import frames.JFrameAbout;
 
 
 public class MainFrame extends javax.swing.JFrame {
+    private final String VERSION = "0.01";
 
+    private JFrameAbout jFrameAbout;  
     private Connection connection;
     private ContactList contactList;
     private PacketListening packetListening;
 
     public MainFrame() {
-      
 
-                
-                initComponents();
-                ContactListPanel.setVisible(false);
-                ContactListScrollPane.setVisible(false);
+        jFrameAbout = new JFrameAbout(VERSION);
+        initComponents();
+
+        ContactListPanel.setVisible(false);
+        ContactListScrollPane.setVisible(false);
                
 
 
-
+        setLocationRelativeTo( null );
         setVisible(true);
     }
 
@@ -65,6 +69,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        MenuHelp = new javax.swing.JMenu();
+        MenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JFBChat");
@@ -140,6 +146,23 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
+        MenuHelp.setText("Help");
+
+        MenuItemAbout.setText("About");
+        MenuItemAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuItemAboutMousePressed(evt);
+            }
+        });
+        MenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemAboutActionPerformed(evt);
+            }
+        });
+        MenuHelp.add(MenuItemAbout);
+
+        jMenuBar1.add(MenuHelp);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,7 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
             for(int i = 0; i< contactList.getSize(); i++){
 
                 if(contactList.getContact(i).isAvailable()){
-                    ContactListPanel.add( new ContactPanel( connection.getConnection(), contactList.getContact(i)));
+                    ContactListPanel.add( new ContactPanel( connection, contactList.getContact(i)));
              
                        }
 
@@ -206,6 +229,15 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EntryUserActionPerformed
 
+    private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAboutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuItemAboutActionPerformed
+
+    private void MenuItemAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemAboutMousePressed
+        jFrameAbout.setVisible(true);
+        
+    }//GEN-LAST:event_MenuItemAboutMousePressed
+
     /**
     * @param args the command line arguments
     */
@@ -218,6 +250,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField EntryPass;
     private javax.swing.JTextField EntryUser;
     private javax.swing.JPanel LoginPanel;
+    private javax.swing.JMenu MenuHelp;
+    private javax.swing.JMenuItem MenuItemAbout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

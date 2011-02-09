@@ -32,9 +32,11 @@ public class ContactList {
     private Contact[] contactList;
     private int lastcontact;
     private Connection connection;
+    private MyChatManager chatManager;
     
     public ContactList(Connection connection){
         this.connection = connection;
+        this.chatManager = new MyChatManager();
         getList();
     }
     
@@ -61,6 +63,10 @@ public class ContactList {
 
         return contactList[index];
 
+    }
+
+    public MyChatManager getChatManager(){
+        return chatManager;
     }
 
     public int getSize(){

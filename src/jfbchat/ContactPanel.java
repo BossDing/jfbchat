@@ -22,25 +22,26 @@
   */
 
 package jfbchat;
-import org.jivesoftware.smack.ChatManager;
-import org.jivesoftware.smack.Chat;
+
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.XMPPException;
+
         /**
  *
  * @author peppe
  */
 public class ContactPanel extends javax.swing.JPanel {
+    private static int contactID = 0;
+
+
     private Contact contact;
-    private XMPPConnection connection;
+    private Connection connection;
 
     /** Creates new form ContactPanel */
-    public ContactPanel(XMPPConnection connection, Contact contact) {
+    public ContactPanel(Connection connection, Contact contact) {
 
         this.contact = contact;
         this.connection = connection;
+
 
         initComponents();
 
@@ -101,8 +102,19 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnlineRadioBoxActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        new ChatFrame(connection, contact);
+        MyChatManager chatManager = connection.getChatManager();
+        
 
+        if (chatManager.add(new ChatFrame(connection, contact), contact.getID())){
+            chatManager.getChat(contact.getID()).setVisible(true); //if the chat is present in the chatmanager then show it
+            System.out.println(contact.getID());
+        }
+       else{
+            chatManager.getChat(contact.getID()).setVisible(true);
+            System.out.println("Reload the last chat");
+            System.out.println(contact.getID());
+            //TODO: make with exceptions here..
+        }
     }//GEN-LAST:event_formMouseClicked
 
 

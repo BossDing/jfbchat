@@ -51,8 +51,14 @@ public class Connection {
 //TODO: Completare la classe.
     
     public Connection(User user){
-
+        try{
         this.myChatManager = new MyChatManager();
+        }
+        catch(Exception ex){
+
+            JOptionPane.showMessageDialog(null, "Failed to create a chat manager");
+
+        }
         this.user = user;
         SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
 

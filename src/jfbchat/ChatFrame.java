@@ -36,23 +36,23 @@ import org.jivesoftware.smack.XMPPException;
 public class ChatFrame extends javax.swing.JFrame {
 
     private Contact contact;
-    private XMPPConnection connection;
+    private Connection connection;
     private ChatManager chatmanager;
     private Chat newChat;
     private String contactAdr;
 
     /** Creates new form ChatFrame */
-    public ChatFrame(XMPPConnection connection, Contact contact) {
+    public ChatFrame(Connection connection, Contact contact) {
 
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
 
-        chatmanager = connection.getChatManager();
+        chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
         this.setTitle("Conversation with "+ contact.getUser());
-        setVisible(true);
+        
 
         
         newChat = chatmanager.createChat(contactAdr , new MessageListener() {
@@ -67,15 +67,15 @@ public class ChatFrame extends javax.swing.JFrame {
        
     }
 
-    public ChatFrame(XMPPConnection connection, String contactAdr) {
+    public ChatFrame(Connection connection, String contactAdr) {
         this.connection = connection;
         this.contactAdr = contactAdr;
 
-        chatmanager = connection.getChatManager();
+        chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
         this.setTitle("Conversation with "+ contactAdr);
-        setVisible(true);
+        
 
 
         newChat = chatmanager.createChat(contactAdr, new MessageListener() {
@@ -86,7 +86,7 @@ public class ChatFrame extends javax.swing.JFrame {
             }
            });
 
-           pack();
+           
 
     }
 
@@ -105,7 +105,6 @@ public class ChatFrame extends javax.swing.JFrame {
         TextField = new javax.swing.JTextField();
         ButtonSend = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Conversation with ...");
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -186,7 +185,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-         //TODO: mandare il messaggio quando premo invio
+         //TODO: Send a message when enter is pressed
     }//GEN-LAST:event_formKeyPressed
 
     /**

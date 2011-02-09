@@ -23,30 +23,14 @@
 
 package jfbchat;
 
-import java.io.IOException;
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.ChatManager;
-import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.packet.Presence;
-
 public class Main {
-
-  
+ 
 
     public static void main( String[] args ) {
 
         System.out.println("Starting IM client");
         Run run = new Run();
-
-
-       
-    
-       
-        
+   
     }
 }
 

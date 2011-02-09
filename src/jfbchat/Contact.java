@@ -32,6 +32,9 @@ import org.jivesoftware.smack.RosterEntry;
 
 
 public class Contact {
+    private static int contactID = 0;
+
+    private int id;
     private String name;
     private RosterEntry entry;
     private Presence presence;
@@ -44,7 +47,7 @@ public class Contact {
         this.entry = entry;
         this.name =  entry.getName();
         this.presence = presence;
-
+        this.id = contactID++;
 
     }
 
@@ -63,6 +66,10 @@ public class Contact {
 
     public String getGroups(){
         return this.presence.toString();    }
+
+    public int getID(){
+        return id;
+    }
 
 
 
