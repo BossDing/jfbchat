@@ -30,16 +30,20 @@ import org.jivesoftware.smack.packet.Packet;
 
 public class MyPacketListener implements PacketListener{
 
-      private XMPPConnection connection;
+      private Connection connection;
 
-      public MyPacketListener(XMPPConnection connection){
+      public MyPacketListener(Connection connection){
           this.connection = connection;
       
       }
 
       public void processPacket(Packet packet) {
+            MyChatManager chatManager = connection.getChatManager();
+
             Message msg = (Message) packet;
              System.out.println(msg.getBody());
+
+          //TODO: add a new chat in the chatmanager if it is not present or throw the message to the chatframe
             //new ChatFrame(connection , packet.getFrom());
 
         }

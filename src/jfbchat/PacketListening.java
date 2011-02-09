@@ -33,12 +33,12 @@ import javax.swing.JOptionPane;
 
 public class PacketListening{
 
-    private XMPPConnection connection;
+    private Connection connection;
     private PacketListener myListener;
     private PacketCollector myCollector;
     private PacketFilter filter;
 
-    public PacketListening(XMPPConnection connection){
+    public PacketListening(Connection connection){
 
         this.connection = connection;
         // Create a packet filter to listen for new messages from a particular
@@ -50,7 +50,7 @@ public class PacketListening{
 
         // First, register a packet collector using the filter we created.
         try{
-        myCollector = connection.createPacketCollector(filter);
+        myCollector = connection.getConnection().createPacketCollector(filter);
         }
         catch (Exception ex) {                                            //TODO: gestire meglio le eccezzioni
           
@@ -69,7 +69,7 @@ public class PacketListening{
 
     };
         // Register the listener.
-        connection.addPacketListener(myListener, filter);
+        connection.getConnection().addPacketListener(myListener, filter);
 
     }
 

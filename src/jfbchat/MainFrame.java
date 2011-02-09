@@ -207,7 +207,7 @@ public class MainFrame extends javax.swing.JFrame {
              
                        }
 
-            packetListening = new PacketListening(connection.getConnection());
+            packetListening = new PacketListening(connection);
             }
 
 
