@@ -39,7 +39,7 @@ public class Connection {
     private final String SERVER = "chat.facebook.com";
     private final String SERVICE_NAME = "chat.facebook.com";
 
-    
+    private MyChatManager myChatManager;
     private User user;
     private String server;
     private Presence presence;
@@ -52,6 +52,7 @@ public class Connection {
     
     public Connection(User user){
 
+        this.myChatManager = new MyChatManager();
         this.user = user;
         SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
 
@@ -111,6 +112,10 @@ public class Connection {
 
     public void closeConnection(){
         connection.disconnect();
+    }
+
+    public MyChatManager getChatManager(){
+        return myChatManager;
     }
 
 
