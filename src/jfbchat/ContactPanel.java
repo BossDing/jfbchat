@@ -105,15 +105,20 @@ public class ContactPanel extends javax.swing.JPanel {
         MyChatManager chatManager = connection.getChatManager();
         
 
-        if (chatManager.add(new ChatFrame(connection, contact), contact.getID())){
-            chatManager.getChat(contact.getID()).setVisible(true); //if the chat is present in the chatmanager then show it
+        if (chatManager.isActive(contact.getID())){
+            chatManager.getChat(contact.getID()).setVisible(true);
+
+            //if the chat is present in the chatmanager then show it
             System.out.println(contact.getID());
         }
        else{
+            chatManager.add(new ChatFrame(connection, contact), contact.getID());
             chatManager.getChat(contact.getID()).setVisible(true);
+
             System.out.println("Reload the last chat");
             System.out.println(contact.getID());
             //TODO: make with exceptions here..
+            //TODO: set the focus on the window and maximize it if minimized
         }
     }//GEN-LAST:event_formMouseClicked
 

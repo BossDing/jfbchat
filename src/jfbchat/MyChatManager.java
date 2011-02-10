@@ -62,6 +62,19 @@ public class MyChatManager {
         
         
     }
+
+    public boolean isActive(int index){
+
+        if (chatManager[index] == null){
+
+            return false;
+        }
+        else{
+            return true;
+
+        }
+
+    }
     
     public boolean add(ChatFrame c, int index){
         /* return true if the chat was added with succes at the chatmanager
