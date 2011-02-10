@@ -102,7 +102,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        EntryPass.setText("papeppe90");
         EntryPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EntryPassActionPerformed(evt);
