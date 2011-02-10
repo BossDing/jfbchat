@@ -24,12 +24,21 @@
 package jfbchat;
 
 
-import frames.JFrameAbout;
+import jfbchat.frames.JFrameAbout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
+
 
 
 public class MainFrame extends javax.swing.JFrame {
     private final String VERSION = "0.01";
+    private final String ICON = "imgs/icon1.png";
 
+    private Image icon;
     private JFrameAbout jFrameAbout;  
     private Connection connection;
     private PacketListening packetListening;
@@ -41,7 +50,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         ContactListPanel.setVisible(false);
         ContactListScrollPane.setVisible(false);
-               
+        try {
+            icon = ImageIO.read(new File(ICON));
+        } catch (IOException ex) {
+           System.out.println("Cannot load image " + ICON);       }
+
+        
 
 
         setLocationRelativeTo( null );
@@ -73,6 +87,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JFBChat");
+        setIconImage(icon);
         setMinimumSize(new java.awt.Dimension(225, 320));
 
         ContactListPanel.setLayout(new javax.swing.BoxLayout(ContactListPanel, javax.swing.BoxLayout.PAGE_AXIS));
