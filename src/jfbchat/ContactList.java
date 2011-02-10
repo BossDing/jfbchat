@@ -75,4 +75,12 @@ public class ContactList {
 
     }
 
+    public int getID(int index){
+        return contactList[index].getID();
+    }
+/*
+    public int getID(String adr){
+
+    }
+*/
 }
