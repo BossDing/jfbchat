@@ -28,16 +28,30 @@ import java.util.Collection;
 
 
 public class ContactList {
-    
+     private final int MAX_CONTACTS = 2048;
+
     private Contact[] contactList;
     private int lastcontact;
     private Connection connection;
     private MyChatManager chatManager;
+
+    public ContactList(){
+        contactList = new Contact[MAX_CONTACTS];
+        init();
+
+    }
+
     
     public ContactList(Connection connection){
         this.connection = connection;
         this.chatManager = new MyChatManager();
         getList();
+    }
+
+    private void init(){
+        for (int i = 0; i < contactList.length; i++){
+            contactList[i] = null;
+        }
     }
     
     private void getList(){
@@ -78,9 +92,20 @@ public class ContactList {
     public int getID(int index){
         return contactList[index].getID();
     }
-/*
+
     public int getID(String adr){
+        /*Return the ID of the relative address*/
+        
+        for (int i = 0; i < contactList.length ; i++){
+           if (contactList[i].getAdress().equals(adr)){
+               return contactList[i].getID();
+           }
+        }
+        
+        return -1;
+
+
 
     }
-*/
+
 }

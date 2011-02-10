@@ -40,30 +40,32 @@ public class MyPacketListener implements PacketListener{
       public void processPacket(Packet packet) {
             MyChatManager chatManager = connection.getChatManager();
 
+            int fromContactId = connection.getContactList().getID(packet.getFrom());
+            //this is the contact id relative to the contact that send the message
 
             Message msg = (Message) packet;
 
-           /* if (msg.getBody() == null){
+           // if (msg.getBody() == null){
 
 
 
-                if (chatManager.isActive(contact.getID())){
-                    chatManager.getChat(contact.getID()).setVisible(true);
+                if (chatManager.isActive(fromContactId)){
+                    chatManager.getChat(fromContactId).setVisible(true);
 
                     //if the chat is present in the chatmanager then show it
-                    System.out.println(contact.getID());
+                    System.out.println("Chat manager already active with thi user" + fromContactId);
                 }
                 else{
 
-                    chatManager.add(new ChatFrame(connection, contact), contact.getID());
-                    chatManager.getChat(contact.getID()).setVisible(true);
+                    chatManager.add(new ChatFrame(connection, connection.getContactList().getContact(fromContactId)));
+                    chatManager.getChat(fromContactId).setVisible(true);
 
                     System.out.println("Reload the last chat");
-                    System.out.println(contact.getID());
+                    System.out.println(fromContactId);
                     //TODO: make with exceptions here..
                     //TODO: set the focus on the window and maximize it if minimized
                 }
-            }*/
+           // }
 
             System.out.println(packet.getFrom());
 

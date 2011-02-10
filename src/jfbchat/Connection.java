@@ -45,21 +45,21 @@ public class Connection {
     private Presence presence;
     private XMPPConnection connection;
     private ConnectionConfiguration connConfig;
+    private ContactList contactList;
    
     
 
 //TODO: Completare la classe.
     
     public Connection(User user){
-        try{
-        this.myChatManager = new MyChatManager();
-        }
-        catch(Exception ex){
+        
+        
 
-            JOptionPane.showMessageDialog(null, "Failed to create a chat manager");
 
-        }
         this.user = user;
+        this.myChatManager = new MyChatManager();
+        this.contactList = new ContactList();
+
         SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
 
         connConfig = new FBConnectionConfiguration(SERVER, PORT,SERVICE_NAME);
@@ -122,6 +122,14 @@ public class Connection {
 
     public MyChatManager getChatManager(){
         return myChatManager;
+    }
+
+    public ContactList getContactList(){
+        return contactList;
+    }
+
+    public void setContactList(ContactList list){
+        contactList = list;
     }
 
 

@@ -32,7 +32,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private JFrameAbout jFrameAbout;  
     private Connection connection;
-    private ContactList contactList;
     private PacketListening packetListening;
 
     public MainFrame() {
@@ -189,6 +188,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         User user = new User(EntryUser.getText(),EntryPass.getText());
         connection = new Connection(user);
+
         
         if (connection.connect()){
             //TODO: Pulizia qui
@@ -197,12 +197,12 @@ public class MainFrame extends javax.swing.JFrame {
             ContactListPanel.setVisible(true);
 
             
-                contactList = new ContactList(connection);
+                connection.setContactList(new ContactList(connection));
 
-            for(int i = 0; i< contactList.getSize(); i++){
+            for(int i = 0; i< connection.getContactList().getSize(); i++){
 
-                if(contactList.getContact(i).isAvailable()){
-                    ContactListPanel.add( new ContactPanel( connection, contactList.getContact(i)));
+                if(connection.getContactList().getContact(i).isAvailable()){
+                    ContactListPanel.add( new ContactPanel( connection, connection.getContactList().getContact(i)));
              
                        }
 
