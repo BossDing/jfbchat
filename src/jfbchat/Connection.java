@@ -46,74 +46,61 @@ public class Connection {
     private XMPPConnection connection;
     private ConnectionConfiguration connConfig;
     private ContactList contactList;
-   
-    
 
-//TODO: Completare la classe.
-    
+
     public Connection(User user){
-        
-        
-
-
+              
         this.user = user;
         this.myChatManager = new MyChatManager();
         this.contactList = new ContactList();
 
-        SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
+       //SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+        
 
         connConfig = new FBConnectionConfiguration(SERVER, PORT,SERVICE_NAME);
-        connConfig.setSASLAuthenticationEnabled(true);
-        connConfig.setRosterLoadedAtLogin (true);
-       
-        
+ 
         connection = new XMPPConnection(connConfig);
-        
-        
-
-
-      
-            
 
       }
-
-    
 
     public boolean connect(){
 
         System.out.println("Starting IM client");
 
-
-
         try {
             connection.connect();
             System.out.println("Connected to " + connection.getHost());
-        } catch (XMPPException ex) {
+        } catch (XMPPException ex){
 
             JOptionPane.showMessageDialog(null, "Failed to connect to " + connection.getHost());
 
         }
+
+        System.out.println("Logged in as " + connection.getUser());
+
         try {
-            //SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 
             connection.login(user.getUsername(), user.getPassword());
-            System.out.println("Logged in as " + connection.getUser());
 
-            presence = new Presence(Presence.Type.available);
-            connection.sendPacket(presence);
-            return true;
-
-        } catch (XMPPException ex) {                                            //TODO: gestire meglio le eccezzioni
-            //ex.printStackTrace();
+         } catch (XMPPException ex) {
+            
             JOptionPane.showMessageDialog(null, "Failed to log in as " + user.getUsername());
             this.closeConnection();
             return false;
-
         }
+
+        presence = new Presence(Presence.Type.available);
+        connection.sendPacket(presence);
+        return true;
+
     }
 
     public XMPPConnection getConnection(){
             return connection;
+    }
+
+    public Presence getPresence(){
+        return presence;
     }
 
     public void closeConnection(){

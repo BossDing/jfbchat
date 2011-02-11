@@ -23,18 +23,18 @@
 
 package jfbchat;
 import org.jivesoftware.smack.ConnectionConfiguration;
-/**
- *
- * @author peppe
- */
+import org.jivesoftware.smack.SASLAuthentication;
+
+
 public class FBConnectionConfiguration extends ConnectionConfiguration {
 
 
     FBConnectionConfiguration(String host, int port, String domain){
         super(host, port,domain);
         //this.setSecurityMode(SecurityMode.disabled);
-        
-        this.setSASLAuthenticationEnabled(true);
+        SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
+        setSASLAuthenticationEnabled(true);
+        setRosterLoadedAtLogin (true);
 
     }
 
