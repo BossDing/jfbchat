@@ -29,7 +29,7 @@ public class Main {
     public static void main( String[] args ) {
 
         System.out.println("Starting IM client");
-        Run run = new Run();
+        Application run = new Application();
    
     }
 }
