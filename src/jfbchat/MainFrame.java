@@ -202,10 +202,11 @@ public class MainFrame extends javax.swing.JFrame {
 
 
         User user = new User(EntryUser.getText(),EntryPass.getText());
-        connection = new Connection(user);
-
         
-        if (connection.connect()){
+        connection = new Connection(user);
+        connection.connect();
+        
+        if (connection.isConnected()){
             //TODO: Pulizia qui
             LoginPanel.setVisible(false);
             ContactListScrollPane.setVisible(true);
