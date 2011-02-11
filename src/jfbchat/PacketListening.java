@@ -62,12 +62,7 @@ public class PacketListening{
         // Normally, you'd do something with the collector, like wait for new packets.
 
         // Next, create a packet listener. We use an anonymous inner class for brevity.
-        myListener = new MyPacketListener(connection) {
-        
-
-
-
-    };
+        myListener = new MyPacketListener(connection);
         // Register the listener.
         connection.getConnection().addPacketListener(myListener, filter);
 
