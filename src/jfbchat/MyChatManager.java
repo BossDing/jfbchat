@@ -42,6 +42,7 @@ public class MyChatManager {
 
     private final int MAX_CHATS = 2048;
 
+
     private ChatFrame chatManager[];
     private int lastChat;
     
