@@ -21,31 +21,29 @@
   *
   */
 
-
 package jfbchat;
+
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.SASLAuthentication;
+
 
 import javax.swing.JOptionPane;
-/**
- *
- * @author peppe
- */
+
+
 public class Connection {
     private final int PORT = 5222;
     private final String SERVER = "chat.facebook.com";
     private final String SERVICE_NAME = "chat.facebook.com";
 
-    private MyChatManager myChatManager;
+    
     private User user;
-    private String server;
     private Presence presence;
     private XMPPConnection connection;
     private ConnectionConfiguration connConfig;
     private ContactList contactList;
+    private MyChatManager myChatManager;
 
 
     public Connection(User user){
@@ -54,18 +52,19 @@ public class Connection {
         this.myChatManager = new MyChatManager();
         this.contactList = new ContactList();
 
-       //SASLAuthentication.supportSASLMechanism("PLAIN", 0);
-        
-
         connConfig = new FBConnectionConfiguration(SERVER, PORT,SERVICE_NAME);
  
         connection = new XMPPConnection(connConfig);
 
       }
 
-    public boolean connect(){
+    public void connect(){
+
+        /*connect to the server and return true if the connection is etabilished
+         * end false if it's impossible to connect.         */
 
         System.out.println("Starting IM client");
+
 
         try {
             connection.connect();
@@ -78,6 +77,7 @@ public class Connection {
 
         System.out.println("Logged in as " + connection.getUser());
 
+
         try {
 
             connection.login(user.getUsername(), user.getPassword());
@@ -86,12 +86,12 @@ public class Connection {
             
             JOptionPane.showMessageDialog(null, "Failed to log in as " + user.getUsername());
             this.closeConnection();
-            return false;
+            
         }
 
+        //Set the user status presence available.
         presence = new Presence(Presence.Type.available);
         connection.sendPacket(presence);
-        return true;
 
     }
 
@@ -117,6 +117,25 @@ public class Connection {
 
     public void setContactList(ContactList list){
         contactList = list;
+    }
+    
+    public boolean isConnected(){
+        return connection.isConnected();
+    }
+
+    @Override
+    public String toString(){
+        String msg = "";
+
+        if (isConnected()){
+            msg += "Connected to " + SERVER + " at port " + PORT + " Status is "
+                    + presence.getStatus() + ".";
+        }
+        else{
+            msg += "Not connected.";
+        }
+
+        return msg;
     }
 
 
