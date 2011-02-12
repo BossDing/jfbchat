@@ -23,6 +23,8 @@
 
 package jfbchat;
 
+import java.awt.Color;
+
 
 public class ContactPanel extends javax.swing.JPanel {
  
@@ -58,13 +60,23 @@ public class ContactPanel extends javax.swing.JPanel {
         contactLabel = new javax.swing.JLabel();
         OnlineRadioBox = new javax.swing.JRadioButton();
 
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(null);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
         });
 
+        contactLabel.setBackground(new java.awt.Color(255, 255, 255));
+        contactLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        contactLabel.setForeground(new java.awt.Color(109, 132, 180));
         contactLabel.setText("Cotact");
         contactLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -80,12 +92,12 @@ public class ContactPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(contactLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(OnlineRadioBox))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contactLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contactLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
             .addComponent(OnlineRadioBox, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -130,6 +142,16 @@ public class ContactPanel extends javax.swing.JPanel {
             //TODO: set the focus on the window and maximize it if minimized
         }
     }//GEN-LAST:event_formMouseClicked
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        this.setBackground(new Color(109,132,180));
+        contactLabel.setForeground(Color.white);
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        this.setBackground(Color.white);
+        contactLabel.setForeground(new Color(109,132,180));
+    }//GEN-LAST:event_formMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
