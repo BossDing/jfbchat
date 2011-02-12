@@ -1,6 +1,6 @@
  /* ###########################################################################
   *
-  *  JFBChat it's a simple software written in Java that let you int contact
+  *  JFBChat it's a simple software written in Java that let you in contact
   *  with yours Facebook friends without your browser.
   *  Copyright (C) 2011  Digitex (Giuseppe Federico)
   *
@@ -23,14 +23,15 @@
 
 
 package jfbchat;
+
 import org.jivesoftware.smack.PacketListener;
-import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 
 public class MyPacketListener implements PacketListener{
 
       private Connection connection;
+
 
       public MyPacketListener(Connection connection){
           this.connection = connection;
@@ -45,22 +46,35 @@ public class MyPacketListener implements PacketListener{
 
             Message msg = (Message) packet;
 
-           // if (msg.getBody() == null){
+            System.out.println("il messaggio ricevuto è : " + msg);
+                                      
+            if (msg.getBody() == null){
 
+                //TODO: la chat deve essere la stessa sia nel listene che nel pannello
 
+                if (connection.getContactList().getContact(fromContactId).isActive()){
+                    if (!(chatManager.getChat(fromContactId).isVisible())){
 
-                if (chatManager.isActive(fromContactId)){
-                    chatManager.getChat(fromContactId).setVisible(true);
+                        chatManager.getChat(fromContactId).setVisible(true);
+                        
+                    }
+                    
 
                     //if the chat is present in the chatmanager then show it
-                    System.out.println("Chat manager already active with thi user" + fromContactId);
+                    System.out.println("Chat manager already active with the user , show it"
+                                        + fromContactId);
                 }
                 else{
 
-                    chatManager.add(new ChatFrame(connection, connection.getContactList().getContact(fromContactId)));
-                    chatManager.getChat(fromContactId).setVisible(true);
+                    //Create a new Chatframe and show it
+                    connection.getContactList().getContact(fromContactId).setActive(true);
+                    chatManager.add(new ChatFrame(connection,
+                                                  connection
+                                                    .getContactList()
+                                                    .getContact(fromContactId)), fromContactId);
+                    
 
-                    System.out.println("Reload the last chat");
+                    System.out.println("Create a new chat in the chatmanager..");
                     System.out.println(fromContactId);
                     //TODO: make with exceptions here..
                     //TODO: set the focus on the window and maximize it if minimized
@@ -74,4 +88,5 @@ public class MyPacketListener implements PacketListener{
 
         }
 
+}
 }
