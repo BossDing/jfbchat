@@ -38,6 +38,7 @@ public class Contact {
     private String name;
     private RosterEntry entry;
     private Presence presence;
+    private boolean chatActive;
 
 
 
@@ -45,6 +46,7 @@ public class Contact {
 
     public Contact(RosterEntry entry, Presence presence){
         this.entry = entry;
+        this.chatActive = false;
         this.name =  entry.getName();
         this.presence = presence;
         this.id = contactID++;
@@ -62,6 +64,13 @@ public class Contact {
 
     public boolean isAvailable(){
         return presence.isAvailable();
+    }
+
+    public boolean isActive(){
+        return chatActive;
+    }
+    public void setActive(boolean active){
+        chatActive = active;
     }
 
     public String getGroups(){
