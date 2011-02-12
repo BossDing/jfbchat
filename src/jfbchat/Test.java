@@ -28,5 +28,9 @@ package jfbchat;
  * @author peppe
  */
 public class Test {
+    public Test(){
+
+
+    }
 
 }
