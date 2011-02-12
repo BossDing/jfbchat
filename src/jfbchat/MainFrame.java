@@ -26,7 +26,6 @@ package jfbchat;
 
 import jfbchat.frames.JFrameAbout;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
 
-        jFrameAbout = new JFrameAbout(VERSION);
+        jFrameAbout = new JFrameAbout(Application.VERSION);
         initComponents();
 
         ContactListPanel.setVisible(false);
