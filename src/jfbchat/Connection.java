@@ -72,6 +72,7 @@ public class Connection {
         } catch (XMPPException ex){
 
             JOptionPane.showMessageDialog(null, "Failed to connect to " + connection.getHost());
+            this.closeConnection();
 
         }
 
