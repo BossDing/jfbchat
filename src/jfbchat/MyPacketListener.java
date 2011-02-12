@@ -40,19 +40,21 @@ public class MyPacketListener implements PacketListener{
 
       public void processPacket(Packet packet) {
             MyChatManager chatManager = connection.getChatManager();
-
+            //Relative id of the contact
             int fromContactId = connection.getContactList().getID(packet.getFrom());
+            //Contact who sends the packet
+            Contact contact = connection.getContactList().getContact(fromContactId);
+
+            
             //this is the contact id relative to the contact that send the message
 
             Message msg = (Message) packet;
 
-            System.out.println("il messaggio ricevuto è : " + msg);
+            System.out.println("\"" + msg.getBody()+ "\"" + " recived from " + contact.getUser());
                                       
             if (msg.getBody() == null){
 
-                //TODO: la chat deve essere la stessa sia nel listene che nel pannello
-
-                if (connection.getContactList().getContact(fromContactId).isActive()){
+                if (contact.isActive()){
                     if (!(chatManager.getChat(fromContactId).isVisible())){
 
                         chatManager.getChat(fromContactId).setVisible(true);
@@ -61,31 +63,23 @@ public class MyPacketListener implements PacketListener{
                     
 
                     //if the chat is present in the chatmanager then show it
-                    System.out.println("Chat manager already active with the user , show it"
-                                        + fromContactId);
+                    System.out.print("The chat is already present in "
+                                        + "the chat manager with id[");
+                    System.out.println(contact.getID() + "]");
                 }
+                
                 else{
 
                     //Create a new Chatframe and show it
-                    connection.getContactList().getContact(fromContactId).setActive(true);
-                    chatManager.add(new ChatFrame(connection,
-                                                  connection
-                                                    .getContactList()
-                                                    .getContact(fromContactId)), fromContactId);
+                    contact.setActive(true);
+                    chatManager.add(new ChatFrame(connection, contact),
+                                    fromContactId);
                     
 
-                    System.out.println("Create a new chat in the chatmanager..");
-                    System.out.println(fromContactId);
-                    //TODO: make with exceptions here..
-                    //TODO: set the focus on the window and maximize it if minimized
+                    
+                    
                 }
-           // }
-
-            System.out.println(packet.getFrom());
-
-          //TODO: add a new chat in the chatmanager if it is not present or throw the message to the chatframe
-            //new ChatFrame(connection , packet.getFrom());
-
+           
         }
 
 }
