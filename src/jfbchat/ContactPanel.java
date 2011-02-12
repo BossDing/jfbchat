@@ -24,10 +24,12 @@
 package jfbchat;
 
 import java.awt.Color;
-
+import javax.swing.ImageIcon;
 
 public class ContactPanel extends javax.swing.JPanel {
- 
+    private final String availableIcon = "/jfbchat/imgs/availableIcon.png";
+    private final String awayIcon = "/jfbchat/imgs/awayIcon.png";
+
     private Contact contact;
     private Connection connection;
 
@@ -43,8 +45,14 @@ public class ContactPanel extends javax.swing.JPanel {
         //Init the contact username
         contactLabel.setText(contact.getUser());
 
-        //If the contact is available check the box
-        OnlineRadioBox.setSelected(contact.getPresence().isAway());
+        //If the contact is available change the icon
+        if (contact.getPresence().isAway()){
+
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(awayIcon)));
+        }else{
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(availableIcon)));
+        }
+        
         setVisible(true);
     }
 
@@ -58,7 +66,7 @@ public class ContactPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         contactLabel = new javax.swing.JLabel();
-        OnlineRadioBox = new javax.swing.JRadioButton();
+        stateIcon = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -80,31 +88,27 @@ public class ContactPanel extends javax.swing.JPanel {
         contactLabel.setText("Cotact");
         contactLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        OnlineRadioBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OnlineRadioBoxActionPerformed(evt);
-            }
-        });
+        stateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/availableIcon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(contactLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(OnlineRadioBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(stateIcon)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contactLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-            .addComponent(OnlineRadioBox, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(contactLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stateIcon)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void OnlineRadioBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnlineRadioBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OnlineRadioBoxActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
@@ -155,8 +159,8 @@ public class ContactPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton OnlineRadioBox;
     private javax.swing.JLabel contactLabel;
+    private javax.swing.JLabel stateIcon;
     // End of variables declaration//GEN-END:variables
 
 }
