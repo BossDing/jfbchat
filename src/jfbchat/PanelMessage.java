@@ -23,22 +23,18 @@
 
 package jfbchat;
 
-import org.jivesoftware.smack.Chat;
-/**
- *
- * @author peppe
- */
+
 public class PanelMessage extends javax.swing.JPanel {
 
     /** Creates new form PanelMessage */
-    public PanelMessage(boolean send,Chat chat, String text) {
+    public PanelMessage(boolean send,Contact contact, String text) {
 
         initComponents();
         if (send){
             Labelfromto.setText("Me: ");
         }
         else{
-            Labelfromto.setText(chat.getParticipant()+ " say: ");
+            Labelfromto.setText(contact.getUser() + " say: ");
         }
 
         LabelText.setText(text);
@@ -60,11 +56,14 @@ public class PanelMessage extends javax.swing.JPanel {
         Labelfromto = new javax.swing.JLabel();
         LabelText = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(254, 254, 254));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
+        Labelfromto.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         Labelfromto.setText("... say: / me:");
         add(Labelfromto);
 
+        LabelText.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         LabelText.setText("Some text here");
         add(LabelText);
     }// </editor-fold>//GEN-END:initComponents
