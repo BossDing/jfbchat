@@ -23,16 +23,9 @@
 
 package jfbchat;
 
-import org.jivesoftware.smack.XMPPConnection;
 
-        /**
- *
- * @author peppe
- */
 public class ContactPanel extends javax.swing.JPanel {
-    private static int contactID = 0;
-
-
+ 
     private Contact contact;
     private Connection connection;
 
@@ -102,28 +95,37 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnlineRadioBoxActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        MyChatManager chatManager = connection.getChatManager();
         
+        MyChatManager chatManager = connection.getChatManager();
+        //The chatFrame associated to the contact
+        ChatFrame chatFrame = chatManager.getChat(contact.getID());
 
-        if (contact.isActive()){ 
-            if (!(chatManager.getChat(contact.getID()).isVisible())){
+        
+        if (contact.isActive()){
+            //If the chat is present in the chatmanager show it.
 
-                  chatManager.getChat(contact.getID()).setVisible(true);
+            if (chatFrame.isVisible() == false){
+
+                  chatFrame.setVisible(true);
                         
             }
-            
 
-            //if the chat is present in the chatmanager then show it
-            System.out.print("LA chat è presente in ChatManager[");
-            System.out.println(contact.getID());
+            System.out.print("The chat is already present in the chat manager with id[");
+            System.out.println(contact.getID() + "]");
         }
+
+
+
        else{
+            /*If the chat is NOT present in the chatmanager then create it and
+             * set the contact active for the chatmanager.
+             */
+
             contact.setActive(true);
             chatManager.add(new ChatFrame(connection, contact), contact.getID());
             
 
-            System.out.print("Ho creato una nuva chat in Chatmanager[");
-            System.out.println(contact.getID());
+            
             //TODO: make with exceptions here..
             //TODO: set the focus on the window and maximize it if minimized
         }
