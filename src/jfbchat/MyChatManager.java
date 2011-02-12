@@ -79,10 +79,18 @@ public class MyChatManager {
     }
     
     public void add(ChatFrame c, int index){
-        /* Add a chatframe at the index specified*/
-        
+        /* Add a chatframe at the specified index */
+        try{
         
             chatManager[index] = c;
+            System.out.print("Add a ChatFrame at[");
+            System.out.println(index+"]");
+        }
+        catch(Exception e){
+            System.err.print(e.getMessage());    
+
+        }
+
         
   }
 
