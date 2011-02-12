@@ -55,13 +55,10 @@ public class ChatFrame extends javax.swing.JFrame {
         
 
         
-        newChat = chatmanager.createChat(contactAdr , new MessageListener() {
-            public void processMessage(Chat chat, Message message) {
-                
-                PanelMessages.add(new PanelMessage(false, chat , message.getBody()));
-                System.out.println("Received message: " + message);
-            }
-           });
+        newChat = chatmanager.createChat(contactAdr , 
+                                         new MyMessageListener(
+                                         contact, PanelMessages));
+            
 
            pack();
 
@@ -83,7 +80,7 @@ public class ChatFrame extends javax.swing.JFrame {
         newChat = chatmanager.createChat(contactAdr, new MessageListener() {
             public void processMessage(Chat chat, Message message) {
 
-                PanelMessages.add(new PanelMessage(false, chat , message.getBody()));
+                PanelMessages.add(new PanelMessage(false, contact , message.getBody()));
                 System.out.println("Received message: " + message);
             }
            });
@@ -114,6 +111,7 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
+        PanelMessages.setBackground(new java.awt.Color(254, 254, 254));
         PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.PAGE_AXIS));
         ScrollMessages.setViewportView(PanelMessages);
 
@@ -138,14 +136,18 @@ public class ChatFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-            .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelSend, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -175,7 +177,7 @@ public class ChatFrame extends javax.swing.JFrame {
             newChat.sendMessage(texttosend);
 
             TextField.setText("");                                               // Clear the TextField
-            System.out.println("Sending "+ texttosend +" to " + contactAdr);
+            System.out.println("Sending \""+ texttosend +"\" to " + contact.getUser());
 
         }
         catch (XMPPException e) {
