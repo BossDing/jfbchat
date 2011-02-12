@@ -67,11 +67,11 @@ public class MyChatManager {
     public boolean isActive(int index){
 
         if (chatManager[index] == null){
-            System.out.println("la nun ce");
+            
             return false;
         }
         else{
-            System.out.println("la chat ce");
+            
             return true;
 
         }
