@@ -28,7 +28,7 @@ import javax.swing.*;
 
 
 public class Application {
-    public final static String VERSION = "0.02a";
+    public final static String VERSION = "0.01a";
     private MainFrame mainFrame;
 
     public Application(){
