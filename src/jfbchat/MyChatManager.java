@@ -58,40 +58,33 @@ public class MyChatManager {
         }
     }
     
-    public void add(ChatFrame c){
+   /* public void add(ChatFrame c){
         chatManager[lastChat++] = c;
         
         
-    }
+    }*/
 
     public boolean isActive(int index){
 
         if (chatManager[index] == null){
-
+            System.out.println("la nun ce");
             return false;
         }
         else{
+            System.out.println("la chat ce");
             return true;
 
         }
 
     }
     
-    public boolean add(ChatFrame c, int index){
-        /* return true if the chat was added with succes at the chatmanager
-         false if the chat was already opened*/
+    public void add(ChatFrame c, int index){
+        /* Add a chatframe at the index specified*/
         
-        if (chatManager[index] == null){
+        
             chatManager[index] = c;
-            return true;
-        }
-        else{
-            return false;
-
-        }
         
-        
-    }
+  }
 
     public ChatFrame getChat(int index){
         return chatManager[index];
