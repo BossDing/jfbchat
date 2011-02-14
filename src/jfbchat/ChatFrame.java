@@ -122,6 +122,11 @@ public class ChatFrame extends javax.swing.JFrame {
                 TextFieldActionPerformed(evt);
             }
         });
+        TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TextFieldKeyTyped(evt);
+            }
+        });
         PanelSend.add(TextField);
 
         ButtonSend.setText("Send");
@@ -169,6 +174,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
             String texttosend = TextField.getText();
 
+            if (!(texttosend.equals(""))){
             PanelMessages.add(new PanelMessage(true, null,
                                                texttosend));
 
@@ -179,6 +185,7 @@ public class ChatFrame extends javax.swing.JFrame {
             TextField.setText("");                                               // Clear the TextField
             System.out.println("Sending \""+ texttosend +"\" to " + contact.getUser());
 
+            }
         }
         catch (XMPPException e) {
             System.out.println("Error Delivering block");
@@ -191,6 +198,13 @@ public class ChatFrame extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
          //TODO: Send a message when enter is pressed
     }//GEN-LAST:event_formKeyPressed
+
+    private void TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldKeyTyped
+         
+         if((int) evt.getKeyChar() == 10){
+             SendMessage();
+         }
+    }//GEN-LAST:event_TextFieldKeyTyped
 
     /**
     * @param args the command line arguments

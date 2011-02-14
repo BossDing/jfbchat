@@ -34,7 +34,11 @@ public class PanelMessage extends javax.swing.JPanel {
             Labelfromto.setText("Me: ");
         }
         else{
+            if(text == null){
+                Labelfromto.setText(contact.getUser() + "is typing...");
+            }else{
             Labelfromto.setText(contact.getUser() + " says: ");
+            }
         }
 
         LabelText.setText(text);

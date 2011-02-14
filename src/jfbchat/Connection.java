@@ -29,10 +29,8 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 
 
-import javax.swing.JOptionPane;
-
-
 public class Connection {
+    
     private final int PORT = 5222;
     private final String SERVER = "chat.facebook.com";
     private final String SERVICE_NAME = "chat.facebook.com";
@@ -51,6 +49,7 @@ public class Connection {
         this.user = user;
         this.myChatManager = new MyChatManager();
         this.contactList = new ContactList();
+
 
         connConfig = new FBConnectionConfiguration(SERVER, PORT,SERVICE_NAME);
  
@@ -71,28 +70,30 @@ public class Connection {
             System.out.println("Connected to " + connection.getHost());
         } catch (XMPPException ex){
 
-            JOptionPane.showMessageDialog(null, "Failed to connect to " + connection.getHost());
+            new Error(1, "Failed to connect to "+ connection.getHost() + ".");
             this.closeConnection();
 
         }
-
-        System.out.println("Logged in as " + connection.getUser());
-
 
         try {
 
             connection.login(user.getUsername(), user.getPassword());
+            System.out.println("Logged in as " + connection.getUser()+ ".");
 
-         } catch (XMPPException ex) {
+            //Set the user status presence available.
+            presence = new Presence(Presence.Type.available);
+            connection.sendPacket(presence);
+
+        } catch (XMPPException ex) {
             
-            JOptionPane.showMessageDialog(null, "Failed to log in as " + user.getUsername());
+            new Error(1, "Failed to log in as " + user.getUsername() + "." );
             this.closeConnection();
             
         }
 
-        //Set the user status presence available.
-        presence = new Presence(Presence.Type.available);
-        connection.sendPacket(presence);
+
+
+        
 
     }
 
@@ -104,9 +105,13 @@ public class Connection {
         return presence;
     }
 
+  
+
     public void closeConnection(){
+
+        connection.disconnect(new Presence(Presence.Type.unavailable));
         connection.disconnect();
-    }
+        }
 
     public MyChatManager getChatManager(){
         return myChatManager;
@@ -123,6 +128,8 @@ public class Connection {
     public boolean isConnected(){
         return connection.isConnected();
     }
+
+
 
     @Override
     public String toString(){
