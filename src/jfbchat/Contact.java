@@ -36,20 +36,26 @@ public class Contact {
 
     private int id;
     private String name;
+    private Connection connection;
     private RosterEntry entry;
     private Presence presence;
     private boolean chatActive;
+    //Panel associated with the contact in Swing.
+    private ContactPanel contactPanel;
+
 
 
 
     
 
-    public Contact(RosterEntry entry, Presence presence){
+    public Contact(Connection connection, RosterEntry entry, Presence presence){
         this.entry = entry;
+        this.connection = connection;
         this.chatActive = false;
         this.name =  entry.getName();
         this.presence = presence;
         this.id = contactID++;
+        this.contactPanel = new ContactPanel(connection, this);
 
     }
 
@@ -58,6 +64,15 @@ public class Contact {
 
     public Presence getPresence(){
         return this.presence;    }
+
+    public void setPresence(Presence p){
+        this.presence = p;
+    }
+
+    public void updateContactPanel(){
+        
+        this.contactPanel.update(this);
+    }
 
     public String getAdress(){
         return entry.getUser();   }
@@ -72,12 +87,25 @@ public class Contact {
     public void setActive(boolean active){
         chatActive = active;
     }
+    
+    public ContactPanel getContactPanel(){
+        return contactPanel;
+    }
+
+
 
     public String getGroups(){
         return this.presence.toString();    }
 
     public int getID(){
         return id;
+    }
+
+    @Override
+    public String toString(){
+        return "Contact " + id+ " : "+ " name:"+ name + " presence: " + presence.toString();
+
+
     }
 
 

@@ -52,7 +52,7 @@ public class MyPacketListener implements PacketListener{
 
             System.out.println("\"" + msg.getBody()+ "\"" + " recived from " + contact.getUser());
                                       
-            if (msg.getBody() == null){
+           
 
                 if (contact.isActive()){
                     if (!(chatManager.getChat(fromContactId).isVisible())){
@@ -80,7 +80,7 @@ public class MyPacketListener implements PacketListener{
                     
                 }
            
-        }
+        
 
 }
 }

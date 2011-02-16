@@ -45,15 +45,7 @@ public class ContactPanel extends javax.swing.JPanel {
         //Init the contact username
         contactLabel.setText(contact.getUser());
 
-        //If the contact is available change the icon
-        if (contact.getPresence().isAway()){
-
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(awayIcon)));
-        }else{
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(availableIcon)));
-        }
-        
-        setVisible(true);
+        update(contact);
     }
 
     /** This method is called from within the constructor to
@@ -109,6 +101,32 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+  
+    public void update(Contact contact){
+
+        this.contact = contact;
+
+
+
+          //If the contact is available change the icon
+        if (contact.getPresence().isAway()){
+
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(awayIcon)));
+            setVisible(true);
+
+
+        }else {
+            if ((contact.getPresence().isAvailable())){
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(availableIcon)));
+            setVisible(true);
+            }
+            else{
+                setVisible(false);
+            }
+
+        }
+    }
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         

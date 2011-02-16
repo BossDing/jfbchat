@@ -26,9 +26,6 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.filter.*;
-import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
 import javax.swing.JOptionPane;
 
 public class PacketListening{

@@ -39,6 +39,7 @@ public class ContactList {
         contactList = new Contact[MAX_CONTACTS];
         init();
 
+
     }
 
     
@@ -46,6 +47,7 @@ public class ContactList {
         this.connection = connection;
         this.chatManager = new MyChatManager();
         getList();
+
     }
 
     private void init(){
@@ -62,12 +64,16 @@ public class ContactList {
             contactList = new Contact[entries.size()];
 
             for (RosterEntry entry : entries) {
-                contactList[i] = new Contact(entry,
-                                            roster.getPresence(entry.getUser()));
+                contactList[i] = new Contact(this.connection
+                                                ,entry
+                                                ,roster.getPresence(entry.getUser())
+                                                       );
                 System.out.println(entry);
 
                 i++;
             }
+
+            roster.addRosterListener(new MyRosterListener(connection));
         
         }
 
@@ -76,6 +82,18 @@ public class ContactList {
     public Contact getContact(int index){
 
         return contactList[index];
+
+    }
+
+    public Contact getContact(String addr){
+        /* Gets an address and returns a contact from the list*/
+        for (int i = 0; i < contactList.length ; i++){
+           if (contactList[i].getAdress().equals(addr)){
+               return contactList[i];
+           }
+        }
+
+        return null;
 
     }
 
@@ -96,13 +114,7 @@ public class ContactList {
     public int getID(String adr){
         /*Return the ID of the relative address*/
         
-        for (int i = 0; i < contactList.length ; i++){
-           if (contactList[i].getAdress().equals(adr)){
-               return contactList[i].getID();
-           }
-        }
-        
-        return -1;
+        return getContact(adr).getID();
 
 
 
