@@ -26,7 +26,6 @@ package jfbchat;
 
 import jfbchat.frames.JFrameAbout;
 import java.awt.Image;
-import java.io.IOException;
 import org.jivesoftware.smack.packet.Presence;
 import java.awt.Toolkit;
 
@@ -51,13 +50,12 @@ public class MainFrame extends javax.swing.JFrame {
        
         ContactListPanel.setVisible(false);
       
-        
-       Image icon = Toolkit.getDefaultToolkit().getImage(ICON);
-       setIconImage(icon);
-        
+        //Load and set the icon.
+        Image icon = Toolkit.getDefaultToolkit().getImage(ICON);
+        setIconImage(icon);
 
-        
-
+        //Hide the disconnect menu.
+        MenuDisconnect.setVisible(false);
 
         setLocationRelativeTo( null );
         setVisible(true);
@@ -85,7 +83,8 @@ public class MainFrame extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        MenuDisconnect = new javax.swing.JMenuItem();
+        MenuExit = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
         MenuItemAbout = new javax.swing.JMenuItem();
 
@@ -197,11 +196,39 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.setText("Chat");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        MenuDisconnect.setText("Disconnect");
+        MenuDisconnect.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuDisconnectMousePressed(evt);
+            }
+        });
+        jMenu1.add(MenuDisconnect);
+
+        MenuExit.setText("Exit");
+        MenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuExitMousePressed(evt);
+            }
+        });
+        MenuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuExitActionPerformed(evt);
+            }
+        });
+        MenuExit.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+                MenuExitMenuKeyReleased(evt);
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+        jMenu1.add(MenuExit);
+
+        jMenuBar1.add(jMenu1);
 
         MenuHelp.setText("Help");
 
@@ -238,21 +265,21 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (connection.isConnected()){
             //TODO: Pulizia qui
-            LoginPanel.setVisible(false);
-           // jPanelContactList.setVisible(true);
-            ContactListScrollPane.setVisible(true);
-            ContactListPanel.setVisible(true);
+            //Show the panel in mode connected.
+            showContactList();
 
             
-                connection.setContactList(new ContactList(connection));
+            connection.setContactList(new ContactList(connection));
 
             for(int i = 0; i< connection.getContactList().getSize(); i++){
 
                 ContactListPanel.add(connection.getContactList().getContact(i).getContactPanel());
-             
-           packetListening = new PacketListening(connection);
-
             }
+
+
+            packetListening = new PacketListening(connection);
+
+            
 
 
             
@@ -299,15 +326,65 @@ public class MainFrame extends javax.swing.JFrame {
  	}else if(item.equals("Away")){
  	connection.getPresence().setMode(Presence.Mode.away);
  	}else{
- 	connection.closeConnection();
+            connection.closeConnection();
+            hideContactList();
  	
- 	ContactListScrollPane.setVisible(false);
- 	ContactListPanel.setVisible(false);
- 	LoginPanel.setVisible(true);
+ 	
 
  	}
  	}
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    public void hideContactList(){
+
+        ContactListScrollPane.setVisible(false);
+ 	ContactListPanel.setVisible(false);
+ 	LoginPanel.setVisible(true);
+        MenuDisconnect.setVisible(false);
+
+    }
+
+    public void showContactList(){
+
+        ContactListScrollPane.setVisible(true);
+ 	ContactListPanel.setVisible(true);
+ 	LoginPanel.setVisible(false);
+        MenuDisconnect.setVisible(true);
+
+    }
+
+    private void MenuExitMenuKeyReleased(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_MenuExitMenuKeyReleased
+  
+
+    }//GEN-LAST:event_MenuExitMenuKeyReleased
+
+    private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuExitActionPerformed
+
+    private void MenuExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuExitMousePressed
+        try{
+            if(connection.isConnected()){
+                connection.closeConnection();
+            }
+        }
+        catch (NullPointerException e){ }
+        
+        System.out.println("Stop the execution.");
+        System.exit(0);
+    }//GEN-LAST:event_MenuExitMousePressed
+
+    private void MenuDisconnectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuDisconnectMousePressed
+        try{
+            if(connection.isConnected()){
+                connection.closeConnection();
+                hideContactList();
+            }
+        }
+        catch (NullPointerException e){
+            System.out.println("Nothing to disconnect...");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuDisconnectMousePressed
 
     
 
@@ -319,6 +396,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField EntryUser;
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JMenuItem MenuDisconnect;
+    private javax.swing.JMenuItem MenuExit;
     private javax.swing.JMenu MenuHelp;
     private javax.swing.JMenuItem MenuItemAbout;
     private javax.swing.JComboBox jComboBox1;
@@ -326,7 +405,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 

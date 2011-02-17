@@ -6,13 +6,28 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="File"/>
+            <Property name="text" type="java.lang.String" value="Chat"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
-          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuDisconnect">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Disconnect"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MenuDisconnectMousePressed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuExit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exit"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MenuExitMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuExitActionPerformed"/>
+                <EventHandler event="menuKeyReleased" listener="javax.swing.event.MenuKeyListener" parameters="javax.swing.event.MenuKeyEvent" handler="MenuExitMenuKeyReleased"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuHelp">
           <Properties>

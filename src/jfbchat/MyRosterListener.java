@@ -54,10 +54,14 @@ public class MyRosterListener implements RosterListener {
     public void entriesAdded(Collection<String> addresses) {}
     public void entriesUpdated(Collection<String> addresses) {}
     public void presenceChanged(Presence presence) {
-        Contact contact =  connection.getContactList().getContact(presence.getFrom());
-        System.out.println(contact.toString());
-        contact.setPresence(presence);
-        contact.updateContactPanel();
+        try{
+            Contact contact =  connection.getContactList().getContact(presence.getFrom());
+            System.out.println(contact.toString());
+            contact.setPresence(presence);
+            contact.updateContactPanel();
+        }catch (Exception e){
+            System.err.print("Roster close error.");
+        }
 
     }
 
