@@ -26,16 +26,15 @@ package jfbchat;
 
 import jfbchat.frames.JFrameAbout;
 import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import java.io.IOException;
-import org.jivesoftware.smack.packet.Presence; 
+import org.jivesoftware.smack.packet.Presence;
+import java.awt.Toolkit;
 
 
 
 public class MainFrame extends javax.swing.JFrame {
     private final String VERSION = "0.01";
-    private final String ICON = "imgs/icon1.png";
+    private final String ICON = "imgs/icon1-48x48.gif";
     private boolean ComboBoxChoise;
     private Image icon;
     private JFrameAbout jFrameAbout;  
@@ -51,11 +50,11 @@ public class MainFrame extends javax.swing.JFrame {
 
        
         ContactListPanel.setVisible(false);
-       // ContactListScrollPane.setVisible(false);
-        try {
-            icon = ImageIO.read(new File(ICON));
-        } catch (IOException ex) {
-           System.out.println("Cannot load image " + ICON);       }
+      
+        
+       Image icon = Toolkit.getDefaultToolkit().getImage(ICON);
+       setIconImage(icon);
+        
 
         
 
