@@ -96,7 +96,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Username");
 
-        EntryUser.setText("aslog.pettersen");
         EntryUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EntryUserActionPerformed(evt);
