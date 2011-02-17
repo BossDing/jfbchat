@@ -98,6 +98,8 @@ public class ChatFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        MainFrame = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         ScrollMessages = new javax.swing.JScrollPane();
         PanelMessages = new javax.swing.JPanel();
         PanelSend = new javax.swing.JPanel();
@@ -111,12 +113,17 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
         PanelMessages.setBackground(new java.awt.Color(254, 254, 254));
         PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.PAGE_AXIS));
         ScrollMessages.setViewportView(PanelMessages);
 
+        jPanel1.add(ScrollMessages);
+
         PanelSend.setLayout(new javax.swing.BoxLayout(PanelSend, javax.swing.BoxLayout.LINE_AXIS));
 
+        TextField.setBorder(null);
         TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldActionPerformed(evt);
@@ -137,24 +144,22 @@ public class ChatFrame extends javax.swing.JFrame {
         });
         PanelSend.add(ButtonSend);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+        javax.swing.GroupLayout MainFrameLayout = new javax.swing.GroupLayout(MainFrame);
+        MainFrame.setLayout(MainFrameLayout);
+        MainFrameLayout.setHorizontalGroup(
+            MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelSend, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+        MainFrameLayout.setVerticalGroup(
+            MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainFrameLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
         );
+
+        getContentPane().add(MainFrame, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,10 +218,12 @@ public class ChatFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSend;
+    private javax.swing.JPanel MainFrame;
     private javax.swing.JPanel PanelMessages;
     private javax.swing.JPanel PanelSend;
     private javax.swing.JScrollPane ScrollMessages;
     private javax.swing.JTextField TextField;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
 }

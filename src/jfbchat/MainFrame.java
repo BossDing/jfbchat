@@ -29,7 +29,7 @@ import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence; 
 
 
 
@@ -73,8 +73,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ContactListScrollPane = new javax.swing.JScrollPane();
-        ContactListPanel = new javax.swing.JPanel();
+        MainPanel = new javax.swing.JPanel();
         LoginPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         EntryUser = new javax.swing.JTextField();
@@ -82,6 +81,9 @@ public class MainFrame extends javax.swing.JFrame {
         ButtonLogin = new javax.swing.JButton();
         EntryPass = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
+        ContactListScrollPane = new javax.swing.JScrollPane();
+        ContactListPanel = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -90,16 +92,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JFBChat");
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setIconImage(icon);
-        setMinimumSize(new java.awt.Dimension(225, 320));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ContactListPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        ContactListPanel.setAlignmentY(0.0F);
-        ContactListPanel.setLayout(new javax.swing.BoxLayout(ContactListPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        ContactListScrollPane.setViewportView(ContactListPanel);
-
-        getContentPane().add(ContactListScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 90, 170, 200));
+        setMinimumSize(new java.awt.Dimension(300, 320));
 
         jLabel1.setText("Username");
 
@@ -138,34 +133,70 @@ public class MainFrame extends javax.swing.JFrame {
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(ButtonLogin)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoginPanelLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel3)
+                        .addGap(49, 49, 49))
+                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(EntryPass)
-                    .addComponent(EntryUser, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(EntryPass, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(ButtonLogin))
+                .addContainerGap())
         );
         LoginPanelLayout.setVerticalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(212, 212, 212)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addGap(218, 218, 218)
-                .addComponent(EntryUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EntryUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EntryPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonLogin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
-        getContentPane().add(LoginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -30, 410, 620));
+        ContactListPanel.setBorder(null);
+        ContactListPanel.setAlignmentY(0.0F);
+        ContactListPanel.setLayout(new javax.swing.BoxLayout(ContactListPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Offline" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        ContactListPanel.add(jComboBox1);
+
+        ContactListScrollPane.setViewportView(ContactListPanel);
+
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+        );
+        MainPanelLayout.setVerticalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -220,12 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 ContactListPanel.add(connection.getContactList().getContact(i).getContactPanel());
              
-                       
-
-
-
-
-            packetListening = new PacketListening(connection);
+           packetListening = new PacketListening(connection);
 
             }
 
@@ -257,6 +283,33 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_MenuItemAboutMousePressed
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        
+ 	String item = evt.getItem().toString();
+ 	System.out.println(ComboBoxChoise);
+ 	if (ComboBoxChoise == false){
+ 	ComboBoxChoise = true;
+ 	}
+	else{
+ 	ComboBoxChoise = false;
+
+
+ 	if (item.equals("Available")){
+ 	connection.getPresence().setMode(Presence.Mode.available);
+
+ 	}else if(item.equals("Away")){
+ 	connection.getPresence().setMode(Presence.Mode.away);
+ 	}else{
+ 	connection.closeConnection();
+ 	
+ 	ContactListScrollPane.setVisible(false);
+ 	ContactListPanel.setVisible(false);
+ 	LoginPanel.setVisible(true);
+
+ 	}
+ 	}
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -266,8 +319,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField EntryPass;
     private javax.swing.JTextField EntryUser;
     private javax.swing.JPanel LoginPanel;
+    private javax.swing.JPanel MainPanel;
     private javax.swing.JMenu MenuHelp;
     private javax.swing.JMenuItem MenuItemAbout;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
