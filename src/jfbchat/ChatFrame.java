@@ -24,7 +24,7 @@
 package jfbchat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
-
+import javax.swing.JScrollBar;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
@@ -123,7 +123,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
         PanelSend.setLayout(new javax.swing.BoxLayout(PanelSend, javax.swing.BoxLayout.LINE_AXIS));
 
-        TextField.setBorder(null);
+        TextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldActionPerformed(evt);
@@ -148,15 +148,15 @@ public class ChatFrame extends javax.swing.JFrame {
         MainFrame.setLayout(MainFrameLayout);
         MainFrameLayout.setHorizontalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
         );
 
         getContentPane().add(MainFrame, java.awt.BorderLayout.CENTER);
@@ -189,7 +189,11 @@ public class ChatFrame extends javax.swing.JFrame {
 
             TextField.setText("");                                               // Clear the TextField
             System.out.println("Sending \""+ texttosend +"\" to " + contact.getUser());
-
+            
+            /* Set the scrollbar at the maximum position for every incoming or 
+            outcoming message.message*/
+            JScrollBar verticalScrollBar = ScrollMessages.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
             }
         }
         catch (XMPPException e) {
