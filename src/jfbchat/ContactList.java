@@ -25,6 +25,9 @@ package jfbchat;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import java.util.Collection;
+import java.util.Arrays;
+
+
 
 
 public class ContactList {
@@ -41,6 +44,8 @@ public class ContactList {
 
 
     }
+
+
 
     
     public ContactList(Connection connection){
@@ -73,8 +78,11 @@ public class ContactList {
                 i++;
             }
 
+
+           
             roster.addRosterListener(new MyRosterListener(connection));
-        
+
+
         }
 
     
@@ -89,6 +97,18 @@ public class ContactList {
         /* Gets an address and returns a contact from the list*/
         for (int i = 0; i < contactList.length ; i++){
            if (contactList[i].getAdress().equals(addr)){
+               return contactList[i];
+           }
+        }
+
+        return null;
+
+    }
+
+    public Contact getContactFromName(String name){
+        /* Gets a name and returns the associated contact from the list*/
+        for (int i = 0; i < contactList.length ; i++){
+           if (contactList[i].getUser().equals(name)){
                return contactList[i];
            }
         }
@@ -115,6 +135,37 @@ public class ContactList {
         /*Return the ID of the relative address*/
         
         return getContact(adr).getID();
+
+
+
+    }
+
+    public void sortByName(){
+
+        
+        String[] nameList = new String[contactList.length];
+        
+        for (int i = 0; i < contactList.length; i++){
+
+            nameList[i] = contactList[i].getUser();
+           
+        }
+
+        Arrays.sort(nameList);
+
+
+        
+
+        for(int j = 0; j < nameList.length; j++){
+
+            
+            
+            if (getContactFromName(nameList[j]) != null){
+                    contactList[j] = getContactFromName(nameList[j]);
+                    System.out.println(getContactFromName(nameList[j]));
+            }
+
+        }
 
 
 

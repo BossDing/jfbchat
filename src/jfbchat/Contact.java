@@ -60,7 +60,10 @@ public class Contact {
     }
 
     public String getUser(){
-        return this.name;    }
+        /* returns the name of the contact displayed in the contact list*/
+        return this.name;
+
+    }
 
     public Presence getPresence(){
         return this.presence;    }

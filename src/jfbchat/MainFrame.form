@@ -129,6 +129,8 @@
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="EntryPass" alignment="0" pref="267" max="32767" attributes="1"/>
+                          <Component id="jCheckBoxRemUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxAuto" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="ButtonLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -148,9 +150,13 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="EntryPass" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxRemUser" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxAuto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ButtonLogin" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="188" max="32767" attributes="0"/>
+                      <EmptySpace pref="110" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -190,6 +196,16 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/jfbchat/imgs/icon1.png"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxRemUser">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remember username"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxAuto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Auto login"/>
               </Properties>
             </Component>
           </SubComponents>

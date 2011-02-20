@@ -23,19 +23,31 @@
 
 package jfbchat;
 
-/**
- *
- * @author peppe
- */
+import java.io.*;
+
 public class User {
 
+    private final String CONFIGFILE = "/src/resources/config.cfg";
+
+    private File configFile;
     private String username;
     private String password;
 
     public User(String username, String password){
 
+
         this.username = username;
         this.password = password;
+        this.configFile = new File(CONFIGFILE);
+
+    }
+
+    public User(){
+
+
+        this.username = null;
+        this.password = null;
+        this.configFile = new File(CONFIGFILE);
 
     }
 
@@ -48,5 +60,188 @@ public class User {
     }
 
 
+    public void saveUser(){
+
+        /* Write username to a config file */
+
+        try{
+           
+            createConfigFile();
+            
+            // Create file
+            FileWriter fstream = new FileWriter(CONFIGFILE);
+            BufferedWriter out = new BufferedWriter(fstream);
+
+            out.write("Username: " + username + "\n");           
+
+            //Close the output stream
+            out.close();
+
+       }catch (Exception e){
+
+            //Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void createConfigFile() throws IOException{
+
+        if(!configFile.exists()){
+                configFile.createNewFile();
+                System.out.println("New file  \"" + CONFIGFILE + "\" + has been created.");
+            }
+
+    }
+
+    public void savePassword(){
+
+        /* Write password to a config file for autologin*/
+
+        try{
+           
+            createConfigFile();
+
+            // Open file
+            FileWriter fstream = new FileWriter(CONFIGFILE);
+
+            BufferedWriter out = new BufferedWriter(fstream);
+            
+            out.write("Autologin: true\n");
+            out.write("Username: " + username+"\n");
+            out.write("Password: " + password+"\n");
+            
+
+            //Close the output stream
+            out.close();
+
+       }catch (Exception e){
+
+            //Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    public boolean isAutoLogin(){
+
+        /* read the configfile and return true if autologin is enabled false if not*/
+        
+        boolean resu = false;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        DataInputStream dis;
+
+        try {
+            fis = new FileInputStream(configFile);
+
+            // Here BufferedInputStream is added for fast reading.
+            bis = new BufferedInputStream(fis);
+            dis = new DataInputStream(bis);
+
+            // this statement reads the line from the file and print it to
+            // the console.
+             
+            if ( dis.readLine().equals("Autologin: true")){
+
+                resu = true;
+            }
+            else{
+                resu = false;
+            }
+
+         fis.close();
+         bis.close();
+         dis.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+
+        return resu;
+  }
+
+    public String getSavedPass(){
+
+        /* read the configfile and return the saved password*/
+
+        String resu = null;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        DataInputStream dis;
+        String strLine;
+
+        try {
+            fis = new FileInputStream(configFile);
+
+            // Here BufferedInputStream is added for fast reading.
+            bis = new BufferedInputStream(fis);
+            dis = new DataInputStream(bis);
+
+             while ((strLine = dis.readLine()) != null)   {
+                if(strLine.contains("Password")){
+                    resu = strLine.substring(10);
+                }
+
+            }
+
+
+
+         fis.close();
+         bis.close();
+         dis.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+
+        return resu;
+  }
+
+    public String getSavedUser(){
+
+        /* read the configfile and return the saved password*/
+
+        String resu = null;
+        FileInputStream fis;
+        BufferedInputStream bis;
+        DataInputStream dis;
+        String strLine;
+
+        try {
+            fis = new FileInputStream(configFile);
+
+            // Here BufferedInputStream is added for fast reading.
+            bis = new BufferedInputStream(fis);
+            dis = new DataInputStream(bis);
+
+             while ((strLine = dis.readLine()) != null)   {
+                if(strLine.contains("Username")){
+                    resu = strLine.substring(10);
+                }
+
+            }
+
+
+
+         fis.close();
+         bis.close();
+         dis.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+
+        return resu;
+  }
+
 
 }
+
+
+
+

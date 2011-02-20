@@ -35,11 +35,14 @@ import org.jivesoftware.smack.XMPPException;
  */
 public class ChatFrame extends javax.swing.JFrame {
 
+    
+
     private Contact contact;
     private Connection connection;
     private ChatManager chatmanager;
     private Chat newChat;
     private String contactAdr;
+    private AePlayWave receivedmsgsnd;
 
     /** Creates new form ChatFrame */
     public ChatFrame(Connection connection, Contact contact) {
@@ -47,6 +50,8 @@ public class ChatFrame extends javax.swing.JFrame {
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
+        //The sound played for incomings msgs
+        
 
         chatmanager = connection.getConnection().getChatManager();
 
@@ -81,7 +86,8 @@ public class ChatFrame extends javax.swing.JFrame {
             public void processMessage(Chat chat, Message message) {
 
                 PanelMessages.add(new PanelMessage(false, contact , message.getBody()));
-                System.out.println("Received message: " + message);
+                System.out.println("Ricevuto: " + message);
+            
             }
            });
 
