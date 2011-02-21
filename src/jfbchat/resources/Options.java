@@ -31,70 +31,17 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################
-*/
+ ###################################################*/
 
-package jfbchat;
+package jfbchat.resources;
 
-
-public class MyChatManager {
-    /* This class represent an array with all the active chats */
-
-    private ChatFrame chatManager[];
-    private int lastChat;
-    
-    public MyChatManager(int size){
-        chatManager = new ChatFrame[size];
-        init();
-        
-    }
-    
-    private void init(){
-        for (int i = 0; i < chatManager.length; i++){
-            chatManager[i] = null;
-        }
-    }
-    
-   /* public void add(ChatFrame c){
-        chatManager[lastChat++] = c;
-        
-        
-    }*/
-
-    public boolean isActive(int index){
-
-        if (chatManager[index] == null){
-            
-            return false;
-        }
-        else{
-            
-            return true;
-
-        }
-
-    }
-    
-    public void add(ChatFrame c, int index){
-        /* Add a chatframe at the specified index */
-        try{
-        
-            chatManager[index] = c;
-            System.out.print("Add a ChatFrame at[");
-            System.out.println(index+"]");
-        }
-        catch(Exception e){
-            System.err.print(e.getMessage());    
-
-        }
-
-        
-  }
-
-    public ChatFrame getChat(int index){
-        return chatManager[index];
-    }
-
-
+/**
+ *
+ * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ */
+public class Options {
+    public static final int PORT = 5222;
+    public static final String SERVER = "chat.facebook.com";
+    public static final String SERVICE_NAME = "chat.facebook.com";
 
 }

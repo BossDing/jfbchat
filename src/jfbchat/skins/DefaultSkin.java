@@ -31,70 +31,20 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################
-*/
+ ###################################################*/
 
-package jfbchat;
+package jfbchat.skins;
 
+/**
+ *
+ * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ */
+public class DefaultSkin {
+    private static final String skinName = "DefaultSkin";
+    private static final String version = "0.01a";
 
-public class MyChatManager {
-    /* This class represent an array with all the active chats */
-
-    private ChatFrame chatManager[];
-    private int lastChat;
-    
-    public MyChatManager(int size){
-        chatManager = new ChatFrame[size];
-        init();
-        
-    }
-    
-    private void init(){
-        for (int i = 0; i < chatManager.length; i++){
-            chatManager[i] = null;
-        }
-    }
-    
-   /* public void add(ChatFrame c){
-        chatManager[lastChat++] = c;
-        
-        
-    }*/
-
-    public boolean isActive(int index){
-
-        if (chatManager[index] == null){
-            
-            return false;
-        }
-        else{
-            
-            return true;
-
-        }
+    public DefaultSkin(){
 
     }
-    
-    public void add(ChatFrame c, int index){
-        /* Add a chatframe at the specified index */
-        try{
-        
-            chatManager[index] = c;
-            System.out.print("Add a ChatFrame at[");
-            System.out.println(index+"]");
-        }
-        catch(Exception e){
-            System.err.print(e.getMessage());    
-
-        }
-
-        
-  }
-
-    public ChatFrame getChat(int index){
-        return chatManager[index];
-    }
-
-
 
 }

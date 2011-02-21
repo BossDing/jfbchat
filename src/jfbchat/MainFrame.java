@@ -32,10 +32,14 @@ import java.awt.Toolkit;
 
 
 public class MainFrame extends javax.swing.JFrame {
+
     /* The MainFrame is a JFrame that manage the contact list and the login
-     * panel.     */
+     * panel.
+     */
 
     private Connection connection;
+
+    //Icon image
     private Image mainicon;
 
     //Other Frames
@@ -53,14 +57,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         ComboBoxChoise = false;
 
-        
-      
         //Load and set the icon.
         Image icon = Toolkit.getDefaultToolkit().getImage(jfbchat.resources.Imgs.MAINICON);
         setIconImage(icon);
 
         //Hide the disconnect menu.
         MenuDisconnect.setVisible(false);
+
+        //Hide the contactlist panel menu.
         ContactListPanel.setVisible(false);
 
         user = new User();
@@ -75,7 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void autologin(){
 
-        //If the user have selected autologin or remember username
+        //If the user has selected autologin or remember username
 
         if (user.isAutoLogin()){
 
@@ -85,8 +89,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         }else if(!(user.getSavedUser().isEmpty())){
 
-            //Only remember user pressed
+            //Only remember user was pressed
             EntryUser.setText(user.getSavedUser());
+            EntryPass.setText(user.getSavedPass());
 
         }
 
@@ -157,8 +162,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
 
-        jCheckBoxRemUser.setText("Remember username");
+        jCheckBoxRemUser.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jCheckBoxRemUser.setText("Remember username and password");
+        jCheckBoxRemUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxRemUserActionPerformed(evt);
+            }
+        });
 
+        jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jCheckBoxAuto.setText("Auto login");
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
@@ -172,10 +184,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel3)
                         .addGap(49, 49, 49))
-                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(EntryPass, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(EntryPass, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
                     .addComponent(ButtonLogin))
@@ -226,11 +238,11 @@ public class MainFrame extends javax.swing.JFrame {
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 291, Short.MAX_VALUE)
+            .addGap(0, 303, Short.MAX_VALUE)
             .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,27 +368,30 @@ public class MainFrame extends javax.swing.JFrame {
     private void ComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxStatusItemStateChanged
         
  	String item = evt.getItem().toString();
- 	System.out.println(ComboBoxChoise);
+ 	
  	if (ComboBoxChoise == false){
- 	ComboBoxChoise = true;
+            //To avoid the repetition problem
+            ComboBoxChoise = true;
  	}
 	else{
- 	ComboBoxChoise = false;
+            ComboBoxChoise = false;
 
+            if (item.equals("Available")){
 
- 	if (item.equals("Available")){
- 	connection.getPresence().setMode(Presence.Mode.available);
+                connection.getPresence().setMode(Presence.Mode.available);
+                 connection.updatePresence();
 
- 	}else if(item.equals("Away")){
- 	connection.getPresence().setMode(Presence.Mode.away);
- 	}else{
-            connection.closeConnection();
-            setContactListVisible(false);
- 	
- 	
+            }else if(item.equals("Away")){
 
- 	}
- 	}
+                connection.getPresence().setMode(Presence.Mode.away);
+                 connection.updatePresence();
+
+            }else{
+
+                setContactListVisible(false);
+                connection.closeConnection();
+            }
+        }
     }//GEN-LAST:event_ComboBoxStatusItemStateChanged
 
     public void setContactListVisible(boolean visible){
@@ -413,7 +428,9 @@ public class MainFrame extends javax.swing.JFrame {
                 connection.closeConnection();
             }
         }
-        catch (NullPointerException e){ }
+        catch (NullPointerException e){
+            System.out.println("Nothing to disconnect...");
+        }
         
         System.out.println("Stop the execution.");
         System.exit(0);
@@ -435,16 +452,21 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxStatusActionPerformed
 
+    private void jCheckBoxRemUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxRemUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxRemUserActionPerformed
+
     public void checkBoxStatus(){
         
         //Check if the remeberuser or autologin are enabled
 
         if (jCheckBoxRemUser.isSelected()){
-            user.saveUser();
+            user.saveUserAndPass();
+            
         }
 
         if (jCheckBoxAuto.isSelected()){
-            user.savePassword();
+            user.setAutologin();
         }
     }
     

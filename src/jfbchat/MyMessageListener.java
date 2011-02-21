@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 
 
 public class MyMessageListener implements  MessageListener{
-    private final String RECEIVEDMSGWAV = "/media/3318a757-b8d0-406b-97db-4ced8ba7ccdf/Progetti/jfbchat/src/jfbchat/receivingmsg.wav";
+    //private final String RECEIVEDMSGWAV = "/media/3318a757-b8d0-406b-97db-4ced8ba7ccdf/Progetti/jfbchat/src/jfbchat/receivingmsg.wav";
     
     private Contact contact;
     private JPanel panel;
@@ -44,7 +44,7 @@ public class MyMessageListener implements  MessageListener{
 
                 panel.add(new PanelMessage(false, contact , message.getBody()));
                 System.out.println("Received message: " + message);
-                new AePlayWave(RECEIVEDMSGWAV).start();
+                //new AePlayWave(RECEIVEDMSGWAV).start();
             }
 
 

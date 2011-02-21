@@ -32,7 +32,7 @@ import java.util.Arrays;
 
 public class ContactList {
 
-     private final int MAX_CONTACTS = 2048;
+    private final int MAX_CONTACTS = 2048;
 
      //TODO: change the array with a list
     private Contact[] contactList;
@@ -44,7 +44,6 @@ public class ContactList {
 
         this.contactList = new Contact[MAX_CONTACTS];
         this.connection = connection;
-        this.chatManager = new MyChatManager();
         init();
         
 
@@ -58,8 +57,10 @@ public class ContactList {
     
     public void getList(){
         try{
+
             int i = 0;
-            Roster roster = connection.getConnection().getRoster();
+            Roster roster = connection.getRoster();
+
             Collection<RosterEntry> entries = roster.getEntries();
             contactList = new Contact[entries.size()];
 
@@ -72,6 +73,7 @@ public class ContactList {
 
                 i++;
             }
+            
             sortByName();
         }
 

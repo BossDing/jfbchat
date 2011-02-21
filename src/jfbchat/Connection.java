@@ -43,13 +43,11 @@ public class Connection {
     public Connection(User user){
               
         this.user = user;
-        this.myChatManager = new MyChatManager();
         this.contactList = new ContactList(this);
 
         connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
                                                            ,Options.PORT,Options.SERVICE_NAME));
-
-      }
+    }
 
     public void connect(){
 
@@ -70,8 +68,8 @@ public class Connection {
 
             //Set the user status presence available.
             presence = new Presence(Presence.Type.available);
-            connection.sendPacket(presence);
-            System.out.println("Presence is now " + presence.toString() + ".");
+            updatePresence();
+            
 
             //init the roster
             roster = connection.getRoster();
@@ -79,8 +77,13 @@ public class Connection {
             //Get the contact list from the server
             contactList.getList();
 
+            //InitChatManager
+            myChatManager = new MyChatManager(contactList.getSize());
+
             //Start listen to incoming packets
             startPacketListening();
+
+
 
             } catch (XMPPException ex) {
             
@@ -105,6 +108,12 @@ public class Connection {
             new Error(2, e.getMessage());
         }
 
+    }
+
+    public void updatePresence(){
+        //Send the user presence to the server
+        connection.sendPacket(presence);
+        System.out.println("Presence is now " + presence.toString() + ".");
     }
 
     public XMPPConnection getConnection(){
@@ -138,6 +147,10 @@ public class Connection {
     
     public boolean isConnected(){
         return connection.isConnected();
+    }
+
+    public Roster getRoster(){
+        return roster;
     }
 
 

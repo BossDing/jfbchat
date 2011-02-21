@@ -61,19 +61,32 @@ public class User {
     }
 
 
-    public void saveUser(){
+    public void createConfigFile() throws IOException{
 
-        /* Write username to a config file */
+        if(!configFile.exists()){
+                configFile.createNewFile();
+                System.out.println("New file  \"" + CONFIGFILE + "\" + has been created.");
+            }
+
+    }
+
+    public void saveUserAndPass(){
+
+        /* Write username and password to a config file for autologin*/
 
         try{
            
             createConfigFile();
-            
-            // Create file
-            FileWriter fstream = new FileWriter(CONFIGFILE);
-            BufferedWriter out = new BufferedWriter(fstream);
 
-            out.write("Username: " + username + "\n");           
+            // Open file
+            FileWriter fstream = new FileWriter(CONFIGFILE);
+
+            BufferedWriter out = new BufferedWriter(fstream);
+            
+          
+            out.write("Username: " + username+"\n");
+            out.write("Password: " + password+"\n");
+            
 
             //Close the output stream
             out.close();
@@ -85,32 +98,23 @@ public class User {
         }
     }
 
-    public void createConfigFile() throws IOException{
+    public void setAutologin(){
 
-        if(!configFile.exists()){
-                configFile.createNewFile();
-                System.out.println("New file  \"" + CONFIGFILE + "\" + has been created.");
-            }
-
-    }
-
-    public void savePassword(){
-
-        /* Write password to a config file for autologin*/
+        /* Write username and password to a config file for autologin*/
 
         try{
-           
+
             createConfigFile();
 
             // Open file
             FileWriter fstream = new FileWriter(CONFIGFILE);
 
             BufferedWriter out = new BufferedWriter(fstream);
-            
+
             out.write("Autologin: true\n");
             out.write("Username: " + username+"\n");
             out.write("Password: " + password+"\n");
-            
+
 
             //Close the output stream
             out.close();
