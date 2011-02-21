@@ -27,14 +27,10 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.Roster;
+import jfbchat.resources.Options;
 
 public class Connection {
-    
-    private final int PORT = 5222;
-    private final String SERVER = "chat.facebook.com";
-    private final String SERVICE_NAME = "chat.facebook.com";
 
-    
     private User user;
     private Presence presence;
     private XMPPConnection connection;
@@ -50,8 +46,8 @@ public class Connection {
         this.myChatManager = new MyChatManager();
         this.contactList = new ContactList(this);
 
-        connection = new XMPPConnection(new FBConnectionConfiguration(SERVER
-                                                           ,PORT,SERVICE_NAME));
+        connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
+                                                           ,Options.PORT,Options.SERVICE_NAME));
 
       }
 
@@ -60,7 +56,7 @@ public class Connection {
         /*Connect to the server and start the packet and roaster listening.
          */
 
-        System.out.println("Connection to " + SERVER +
+        System.out.println("Connection to " + Options.SERVER +
                             " as " + user.getUsername() + "...");
 
         try {
@@ -151,7 +147,10 @@ public class Connection {
         String msg = "";
 
         if (isConnected()){
-            msg += "Connected to " + SERVER + " at port " + PORT + " Status is "
+            msg += "Connected to " + Options.SERVER
+                    + " at port "
+                    + Options.PORT
+                    + " Status is "
                     + presence.getStatus() + ".";
         }
         else{
