@@ -46,7 +46,7 @@ public class Error {
         switch (type){
             case 2:
                 System.err.println("Error " + type +" , " + message);
-                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message);
+                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message + "." );
                 break;
         }
     }
@@ -55,11 +55,18 @@ public class Error {
 
         switch (type){
             case 1:
-                System.err.println("Error " + type +" , " + message);
-                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message);
-                connection.closeConnection();
+                System.err.println("Connection Error " + type +" , " + message + ".");
+                JOptionPane.showMessageDialog(null, "Connection Error " + type +" , " + message + ".");
+                
                 break;
+            case 2:
+                System.err.println("PacketListening Error " + type +" , " + message + ".");
+                JOptionPane.showMessageDialog(null, "PacketListening " + type +" , " + message + ".");
+
+
         }
+
+        connection.closeConnection();
     }
 
 }
