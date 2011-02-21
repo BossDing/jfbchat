@@ -64,9 +64,11 @@ public class Connection {
                             " as " + user.getUsername() + "...");
 
         try {
+            //Connect to the server
             connection.connect();
             System.out.println("Connected to " + connection.getHost());
-        
+
+            //Login to the server
             connection.login(user.getUsername(), user.getPassword());
             System.out.println("Logged in as " + user.getUsername()+ ".");
 
@@ -86,7 +88,7 @@ public class Connection {
 
             } catch (XMPPException ex) {
             
-                new Error(this,1, "Connection error :" + ex.getMessage() + ".");
+                new Error(this,1, ex.getMessage());
             
             }
 
@@ -95,15 +97,20 @@ public class Connection {
     }
 
     public void startPacketListening(){
+        //Listen for incoming packets
+
         try{
+
             packetListening = new PacketListening(this);
             roster.addRosterListener(new MyRosterListener(this));
+
         }
         catch(Exception e){
-            new Error(4, "Failed to start packet listening :" + e.getMessage() + ".");
+            new Error(2, e.getMessage());
         }
 
     }
+
     public XMPPConnection getConnection(){
             return connection;
     }
@@ -118,6 +125,7 @@ public class Connection {
 
         connection.disconnect(new Presence(Presence.Type.unavailable));
         connection.disconnect();
+        
         }
 
     public MyChatManager getChatManager(){
@@ -152,8 +160,6 @@ public class Connection {
 
         return msg;
     }
-
-
 
 }
 
