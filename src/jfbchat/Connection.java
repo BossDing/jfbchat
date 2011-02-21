@@ -78,7 +78,7 @@ public class Connection {
             contactList.getList();
 
             //InitChatManager
-            myChatManager = new MyChatManager(contactList.getSize());
+            myChatManager = new MyChatManager();
 
             //Start listen to incoming packets
             startPacketListening();

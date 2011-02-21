@@ -43,6 +43,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private Chat newChat;
     private String contactAdr;
     private AePlayWave receivedmsgsnd;
+    
 
     /** Creates new form ChatFrame */
     public ChatFrame(Connection connection, Contact contact) {
@@ -50,7 +51,8 @@ public class ChatFrame extends javax.swing.JFrame {
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
-        //The sound played for incomings msgs
+        
+        
         
 
         chatmanager = connection.getConnection().getChatManager();
@@ -210,6 +212,8 @@ public class ChatFrame extends javax.swing.JFrame {
 
 
 
+
+
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
          //TODO: Send a message when enter is pressed
     }//GEN-LAST:event_formKeyPressed
@@ -221,9 +225,10 @@ public class ChatFrame extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_TextFieldKeyTyped
 
-    /**
-    * @param args the command line arguments
-    */
+    public int getID(){
+        return contact.getID();
+    }
+    
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -26,52 +26,34 @@ import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import java.util.Collection;
 import java.util.Arrays;
-
+import java.util.ArrayList;
 
 
 
 public class ContactList {
 
-    private final int MAX_CONTACTS = 2048;
-
-     //TODO: change the array with a list
-    private Contact[] contactList;
-    private int lastcontact;
+    private ArrayList<Contact> contactList;
     private Connection connection;
     private MyChatManager chatManager;
 
     public ContactList(Connection connection){
 
-        this.contactList = new Contact[MAX_CONTACTS];
+        this.contactList = new ArrayList();
         this.connection = connection;
-        init();
-        
-
     }
 
-    private void init(){
-        for (int i = 0; i < contactList.length; i++){
-            contactList[i] = null;
-        }
-    }
     
     public void getList(){
         try{
 
-            int i = 0;
             Roster roster = connection.getRoster();
 
             Collection<RosterEntry> entries = roster.getEntries();
-            contactList = new Contact[entries.size()];
 
             for (RosterEntry entry : entries) {
-                contactList[i] = new Contact(this.connection
+                contactList.add(new Contact(this.connection
                                                 ,entry
-                                                ,roster.getPresence(entry.getUser())
-                                                       );
-                System.out.println(entry);
-
-                i++;
+                                                ,roster.getPresence(entry.getUser())));
             }
             
             sortByName();
@@ -87,15 +69,14 @@ public class ContactList {
 
     public Contact getContact(int index){
 
-        return contactList[index];
-
+        return contactList.get(index);
     }
 
     public Contact getContact(String addr){
         /* Gets an address and returns a contact from the list*/
-        for (int i = 0; i < contactList.length ; i++){
-           if (contactList[i].getAdress().equals(addr)){
-               return contactList[i];
+        for (int i = 0; i < contactList.size(); i++){
+           if (contactList.get(i).getAdress().equals(addr)){
+               return contactList.get(i);
            }
         }
 
@@ -105,9 +86,9 @@ public class ContactList {
 
     public Contact getContactFromName(String name){
         /* Gets a name and returns the associated contact from the list*/
-        for (int i = 0; i < contactList.length ; i++){
-           if (contactList[i].getUser().equals(name)){
-               return contactList[i];
+        for (int i = 0; i < contactList.size() ; i++){
+           if (contactList.get(i).getUser().equals(name)){
+               return contactList.get(i);
            }
         }
 
@@ -119,14 +100,8 @@ public class ContactList {
         return chatManager;
     }
 
-    public int getSize(){
-
-        return contactList.length;
-
-    }
-
     public int getID(int index){
-        return contactList[index].getID();
+        return contactList.get(index).getID();
     }
 
     public int getID(String adr){
@@ -138,14 +113,20 @@ public class ContactList {
 
     }
 
+    public int getSize(){
+        return contactList.size();
+    }
+
     public void sortByName(){
 
+        //Sort the contactlist by name
+        //TODO: for some reasons the list is not sorted well
         
-        String[] nameList = new String[contactList.length];
+        String[] nameList = new String[contactList.size()];
         
-        for (int i = 0; i < contactList.length; i++){
+        for (int i = 0; i < contactList.size(); i++){
 
-            nameList[i] = contactList[i].getUser();
+            nameList[i] = contactList.get(i).getUser();
            
         }
 
@@ -159,13 +140,22 @@ public class ContactList {
             
             
             if (getContactFromName(nameList[j]) != null){
-                    contactList[j] = getContactFromName(nameList[j]);
+                    contactList.set(j,getContactFromName(nameList[j]));
                     System.out.println(getContactFromName(nameList[j]));
             }
 
         }
+    }
 
+    @Override
+    public String toString(){
+         String resu = "";
 
+         for(int i = 0; i < contactList.size(); i++){
+             resu +=  contactList.get(i).toString();
+         }
+
+         return resu;
 
     }
 

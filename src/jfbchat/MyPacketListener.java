@@ -40,8 +40,10 @@ public class MyPacketListener implements PacketListener{
 
       public void processPacket(Packet packet) {
             MyChatManager chatManager = connection.getChatManager();
+
             //Relative id of the contact
             int fromContactId = connection.getContactList().getID(packet.getFrom());
+
             //Contact who sends the packet
             Contact contact = connection.getContactList().getContact(fromContactId);
 
@@ -55,9 +57,9 @@ public class MyPacketListener implements PacketListener{
            
 
                 if (contact.isActive()){
-                    if (!(chatManager.getChat(fromContactId).isVisible())){
+                    if (!(chatManager.getChatFromID(fromContactId).isVisible())){
 
-                        chatManager.getChat(fromContactId).setVisible(true);
+                        chatManager.getChatFromID(fromContactId).setVisible(true);
                         
                     }
                     
@@ -72,15 +74,9 @@ public class MyPacketListener implements PacketListener{
 
                     //Create a new Chatframe and show it
                     contact.setActive(true);
-                    chatManager.add(new ChatFrame(connection, contact),
-                                    fromContactId);
-                    
-
-                    
+                    chatManager.add(new ChatFrame(connection, contact));
                     
                 }
            
-        
-
-}
+        }
 }

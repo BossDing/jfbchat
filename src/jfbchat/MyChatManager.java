@@ -36,34 +36,22 @@
 
 package jfbchat;
 
+import java.util.ArrayList;
 
 public class MyChatManager {
     /* This class represent an array with all the active chats */
 
-    private ChatFrame chatManager[];
+    private ArrayList<ChatFrame> chatManager;
     private int lastChat;
     
-    public MyChatManager(int size){
-        chatManager = new ChatFrame[size];
-        init();
-        
+    public MyChatManager(){
+        chatManager = new ArrayList();
     }
     
-    private void init(){
-        for (int i = 0; i < chatManager.length; i++){
-            chatManager[i] = null;
-        }
-    }
-    
-   /* public void add(ChatFrame c){
-        chatManager[lastChat++] = c;
-        
-        
-    }*/
 
     public boolean isActive(int index){
 
-        if (chatManager[index] == null){
+        if (chatManager.get(index) == null){
             
             return false;
         }
@@ -75,13 +63,13 @@ public class MyChatManager {
 
     }
     
-    public void add(ChatFrame c, int index){
+    public void add(ChatFrame c){
         /* Add a chatframe at the specified index */
         try{
         
-            chatManager[index] = c;
+            chatManager.add(c);
             System.out.print("Add a ChatFrame at[");
-            System.out.println(index+"]");
+            System.out.println( chatManager.size()+"]");
         }
         catch(Exception e){
             System.err.print(e.getMessage());    
@@ -91,8 +79,22 @@ public class MyChatManager {
         
   }
 
+    public ChatFrame getChatFromID(int id){
+        /* Gets an id and returns the ChatFrame with the id associated */
+        ChatFrame resu = null;
+
+        for(int i =0 ; i < chatManager.size(); i++){
+            if(id == chatManager.get(i).getID()){
+                resu = chatManager.get(i);
+            }
+        }
+
+        return resu;
+
+    }
+
     public ChatFrame getChat(int index){
-        return chatManager[index];
+        return chatManager.get(index);
     }
 
 

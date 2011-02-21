@@ -26,11 +26,6 @@ package jfbchat;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.RosterEntry;
 
-
-
-
-
-
 public class Contact {
     private static int contactID = 0;
 
@@ -43,11 +38,6 @@ public class Contact {
     //Panel associated with the contact in Swing.
     private ContactPanel contactPanel;
 
-
-
-
-    
-
     public Contact(Connection connection, RosterEntry entry, Presence presence){
         this.entry = entry;
         this.connection = connection;
@@ -57,7 +47,7 @@ public class Contact {
         this.id = contactID++;
         this.contactPanel = new ContactPanel(connection, this);
 
-    }
+        }
 
     public String getUser(){
         /* returns the name of the contact displayed in the contact list*/

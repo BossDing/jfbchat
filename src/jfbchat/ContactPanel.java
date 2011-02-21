@@ -27,6 +27,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class ContactPanel extends javax.swing.JPanel {
+
     private final String availableIcon = "/jfbchat/imgs/availableIcon.png";
     private final String awayIcon = "/jfbchat/imgs/awayIcon.png";
 
@@ -131,16 +132,13 @@ public class ContactPanel extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
         MyChatManager chatManager = connection.getChatManager();
-        //The chatFrame associated to the contact
-        ChatFrame chatFrame = chatManager.getChat(contact.getID());
 
-        
         if (contact.isActive()){
             //If the chat is present in the chatmanager show it.
 
-            if (chatFrame.isVisible() == false){
+            if (chatManager.getChatFromID(contact.getID()).isVisible() == false){
 
-                  chatFrame.setVisible(true);
+                  chatManager.getChatFromID(contact.getID()).setVisible(true);
                         
             }
 
@@ -156,7 +154,7 @@ public class ContactPanel extends javax.swing.JPanel {
              */
 
             contact.setActive(true);
-            chatManager.add(new ChatFrame(connection, contact), contact.getID());
+            chatManager.add(new ChatFrame(connection, contact));
             
 
             

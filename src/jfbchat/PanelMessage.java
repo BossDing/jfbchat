@@ -63,7 +63,7 @@ public class PanelMessage extends javax.swing.JPanel {
         setBackground(new java.awt.Color(254, 254, 254));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        Labelfromto.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        Labelfromto.setFont(new java.awt.Font("Arial", 1, 15));
         Labelfromto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Labelfromto.setText("... say: / me:");
         Labelfromto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);

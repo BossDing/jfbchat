@@ -56,7 +56,7 @@ public class MyRosterListener implements RosterListener {
     public void presenceChanged(Presence presence) {
         try{
             Contact contact =  connection.getContactList().getContact(presence.getFrom());
-            System.out.println(contact.toString());
+            System.out.println(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".");
             contact.setPresence(presence);
             contact.updateContactPanel();
         }catch (Exception e){
