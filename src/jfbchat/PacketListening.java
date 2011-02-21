@@ -26,7 +26,7 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.filter.*;
-import javax.swing.JOptionPane;
+
 
 public class PacketListening{
 

@@ -35,20 +35,25 @@ public class ContactList {
     private ArrayList<Contact> contactList;
     private Connection connection;
     private MyChatManager chatManager;
+    private Roster roster;
 
     public ContactList(Connection connection){
 
         this.contactList = new ArrayList();
         this.connection = connection;
+
+
     }
 
     
     public void getList(){
         try{
 
-            Roster roster = connection.getRoster();
+
+            roster = connection.getConnection().getRoster();
 
             Collection<RosterEntry> entries = roster.getEntries();
+
 
             for (RosterEntry entry : entries) {
                 contactList.add(new Contact(this.connection
@@ -141,10 +146,14 @@ public class ContactList {
             
             if (getContactFromName(nameList[j]) != null){
                     contactList.set(j,getContactFromName(nameList[j]));
-                    System.out.println(getContactFromName(nameList[j]));
+                    
             }
 
         }
+    }
+
+    public Roster getRoster(){
+        return roster;
     }
 
     @Override

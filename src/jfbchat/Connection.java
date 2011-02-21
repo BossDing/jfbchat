@@ -26,7 +26,6 @@ package jfbchat;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.Roster;
 import jfbchat.resources.Options;
 
 public class Connection {
@@ -37,7 +36,7 @@ public class Connection {
     private ContactList contactList;
     private MyChatManager myChatManager;
     private PacketListening packetListening;
-    private Roster roster;
+    
 
 
     public Connection(User user){
@@ -69,10 +68,6 @@ public class Connection {
             //Set the user status presence available.
             presence = new Presence(Presence.Type.available);
             updatePresence();
-            
-
-            //init the roster
-            roster = connection.getRoster();
 
             //Get the contact list from the server
             contactList.getList();
@@ -101,7 +96,7 @@ public class Connection {
         try{
 
             packetListening = new PacketListening(this);
-            roster.addRosterListener(new MyRosterListener(this));
+            contactList.getRoster().addRosterListener(new MyRosterListener(this));
 
         }
         catch(Exception e){
@@ -149,9 +144,7 @@ public class Connection {
         return connection.isConnected();
     }
 
-    public Roster getRoster(){
-        return roster;
-    }
+
 
 
 
