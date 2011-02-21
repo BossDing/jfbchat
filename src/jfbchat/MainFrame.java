@@ -32,16 +32,19 @@ import java.awt.Toolkit;
 
 
 public class MainFrame extends javax.swing.JFrame {
+    /* The MainFrame is a JFrame that manage the contact list and the login
+     * panel.     */
 
-    private final String VERSION = "0.01";
-    private final String ICON = "imgs/icon1-48x48.gif";
-
-    private boolean ComboBoxChoise;
-    private Image icon;
-    private JFrameAbout jFrameAbout;  
     private Connection connection;
-    private PacketListening packetListening;
+    private Image mainicon;
+
+    //Other Frames
+    private JFrameAbout jFrameAbout;
+    
     private User user;
+
+    //Here will be stocked the value of the Status Combobox
+    private boolean ComboBoxChoise;
 
     public MainFrame() {
 
@@ -51,38 +54,41 @@ public class MainFrame extends javax.swing.JFrame {
         ComboBoxChoise = false;
 
         
-        
-
-       
-        ContactListPanel.setVisible(false);
       
         //Load and set the icon.
-        Image icon = Toolkit.getDefaultToolkit().getImage(ICON);
+        Image icon = Toolkit.getDefaultToolkit().getImage(jfbchat.resources.Imgs.MAINICON);
         setIconImage(icon);
 
         //Hide the disconnect menu.
         MenuDisconnect.setVisible(false);
-
-        setLocationRelativeTo( null );
-        setVisible(true);
+        ContactListPanel.setVisible(false);
 
         user = new User();
 
-        if (user.isAutoLogin()){
+        //Show the MainFrame at the center of the screen.
+        setLocationRelativeTo( null );
+        setVisible(true);
 
-            Autologin();
-
-        }else{
-            EntryUser.setText(user.getSavedUser());
-        }
+        autologin();
 
     }
 
-    private void Autologin(){
+    private void autologin(){
 
-        EntryUser.setText(user.getSavedUser());
-        EntryPass.setText(user.getSavedPass());
-        ButtonLoginMouseClicked(null);
+        //If the user have selected autologin or remember username
+
+        if (user.isAutoLogin()){
+
+            EntryUser.setText(user.getSavedUser());
+            EntryPass.setText(user.getSavedPass());
+            ButtonLoginMouseClicked(null);
+
+        }else if(!(user.getSavedUser().isEmpty())){
+
+            //Only remember user pressed
+            EntryUser.setText(user.getSavedUser());
+
+        }
 
     }
 
@@ -107,9 +113,9 @@ public class MainFrame extends javax.swing.JFrame {
         jCheckBoxAuto = new javax.swing.JCheckBox();
         ContactListScrollPane = new javax.swing.JScrollPane();
         ContactListPanel = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        ComboBoxStatus = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuChat = new javax.swing.JMenu();
         MenuDisconnect = new javax.swing.JMenuItem();
         MenuExit = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
@@ -118,7 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JFBChat");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setIconImage(icon);
+        setIconImage(mainicon);
         setMinimumSize(new java.awt.Dimension(300, 320));
 
         jLabel1.setText("Username");
@@ -201,13 +207,18 @@ public class MainFrame extends javax.swing.JFrame {
         ContactListPanel.setAlignmentY(0.0F);
         ContactListPanel.setLayout(new javax.swing.BoxLayout(ContactListPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Offline" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        ComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Offline" }));
+        ComboBoxStatus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                ComboBoxStatusItemStateChanged(evt);
             }
         });
-        ContactListPanel.add(jComboBox1);
+        ComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxStatusActionPerformed(evt);
+            }
+        });
+        ContactListPanel.add(ComboBoxStatus);
 
         ContactListScrollPane.setViewportView(ContactListPanel);
 
@@ -232,7 +243,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Chat");
+        jMenuChat.setText("Chat");
 
         MenuDisconnect.setText("Disconnect");
         MenuDisconnect.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,7 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
                 MenuDisconnectMousePressed(evt);
             }
         });
-        jMenu1.add(MenuDisconnect);
+        jMenuChat.add(MenuDisconnect);
 
         MenuExit.setText("Exit");
         MenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,9 +273,9 @@ public class MainFrame extends javax.swing.JFrame {
             public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
             }
         });
-        jMenu1.add(MenuExit);
+        jMenuChat.add(MenuExit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuChat);
 
         MenuHelp.setText("Help");
 
@@ -290,52 +301,36 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonLoginMouseClicked
 
+        //Create a new user
         user = new User(EntryUser.getText(),EntryPass.getText());
 
-
-
-        
-        
+        //Create a new connection associated to the user
         connection = new Connection(user);
-        ContactList contactList;
-
+        
         //Connect to the server
         connection.connect();
         
         if (connection.isConnected()){
-            //TODO: Pulizia qui
-
+           
             //Check if remeberuser or autologin checkbox are selected.
             checkBoxStatus();
             
-            connection.setContactList(new ContactList(connection));
+            //Populate the contact list
+            addContactsToPanel(connection.getContactList());
 
+            //Show the contactlist in the MainFrame
+            setContactListVisible(true);
+        }
+ 
+    }//GEN-LAST:event_ButtonLoginMouseClicked
 
-            contactList = connection.getContactList();
+    private void addContactsToPanel(ContactList contactList){
 
-            //Sort the list by name
-            contactList.sortByName();
-
-            //add the contactlist to the GUI
-            for(int i = 0; i< connection.getContactList().getSize(); i++){
+        for(int i = 0; i< connection.getContactList().getSize(); i++){
 
                 ContactListPanel.add(contactList.getContact(i).getContactPanel());
             }
-
-
-            packetListening = new PacketListening(connection);
-
-            //Show the panel in mode connected.
-            showContactList();
-
-            
-
-
-            
-        }
-        
-
-    }//GEN-LAST:event_ButtonLoginMouseClicked
+    }
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
         // TODO add your handling code here:
@@ -358,7 +353,7 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_MenuItemAboutMousePressed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void ComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxStatusItemStateChanged
         
  	String item = evt.getItem().toString();
  	System.out.println(ComboBoxChoise);
@@ -376,31 +371,32 @@ public class MainFrame extends javax.swing.JFrame {
  	connection.getPresence().setMode(Presence.Mode.away);
  	}else{
             connection.closeConnection();
-            hideContactList();
+            setContactListVisible(false);
  	
  	
 
  	}
  	}
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_ComboBoxStatusItemStateChanged
 
-    public void hideContactList(){
+    public void setContactListVisible(boolean visible){
+        if (visible){
 
-        ContactListScrollPane.setVisible(false);
- 	ContactListPanel.setVisible(false);
- 	LoginPanel.setVisible(true);
-        MenuDisconnect.setVisible(false);
+            ContactListScrollPane.setVisible(true);
+            ContactListPanel.setVisible(true);
+            LoginPanel.setVisible(false);
+            MenuDisconnect.setVisible(true);
+        }
+        else{
 
+            ContactListScrollPane.setVisible(false);
+            ContactListPanel.setVisible(false);
+            LoginPanel.setVisible(true);
+            MenuDisconnect.setVisible(false);
+
+        }
     }
-
-    public void showContactList(){
-
-        ContactListScrollPane.setVisible(true);
- 	ContactListPanel.setVisible(true);
- 	LoginPanel.setVisible(false);
-        MenuDisconnect.setVisible(true);
-
-    }
+    
 
     private void MenuExitMenuKeyReleased(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_MenuExitMenuKeyReleased
   
@@ -427,13 +423,17 @@ public class MainFrame extends javax.swing.JFrame {
         try{
             if(connection.isConnected()){
                 connection.closeConnection();
-                hideContactList();
+                setContactListVisible(false);
             }
         }
         catch (NullPointerException e){
             System.out.println("Nothing to disconnect...");
         }        // TODO add your handling code here:
     }//GEN-LAST:event_MenuDisconnectMousePressed
+
+    private void ComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxStatusActionPerformed
 
     public void checkBoxStatus(){
         
@@ -451,6 +451,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonLogin;
+    private javax.swing.JComboBox ComboBoxStatus;
     private javax.swing.JPanel ContactListPanel;
     private javax.swing.JScrollPane ContactListScrollPane;
     private javax.swing.JPasswordField EntryPass;
@@ -463,12 +464,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemAbout;
     private javax.swing.JCheckBox jCheckBoxAuto;
     private javax.swing.JCheckBox jCheckBoxRemUser;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuChat;
     // End of variables declaration//GEN-END:variables
 
 }

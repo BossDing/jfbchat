@@ -1,6 +1,6 @@
  /* ###########################################################################
   *
-  *  JFBChat it's a simple software written in Java that let you int contact
+  *  JFBChat it's a simple software written in Java that let you in contact
   *  with yours Facebook friends without your browser.
   *  Copyright (C) 2011  Digitex (Giuseppe Federico)
   *
@@ -22,25 +22,30 @@
   */
 
 package jfbchat;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
 
 public class Application {
+
     public final static String VERSION = "0.01RC2";
+
     private MainFrame mainFrame;
 
     public Application(){
+        //Set system look and feel by default
+        //TODO: Add the feature to change the look in a option frame
+
         setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         run();
-
-        
 
     }
 
     private void run(){
 
+        //Show the MainFrame
         mainFrame = new MainFrame();
 
     }

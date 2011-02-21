@@ -27,7 +27,8 @@ import java.io.*;
 
 public class User {
 
-    private final String CONFIGFILE = "/src/resources/config.cfg";
+    //TODO: modify the path
+    private final String CONFIGFILE = "config.cfg";
 
     private File configFile;
     private String username;
@@ -161,6 +162,8 @@ public class User {
         return resu;
   }
 
+    
+
     public String getSavedPass(){
 
         /* read the configfile and return the saved password*/
@@ -238,6 +241,11 @@ public class User {
 
         return resu;
   }
+
+    @Override
+    public String toString(){
+        return "Username: " + username;
+    }
 
 
 }

@@ -1,6 +1,6 @@
  /* ###########################################################################
   *
-  *  JFBChat it's a simple software written in Java that let you int contact
+  *  JFBChat it's a simple software written in Java that let you in contact
   *  with yours Facebook friends without your browser.
   *  Copyright (C) 2011  Digitex (Giuseppe Federico)
   *
@@ -26,8 +26,7 @@ package jfbchat;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.ConnectionConfiguration;
-
+import org.jivesoftware.smack.Roster;
 
 public class Connection {
     
@@ -39,64 +38,72 @@ public class Connection {
     private User user;
     private Presence presence;
     private XMPPConnection connection;
-    private ConnectionConfiguration connConfig;
     private ContactList contactList;
     private MyChatManager myChatManager;
+    private PacketListening packetListening;
+    private Roster roster;
 
 
     public Connection(User user){
               
         this.user = user;
         this.myChatManager = new MyChatManager();
-        this.contactList = new ContactList();
+        this.contactList = new ContactList(this);
 
-
-        connConfig = new FBConnectionConfiguration(SERVER, PORT,SERVICE_NAME);
- 
-        connection = new XMPPConnection(connConfig);
+        connection = new XMPPConnection(new FBConnectionConfiguration(SERVER
+                                                           ,PORT,SERVICE_NAME));
 
       }
 
     public void connect(){
 
-        /*connect to the server and return true if the connection is etabilished
-         * end false if it's impossible to connect.         */
+        /*Connect to the server and start the packet and roaster listening.
+         */
 
-        System.out.println("Starting IM client");
-
+        System.out.println("Connection to " + SERVER +
+                            " as " + user.getUsername() + "...");
 
         try {
             connection.connect();
             System.out.println("Connected to " + connection.getHost());
-        } catch (XMPPException ex){
-
-            new Error(1, "Failed to connect to "+ connection.getHost() + ".");
-            this.closeConnection();
-
-        }
-
-        try {
-
+        
             connection.login(user.getUsername(), user.getPassword());
-            System.out.println("Logged in as " + connection.getUser()+ ".");
+            System.out.println("Logged in as " + user.getUsername()+ ".");
 
             //Set the user status presence available.
             presence = new Presence(Presence.Type.available);
             connection.sendPacket(presence);
+            System.out.println("Presence is now " + presence.toString() + ".");
 
-        } catch (XMPPException ex) {
+            //init the roster
+            roster = connection.getRoster();
+
+            //Get the contact list from the server
+            contactList.getList();
+
+            //Start listen to incoming packets
+            startPacketListening();
+
+            } catch (XMPPException ex) {
             
-            new Error(1, "Failed to log in as " + user.getUsername() + "." );
-            this.closeConnection();
+                new Error(this,1, "Connection error :" + ex.getMessage() + ".");
             
-        }
-
-
+            }
 
         
 
     }
 
+    public void startPacketListening(){
+        try{
+            packetListening = new PacketListening(this);
+            roster.addRosterListener(new MyRosterListener(this));
+        }
+        catch(Exception e){
+            new Error(4, "Failed to start packet listening :" + e.getMessage() + ".");
+        }
+
+    }
     public XMPPConnection getConnection(){
             return connection;
     }
@@ -105,7 +112,7 @@ public class Connection {
         return presence;
     }
 
-  
+
 
     public void closeConnection(){
 

@@ -47,15 +47,15 @@ public class PacketListening{
 
         // First, register a packet collector using the filter we created.
         try{
-        myCollector = connection.getConnection().createPacketCollector(filter);
+            myCollector = connection.getConnection().createPacketCollector(filter);
         }
         catch (Exception ex) {                                            //TODO: gestire meglio le eccezzioni
-          
-            JOptionPane.showMessageDialog(null, "Cannot Listen to Messages.");
 
-
-
+            new Error(connection,1, "Cannot create a PacketCollector : " + ex.toString() + "." );
+            
+           
         }
+        
         // Normally, you'd do something with the collector, like wait for new packets.
 
         // Next, create a packet listener. We use an anonymous inner class for brevity.

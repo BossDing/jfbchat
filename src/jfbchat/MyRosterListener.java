@@ -60,8 +60,8 @@ public class MyRosterListener implements RosterListener {
             contact.setPresence(presence);
             contact.updateContactPanel();
         }catch (Exception e){
-            System.err.print("Roster close error.");
-        }
+            System.err.print("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString());
+                  }
 
     }
 

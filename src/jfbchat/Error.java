@@ -36,7 +36,7 @@
 package jfbchat;
 import javax.swing.JOptionPane;
 
-/*Error 1: Connection error;
+/*Error 1: Connection error , print a message and close the connection;
  *
 */
 public class Error {
@@ -44,9 +44,20 @@ public class Error {
     public Error(int type, String message){
 
         switch (type){
+            case 2:
+                System.err.println("Error " + type +" , " + message);
+                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message);
+                break;
+        }
+    }
+
+    public Error( Connection connection,int type, String message){
+
+        switch (type){
             case 1:
-                System.err.println("Error " + type +" : " + message);
-                JOptionPane.showMessageDialog(null, "Error " + type +" : " + message);
+                System.err.println("Error " + type +" , " + message);
+                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message);
+                connection.closeConnection();
                 break;
         }
     }
