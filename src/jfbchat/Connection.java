@@ -23,6 +23,7 @@
 
 package jfbchat;
 
+import jfbchat.debug.Error;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.XMPPConnection;

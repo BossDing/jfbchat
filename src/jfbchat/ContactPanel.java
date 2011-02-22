@@ -74,33 +74,18 @@ public class ContactPanel extends javax.swing.JPanel {
                 formMouseEntered(evt);
             }
         });
+        setLayout(new java.awt.BorderLayout());
 
         contactLabel.setBackground(new java.awt.Color(255, 255, 255));
         contactLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         contactLabel.setForeground(new java.awt.Color(109, 132, 180));
         contactLabel.setText("Cotact");
         contactLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(contactLabel, java.awt.BorderLayout.CENTER);
 
+        stateIcon.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         stateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/availableIcon.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(contactLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(stateIcon)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contactLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(stateIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(stateIcon, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
 
   
@@ -131,14 +116,14 @@ public class ContactPanel extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
-        MyChatManager chatManager = connection.getChatManager();
+        
 
         if (contact.isActive()){
             //If the chat is present in the chatmanager show it.
 
-            if (chatManager.getChatFromID(contact.getID()).isVisible() == false){
+            if (contact.getChatFrame().isVisible() == false){
 
-                  chatManager.getChatFromID(contact.getID()).setVisible(true);
+                  contact.getChatFrame().setVisible(true);
                         
             }
 
@@ -154,8 +139,7 @@ public class ContactPanel extends javax.swing.JPanel {
              */
 
             contact.setActive(true);
-            chatManager.add(new ChatFrame(connection, contact));
-            
+            contact.addToChatManager();
 
             
             //TODO: make with exceptions here..

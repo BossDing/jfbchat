@@ -37,16 +37,17 @@
 package jfbchat;
 
 import java.util.ArrayList;
+import jfbchat.debug.DebugMessage;
 
 public class MyChatManager {
     /* This class represent an array with all the active chats */
 
     private ArrayList<ChatFrame> chatManager;
-    private int lastChat;
+    
     
     public MyChatManager(){
         chatManager = new ArrayList();
-    }
+          }
     
 
     public boolean isActive(int index){
@@ -68,8 +69,8 @@ public class MyChatManager {
         try{
         
             chatManager.add(c);
-            System.out.print("Add a ChatFrame at[");
-            System.out.println( chatManager.size()+"]");
+
+            new DebugMessage("Add a ChatFrame at[" + chatManager.size()+"]");
         }
         catch(Exception e){
             System.err.print(e.getMessage());    
@@ -79,18 +80,8 @@ public class MyChatManager {
         
   }
 
-    public ChatFrame getChatFromID(int id){
-        /* Gets an id and returns the ChatFrame with the id associated */
-        ChatFrame resu = null;
-
-        for(int i =0 ; i < chatManager.size(); i++){
-            if(id == chatManager.get(i).getID()){
-                resu = chatManager.get(i);
-            }
-        }
-
-        return resu;
-
+    public int getSize(){
+        return chatManager.size();
     }
 
     public ChatFrame getChat(int index){

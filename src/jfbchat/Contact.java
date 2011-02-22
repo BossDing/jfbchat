@@ -37,6 +37,7 @@ public class Contact {
     private boolean chatActive;
     //Panel associated with the contact in Swing.
     private ContactPanel contactPanel;
+    private ChatFrame chatFrame;
 
     public Contact(Connection connection, RosterEntry entry, Presence presence){
         this.entry = entry;
@@ -46,6 +47,7 @@ public class Contact {
         this.presence = presence;
         this.id = contactID++;
         this.contactPanel = new ContactPanel(connection, this);
+        this.chatFrame = null;
 
         }
 
@@ -55,6 +57,10 @@ public class Contact {
 
     }
 
+    public ChatFrame getChatFrame(){
+        return chatFrame;
+    }
+    
     public Presence getPresence(){
         return this.presence;    }
 
@@ -62,6 +68,11 @@ public class Contact {
         this.presence = p;
     }
 
+    /**
+     * Update the panel associated to the contact, normally called after
+     * some contact changes.
+     */
+    
     public void updateContactPanel(){
         
         this.contactPanel.update(this);
@@ -83,6 +94,13 @@ public class Contact {
     
     public ContactPanel getContactPanel(){
         return contactPanel;
+    }
+
+    public void addToChatManager(){
+
+        this.chatFrame =  new ChatFrame(connection, this);
+        connection.getChatManager().add(chatFrame);
+
     }
 
 

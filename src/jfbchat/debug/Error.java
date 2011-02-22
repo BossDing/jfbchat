@@ -33,39 +33,41 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat;
+package jfbchat.debug;
+import javax.swing.JOptionPane;
+import jfbchat.Connection;
 
-import java.util.Collection;
-import org.jivesoftware.smack.RosterListener;
-import org.jivesoftware.smack.packet.Presence;
-import jfbchat.debug.DMessage;
+/*Error 1: Connection error , print a message and close the connection;
+ *
+*/
+public class Error {
+   //TODO: make an array with all the errors.
+    public Error(int type, String message){
 
-public class MyRosterListener implements RosterListener {
-    private Connection connection;
-
-    public MyRosterListener(Connection connection){
-
-        this.connection = connection;
+        switch (type){
+            case 2:
+                System.err.println("Error " + type +" , " + message);
+                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message + "." );
+                break;
+        }
     }
 
+    public Error( Connection connection,int type, String message){
+
+        switch (type){
+            case 1:
+                System.err.println("Connection Error " + type +" , " + message + ".");
+                JOptionPane.showMessageDialog(null, "Connection Error " + type +" , " + message + ".");
+                
+                break;
+            case 2:
+                System.err.println("PacketListening Error " + type +" , " + message + ".");
+                JOptionPane.showMessageDialog(null, "PacketListening " + type +" , " + message + ".");
 
 
+        }
 
-    public void entriesDeleted(Collection<String> addresses) {}
-    public void entriesAdded(Collection<String> addresses) {}
-    public void entriesUpdated(Collection<String> addresses) {}
-    public void presenceChanged(Presence presence) {
-        try{
-            Contact contact =  connection.getContactList().getContact(presence.getFrom());
-            contact.setPresence(presence);
-            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-            contact.updateContactPanel();
-        }catch (Exception e){
-            System.err.print("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString());
-                  }
-
+        connection.closeConnection();
     }
-
-
 
 }

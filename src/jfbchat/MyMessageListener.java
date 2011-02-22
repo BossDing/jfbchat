@@ -27,7 +27,7 @@ import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
 import javax.swing.JPanel;
-
+import jfbchat.debug.DebugMessage;
 
 public class MyMessageListener implements  MessageListener{
     //private final String RECEIVEDMSGWAV = "/media/3318a757-b8d0-406b-97db-4ced8ba7ccdf/Progetti/jfbchat/src/jfbchat/receivingmsg.wav";
@@ -41,11 +41,19 @@ public class MyMessageListener implements  MessageListener{
     }
 
      public void processMessage(Chat chat, Message message) {
+            panel.add(new PanelMessage(false, contact , message.getBody()));
+            new DebugMessage("Received message by the message listener: " + message.getBody()).println();
+        
+        if (contact.getChatFrame().isVisible() == false){
 
-                panel.add(new PanelMessage(false, contact , message.getBody()));
-                System.out.println("Received message: " + message);
-                //new AePlayWave(RECEIVEDMSGWAV).start();
-            }
+            contact.getChatFrame().setVisible(true);
+
+        }
+        
+        
+
+        //new AePlayWave(RECEIVEDMSGWAV).start();
+    }
 
 
 }

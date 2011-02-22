@@ -33,40 +33,32 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat;
-import javax.swing.JOptionPane;
+package jfbchat.debug;
 
-/*Error 1: Connection error , print a message and close the connection;
+/**
  *
-*/
-public class Error {
-   //TODO: make an array with all the errors.
-    public Error(int type, String message){
+ * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ */
+public class DMessage {
 
-        switch (type){
-            case 2:
-                System.err.println("Error " + type +" , " + message);
-                JOptionPane.showMessageDialog(null, "Error " + type +" , " + message + "." );
-                break;
-        }
+    protected String value;
+
+    public DMessage(String value){
+        this.value = value;
+
     }
 
-    public Error( Connection connection,int type, String message){
+    public void println(){
+        System.out.println(value);
+    }
 
-        switch (type){
-            case 1:
-                System.err.println("Connection Error " + type +" , " + message + ".");
-                JOptionPane.showMessageDialog(null, "Connection Error " + type +" , " + message + ".");
-                
-                break;
-            case 2:
-                System.err.println("PacketListening Error " + type +" , " + message + ".");
-                JOptionPane.showMessageDialog(null, "PacketListening " + type +" , " + message + ".");
+    public String getValue(){
+        return value;
+    }
 
-
-        }
-
-        connection.closeConnection();
+    @Override
+    public String toString(){
+        return value;
     }
 
 }

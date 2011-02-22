@@ -28,6 +28,7 @@ import jfbchat.frames.JFrameAbout;
 import java.awt.Image;
 import org.jivesoftware.smack.packet.Presence;
 import java.awt.Toolkit;
+import java.util.Iterator;
 
 
 
@@ -162,7 +163,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
 
-        jCheckBoxRemUser.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jCheckBoxRemUser.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jCheckBoxRemUser.setText("Remember username and password");
         jCheckBoxRemUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +171,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jCheckBoxAuto.setText("Auto login");
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
@@ -214,6 +215,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ButtonLogin)
                 .addContainerGap(110, Short.MAX_VALUE))
         );
+
+        ContactListScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        ContactListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         ContactListPanel.setBorder(null);
         ContactListPanel.setAlignmentY(0.0F);
@@ -337,11 +341,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonLoginMouseClicked
 
     private void addContactsToPanel(ContactList contactList){
+        //Populate the ContactListPanel with all the contacts
 
-        for(int i = 0; i< connection.getContactList().getSize(); i++){
-
-                ContactListPanel.add(contactList.getContact(i).getContactPanel());
-            }
+        for(Iterator<Contact> iter = connection.getContactList().iterator(); iter.hasNext();){
+                Contact next = iter.next();
+                ContactListPanel.add(next.getContactPanel());
+                        }
     }
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed

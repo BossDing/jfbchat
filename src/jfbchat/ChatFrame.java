@@ -68,7 +68,6 @@ public class ChatFrame extends javax.swing.JFrame {
             
 
            pack();
-
            setVisible(true);
        
     }
@@ -87,6 +86,11 @@ public class ChatFrame extends javax.swing.JFrame {
         newChat = chatmanager.createChat(contactAdr, new MessageListener() {
             public void processMessage(Chat chat, Message message) {
 
+                if (contact.getChatFrame().isVisible() == false){
+
+                    contact.getChatFrame().setVisible(true);
+
+                }
                 PanelMessages.add(new PanelMessage(false, contact , message.getBody()));
                 System.out.println("Ricevuto: " + message);
             
@@ -94,6 +98,12 @@ public class ChatFrame extends javax.swing.JFrame {
            });
 
            
+
+    }
+
+    public void addMessageToPanel(boolean sr, Contact contact, Message message){
+
+        PanelMessages.add(new PanelMessage(sr, contact, message.getBody()));
 
     }
 
@@ -123,7 +133,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        PanelMessages.setBackground(new java.awt.Color(254, 254, 254));
+        PanelMessages.setBackground(new java.awt.Color(255, 255, 255));
         PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.PAGE_AXIS));
         ScrollMessages.setViewportView(PanelMessages);
 

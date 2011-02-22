@@ -33,39 +33,29 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat;
+package jfbchat.debug;
+import jfbchat.resources.Options;
 
-import java.util.Collection;
-import org.jivesoftware.smack.RosterListener;
-import org.jivesoftware.smack.packet.Presence;
-import jfbchat.debug.DMessage;
+/**
+ *
+ * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ */
+public class DebugMessage extends DMessage{
 
-public class MyRosterListener implements RosterListener {
-    private Connection connection;
-
-    public MyRosterListener(Connection connection){
-
-        this.connection = connection;
+    public DebugMessage(String value){
+        super(value);
     }
 
-
-
-
-    public void entriesDeleted(Collection<String> addresses) {}
-    public void entriesAdded(Collection<String> addresses) {}
-    public void entriesUpdated(Collection<String> addresses) {}
-    public void presenceChanged(Presence presence) {
-        try{
-            Contact contact =  connection.getContactList().getContact(presence.getFrom());
-            contact.setPresence(presence);
-            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-            contact.updateContactPanel();
-        }catch (Exception e){
-            System.err.print("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString());
-                  }
-
+    @Override
+    public void println(){
+        if (Options.DEBUG_ENABLED){
+            System.out.println("Debug: " + value);
+        }
     }
 
-
+    @Override
+    public String toString(){
+        return "Debug: " + value;
+    }
 
 }

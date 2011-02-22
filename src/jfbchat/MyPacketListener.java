@@ -27,56 +27,52 @@ package jfbchat;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
+import jfbchat.debug.DebugMessage;
 
 public class MyPacketListener implements PacketListener{
 
       private Connection connection;
+      private MyChatManager chatManager;
+      private ContactList contactList;
 
 
       public MyPacketListener(Connection connection){
           this.connection = connection;
-      
+          this.chatManager = connection.getChatManager();
+          this.contactList = connection.getContactList();
       }
 
       public void processPacket(Packet packet) {
-            MyChatManager chatManager = connection.getChatManager();
-
-            //Relative id of the contact
-            int fromContactId = connection.getContactList().getID(packet.getFrom());
-
+   
             //Contact who sends the packet
-            Contact contact = connection.getContactList().getContact(fromContactId);
-
+            Contact contact = contactList.getContact(packet.getFrom());
             
-            //this is the contact id relative to the contact that send the message
-
+            //Managing a message
             Message msg = (Message) packet;
 
-            System.out.println("\"" + msg.getBody()+ "\"" + " recived from " + contact.getUser());
+
+            new DebugMessage("processPacket: \"" + msg + "\""
+                    + " recived from "  + contact.getUser()).println();
                                       
-           
+            if (contact.isActive()){
+                    if (!(contact.getChatFrame().isVisible())){
 
-                if (contact.isActive()){
-                    if (!(chatManager.getChatFromID(fromContactId).isVisible())){
-
-                        chatManager.getChatFromID(fromContactId).setVisible(true);
+                        contact.getChatFrame().setVisible(true);
                         
                     }
-                    
-
-                    //if the chat is present in the chatmanager then show it
-                    System.out.print("The chat is already present in "
-                                        + "the chat manager with id[");
-                    System.out.println(contact.getID() + "]");
-                }
-                
+            }
+ 
                 else{
-
+                    
                     //Create a new Chatframe and show it
                     contact.setActive(true);
-                    chatManager.add(new ChatFrame(connection, contact));
-                    
+                    contact.addToChatManager();
+                    contact.getChatFrame().addMessageToPanel(false, contact, msg);
+                    new DebugMessage("processPacket:Adding a new panel to "
+                            + "the chatframe :" + msg.getBody()).println();
                 }
-           
+         
         }
+
 }
+

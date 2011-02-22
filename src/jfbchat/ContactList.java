@@ -1,6 +1,6 @@
  /* ###########################################################################
   *
-  *  JFBChat it's a simple software written in Java that let you int contact
+  *  JFBChat it's a simple software written in Java that let you in contact
   *  with yours Facebook friends without your browser.
   *  Copyright (C) 2011  Digitex (Giuseppe Federico)
   *
@@ -22,29 +22,37 @@
   */
 
 package jfbchat;
+
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import java.util.Collection;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
+/**
+ * This class represent a contact list.
+ * @author Digitex
+ */
 
 public class ContactList {
 
     private ArrayList<Contact> contactList;
     private Connection connection;
-    private MyChatManager chatManager;
     private Roster roster;
 
     public ContactList(Connection connection){
 
         this.contactList = new ArrayList();
         this.connection = connection;
-
-
+      
     }
 
+    /**
+     * Get the contact list from the server populate the contactList and sort by
+     * name.
+     */
     
     public void getList(){
         try{
@@ -53,7 +61,6 @@ public class ContactList {
             roster = connection.getConnection().getRoster();
 
             Collection<RosterEntry> entries = roster.getEntries();
-
 
             for (RosterEntry entry : entries) {
                 contactList.add(new Contact(this.connection
@@ -70,30 +77,43 @@ public class ContactList {
 
     }
 
-    
-
     public Contact getContact(int index){
 
         return contactList.get(index);
+        
     }
 
+    /**
+     * Gets an address and returns the associated contact from the list
+     * @param a contact address
+     * @return a contact from the list
+     */
     public Contact getContact(String addr){
-        /* Gets an address and returns a contact from the list*/
-        for (int i = 0; i < contactList.size(); i++){
-           if (contactList.get(i).getAdress().equals(addr)){
-               return contactList.get(i);
+
+        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
+            Contact next = iter.next();
+           if (next.getAdress().equals(addr)){
+               return next;
            }
         }
 
         return null;
 
     }
+
+    /**
+     * Gets a name and returns the associated contact from the list
+     * @param A contact name
+     * @return The contact in the list associated to the name
+     */
 
     public Contact getContactFromName(String name){
-        /* Gets a name and returns the associated contact from the list*/
-        for (int i = 0; i < contactList.size() ; i++){
-           if (contactList.get(i).getUser().equals(name)){
-               return contactList.get(i);
+        
+        
+        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
+            Contact next = iter.next();
+            if (next.getUser().equals(name)){
+               return next;
            }
         }
 
@@ -101,20 +121,31 @@ public class ContactList {
 
     }
 
-    public MyChatManager getChatManager(){
-        return chatManager;
+    public Iterator iterator(){
+        return contactList.iterator();
     }
 
+    /**
+     * Get an id from a position in the contactList
+     * @param index
+     * @return an id
+     */
     public int getID(int index){
+
         return contactList.get(index).getID();
+
     }
+
+    /**
+     * Get an id from an address in the contactList
+     * @param a contact address
+     * @return an id
+     */
 
     public int getID(String adr){
         /*Return the ID of the relative address*/
         
         return getContact(adr).getID();
-
-
 
     }
 
@@ -122,34 +153,43 @@ public class ContactList {
         return contactList.size();
     }
 
+    /**
+     * Sorts the contactlist by name
+     */
+
     public void sortByName(){
 
-        //Sort the contactlist by name
-        //TODO: for some reasons the list is not sorted well
-        
-        String[] nameList = new String[contactList.size()];
-        
-        for (int i = 0; i < contactList.size(); i++){
+        /**
+         * In nameList we are going to stock the names
+         */
 
-            nameList[i] = contactList.get(i).getUser();
-           
+        ArrayList<String> nameList = new ArrayList();
+
+        //Local Arraylist that will contain the sorted contact list
+        ArrayList<Contact> newList = new ArrayList();
+        
+        for (Iterator<Contact> iter =  contactList.iterator(); iter.hasNext();){
+            Contact next = iter.next();
+            nameList.add(next.getUser());
         }
 
-        Arrays.sort(nameList);
+        //Sort the list of names by name
+        Collections.sort(nameList);
 
-
-        
-
-        for(int j = 0; j < nameList.length; j++){
-
+        //Populate the newList sorted by name
+        for(Iterator<String> iter = nameList.iterator(); iter.hasNext();){
+            String next = iter.next();
             
-            
-            if (getContactFromName(nameList[j]) != null){
-                    contactList.set(j,getContactFromName(nameList[j]));
-                    
+            if (getContactFromName(next) != null){
+                 newList.add(getContactFromName(next));
             }
-
         }
+
+        //Clear the list
+        contactList.clear();
+
+        //Copy newList to the instance variable
+        contactList = newList;
     }
 
     public Roster getRoster(){
@@ -158,6 +198,8 @@ public class ContactList {
 
     @Override
     public String toString(){
+
+        //TODO: iterator
          String resu = "";
 
          for(int i = 0; i < contactList.size(); i++){
