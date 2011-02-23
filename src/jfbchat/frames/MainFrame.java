@@ -21,7 +21,7 @@
   *
   */
 
-package jfbchat;
+package jfbchat.frames;
 
 
 import jfbchat.frames.JFrameAbout;
@@ -29,6 +29,11 @@ import java.awt.Image;
 import org.jivesoftware.smack.packet.Presence;
 import java.awt.Toolkit;
 import java.util.Iterator;
+import jfbchat.Application;
+import jfbchat.Connection;
+import jfbchat.Contact;
+import jfbchat.ContactList;
+import jfbchat.User;
 
 
 

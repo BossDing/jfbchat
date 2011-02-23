@@ -21,12 +21,14 @@
   *
   */
 
-package jfbchat;
+package jfbchat.listeners;
 
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
 import javax.swing.JPanel;
+import jfbchat.Contact;
+import jfbchat.PanelMessage;
 import jfbchat.debug.DebugMessage;
 
 public class MyMessageListener implements  MessageListener{

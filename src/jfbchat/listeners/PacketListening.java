@@ -21,7 +21,8 @@
   *
   */
 
-package jfbchat;
+package jfbchat.listeners;
+import jfbchat.Connection;
 import jfbchat.debug.Error;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.PacketCollector;

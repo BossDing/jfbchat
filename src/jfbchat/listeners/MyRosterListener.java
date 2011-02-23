@@ -33,9 +33,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat;
+package jfbchat.listeners;
 
 import java.util.Collection;
+import jfbchat.Connection;
+import jfbchat.Contact;
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
 import jfbchat.debug.DMessage;

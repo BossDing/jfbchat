@@ -21,7 +21,7 @@
   *
   */
 
-package jfbchat;
+package jfbchat.frames;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
 import javax.swing.JScrollBar;
@@ -30,6 +30,10 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import jfbchat.Connection;
+import jfbchat.Contact;
+import jfbchat.listeners.MyMessageListener;
+import jfbchat.PanelMessage;
 
  /**
  *
@@ -44,7 +48,6 @@ public class ChatFrame extends javax.swing.JFrame {
     private ChatManager chatmanager;
     private Chat newChat;
     private String contactAdr;
-    private AePlayWave receivedmsgsnd;
     
 
     /** Creates new form ChatFrame */

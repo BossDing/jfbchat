@@ -36,6 +36,7 @@
 
 package jfbchat;
 
+import jfbchat.frames.ChatFrame;
 import java.util.ArrayList;
 import jfbchat.debug.DebugMessage;
 

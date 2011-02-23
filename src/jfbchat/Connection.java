@@ -23,6 +23,8 @@
 
 package jfbchat;
 
+import jfbchat.listeners.PacketListening;
+import jfbchat.listeners.MyRosterListener;
 import jfbchat.debug.Error;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.XMPPException;

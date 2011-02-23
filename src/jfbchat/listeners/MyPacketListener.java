@@ -22,8 +22,12 @@
   */
 
 
-package jfbchat;
+package jfbchat.listeners;
 
+import jfbchat.Connection;
+import jfbchat.Contact;
+import jfbchat.ContactList;
+import jfbchat.MyChatManager;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;

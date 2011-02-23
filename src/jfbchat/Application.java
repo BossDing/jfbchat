@@ -23,21 +23,32 @@
 
 package jfbchat;
 
+import jfbchat.frames.MainFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+/**
+ * this class represent a lifecycle
+ * @author Digitex (digitex3d@gmail.com)
+ */
 
 public class Application {
 
     public final static String VERSION = "0.01RC3";
 
     private MainFrame mainFrame;
+    private String os;
+
+    public static final String NAME_OS = System.getProperty("os.name");
+    public static final String VERSION_OS = System.getProperty("os.version");
+    public static final String ARCH_OS = System.getProperty("os.arch");
+
 
     public Application(){
         //Set system look and feel by default
         //TODO: Add the feature to change the look in a option frame
-
+        
         setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         run();
 
@@ -49,7 +60,6 @@ public class Application {
         mainFrame = new MainFrame();
 
     }
-
 
 
     private void setLookAndFeel(String laf){

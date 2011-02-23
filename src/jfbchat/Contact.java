@@ -23,6 +23,7 @@
 
 package jfbchat;
 
+import jfbchat.frames.ChatFrame;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.RosterEntry;
 

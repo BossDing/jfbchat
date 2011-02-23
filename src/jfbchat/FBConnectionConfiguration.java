@@ -22,6 +22,7 @@
   */
 
 package jfbchat;
+import jfbchat.resources.MySASLDigestMD5Mechanism;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 
