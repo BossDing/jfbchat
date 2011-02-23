@@ -28,8 +28,10 @@ import javax.swing.JScrollBar;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
+import java.awt.Image;
+import java.awt.Toolkit;
 
-/**
+ /**
  *
  * @author peppe
  */
@@ -52,7 +54,9 @@ public class ChatFrame extends javax.swing.JFrame {
         this.contact = contact;
         this.contactAdr = contact.getAdress();
         
-        
+        //Load and set the icon.
+        Image icon = Toolkit.getDefaultToolkit().getImage(jfbchat.resources.Imgs.MAINICON);
+        setIconImage(icon);
         
 
         chatmanager = connection.getConnection().getChatManager();
