@@ -22,19 +22,21 @@
   */
 
 package jfbchat.frames;
+
+import javax.swing.JScrollBar;
+import javax.swing.ImageIcon;
+
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
-import javax.swing.JScrollBar;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
-import java.awt.Image;
-import java.awt.Toolkit;
+
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.listeners.MyMessageListener;
 import jfbchat.PanelMessage;
-
+import jfbchat.resources.Imgs;
  /**
  *
  * @author peppe
@@ -58,8 +60,7 @@ public class ChatFrame extends javax.swing.JFrame {
         this.contactAdr = contact.getAdress();
         
         //Load and set the icon.
-        Image icon = Toolkit.getDefaultToolkit().getImage(jfbchat.resources.Imgs.MAINICON);
-        setIconImage(icon);
+        setIconImage(new ImageIcon(Imgs.MAINICON).getImage());
         
 
         chatmanager = connection.getConnection().getChatManager();
@@ -124,7 +125,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         MainFrame = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelScrollMessages = new javax.swing.JPanel();
         ScrollMessages = new javax.swing.JScrollPane();
         PanelMessages = new javax.swing.JPanel();
         PanelSend = new javax.swing.JPanel();
@@ -132,22 +133,23 @@ public class ChatFrame extends javax.swing.JFrame {
         ButtonSend = new javax.swing.JButton();
 
         setTitle("Conversation with ...");
+        setMinimumSize(new java.awt.Dimension(200, 200));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
         });
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelScrollMessages.setMinimumSize(new java.awt.Dimension(50, 50));
+        jPanelScrollMessages.setLayout(new java.awt.BorderLayout());
 
         PanelMessages.setBackground(new java.awt.Color(255, 255, 255));
         PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.PAGE_AXIS));
         ScrollMessages.setViewportView(PanelMessages);
 
-        jPanel1.add(ScrollMessages);
+        jPanelScrollMessages.add(ScrollMessages, java.awt.BorderLayout.CENTER);
 
-        PanelSend.setLayout(new javax.swing.BoxLayout(PanelSend, javax.swing.BoxLayout.LINE_AXIS));
-
+        TextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         TextField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +161,6 @@ public class ChatFrame extends javax.swing.JFrame {
                 TextFieldKeyTyped(evt);
             }
         });
-        PanelSend.add(TextField);
 
         ButtonSend.setText("Send");
         ButtonSend.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,21 +168,44 @@ public class ChatFrame extends javax.swing.JFrame {
                 ButtonSendMouseClicked(evt);
             }
         });
-        PanelSend.add(ButtonSend);
+
+        javax.swing.GroupLayout PanelSendLayout = new javax.swing.GroupLayout(PanelSend);
+        PanelSend.setLayout(PanelSendLayout);
+        PanelSendLayout.setHorizontalGroup(
+            PanelSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSendLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        PanelSendLayout.setVerticalGroup(
+            PanelSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSendLayout.createSequentialGroup()
+                .addGroup(PanelSendLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                    .addComponent(ButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout MainFrameLayout = new javax.swing.GroupLayout(MainFrame);
         MainFrame.setLayout(MainFrameLayout);
         MainFrameLayout.setHorizontalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
-            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(MainFrameLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainFrameLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(MainFrame, java.awt.BorderLayout.CENTER);
@@ -242,10 +266,6 @@ public class ChatFrame extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_TextFieldKeyTyped
 
-    public int getID(){
-        return contact.getID();
-    }
-    
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -255,7 +275,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JPanel PanelSend;
     private javax.swing.JScrollPane ScrollMessages;
     private javax.swing.JTextField TextField;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelScrollMessages;
     // End of variables declaration//GEN-END:variables
 
 }

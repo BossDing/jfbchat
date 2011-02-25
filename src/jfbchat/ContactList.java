@@ -25,11 +25,13 @@ package jfbchat;
 
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import jfbchat.debug.DebugMessage;
 
 /**
  * This class represent a contact list.
@@ -38,8 +40,9 @@ import java.util.Iterator;
 
 public class ContactList {
 
-    private ArrayList<Contact> contactList;
     private Connection connection;
+
+    private ArrayList<Contact> contactList;
     private Roster roster;
 
     public ContactList(Connection connection){
@@ -50,32 +53,43 @@ public class ContactList {
     }
 
     /**
-     * Get the contact list from the server populate the contactList and sort by
-     * name.
+     * Get the contact list from the server, populate the contactList and sort it
+     * by name.
      */
     
     public void getList(){
         try{
 
-
             roster = connection.getConnection().getRoster();
 
             Collection<RosterEntry> entries = roster.getEntries();
 
-            for (RosterEntry entry : entries) {
+            for (Iterator<RosterEntry> iter = entries.iterator(); iter.hasNext();){
+
+                RosterEntry nextEntry = iter.next();
+
                 contactList.add(new Contact(this.connection
-                                                ,entry
-                                                ,roster.getPresence(entry.getUser())));
+                                             ,nextEntry
+                                             ,roster.getPresence(
+                                                        nextEntry.getUser())));
             }
             
             sortByName();
         }
 
         catch (Exception e){
-            System.out.println(e.getMessage());
+
+            new DebugMessage("Cannot get the list: " + e.getMessage());
+
         }
 
     }
+
+    /**
+     * Gets the contact associated at position index
+     * @param index - the position of the contact in the ArrayList
+     * @return a contact
+     */
 
     public Contact getContact(int index){
 
@@ -85,8 +99,8 @@ public class ContactList {
 
     /**
      * Gets an address and returns the associated contact from the list
-     * @param a contact address
-     * @return a contact from the list
+     * @param A contact address
+     * @return The contact address associated to the address
      */
     public Contact getContact(String addr){
 
@@ -102,7 +116,7 @@ public class ContactList {
     }
 
     /**
-     * Gets a name and returns the associated contact from the list
+     * Gets a contact name and returns the associated contact from the list
      * @param A contact name
      * @return The contact in the list associated to the name
      */
@@ -121,40 +135,26 @@ public class ContactList {
 
     }
 
+    /**
+     *
+     * @return the iterato associated to this contact list
+     */
+
     public Iterator iterator(){
         return contactList.iterator();
     }
 
     /**
-     * Get an id from a position in the contactList
-     * @param index
-     * @return an id
+     * 
+     * 
+     * @return Ths size of this contact list
      */
-    public int getID(int index){
-
-        return contactList.get(index).getID();
-
-    }
-
-    /**
-     * Get an id from an address in the contactList
-     * @param a contact address
-     * @return an id
-     */
-
-    public int getID(String adr){
-        /*Return the ID of the relative address*/
-        
-        return getContact(adr).getID();
-
-    }
-
-    public int getSize(){
+     public int getSize(){
         return contactList.size();
     }
 
     /**
-     * Sorts the contactlist by name
+     * Sorts this contactlist by name
      */
 
     public void sortByName(){
@@ -192,6 +192,10 @@ public class ContactList {
         contactList = newList;
     }
 
+    /**
+     *
+     * @return the roster associated to this connection
+     */
     public Roster getRoster(){
         return roster;
     }

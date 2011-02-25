@@ -26,10 +26,15 @@ package jfbchat;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class ContactPanel extends javax.swing.JPanel {
+import jfbchat.resources.Imgs;
+import jfbchat.debug.DebugMessage;
 
-    private final String availableIcon = "/jfbchat/imgs/availableIcon.png";
-    private final String awayIcon = "/jfbchat/imgs/awayIcon.png";
+/**
+ * A JPanel that represent a contact in the ContactList
+ * @author Digitex (Giuseppe Federico - digtex3d@gmail.com)
+ */
+
+public class ContactPanel extends javax.swing.JPanel {
 
     private Contact contact;
     private Connection connection;
@@ -40,12 +45,12 @@ public class ContactPanel extends javax.swing.JPanel {
         this.contact = contact;
         this.connection = connection;
 
-
         initComponents();
 
         //Init the contact username
         contactLabel.setText(contact.getUser());
 
+        //Update the status of the contact in the JPanel
         update(contact);
     }
 
@@ -88,23 +93,24 @@ public class ContactPanel extends javax.swing.JPanel {
         add(stateIcon, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Update the status of the contact in the JPanel
+     * @param the contact associated to this JPanel
+     */
   
     public void update(Contact contact){
 
         this.contact = contact;
 
-
-
-          //If the contact is available change the icon
         if (contact.getPresence().isAway()){
 
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(awayIcon)));
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
             setVisible(true);
 
 
         }else {
             if ((contact.getPresence().isAvailable())){
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(availableIcon)));
+            stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
             setVisible(true);
             }
             else{
@@ -116,34 +122,29 @@ public class ContactPanel extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
-        
-
         if (contact.isActive()){
-            //If the chat is present in the chatmanager show it.
 
+            //If the chat is present in the chatmanager show it.
             if (contact.getChatFrame().isVisible() == false){
 
                   contact.getChatFrame().setVisible(true);
+
                         
             }
 
-            System.out.print("The chat is already present in the chat manager with id[");
-            System.out.println(contact.getID() + "]");
+            new DebugMessage("Contact clicked: The chat is already "
+                    + "present in the chat manager");
+            
         }
+        else{
 
-
-
-       else{
-            /*If the chat is NOT present in the chatmanager then create it and
-             * set the contact active for the chatmanager.
+            /**If the chat is NOT present in the chatmanager then add it and
+             * set the contact active true
              */
 
             contact.setActive(true);
             contact.addToChatManager();
-
             
-            //TODO: make with exceptions here..
-            //TODO: set the focus on the window and maximize it if minimized
         }
     }//GEN-LAST:event_formMouseClicked
 

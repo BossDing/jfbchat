@@ -23,21 +23,38 @@
 
 package jfbchat;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+ /**
+ * A JPanel that represent a incoming/sended message in the ChatFrame
+ * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
+ */
 
 public class PanelMessage extends javax.swing.JPanel {
+
+    private Date hour = new Date();
+    private SimpleDateFormat formatter;
+    private String formattedHour;
+
 
     /** Creates new form PanelMessage */
     public PanelMessage(boolean send,Contact contact, String text) {
 
+        //Time
+        this.formatter = new SimpleDateFormat("HH:mm");
+        this.formattedHour = formatter.format(hour);
+
         initComponents();
+
         if (send){
-            Labelfromto.setText("Me: ");
+            Labelfromto.setText(formattedHour + " Me: ");
         }
         else{
             if(text == null){
                 Labelfromto.setText(contact.getUser() + " is typing...");
             }else{
-            Labelfromto.setText(contact.getUser() + " says: ");
+            Labelfromto.setText(formattedHour + " " +contact.getUser() + " says: ");
             }
         }
 

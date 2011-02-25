@@ -45,11 +45,8 @@ public class DMessage {
 
     public DMessage(String value){
         this.value = value;
-
-    }
-
-    public void println(){
         System.out.println(value);
+
     }
 
     public String getValue(){

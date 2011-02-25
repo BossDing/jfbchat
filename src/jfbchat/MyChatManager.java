@@ -36,50 +36,45 @@
 
 package jfbchat;
 
-import jfbchat.frames.ChatFrame;
 import java.util.ArrayList;
+
+import jfbchat.frames.ChatFrame;
 import jfbchat.debug.DebugMessage;
 
+/**
+ * A ChatManager is a list with all the active conversations
+ * @author @author Digitex(digitex3d@gmail.com Giuseppe Federico)
+ */
 public class MyChatManager {
-    /* This class represent an array with all the active chats */
 
     private ArrayList<ChatFrame> chatManager;
     
-    
     public MyChatManager(){
+
         chatManager = new ArrayList();
-          }
-    
-
-    public boolean isActive(int index){
-
-        if (chatManager.get(index) == null){
-            
-            return false;
-        }
-        else{
-            
-            return true;
 
         }
 
-    }
-    
+    /**
+     * Add a ChatFrame to this chatManager
+     * @param A ChatFrame
+     */
     public void add(ChatFrame c){
         /* Add a chatframe at the specified index */
+
         try{
         
             chatManager.add(c);
-
             new DebugMessage("Add a ChatFrame at[" + chatManager.size()+"]");
+
         }
         catch(Exception e){
-            System.err.print(e.getMessage());    
+
+            new DebugMessage("Cannot add a ChatFrame to the ChatManager: "
+                              + e.getMessage()); 
 
         }
-
-        
-  }
+    }
 
     public int getSize(){
         return chatManager.size();
@@ -88,7 +83,5 @@ public class MyChatManager {
     public ChatFrame getChat(int index){
         return chatManager.get(index);
     }
-
-
 
 }

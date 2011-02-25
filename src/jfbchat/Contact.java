@@ -27,44 +27,68 @@ import jfbchat.frames.ChatFrame;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.RosterEntry;
 
-public class Contact {
-    private static int contactID = 0;
+/**
+ * Represents a contact
+ * @author Digitex(digitex3d@gmail.com Giuseppe Federico)
+ */
 
-    private int id;
-    private String name;
+public class Contact {
+
     private Connection connection;
+
+    private String name;
     private RosterEntry entry;
     private Presence presence;
     private boolean chatActive;
-    //Panel associated with the contact in Swing.
+
+    //Panel associated with the contact
     private ContactPanel contactPanel;
+
+    //ChatFrame associated with the contact
     private ChatFrame chatFrame;
 
     public Contact(Connection connection, RosterEntry entry, Presence presence){
-        this.entry = entry;
+        
         this.connection = connection;
+
+        this.entry = entry;
         this.chatActive = false;
         this.name =  entry.getName();
         this.presence = presence;
-        this.id = contactID++;
         this.contactPanel = new ContactPanel(connection, this);
         this.chatFrame = null;
 
-        }
+    }
 
+    /**
+     * Returns the name of the contact displayed in the contact list
+     * @return the name of the contact
+     */
     public String getUser(){
         /* returns the name of the contact displayed in the contact list*/
         return this.name;
 
     }
 
+    /**
+     * Get the ChatFrame associated to this contact
+     * @return the ChatFrame associated to the contact
+     */
     public ChatFrame getChatFrame(){
         return chatFrame;
     }
-    
+
+    /**
+     * Returns the presence associated to this contact
+     * @return the presence of the contact
+     */
     public Presence getPresence(){
         return this.presence;    }
 
+    /**
+     * Sets the presence of this contact
+     *
+     */
     public void setPresence(Presence p){
         this.presence = p;
     }
@@ -79,23 +103,50 @@ public class Contact {
         this.contactPanel.update(this);
     }
 
-    public String getAdress(){
-        return entry.getUser();   }
+    /**
+     * Get the Adress of the contact
+     * @return
+     */
 
+    public String getAdress(){
+        return entry.getUser();
+    }
+
+    /**
+     * Returns true if the contact is available and false if not
+     * @return a boolean
+     */
     public boolean isAvailable(){
         return presence.isAvailable();
     }
 
+    /**
+     * Returns true if a chat is active with this contact
+     * @return a boolean
+     */
     public boolean isActive(){
         return chatActive;
     }
+
+    /**
+     * Set it true if a chat with this contact is active and false if not
+     *
+     */
     public void setActive(boolean active){
         chatActive = active;
     }
-    
+
+    /**
+     * Returns the contact panel associated to this contact
+     * @return a ContactPanel
+     */
     public ContactPanel getContactPanel(){
         return contactPanel;
     }
+
+    /**
+     * Adds the ChatFrame associated to this contact to the ChatManager
+     */
 
     public void addToChatManager(){
 
@@ -104,18 +155,18 @@ public class Contact {
 
     }
 
+    /* 0.2.0
+     public String getGroups(){
+        return this.presence.toString();    
+     }*/
 
+    
+    
 
-    public String getGroups(){
-        return this.presence.toString();    }
-
-    public int getID(){
-        return id;
-    }
 
     @Override
     public String toString(){
-        return "Contact " + id+ " : "+ " name:"+ name + " presence: " + presence.toString();
+        return "Contact name: "+ name + " presence: " + presence.toString();
 
 
     }

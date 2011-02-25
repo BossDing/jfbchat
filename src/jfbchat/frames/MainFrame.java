@@ -24,18 +24,17 @@
 package jfbchat.frames;
 
 
-import jfbchat.frames.JFrameAbout;
-import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import org.jivesoftware.smack.packet.Presence;
-import java.awt.Toolkit;
 import java.util.Iterator;
 import jfbchat.Application;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.ContactList;
 import jfbchat.User;
-
-
+import jfbchat.resources.Imgs;
+import jfbchat.debug.DebugMessage;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -46,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Connection connection;
 
     //Icon image
-    private Image mainicon;
+    private ImageIcon mainicon;
 
     //Other Frames
     private JFrameAbout jFrameAbout;
@@ -63,9 +62,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         ComboBoxChoise = false;
 
+        try{
         //Load and set the icon.
-        Image icon = Toolkit.getDefaultToolkit().getImage(jfbchat.resources.Imgs.MAINICON);
-        setIconImage(icon);
+        setIconImage(new ImageIcon(Imgs.MAINICON).getImage());
+        new DebugMessage("Loading "+ new ImageIcon(Imgs.MAINICON).toString());
+        }catch(Exception e){
+            e.toString();
+        }
+
 
         //Hide the disconnect menu.
         MenuDisconnect.setVisible(false);
@@ -119,9 +123,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         ButtonLogin = new javax.swing.JButton();
         EntryPass = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
         jCheckBoxRemUser = new javax.swing.JCheckBox();
         jCheckBoxAuto = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         ContactListScrollPane = new javax.swing.JScrollPane();
         ContactListPanel = new javax.swing.JPanel();
         ComboBoxStatus = new javax.swing.JComboBox();
@@ -135,8 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JFBChat");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setIconImage(mainicon);
-        setMinimumSize(new java.awt.Dimension(300, 320));
+        setMinimumSize(new java.awt.Dimension(300, 420));
 
         jLabel1.setText("Username");
 
@@ -166,8 +170,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
-
         jCheckBoxRemUser.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jCheckBoxRemUser.setText("Remember username and password");
         jCheckBoxRemUser.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +181,12 @@ public class MainFrame extends javax.swing.JFrame {
         jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jCheckBoxAuto.setText("Auto login");
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
+        jPanel1.add(jLabel3, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
         LoginPanel.setLayout(LoginPanelLayout);
         LoginPanelLayout.setHorizontalGroup(
@@ -186,25 +194,22 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel3)
-                        .addGap(49, 49, 49))
-                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(EntryPass, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
-                    .addComponent(ButtonLogin))
+                    .addComponent(ButtonLogin)
+                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                 .addContainerGap())
         );
         LoginPanelLayout.setVerticalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EntryUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,7 +223,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxAuto)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonLogin)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         ContactListScrollPane.setBackground(new java.awt.Color(255, 255, 255));
@@ -255,11 +260,11 @@ public class MainFrame extends javax.swing.JFrame {
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
             .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                .addComponent(ContactListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
         );
 
         getContentPane().add(MainPanel, java.awt.BorderLayout.CENTER);
@@ -389,12 +394,12 @@ public class MainFrame extends javax.swing.JFrame {
             if (item.equals("Available")){
 
                 connection.getPresence().setMode(Presence.Mode.available);
-                 connection.updatePresence();
+                connection.updatePresence();
 
             }else if(item.equals("Away")){
 
                 connection.getPresence().setMode(Presence.Mode.away);
-                 connection.updatePresence();
+                connection.updatePresence();
 
             }else{
 
@@ -501,6 +506,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuChat;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
 }

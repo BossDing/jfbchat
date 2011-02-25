@@ -26,7 +26,10 @@ import jfbchat.resources.MySASLDigestMD5Mechanism;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 
-
+/**
+ * Connection configuration for facebook
+ * @author Digitex (Giuseppe Federico - digitex3d@gmail.com)
+ */
 public class FBConnectionConfiguration extends ConnectionConfiguration {
 
 

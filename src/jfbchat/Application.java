@@ -35,7 +35,7 @@ import javax.swing.*;
 
 public class Application {
 
-    public final static String VERSION = "0.01RC3";
+    public final static String VERSION = "0.1";
 
     private MainFrame mainFrame;
     private String os;

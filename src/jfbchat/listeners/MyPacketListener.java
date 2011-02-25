@@ -56,7 +56,7 @@ public class MyPacketListener implements PacketListener{
 
 
             new DebugMessage("processPacket: \"" + msg + "\""
-                    + " recived from "  + contact.getUser()).println();
+                    + " recived from "  + contact.getUser());
                                       
             if (contact.isActive()){
                     if (!(contact.getChatFrame().isVisible())){
@@ -73,7 +73,7 @@ public class MyPacketListener implements PacketListener{
                     contact.addToChatManager();
                     contact.getChatFrame().addMessageToPanel(false, contact, msg);
                     new DebugMessage("processPacket:Adding a new panel to "
-                            + "the chatframe :" + msg.getBody()).println();
+                            + "the chatframe :" + msg.getBody());
                 }
          
         }

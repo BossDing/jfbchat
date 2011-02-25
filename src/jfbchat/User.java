@@ -25,10 +25,14 @@ package jfbchat;
 
 import java.io.*;
 
-public class User {
+import jfbchat.resources.Options;
 
-    //TODO: modify the path
-    private final String CONFIGFILE = "config.cfg";
+/**
+ * A User
+ * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
+ */
+
+public class User {
 
     private File configFile;
     private String username;
@@ -39,16 +43,15 @@ public class User {
 
         this.username = username;
         this.password = password;
-        this.configFile = new File(CONFIGFILE);
+        this.configFile = new File( Options.CONFIGFILE );
 
     }
 
     public User(){
 
-
         this.username = null;
         this.password = null;
-        this.configFile = new File(CONFIGFILE);
+        this.configFile = new File( Options.CONFIGFILE );
 
     }
 
@@ -65,7 +68,7 @@ public class User {
 
         if(!configFile.exists()){
                 configFile.createNewFile();
-                System.out.println("New file  \"" + CONFIGFILE + "\" + has been created.");
+                System.out.println("New file  \"" + Options.CONFIGFILE + "\" + has been created.");
             }
 
     }
@@ -79,7 +82,7 @@ public class User {
             createConfigFile();
 
             // Open file
-            FileWriter fstream = new FileWriter(CONFIGFILE);
+            FileWriter fstream = new FileWriter( Options.CONFIGFILE );
 
             BufferedWriter out = new BufferedWriter(fstream);
             
@@ -107,7 +110,7 @@ public class User {
             createConfigFile();
 
             // Open file
-            FileWriter fstream = new FileWriter(CONFIGFILE);
+            FileWriter fstream = new FileWriter( Options.CONFIGFILE );
 
             BufferedWriter out = new BufferedWriter(fstream);
 

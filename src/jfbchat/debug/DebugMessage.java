@@ -44,10 +44,6 @@ public class DebugMessage extends DMessage{
 
     public DebugMessage(String value){
         super(value);
-    }
-
-    @Override
-    public void println(){
         if (Options.DEBUG_ENABLED){
             System.out.println("Debug: " + value);
         }

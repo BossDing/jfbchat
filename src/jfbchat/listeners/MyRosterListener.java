@@ -60,7 +60,7 @@ public class MyRosterListener implements RosterListener {
         try{
             Contact contact =  connection.getContactList().getContact(presence.getFrom());
             contact.setPresence(presence);
-            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
+            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".");
             contact.updateContactPanel();
         }catch (Exception e){
             System.err.print("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString());

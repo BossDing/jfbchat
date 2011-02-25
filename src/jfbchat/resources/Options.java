@@ -44,5 +44,6 @@ public class Options {
     public static final String SERVER = "chat.facebook.com";
     public static final String SERVICE_NAME = "chat.facebook.com";
     public static final boolean DEBUG_ENABLED = true;
+    public static final String CONFIGFILE = "config.cfg";
 
 }

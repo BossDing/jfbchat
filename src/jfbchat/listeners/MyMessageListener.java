@@ -44,7 +44,7 @@ public class MyMessageListener implements  MessageListener{
 
      public void processMessage(Chat chat, Message message) {
             panel.add(new PanelMessage(false, contact , message.getBody()));
-            new DebugMessage("Received message by the message listener: " + message.getBody()).println();
+            new DebugMessage("Received message by the message listener: " + message.getBody());
         
         if (contact.getChatFrame().isVisible() == false){
 
