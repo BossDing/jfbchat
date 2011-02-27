@@ -97,7 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
             EntryPass.setText(user.getSavedPass());
             ButtonLoginMouseClicked(null);
 
-        }else if(!(user.getSavedUser().isEmpty())){
+        }else if((user.getSavedUser() != null)){
 
             //Only remember user was pressed
             EntryUser.setText(user.getSavedUser());
@@ -229,6 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
         ContactListScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         ContactListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        ContactListPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContactListPanel.setBorder(null);
         ContactListPanel.setAlignmentY(0.0F);
         ContactListPanel.setLayout(new javax.swing.BoxLayout(ContactListPanel, javax.swing.BoxLayout.PAGE_AXIS));

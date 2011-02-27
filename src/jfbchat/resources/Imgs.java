@@ -41,7 +41,7 @@ package jfbchat.resources;
  */
 public class Imgs {
 
-    public static final String MAINICON = "imgs/icon1-48x48.gif";
+    public static final String MAINICON = "icon1-48x48.gif";
     public static final String AVAILABLE_ICON = "/jfbchat/imgs/availableIcon.png";
     public static final String AWAY_ICON = "/jfbchat/imgs/awayIcon.png";
 

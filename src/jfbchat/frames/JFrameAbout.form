@@ -74,7 +74,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#xa;   JFBChat is a small, simple, Java based application specially designed to&#xa;   offer you a Facebook chat client for your desktop.&#xa;&#xa;    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com&#xa;    Webpage: http://digitex3d.altervista.org"/>
+            <Property name="text" type="java.lang.String" value="&#xa;   JFBChat is a small, simple, Java based application specially designed to&#xa;   offer you a Facebook chat client for your desktop.&#xa;&#xa;    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com&#xa;    Webpage: http://www.digisoftware.org"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -50,7 +50,7 @@ public class JFrameAbout extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
         jTextArea1.setRows(5);
-        jTextArea1.setText("\n   JFBChat is a small, simple, Java based application specially designed to\n   offer you a Facebook chat client for your desktop.\n\n    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com\n    Webpage: http://digitex3d.altervista.org");
+        jTextArea1.setText("\n   JFBChat is a small, simple, Java based application specially designed to\n   offer you a Facebook chat client for your desktop.\n\n    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com\n    Webpage: http://www.digisoftware.org");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButtonClose.setText("Close");

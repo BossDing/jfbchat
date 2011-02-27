@@ -26,6 +26,7 @@ package jfbchat;
 import java.io.*;
 
 import jfbchat.resources.Options;
+import jfbchat.debug.DMessage;
 
 /**
  * A User
@@ -161,7 +162,7 @@ public class User {
          dis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            new DMessage("No config file found.").println();
         } catch (IOException e) {
            e.printStackTrace();
         }
@@ -202,7 +203,7 @@ public class User {
          dis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            new DMessage("No config file found.").println();
         } catch (IOException e) {
            e.printStackTrace();
         }
@@ -241,7 +242,7 @@ public class User {
          dis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            new DMessage("No config file found.").println();
         } catch (IOException e) {
            e.printStackTrace();
         }

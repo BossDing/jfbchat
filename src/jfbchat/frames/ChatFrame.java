@@ -50,7 +50,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private ChatManager chatmanager;
     private Chat newChat;
     private String contactAdr;
-    
+    private JScrollBar verticalScrollBar;
 
     /** Creates new form ChatFrame */
     public ChatFrame(Connection connection, Contact contact) {
@@ -66,16 +66,17 @@ public class ChatFrame extends javax.swing.JFrame {
         chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
+        this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
         this.setTitle("Conversation with "+ contact.getUser());
         
 
         
-        newChat = chatmanager.createChat(contactAdr , 
+        newChat = chatmanager.createChat(contactAdr ,
                                          new MyMessageListener(
-                                         contact, PanelMessages));
+                                         contact));
             
 
-           pack();
+           //pack();
            setVisible(true);
        
     }
@@ -101,6 +102,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 }
                 PanelMessages.add(new PanelMessage(false, contact , message.getBody()));
                 System.out.println("Ricevuto: " + message);
+                validate();
+                verticalScrollBar.setValue(verticalScrollBar.getMaximum());
             
             }
            });
@@ -112,6 +115,8 @@ public class ChatFrame extends javax.swing.JFrame {
     public void addMessageToPanel(boolean sr, Contact contact, Message message){
 
         PanelMessages.add(new PanelMessage(sr, contact, message.getBody()));
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        
 
     }
 
@@ -197,7 +202,7 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,22 +237,34 @@ public class ChatFrame extends javax.swing.JFrame {
             PanelMessages.add(new PanelMessage(true, null,
                                                texttosend));
 
-            pack();
+            TextField.setText("");                                               // Clear the TextField
+            System.out.println("Sending \""+ texttosend +"\" to " + contact.getUser());
 
             newChat.sendMessage(texttosend);
 
-            TextField.setText("");                                               // Clear the TextField
-            System.out.println("Sending \""+ texttosend +"\" to " + contact.getUser());
-            
-            /* Set the scrollbar at the maximum position for every incoming or 
+            //Validate the JFrame
+            validate();
+
+            /* Set the scrollbar at the maximum position for every incoming or
             outcoming message.message*/
-            JScrollBar verticalScrollBar = ScrollMessages.getVerticalScrollBar();
             verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+
             }
         }
         catch (XMPPException e) {
             System.out.println("Error Delivering block");
         }
+
+    }
+    /**
+     * Set the scrollbar at the maximum position for every incoming or
+     *  outcoming message.message
+     */
+    public void addPanelMessage(PanelMessage panel){
+
+        PanelMessages.add(panel);
+        validate();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
 
     }
 

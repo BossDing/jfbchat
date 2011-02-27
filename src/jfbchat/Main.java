@@ -23,15 +23,35 @@
 
 package jfbchat;
 
+
+import jfbchat.resources.*;
+
+
+
 public class Main {
  
 
     public static void main( String[] args ) {
 
+       if(Sys.NAME_OS.equals("Linux")){
+
+               Options.HOME_DIR = System.getProperty("user.home");
+               Options.CONFIGFILE = Options.HOME_DIR + "/.jfbchat/" + Options.CONFIGFILE;
+               
+       }
+          
+    
         System.out.println("Starting IM client");
         Application run = new Application();
+        
+     
+            
+            
+        }
    
     }
-}
+   
+
+
 
 

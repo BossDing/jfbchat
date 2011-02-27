@@ -39,12 +39,11 @@ package jfbchat.resources;
  *
  * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
  */
-public class Options {
-    public static final int PORT = 5222;
-    public static final String SERVER = "chat.facebook.com";
-    public static final String SERVICE_NAME = "chat.facebook.com";
-    public static boolean DEBUG_ENABLED = false;
-    public static String HOME_DIR = "";
-    public static String CONFIGFILE = "config.cfg";
+public class Sys {
+    public static final String NAME_OS = System.getProperty("os.name");
+    public static final String VERSION_OS = System.getProperty("os.version");
+    public static final String ARCH_OS = System.getProperty("os.arch");
+
+    
 
 }

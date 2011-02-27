@@ -35,23 +35,24 @@ public class MyMessageListener implements  MessageListener{
     //private final String RECEIVEDMSGWAV = "/media/3318a757-b8d0-406b-97db-4ced8ba7ccdf/Progetti/jfbchat/src/jfbchat/receivingmsg.wav";
     
     private Contact contact;
-    private JPanel panel;
+    
 
-    public MyMessageListener(Contact contact, JPanel panel){
+    public MyMessageListener(Contact contact){
         this.contact = contact;
-        this.panel = panel;
+        
     }
 
      public void processMessage(Chat chat, Message message) {
-            panel.add(new PanelMessage(false, contact , message.getBody()));
+            contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact , message.getBody()));
             new DebugMessage("Received message by the message listener: " + message.getBody());
-        
+            
+            
         if (contact.getChatFrame().isVisible() == false){
 
             contact.getChatFrame().setVisible(true);
 
         }
-        
+            
         
 
         //new AePlayWave(RECEIVEDMSGWAV).start();
