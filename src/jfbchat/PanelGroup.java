@@ -17,10 +17,13 @@ package jfbchat;
  */
 public class PanelGroup extends javax.swing.JPanel {
 
+    private Group group;
+
     /** Creates new form PanelGroup */
-    public PanelGroup(String name) {
+    public PanelGroup(String name, Group group) {
         initComponents();
         jLabelGroupName.setText(name);
+        this.group = group;
 
     }
 
@@ -39,6 +42,11 @@ public class PanelGroup extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -81,6 +89,13 @@ public class PanelGroup extends javax.swing.JPanel {
 
         add(jPanel2);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+            //this.group.setContactsVisible(!(this.group.isVisible()) );
+            
+
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

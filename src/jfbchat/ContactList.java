@@ -236,7 +236,7 @@ public class ContactList {
             return groups;
         }
         else{
-            new DebugMessage("Cannot get groups: The roster is not defined, maybe call getList first?");
+            new DebugMessage("ContactList.getGroups: Cannot get groups: The roster is not defined, maybe call getList first or no groups?");
             return null;
         }
     }
@@ -257,54 +257,68 @@ public class ContactList {
         ArrayList<Contact> temp_g = new ArrayList();
         //A temporaney arraylist for the contacts
         ArrayList<Contact> temp_c = new ArrayList();
+        
 
         temp_c = this.contactList;
 
-        if (getGroups() != null){
+        //Sort the groups by name
+
+        if ( !(roster.getGroups().isEmpty())){
+
+            //Read all the groups
             for(Iterator<RosterGroup> iter = roster.getGroups().iterator(); iter.hasNext();){
                 RosterGroup nextGroup = iter.next();
+
                 temp_g.clear();
 
                 //Read the contactList
                 for(Iterator<Contact> iterContact = temp_c.iterator(); iterContact.hasNext();){
                     Contact nextContact = iterContact.next();
                     
-
+                    //If the contact is in the group
                     if ( nextContact.isInGroup(nextGroup.getName())){
 
+                        //Add to the temporaney contact list
                         temp_g.add(nextContact);
 
+                        //Remove the contact from the temporaney group
                         nextContact.removeFromGroup(nextGroup.getName());
 
+                        //Remove the contact has no groups
                         if (!(nextContact.hasGroup())){
 
+                            //Remove it from the temporaney contact list
                             temp_c.remove(nextContact);
+
+                            //Update the iterator
                             iterContact = temp_c.iterator();
 
                         }
                     }
-
-
-                    
-
+                 
                 }
 
-             this.groups.add(new Group(connection, nextGroup.getName(), temp_g));
+            //Add the temporaney group to a new group
+            this.groups.add(new Group(connection, nextGroup.getName(), temp_g));
 
             }
 
             temp_g.clear();
+
+            //Fill the ungrouped list
             for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
                 Contact nextContact = iter.next();
 
-
+                    //If the contact has no group add to the temporaney group list
                     if (!(nextContact.hasGroup())){
+
                         temp_g.add(nextContact);
 
                     }
             }
 
-           this.groups.add(new Group(connection, "Other Friends", temp_g));
+            //Add the temporaney group to a new group
+            this.groups.add(new Group(connection, "Other Friends", temp_g));
         
 
         }else{

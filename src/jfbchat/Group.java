@@ -36,6 +36,7 @@
 package jfbchat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *  Represents a Facebook group list
@@ -47,13 +48,15 @@ public class Group extends ContactList{
 
     public String name;
     private PanelGroup panel;
+    private boolean isVisible;
 
     public Group(Connection connection ,String name, ArrayList<Contact> contactList){
 
         super(connection);
         this.name = name;
         this.contactList = contactList;
-        this.panel = new PanelGroup(name);
+        this.panel = new PanelGroup(name, this);
+        this.isVisible = true;
 
         sortByName();
 
@@ -75,9 +78,28 @@ public class Group extends ContactList{
      * @return The panel associated to the group
      */
     public PanelGroup getPanel(){
-        return new PanelGroup(name);
+        return panel;
+    }
+/* 0.3.0
+    public void setContactsVisible(boolean value){
+          for(Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();){
+                    Contact nextContact = iterContact.next();
+
+                    nextContact.getContactPanel().setVisible(value);
+                    nextContact.getContactPanel().validate();
+
+                    isVisible = value;
+                    System.out.print(nextContact);
+        }
+
     }
 
+
+
+    public boolean isVisible(){
+        return isVisible;
+    }
+*/
 
     
 

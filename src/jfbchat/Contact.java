@@ -24,12 +24,13 @@
 package jfbchat;
 
 import jfbchat.frames.ChatFrame;
+import jfbchat.debug.DebugMessage;
 
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
 
-import java.util.Collection;
+
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -76,15 +77,29 @@ public class Contact {
     private void init_groups(){
         int i = 0;
 
+
         if (!(entry.getGroups().isEmpty())){
 
-            for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();){
-                RosterGroup nextGroup = iter.next();
 
-                    this.groups.add(nextGroup.getName());
+            try{
+                for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();){
+                    RosterGroup nextGroup = iter.next();
+
+                        this.groups.add(nextGroup.getName());
+
+                 }
+            }
+            catch(Exception e){
+
+                new DebugMessage("Contact.init_groups: can't initialize groups :" + e.getMessage());
+
+            }
 
 
-             }
+        }else{
+
+            new DebugMessage( " Contact.init_groups: no groups --" + entry.getName());
+
         }
 }
 
@@ -170,7 +185,9 @@ public class Contact {
      * @return a ContactPanel
      */
     public ContactPanel getContactPanel(){
-        //TODO: caccia new
+        //TODO: 0.3.0
+        //return contactPanel;
+
         return new ContactPanel(connection, this);
     }
 
@@ -184,11 +201,6 @@ public class Contact {
         connection.getChatManager().add(chatFrame);
 
     }
-
-    /* 0.2.0
-     public String getGroups(){
-        return this.presence.toString();    
-     }*/
 
     
     /**
@@ -213,20 +225,31 @@ public class Contact {
 
     }
 
+    /**
+     * Remove a contact from groups
+     * @param A group
+     */
+
     public void removeFromGroup(String group){
         
        
         if(this.hasGroup()){
-            for (int i = 0; i < groups.size(); i++){
-                
+
+            for (int i = 0; i < groups.size(); i++){                
 
                 if (groups.get(i).equals(group) ){
+
                    groups.remove(i);
-                }
-                
+
+                }               
             }
         }
     }
+
+    /**
+     *
+     * @return true if the contact is in a group false if not
+     */
 
     public boolean hasGroup(){
 
