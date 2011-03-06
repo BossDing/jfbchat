@@ -25,6 +25,7 @@ package jfbchat;
 
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.RosterGroup;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -40,15 +41,17 @@ import jfbchat.debug.DebugMessage;
 
 public class ContactList {
 
-    private Connection connection;
+    protected Connection connection;
 
-    private ArrayList<Contact> contactList;
+    protected ArrayList<Contact> contactList;
     private Roster roster;
+    protected ArrayList<Group> groups;
 
     public ContactList(Connection connection){
-
-        this.contactList = new ArrayList();
         this.connection = connection;
+        this.contactList = new ArrayList();
+        this.groups = new ArrayList();
+        
       
     }
 
@@ -60,7 +63,9 @@ public class ContactList {
     public void getList(){
         try{
 
-            roster = connection.getConnection().getRoster();
+
+
+            this.roster = connection.getConnection().getRoster();
 
             Collection<RosterEntry> entries = roster.getEntries();
 
@@ -72,8 +77,10 @@ public class ContactList {
                                              ,nextEntry
                                              ,roster.getPresence(
                                                         nextEntry.getUser())));
-            }
+
+                
             
+            }
             sortByName();
         }
 
@@ -127,6 +134,24 @@ public class ContactList {
         for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
             Contact next = iter.next();
             if (next.getUser().equals(name)){
+               return next;
+           }
+        }
+
+        return null;
+
+    }
+    /**
+     * 
+     * @param A contact id
+     * @return  The contact in the list associated with the the id
+     */
+    public Contact getContactFromId(int id){
+
+
+        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
+            Contact next = iter.next();
+            if (next.getId() == id ){
                return next;
            }
         }
@@ -200,17 +225,116 @@ public class ContactList {
         return roster;
     }
 
+    /**
+     * This method gets all the groups in the contact list
+     * Should be called after getList
+     */
+
+    public ArrayList<Group> getGroups(){
+
+        if (groups != null){
+            return groups;
+        }
+        else{
+            new DebugMessage("Cannot get groups: The roster is not defined, maybe call getList first?");
+            return null;
+        }
+    }
+
+    public ArrayList<Contact> getContactList(){
+        return contactList;
+    }
+
+    /**
+     * This method defines the groups of a contactList
+     * For each group in the roster defines a new Group filled of all contacts
+     * in groups
+     *Should be called after getList
+     */
+    public void defineGroups(){
+
+        //A temporaney arraylist for the groups
+        ArrayList<Contact> temp_g = new ArrayList();
+        //A temporaney arraylist for the contacts
+        ArrayList<Contact> temp_c = new ArrayList();
+
+        temp_c = this.contactList;
+
+        if (getGroups() != null){
+            for(Iterator<RosterGroup> iter = roster.getGroups().iterator(); iter.hasNext();){
+                RosterGroup nextGroup = iter.next();
+                temp_g.clear();
+
+                //Read the contactList
+                for(Iterator<Contact> iterContact = temp_c.iterator(); iterContact.hasNext();){
+                    Contact nextContact = iterContact.next();
+                    
+
+                    if ( nextContact.isInGroup(nextGroup.getName())){
+
+                        temp_g.add(nextContact);
+
+                        nextContact.removeFromGroup(nextGroup.getName());
+
+                        if (!(nextContact.hasGroup())){
+
+                            temp_c.remove(nextContact);
+                            iterContact = temp_c.iterator();
+
+                        }
+                    }
+
+
+                    
+
+                }
+
+             this.groups.add(new Group(connection, nextGroup.getName(), temp_g));
+
+            }
+
+            temp_g.clear();
+            for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
+                Contact nextContact = iter.next();
+
+
+                    if (!(nextContact.hasGroup())){
+                        temp_g.add(nextContact);
+
+                    }
+            }
+
+           this.groups.add(new Group(connection, "Other Friends", temp_g));
+        
+
+        }else{
+
+            new DebugMessage("Cannot define groups: The roster is not defined, maybe call getList first or no groups...?");
+
+        }
+
+    }
+
+
+    /**
+     *
+     * @return True if the contact is in the contactlist and false if not.     */
+
+    public boolean isInList(int id){
+
+        if(getContactFromId(id) != null ){
+                return true;
+
+        }else{
+                return false;
+        }
+
+    }
+
     @Override
     public String toString(){
 
-        //TODO: iterator
-         String resu = "";
-
-         for(int i = 0; i < contactList.size(); i++){
-             resu +=  contactList.get(i).toString();
-         }
-
-         return resu;
+        return contactList.toString();
 
     }
 

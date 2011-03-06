@@ -33,18 +33,56 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat.resources;
+package jfbchat;
+
+import java.util.ArrayList;
 
 /**
+ *  Represents a Facebook group list
  *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ * @author Digitex - Giuseppe Federico (digitex3d@gmail.com)
  */
-public class Options {
-    public static final int PORT = 5222;
-    public static final String SERVER = "chat.facebook.com";
-    public static final String SERVICE_NAME = "chat.facebook.com";
-    public static boolean DEBUG_ENABLED = true;
-    public static String HOME_DIR = "";
-    public static String CONFIGFILE = "config.cfg";
+
+public class Group extends ContactList{
+
+    public String name;
+    private PanelGroup panel;
+
+    public Group(Connection connection ,String name, ArrayList<Contact> contactList){
+
+        super(connection);
+        this.name = name;
+        this.contactList = contactList;
+        this.panel = new PanelGroup(name);
+
+        sortByName();
+
+        
+
+    }
+
+    /**
+     *
+     * @return The name of the group
+     */
+
+    public String getName(){
+        return this.name;
+    }
+
+    /**
+     *
+     * @return The panel associated to the group
+     */
+    public PanelGroup getPanel(){
+        return new PanelGroup(name);
+    }
+
+
+    
+
+
+
+   
 
 }

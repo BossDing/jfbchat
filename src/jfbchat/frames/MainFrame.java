@@ -35,6 +35,7 @@ import jfbchat.ContactList;
 import jfbchat.User;
 import jfbchat.resources.Imgs;
 import jfbchat.debug.DebugMessage;
+import jfbchat.Group;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -343,7 +344,15 @@ public class MainFrame extends javax.swing.JFrame {
             checkBoxStatus();
             
             //Populate the contact list
-            addContactsToPanel(connection.getContactList());
+            for(Iterator<Group> iterGroup = connection.getContactList().getGroups().iterator(); iterGroup.hasNext();){
+                Group nextGroup = iterGroup.next();
+
+                ContactListPanel.add(nextGroup.getPanel());
+                                
+                addContactsToPanel(nextGroup);
+
+
+            }
 
             //Show the contactlist in the MainFrame
             setContactListVisible(true);
@@ -354,10 +363,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void addContactsToPanel(ContactList contactList){
         //Populate the ContactListPanel with all the contacts
 
-        for(Iterator<Contact> iter = connection.getContactList().iterator(); iter.hasNext();){
+        for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
                 Contact next = iter.next();
                 ContactListPanel.add(next.getContactPanel());
-                        }
+                
+                }
     }
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed

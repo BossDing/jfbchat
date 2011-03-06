@@ -64,6 +64,7 @@ public class ContactPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         contactLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         stateIcon = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,18 +80,38 @@ public class ContactPanel extends javax.swing.JPanel {
                 formMouseEntered(evt);
             }
         });
-        setLayout(new java.awt.BorderLayout());
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         contactLabel.setBackground(new java.awt.Color(255, 255, 255));
-        contactLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        contactLabel.setForeground(new java.awt.Color(109, 132, 180));
+        contactLabel.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        contactLabel.setForeground(new java.awt.Color(51, 102, 204));
         contactLabel.setText("Cotact");
         contactLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(contactLabel, java.awt.BorderLayout.CENTER);
+        add(contactLabel);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         stateIcon.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         stateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/availableIcon.png"))); // NOI18N
-        add(stateIcon, java.awt.BorderLayout.LINE_END);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(stateIcon)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(stateIcon)
+                .addContainerGap())
+        );
+
+        add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -149,18 +170,24 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        this.setBackground(new Color(109,132,180));
+        
+        this.setBackground(new Color(51,102,204));
+        jPanel1.setBackground(new Color(51,102,204));
+
         contactLabel.setForeground(Color.white);
+
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         this.setBackground(Color.white);
-        contactLabel.setForeground(new Color(109,132,180));
+        jPanel1.setBackground(Color.white);
+        contactLabel.setForeground(new Color(51,102,204));
     }//GEN-LAST:event_formMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel contactLabel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel stateIcon;
     // End of variables declaration//GEN-END:variables
 

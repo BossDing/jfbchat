@@ -24,8 +24,14 @@
 package jfbchat;
 
 import jfbchat.frames.ChatFrame;
+
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.RosterGroup;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * Represents a contact
@@ -33,6 +39,7 @@ import org.jivesoftware.smack.RosterEntry;
  */
 
 public class Contact {
+    private static int contactId = 0;
 
     private Connection connection;
 
@@ -40,7 +47,8 @@ public class Contact {
     private RosterEntry entry;
     private Presence presence;
     private boolean chatActive;
-
+    private int id;
+    private ArrayList<String> groups;
     //Panel associated with the contact
     private ContactPanel contactPanel;
 
@@ -57,8 +65,29 @@ public class Contact {
         this.presence = presence;
         this.contactPanel = new ContactPanel(connection, this);
         this.chatFrame = null;
+        this.groups = new ArrayList();
+        init_groups();
 
     }
+
+    /**
+     * initialize the groups of the contact
+     */
+    private void init_groups(){
+        int i = 0;
+
+        if (!(entry.getGroups().isEmpty())){
+
+            for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();){
+                RosterGroup nextGroup = iter.next();
+
+                    this.groups.add(nextGroup.getName());
+
+
+             }
+        }
+}
+
 
     /**
      * Returns the name of the contact displayed in the contact list
@@ -141,7 +170,8 @@ public class Contact {
      * @return a ContactPanel
      */
     public ContactPanel getContactPanel(){
-        return contactPanel;
+        //TODO: caccia new
+        return new ContactPanel(connection, this);
     }
 
     /**
@@ -159,6 +189,61 @@ public class Contact {
      public String getGroups(){
         return this.presence.toString();    
      }*/
+
+    
+    /**
+     *
+     * @param A group
+     * @return True if the contact is in the group, false if not
+     */
+    public boolean isInGroup(String group){
+        if(hasGroup()){
+            for (Iterator<String> iter = groups.iterator() ; iter.hasNext();){
+                String nextGroup = iter.next();
+                if (nextGroup.equals(group)){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public void removeFromGroup(String group){
+        
+       
+        if(this.hasGroup()){
+            for (int i = 0; i < groups.size(); i++){
+                
+
+                if (groups.get(i).equals(group) ){
+                   groups.remove(i);
+                }
+                
+            }
+        }
+    }
+
+    public boolean hasGroup(){
+
+        if ( this.groups.isEmpty() ){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     *
+     * @return The id associated to the contact
+     */
+    public int getId(){
+        return this.id;
+    }
 
     
     
