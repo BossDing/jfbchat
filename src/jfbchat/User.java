@@ -38,6 +38,7 @@ public class User {
     private File configFile;
     private String username;
     private String password;
+    private MyVCard vCard;
 
     public User(String username, String password){
 
@@ -45,6 +46,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.configFile = new File( Options.CONFIGFILE );
+        this.vCard = new MyVCard();
 
     }
 
@@ -54,6 +56,10 @@ public class User {
         this.password = null;
         this.configFile = new File( Options.CONFIGFILE );
 
+    }
+
+    public String getNickName(){
+        return vCard.getNickName();
     }
 
     public String getPassword(){

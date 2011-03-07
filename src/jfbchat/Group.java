@@ -38,6 +38,7 @@ package jfbchat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  *  Represents a Facebook group list
  *
@@ -50,7 +51,7 @@ public class Group extends ContactList{
     private PanelGroup panel;
     private boolean isVisible;
 
-    public Group(Connection connection ,String name, ArrayList<Contact> contactList){
+    public Group(Connection connection ,String name ,ArrayList<Contact> contactList){
 
         super(connection);
         this.name = name;
@@ -80,31 +81,44 @@ public class Group extends ContactList{
     public PanelGroup getPanel(){
         return panel;
     }
-/* 0.3.0
-    public void setContactsVisible(boolean value){
-          for(Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();){
-                    Contact nextContact = iterContact.next();
 
-                    nextContact.getContactPanel().setVisible(value);
-                    nextContact.getContactPanel().validate();
+    /**
+     * show the contacts of this group
+     *
+     */
 
-                    isVisible = value;
-                    System.out.print(nextContact);
+     public void showContacts(){
+
+         for(Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();){
+                        Contact nextContact = iterContact.next();
+
+                        //Update the contact panel to normal status
+                        nextContact.getContactPanelbyGroup(name).update(nextContact);
+
+                        this.isVisible = true;
+
         }
-
     }
 
+      /**
+     * hide the contacts of this group
+     *
+     */
+     public void hideContacts(){
 
+         for(Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();){
+                        Contact nextContact = iterContact.next();
+
+                        //Hode the contact
+                        nextContact.getContactPanelbyGroup(name).setVisible(false);
+                        nextContact.getContactPanelbyGroup(name).validate();
+                        
+                        this.isVisible = false;
+        }
+    }
 
     public boolean isVisible(){
         return isVisible;
     }
-*/
-
-    
-
-
-
-   
 
 }

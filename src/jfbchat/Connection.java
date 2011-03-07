@@ -91,11 +91,7 @@ public class Connection {
             contactList.getList();
 
             contactList.defineGroups();
-
-            System.out.println(contactList.getGroups().get(2).getName());
-            System.out.println(contactList.getGroups().get(2).getContactList().toString());
-            System.out.println(contactList.getGroups().get(4).getName());
-            System.out.println(contactList.getGroups().get(4).getContactList().toString());
+            
             //Start listen to incoming packets
             startPacketListening();
 

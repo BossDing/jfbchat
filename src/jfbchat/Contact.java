@@ -51,10 +51,12 @@ public class Contact {
     private int id;
     private ArrayList<String> groups;
     //Panel associated with the contact
-    private ContactPanel contactPanel;
+    private ArrayList<PanelContact> contactPanels;
 
     //ChatFrame associated with the contact
     private ChatFrame chatFrame;
+
+    private MyVCard vCard;
 
     public Contact(Connection connection, RosterEntry entry, Presence presence){
         
@@ -64,9 +66,10 @@ public class Contact {
         this.chatActive = false;
         this.name =  entry.getName();
         this.presence = presence;
-        this.contactPanel = new ContactPanel(connection, this);
+        this.contactPanels = new ArrayList();
         this.chatFrame = null;
         this.groups = new ArrayList();
+        this.vCard = new MyVCard(connection, this);
         init_groups();
 
     }
@@ -86,7 +89,7 @@ public class Contact {
                     RosterGroup nextGroup = iter.next();
 
                         this.groups.add(nextGroup.getName());
-
+                        this.contactPanels.add(new PanelContact(connection, this, nextGroup.getName()));
                  }
             }
             catch(Exception e){
@@ -98,6 +101,7 @@ public class Contact {
 
         }else{
 
+            this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
             new DebugMessage( " Contact.init_groups: no groups --" + entry.getName());
 
         }
@@ -138,14 +142,30 @@ public class Contact {
     }
 
     /**
-     * Update the panel associated to the contact, normally called after
+     * Update the contactPanels associated to the contact, normally called after
      * some contact changes.
      */
     
-    public void updateContactPanel(){
-        
-        this.contactPanel.update(this);
-    }
+    public void updateContactPanels(){
+
+        try{
+            if ( !(this.contactPanels.isEmpty()) ){
+
+                for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
+                    PanelContact nextContactPanel = iterContactPanel.next();
+
+                    nextContactPanel.update(this);
+
+                }
+            }
+        }catch(Exception e){
+
+           new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
+
+        }
+            
+   }
+
 
     /**
      * Get the Adress of the contact
@@ -182,13 +202,49 @@ public class Contact {
 
     /**
      * Returns the contact panel associated to this contact
-     * @return a ContactPanel
+     * @return a PanelContact
      */
-    public ContactPanel getContactPanel(){
-        //TODO: 0.3.0
-        //return contactPanel;
 
-        return new ContactPanel(connection, this);
+    /**
+     * Add a contactPanel to the contactPanels ArrayList
+     * @param A contactPanel
+     */
+    public void addContactPanel(PanelContact contactPanel){
+
+        this.contactPanels.add(contactPanel);
+
+    }
+
+
+    public ArrayList<PanelContact> getContactPanel(){
+        
+        return contactPanels;
+
+    }
+
+    public PanelContact getContactPanelbyGroup(String groupName){
+
+         try{
+            if ( !(this.contactPanels.isEmpty()) ){
+
+                for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
+                    PanelContact nextContactPanel = iterContactPanel.next();
+
+                    if (nextContactPanel.getGroupName().equals(groupName)){
+
+                        return nextContactPanel;
+                    }
+                }
+
+            }
+        }catch(Exception e){
+
+           new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
+
+        }
+
+        return null;
+
     }
 
     /**
@@ -268,6 +324,10 @@ public class Contact {
         return this.id;
     }
 
+    public MyVCard getVCard(){
+        return vCard;
+
+    }
     
     
 
@@ -278,6 +338,8 @@ public class Contact {
 
 
     }
+
+
 
 
 }

@@ -33,47 +33,82 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat.listeners;
+package jfbchat;
 
-import java.util.Collection;
-import jfbchat.Connection;
-import jfbchat.Contact;
-import org.jivesoftware.smack.RosterListener;
-import org.jivesoftware.smack.packet.Presence;
-import jfbchat.debug.DMessage;
+import jfbchat.debug.DebugMessage;
 
-public class MyRosterListener implements RosterListener {
+import org.jivesoftware.smackx.packet.VCard;
+import org.jivesoftware.smack.XMPPException;
+
+import javax.swing.ImageIcon;
+/**
+ *
+ * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ */
+public class MyVCard {
+    
+    private VCard vCard;
+
+    private ImageIcon avatar;    
+    private Contact contact;
     private Connection connection;
+    
+    public MyVCard(Connection connection, Contact contact){
+        
+       this.vCard = new VCard();
+       this.contact = contact;
+       this.connection = connection;
+       
+       
 
-    public MyRosterListener(Connection connection){
-
-        this.connection = connection;
     }
 
+    public MyVCard(){
 
+       this.vCard = new VCard();
 
+    }
+    /**
+     * Load the VCard and the avatar of the contact in a temporaney byte array and store it
+     * in avatar a ImageIcon
+     */
+    public void loadAvatar(){
 
-    public void entriesDeleted(Collection<String> addresses) {}
-    public void entriesAdded(Collection<String> addresses) {}
-    public void entriesUpdated(Collection<String> addresses) {}
-    public void presenceChanged(Presence presence) {
+        byte[] avatarBytes;
+
         try{
-            Contact contact =  connection.getContactList().getContact(presence.getFrom());
-            contact.setPresence(presence);
-            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-            contact.updateContactPanels();
-            
-            //If a chat with the contact is already opened update his status
-            if(contact.getChatFrame() != null){
-                contact.getChatFrame().update();
-            }
 
-        }catch (Exception e){
-            System.err.println("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString() + " " + e.getMessage());
-                  }
+            vCard.load(connection.getConnection(), contact.getAdress());
+
+        }catch(XMPPException e){
+
+            new DebugMessage("MyVCard: Couldn't load the VCard of " + contact.getUser() + " : " + e.getMessage());
+
+        }
+
+        try{
+
+            avatarBytes = vCard.getAvatar();
+            this.avatar = new ImageIcon(avatarBytes);
+
+        }catch(Exception e){
+
+            new DebugMessage("MyVCard.loadAvatar: Couldn't load the Avatar of " + contact.getUser() + " : " + e.getMessage());
+
+        }
+        
 
     }
 
+    public ImageIcon getAvatar(){
 
+        return this.avatar;
+
+    }
+
+    public String getNickName(){
+        
+        return vCard.getNickName();
+    }
 
 }
