@@ -335,24 +335,10 @@ public class ContactList {
             this.groups.add(new Group(connection, nextGroup.getName(), temp_g));
 
             }
-
-            temp_g.clear();
-
-            //Fill the ungrouped list
-            for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
-                Contact nextContact = iter.next();
-
-                    //If the contact has no group add to the temporaney group list
-                    if (!(nextContact.hasGroup())){
-
-                        temp_g.add(nextContact);
-
-                    }
+            if( ! (temp_c.isEmpty())){
+                //Add the temporaney group to a new group
+                this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
             }
-
-            //Add the temporaney group to a new group
-            this.groups.add(new Group(connection, "Other Friends", temp_g));
-        
 
         }else{
 
