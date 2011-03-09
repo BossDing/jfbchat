@@ -181,8 +181,11 @@ public class Connection {
         if (connection.isConnected()){
             try{
 
+                //Disconnect from the server
                 connection.disconnect(new Presence(Presence.Type.unavailable));
                 connection.disconnect();
+
+
             }
             catch (Exception e){
 

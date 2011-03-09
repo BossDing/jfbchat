@@ -84,4 +84,12 @@ public class MyChatManager {
         return chatManager.get(index);
     }
 
+    /**
+     * This method should be called when the user disconnets
+     * clear the chatManager array
+     */
+    public void clear(){
+        this.chatManager.clear();
+    }
+
 }

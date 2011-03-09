@@ -26,21 +26,17 @@ package jfbchat.frames;
 
 
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
+
 
 import java.awt.CardLayout;
 import java.awt.Desktop;
-import java.awt.EventQueue;
 
 import org.jivesoftware.smack.packet.Presence;
 import java.util.Iterator;
-import jfbchat.Application;
-import jfbchat.Connection;
-import jfbchat.Contact;
-import jfbchat.User;
-import jfbchat.resources.Imgs;
+import jfbchat.*;
 import jfbchat.debug.DebugMessage;
-import jfbchat.Group;
+import jfbchat.resources.Imgs;
+
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -144,11 +140,9 @@ public class MainFrame extends javax.swing.JFrame {
                 setContactListVisible(true);
 
                 }
-            }else{
-
-                loginPanelComponentsSetEnabled(true);
-                
             }
+        
+        loginPanelComponentsSetEnabled(true);
      }
  };
 
@@ -436,6 +430,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         ContactListScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         ContactListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ContactListScrollPane.setMinimumSize(new java.awt.Dimension(0, 0));
 
         ContactListPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContactListPanel.setBorder(null);
@@ -539,12 +534,15 @@ public class MainFrame extends javax.swing.JFrame {
                 try{
                     //Login to the chat
                     javax.swing.SwingUtilities.invokeLater(loginRunnable);
-
+                    
+                    
                 }catch(Exception e){
 
                     new DebugMessage("ButtnLoginMouseThread: Can't invoke runnable thread");
 
                 }
+
+                
 
     }//GEN-LAST:event_ButtonLoginMouseClicked
 
@@ -625,8 +623,14 @@ public class MainFrame extends javax.swing.JFrame {
 
             }else{
 
-                setContactListVisible(false);
+              
+                //TODO: make the contactListPanel "addable" in order to manage more connections in the same time
+                //Remove everything in the contactlist
+                this.ContactListPanel.removeAll();
+
                 connection.closeConnection();
+                
+                
             }
         }
     }//GEN-LAST:event_ComboBoxStatusItemStateChanged
@@ -643,10 +647,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
         else{
 
-            ContactListScrollPane.setVisible(false);
-            ContactListPanel.setVisible(false);
-            LoginPanel.setVisible(true);
+            //Change the card in the MainPanel
+            CardLayout cl = (CardLayout)(MainPanel.getLayout());
+            cl.show(MainPanel, "loginPanel");
+
             MenuDisconnect.setVisible(false);
+            loginPanelComponentsSetEnabled(true);
 
         }
     }
@@ -680,13 +686,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void MenuDisconnectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuDisconnectMousePressed
         try{
             if(connection.isConnected()){
+
                 connection.closeConnection();
+
                 setContactListVisible(false);
+
+                this.ContactListPanel.removeAll();
             }
         }
         catch (NullPointerException e){
-            System.out.println("Nothing to disconnect...");
-        }        // TODO add your handling code here:
+            new DebugMessage("MainFrame.MenuDisconnectMousePressed : " + e.getMessage() );
+        }     
     }//GEN-LAST:event_MenuDisconnectMousePressed
 
     private void ComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusActionPerformed

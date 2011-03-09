@@ -80,7 +80,7 @@ public class PanelContact extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
-        setMinimumSize(new java.awt.Dimension(295, 22));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -104,7 +104,7 @@ public class PanelContact extends javax.swing.JPanel {
         contactPanel.setLayout(new javax.swing.BoxLayout(contactPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         contactLabel.setBackground(new java.awt.Color(255, 255, 255));
-        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14));
+        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         contactLabel.setForeground(new java.awt.Color(51, 102, 204));
         contactLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         contactLabel.setText("Cotact");
@@ -112,26 +112,11 @@ public class PanelContact extends javax.swing.JPanel {
         contactPanel.add(contactLabel);
 
         iconPanel.setBackground(new java.awt.Color(255, 255, 255));
+        iconPanel.setLayout(new java.awt.BorderLayout());
 
-        stateIcon.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        stateIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         stateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/availableIcon.png"))); // NOI18N
-
-        javax.swing.GroupLayout iconPanelLayout = new javax.swing.GroupLayout(iconPanel);
-        iconPanel.setLayout(iconPanelLayout);
-        iconPanelLayout.setHorizontalGroup(
-            iconPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(iconPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(stateIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        iconPanelLayout.setVerticalGroup(
-            iconPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(iconPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(stateIcon)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
+        iconPanel.add(stateIcon, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -142,15 +127,17 @@ public class PanelContact extends javax.swing.JPanel {
                 .addComponent(contactAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contactPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(iconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(iconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(iconPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contactPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-            .addComponent(contactAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .addComponent(contactPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(contactAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(iconPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(mainPanel);

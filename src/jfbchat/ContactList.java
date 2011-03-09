@@ -363,6 +363,17 @@ public class ContactList {
         }
 
     }
+    /**
+     * This method should be called when the user disconnects.
+     * Clear all the instance variables
+     */
+    public void clear(){
+
+        this.contactList.clear();
+        this.groups.clear();
+
+
+    }
 
     @Override
     public String toString(){
