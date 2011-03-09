@@ -21,10 +21,12 @@
   *
   */
 
-package jfbchat;
+package jfbchat.panels;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import jfbchat.Connection;
+import jfbchat.Contact;
 
 import jfbchat.resources.Imgs;
 import jfbchat.debug.DebugMessage;
@@ -102,7 +104,7 @@ public class PanelContact extends javax.swing.JPanel {
         contactPanel.setLayout(new javax.swing.BoxLayout(contactPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         contactLabel.setBackground(new java.awt.Color(255, 255, 255));
-        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14));
         contactLabel.setForeground(new java.awt.Color(51, 102, 204));
         contactLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         contactLabel.setText("Cotact");

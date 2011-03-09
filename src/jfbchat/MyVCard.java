@@ -36,6 +36,7 @@
 package jfbchat;
 
 import jfbchat.debug.DebugMessage;
+import jfbchat.resources.Options;
 
 import org.jivesoftware.smackx.packet.VCard;
 import org.jivesoftware.smack.XMPPException;
@@ -73,31 +74,31 @@ public class MyVCard {
      * in avatar a ImageIcon
      */
     public void loadAvatar(){
+        if(Options.DownloadImages){
+            byte[] avatarBytes;
 
-        byte[] avatarBytes;
+            try{
 
-        try{
+                vCard.load(connection.getConnection(), contact.getAdress());
 
-            vCard.load(connection.getConnection(), contact.getAdress());
+            }catch(XMPPException e){
 
-        }catch(XMPPException e){
+                new DebugMessage("MyVCard: Couldn't load the VCard of " + contact.getUser() + " : " + e.getMessage());
 
-            new DebugMessage("MyVCard: Couldn't load the VCard of " + contact.getUser() + " : " + e.getMessage());
+            }
 
-        }
+            try{
 
-        try{
+                avatarBytes = vCard.getAvatar();
+                this.avatar = new ImageIcon(avatarBytes);
 
-            avatarBytes = vCard.getAvatar();
-            this.avatar = new ImageIcon(avatarBytes);
+            }catch(Exception e){
 
-        }catch(Exception e){
+                new DebugMessage("MyVCard.loadAvatar: Couldn't load the Avatar of " + contact.getUser() + " : " + e.getMessage());
 
-            new DebugMessage("MyVCard.loadAvatar: Couldn't load the Avatar of " + contact.getUser() + " : " + e.getMessage());
-
-        }
+            }
         
-
+        }
     }
 
     public ImageIcon getAvatar(){

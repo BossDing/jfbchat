@@ -46,5 +46,7 @@ public class Options {
     public static boolean DEBUG_ENABLED = true;
     public static String HOME_DIR = "";
     public static String CONFIGFILE = "config.cfg";
+    public static boolean ShowEmptyGroups = false;
+    public static boolean DownloadImages = false;
 
 }

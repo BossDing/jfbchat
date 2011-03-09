@@ -21,8 +21,8 @@
   *
   */
 
-package jfbchat;
-import jfbchat.resources.MySASLDigestMD5Mechanism;
+package jfbchat.resources;
+
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 
@@ -33,7 +33,7 @@ import org.jivesoftware.smack.SASLAuthentication;
 public class FBConnectionConfiguration extends ConnectionConfiguration {
 
 
-    FBConnectionConfiguration(String host, int port, String domain){
+    public FBConnectionConfiguration(String host, int port, String domain){
         super(host, port,domain);
         //this.setSecurityMode(SecurityMode.disabled);
         SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);

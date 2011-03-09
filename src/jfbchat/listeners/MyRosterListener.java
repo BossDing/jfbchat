@@ -59,9 +59,13 @@ public class MyRosterListener implements RosterListener {
     public void presenceChanged(Presence presence) {
         try{
             Contact contact =  connection.getContactList().getContact(presence.getFrom());
+            System.out.println("By roster " + contact);
             contact.setPresence(presence);
             new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
             contact.updateContactPanels();
+
+            //TODO: update only the group associated to the contact 
+            connection.getContactList().updateGroupPanels();
             
             //If a chat with the contact is already opened update his status
             if(contact.getChatFrame() != null){

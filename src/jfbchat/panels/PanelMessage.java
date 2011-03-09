@@ -21,10 +21,11 @@
   *
   */
 
-package jfbchat;
+package jfbchat.panels;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import jfbchat.Contact;
 
  /**
  * A JPanel that represent a incoming/sended message in the ChatFrame

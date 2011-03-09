@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import jfbchat.debug.DebugMessage;
 
@@ -111,12 +112,25 @@ public class ContactList {
      */
     public Contact getContact(String addr){
 
-        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
-            Contact next = iter.next();
-           if (next.getAdress().equals(addr)){
-               return next;
-           }
+        if(!(contactList.isEmpty())){
+            
+
+            Iterator<Contact> iter = contactList.iterator();
+
+            while(iter.hasNext()){
+         
+                Contact nextContact = iter.next();
+                
+
+                if (nextContact.getAdress().equals(addr)){
+                    
+                   return nextContact;
+
+               }
+            }
         }
+
+        new DebugMessage("ContactList.getContact : Cannot find contact " + addr + " in the contact list.");
 
         return null;
 
@@ -138,6 +152,7 @@ public class ContactList {
            }
         }
 
+        new DebugMessage("ContactList.getContactFromName : Cannot find name " + name + " in the contact list.");
         return null;
 
     }
@@ -156,6 +171,7 @@ public class ContactList {
            }
         }
 
+        new DebugMessage("ContactList.getContactFromId : Cannot find id " + id + " in the contact list.");
         return null;
 
     }
@@ -251,15 +267,32 @@ public class ContactList {
      * in groups
      *Should be called after getList
      */
+
+    public void updateGroupPanels(){
+        if( !(groups.isEmpty())){
+
+              for(Iterator<Group> iter = groups.iterator(); iter.hasNext();){
+                    Group nextGroup = iter.next();
+
+                        //If the contact has no group add to the temporaney group list
+
+
+                            nextGroup.getPanel().updatePanel();
+
+
+                }
+
+        }
+    }
+
     public void defineGroups(){
 
         //A temporaney arraylist for the groups
         ArrayList<Contact> temp_g = new ArrayList();
         //A temporaney arraylist for the contacts
-        ArrayList<Contact> temp_c = new ArrayList();
+        List<Contact> temp_c = ((List) ((ArrayList) contactList).clone());
         
 
-        temp_c = this.contactList;
 
         //Sort the groups by name
 

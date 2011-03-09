@@ -23,6 +23,7 @@
 
 package jfbchat;
 
+import jfbchat.panels.PanelContact;
 import jfbchat.frames.ChatFrame;
 import jfbchat.debug.DebugMessage;
 
@@ -115,6 +116,11 @@ public class Contact {
     public String getUser(){
         /* returns the name of the contact displayed in the contact list*/
         return this.name;
+
+    }
+
+    public ArrayList<String> getGroups(){
+        return this.groups;
 
     }
 

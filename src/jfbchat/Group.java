@@ -35,6 +35,9 @@
 
 package jfbchat;
 
+import jfbchat.panels.PanelGroup;
+import jfbchat.debug.DebugMessage;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -99,7 +102,38 @@ public class Group extends ContactList{
 
         }
     }
+/**
+     *
+     * @return true if the group has at least a contact availalbe.
+     */
 
+    public boolean hasConnectedContacts(){
+
+
+        //If the contact list is not empty
+        if( !(this.contactList.isEmpty()) ){
+
+            Iterator<Contact> iterContact = this.contactList.iterator();
+
+            while(iterContact.hasNext()){
+
+                Contact nextContact = iterContact.next();
+
+                //If a available contact has been found in the group return true
+                if(nextContact.isAvailable()){
+                    return true;
+
+                }
+
+            }
+
+        }
+
+        new DebugMessage("Group.hasConnectedContacts() : No connected contacts");
+
+        return false;
+
+    }
       /**
      * hide the contacts of this group
      *

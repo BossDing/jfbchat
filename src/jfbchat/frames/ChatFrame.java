@@ -35,7 +35,7 @@ import org.jivesoftware.smack.XMPPException;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.listeners.MyMessageListener;
-import jfbchat.PanelMessage;
+import jfbchat.panels.PanelMessage;
 import jfbchat.resources.Imgs;
  /**
  *

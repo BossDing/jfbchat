@@ -47,9 +47,15 @@ public class PacketListening{
 
 
 
-        // First, register a packet collector using the filter we created.
+     
         try{
+            // First, register a packet collector using the filter we created.
             myCollector = connection.getConnection().createPacketCollector(filter);
+
+            // Next, create a packet listener. We use an anonymous inner class for brevity.
+            myListener = new MyPacketListener(connection);
+            // Register the listener.
+            connection.getConnection().addPacketListener(myListener, filter);
         }
         catch (Exception ex) {                                            //TODO: gestire meglio le eccezzioni
 
@@ -58,12 +64,9 @@ public class PacketListening{
            
         }
         
-        // Normally, you'd do something with the collector, like wait for new packets.
+        
 
-        // Next, create a packet listener. We use an anonymous inner class for brevity.
-        myListener = new MyPacketListener(connection);
-        // Register the listener.
-        connection.getConnection().addPacketListener(myListener, filter);
+        
 
     }
 

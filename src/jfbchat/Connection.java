@@ -23,6 +23,7 @@
 
 package jfbchat;
 
+import jfbchat.resources.FBConnectionConfiguration;
 import jfbchat.listeners.PacketListening;
 import jfbchat.listeners.MyRosterListener;
 

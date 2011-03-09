@@ -9,7 +9,10 @@
  * Created on 28 févr. 2011, 20:59:32
  */
 
-package jfbchat;
+package jfbchat.panels;
+
+import jfbchat.Group;
+import jfbchat.resources.Options;
 
 /**
  *
@@ -24,8 +27,22 @@ public class PanelGroup extends javax.swing.JPanel {
         initComponents();
         jLabelGroupName.setText(name);
         this.group = group;
+        updatePanel();
 
     }
+
+    public void updatePanel(){
+
+        if(Options.ShowEmptyGroups){
+            this.collapseGroupLabel.setVisible( group.hasConnectedContacts() );
+            this.setVisible(true);
+        }
+        else{
+                this.setVisible(group.hasConnectedContacts());
+            }
+        }
+
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -36,6 +53,8 @@ public class PanelGroup extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        collapseGroupLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelGroupName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -49,25 +68,29 @@ public class PanelGroup extends javax.swing.JPanel {
         });
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        collapseGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        collapseGroupLabel.setText(" - ");
+        jPanel3.add(collapseGroupLabel);
+
+        add(jPanel3);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabelGroupName.setBackground(new java.awt.Color(136, 136, 136));
-        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15));
+        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         jLabelGroupName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelGroupName.setText("groupName");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelGroupName)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabelGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1.add(jLabelGroupName);
 
         add(jPanel1);
 
@@ -77,14 +100,13 @@ public class PanelGroup extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(jPanel2);
@@ -92,24 +114,32 @@ public class PanelGroup extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-        if (this.group.isVisible()){
-
-            this.group.hideContacts();
-
-        }else{
-            
-            this.group.showContacts();
-
-        }
+        
             
 
     }//GEN-LAST:event_formMouseClicked
 
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+
+       if (this.group.isVisible()){
+
+            this.collapseGroupLabel.setText(" + ");
+            this.group.hideContacts();
+
+        }else{
+            this.collapseGroupLabel.setText(" - ");
+            this.group.showContacts();
+
+        }
+    }//GEN-LAST:event_jPanel3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel collapseGroupLabel;
     private javax.swing.JLabel jLabelGroupName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 

@@ -48,26 +48,30 @@ public class MyPacketListener implements PacketListener{
 
       public void processPacket(Packet packet) {
    
-            //Contact who sends the packet
-            Contact contact = contactList.getContact(packet.getFrom());
-            
+            //Contact who sends thet packet
+
+            Contact contact = connection.getContactList().getContact(packet.getFrom());
+            System.out.println(contact);
+
+
             //Managing a message
             Message msg = (Message) packet;
 
 
-            new DebugMessage("processPacket: \"" + msg + "\""
-                    + " recived from "  + contact.getUser());
-                                      
+              new DebugMessage("processPacket: \"" + msg + "\""
+                + " recived from "  + contact.getUser());
+
+
             if (contact.isActive()){
                     if (!(contact.getChatFrame().isVisible())){
 
                         contact.getChatFrame().setVisible(true);
-                        
+
                     }
             }
- 
+
                 else{
-                    
+
                     //Create a new Chatframe and show it
                     contact.setActive(true);
                     contact.addToChatManager();
@@ -75,8 +79,9 @@ public class MyPacketListener implements PacketListener{
                     new DebugMessage("processPacket:Adding a new panel to "
                             + "the chatframe :" + msg.getBody());
                 }
-         
-        }
+
+
+    }
 
 }
 
