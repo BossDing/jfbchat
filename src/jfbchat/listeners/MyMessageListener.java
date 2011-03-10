@@ -26,7 +26,7 @@ package jfbchat.listeners;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
-import javax.swing.JPanel;
+
 import jfbchat.Contact;
 import jfbchat.panels.PanelMessage;
 import jfbchat.debug.DebugMessage;

@@ -10,20 +10,50 @@
  */
 
 package jfbchat.frames;
+import java.awt.Desktop;
 
+import jfbchat.resources.Options;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import java.io.IOException;
+import jfbchat.panels.JLinkButton;
 
 public class JFrameAbout extends javax.swing.JFrame {
 
+    private JLinkButton projectWebpageLink;
     /** Creates new form JFrameAbout */
     public JFrameAbout(String version) {
         initComponents();
 
+        projectWebpageLink = new JLinkButton(Options.PROJECT_WEBPAGE);
         jLabelVersion.setText(version);
 
-        setLocationRelativeTo( null );
-        
+        projectWebpageLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+               Desktop desktop = Desktop.getDesktop();
 
+                URI uri = null;
+                try {
+                    uri = new URI(Options.PROJECT_WEBPAGE);
+                    desktop.browse(uri);
+                }
+                catch(IOException ioe) {
+                    ioe.printStackTrace();
+                }
+                catch(URISyntaxException use) {
+                    use.printStackTrace();
+                }
+
+             }
+            });
+
+        setLocationRelativeTo( null );
+
+
+
+        webPagePanel.add(projectWebpageLink);
+        
     }
 
     /** This method is called from within the constructor to
@@ -42,6 +72,8 @@ public class JFrameAbout extends javax.swing.JFrame {
         jLabelVersion = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        webPagePanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
         setTitle("About");
         setBounds(new java.awt.Rectangle(500, 500, 0, 0));
@@ -50,7 +82,7 @@ public class JFrameAbout extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
         jTextArea1.setRows(5);
-        jTextArea1.setText("\n   JFBChat is a small, simple, Java based application specially designed to\n   offer you a Facebook chat client for your desktop.\n\n    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com\n    Webpage: http://www.digisoftware.org");
+        jTextArea1.setText("\n   JFBChat is a small, simple, Java based application specially designed to\n   offer you a Facebook chat client for your desktop.\n\n    Author :  Digitex (Giuseppe Federico) digitex3d@gmail.com");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButtonClose.setText("Close");
@@ -70,20 +102,28 @@ public class JFrameAbout extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
         jPanel1.add(jLabel2, java.awt.BorderLayout.CENTER);
 
+        webPagePanel.setLayout(new javax.swing.BoxLayout(webPagePanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel3.setText("WebPage");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelVersion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 473, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(webPagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
                         .addComponent(jButtonClose)))
                 .addContainerGap())
         );
@@ -92,13 +132,16 @@ public class JFrameAbout extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonClose)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelVersion))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(webPagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabelVersion)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
 
@@ -115,10 +158,12 @@ public class JFrameAbout extends javax.swing.JFrame {
     private javax.swing.JButton jButtonClose;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelVersion;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel webPagePanel;
     // End of variables declaration//GEN-END:variables
 
 }

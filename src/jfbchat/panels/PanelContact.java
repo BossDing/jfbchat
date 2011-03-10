@@ -42,6 +42,8 @@ public class PanelContact extends javax.swing.JPanel {
     private Connection connection;
     private ImageIcon avatarIcon;
     private String groupName;
+   
+
 
     /** Creates new form PanelContact */
     public PanelContact(Connection connection, Contact contact, String groupName) {

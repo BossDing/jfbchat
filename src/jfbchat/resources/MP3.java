@@ -39,15 +39,51 @@ package jfbchat.resources;
  *
  * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
  */
-public class Options {
-    public static final int PORT = 5222;
-    public static final String SERVER = "chat.facebook.com";
-    public static final String SERVICE_NAME = "chat.facebook.com";
-    public static boolean DEBUG_ENABLED = true;
-    public static String HOME_DIR = "";
-    public static String CONFIGFILE = "config.cfg";
-    public static boolean ShowEmptyGroups = false;
-    public static boolean DownloadImages = true;
-    public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
+
+
+
+import java.io.InputStream;
+
+
+import javazoom.jl.player.Player;
+
+
+public class MP3 {
+    private String filename;
+    private Player player;
+
+    // constructor that takes the name of an MP3 file
+    public MP3(String filename) {
+        this.filename = filename;
+    }
+
+    public void close() { if (player != null) player.close(); }
+
+    // play the MP3 file to the sound card
+    public void play() {
+        try {
+            InputStream audioStream = this.getClass().getResourceAsStream(filename);
+           
+            player = new Player(audioStream);
+
+        }
+        catch (Exception e) {
+            System.out.println("Problem playing file " + filename);
+            System.out.println(e);
+        }
+
+        // run in new thread to play in background
+        new Thread() {
+            public void run() {
+                try { player.play(); }
+                catch (Exception e) { System.out.println(e); }
+            }
+        }.start();
+
+
+
+
+    }
+
 
 }

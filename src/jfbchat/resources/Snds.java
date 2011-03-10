@@ -39,15 +39,11 @@ package jfbchat.resources;
  *
  * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
  */
-public class Options {
-    public static final int PORT = 5222;
-    public static final String SERVER = "chat.facebook.com";
-    public static final String SERVICE_NAME = "chat.facebook.com";
-    public static boolean DEBUG_ENABLED = true;
-    public static String HOME_DIR = "";
-    public static String CONFIGFILE = "config.cfg";
-    public static boolean ShowEmptyGroups = false;
-    public static boolean DownloadImages = true;
-    public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
+public class Snds {
+
+
+    public static final String INCOMING = "/jfbchat/snds/incoming.mp3";
+
+
 
 }

@@ -258,10 +258,10 @@ public class Contact {
      */
 
     public void addToChatManager(){
-
-        this.chatFrame =  new ChatFrame(connection, this);
-        connection.getChatManager().add(chatFrame);
-
+       
+            this.chatFrame =  new ChatFrame(connection, this);
+            connection.getChatManager().add(chatFrame);
+       
     }
 
     

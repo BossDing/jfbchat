@@ -45,13 +45,24 @@ public class DebugMessage extends DMessage{
     public DebugMessage(String value){
         super(value);
         if (Options.DEBUG_ENABLED){
-            System.out.println("Debug: " + value);
+            System.out.println("# Debug --> " + value);
+        }
+    }
+    /**
+     * Print a debug message with the caller class
+     * @param Caller class
+     * @param Debug message
+     */
+    public DebugMessage(Class msg_class, String value){
+        super(value);
+        if (Options.DEBUG_ENABLED){
+            System.out.println("# Debug --> " + msg_class.getName() + " :" + value);
         }
     }
 
     @Override
     public String toString(){
-        return "Debug: " + value;
+        return "# Debug -->  " + value;
     }
 
 }
