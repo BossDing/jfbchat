@@ -60,6 +60,13 @@ public class DebugMessage extends DMessage{
         }
     }
 
+    public DebugMessage(Class msg_class, String value, Exception e){
+        super(value);
+        if (Options.DEBUG_ENABLED){
+            System.out.println("# Debug --> " + msg_class.getName() + " :" + value + " Message: " + e.getMessage());
+        }
+    }
+
     @Override
     public String toString(){
         return "# Debug -->  " + value;
