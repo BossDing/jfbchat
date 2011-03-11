@@ -25,8 +25,9 @@ package jfbchat;
 
 import java.io.*;
 
-import jfbchat.resources.Options;
+import jfbchat.resources.*;
 import jfbchat.debug.DMessage;
+
 
 /**
  * A User
@@ -35,18 +36,20 @@ import jfbchat.debug.DMessage;
 
 public class User {
 
-    private File configFile;
+    
     private String username;
     private String password;
     private MyVCard vCard;
+    private ChatPreferences prefs;
 
     public User(String username, String password){
 
 
         this.username = username;
         this.password = password;
-        this.configFile = new File( Options.CONFIGFILE );
+      
         this.vCard = new MyVCard();
+        this.prefs = new ChatPreferences();
 
     }
 
@@ -54,8 +57,7 @@ public class User {
 
         this.username = null;
         this.password = null;
-        this.configFile = new File( Options.CONFIGFILE );
-
+        this.prefs = new ChatPreferences();
     }
 
     public String getNickName(){
@@ -71,194 +73,46 @@ public class User {
     }
 
 
-    public void createConfigFile() throws IOException{
-
-        if(!configFile.exists()){
-                configFile.createNewFile();
-                System.out.println("New file  \"" + Options.CONFIGFILE + "\" + has been created.");
-            }
-
-    }
-
     public void saveUserAndPass(){
 
-        /* Write username and password to a config file for autologin*/
+        /* Write username and password to  preferences for autologin*/
+        this.prefs.getPreferences().put( Options.USERNAME, username);
+        this.prefs.getPreferences().put( Options.PASSWORD, password);
 
-        try{
-           
-            createConfigFile();
 
-            // Open file
-            FileWriter fstream = new FileWriter( Options.CONFIGFILE );
-
-            BufferedWriter out = new BufferedWriter(fstream);
-            
-          
-            out.write("Username: " + username+"\n");
-            out.write("Password: " + password+"\n");
-            
-
-            //Close the output stream
-            out.close();
-
-       }catch (Exception e){
-
-            //Catch exception if any
-            System.err.println("Error: " + e.getMessage());
-        }
     }
+    
 
-    public void setAutologin(){
+    public void setAutologin(boolean value){
 
-        /* Write username and password to a config file for autologin*/
-
-        try{
-
-            createConfigFile();
-
-            // Open file
-            FileWriter fstream = new FileWriter( Options.CONFIGFILE );
-
-            BufferedWriter out = new BufferedWriter(fstream);
-
-            out.write("Autologin: true\n");
-            out.write("Username: " + username+"\n");
-            out.write("Password: " + password+"\n");
-
-
-            //Close the output stream
-            out.close();
-
-       }catch (Exception e){
-
-            //Catch exception if any
-            System.err.println("Error: " + e.getMessage());
-        }
+        this.prefs.getPreferences().putBoolean( Options.AUTOLOGIN, value);
+     
     }
 
     public boolean isAutoLogin(){
 
-        /* read the configfile and return true if autologin is enabled false if not*/
-        
-        boolean resu = false;
-        FileInputStream fis;
-        BufferedInputStream bis;
-        DataInputStream dis;
-
-        try {
-            fis = new FileInputStream(configFile);
-
-            // Here BufferedInputStream is added for fast reading.
-            bis = new BufferedInputStream(fis);
-            dis = new DataInputStream(bis);
-
-            // this statement reads the line from the file and print it to
-            // the console.
-             
-            if ( dis.readLine().equals("Autologin: true")){
-
-                resu = true;
-            }
-            else{
-                resu = false;
-            }
-
-         fis.close();
-         bis.close();
-         dis.close();
-
-        } catch (FileNotFoundException e) {
-            new DMessage("No config file found.").println();
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
-
-        return resu;
+        return this.prefs.getPreferences().getBoolean( Options.AUTOLOGIN, false);
+      
   }
 
     
 
     public String getSavedPass(){
 
-        /* read the configfile and return the saved password*/
+        return this.prefs.getPreferences().get( Options.PASSWORD, "");
 
-        String resu = null;
-        FileInputStream fis;
-        BufferedInputStream bis;
-        DataInputStream dis;
-        String strLine;
-
-        try {
-            fis = new FileInputStream(configFile);
-
-            // Here BufferedInputStream is added for fast reading.
-            bis = new BufferedInputStream(fis);
-            dis = new DataInputStream(bis);
-
-             while ((strLine = dis.readLine()) != null)   {
-                if(strLine.contains("Password")){
-                    resu = strLine.substring(10);
-                }
-
-            }
-
-
-
-         fis.close();
-         bis.close();
-         dis.close();
-
-        } catch (FileNotFoundException e) {
-            new DMessage("No config file found.").println();
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
-
-        return resu;
+      
   }
 
     public String getSavedUser(){
-
-        /* read the configfile and return the saved password*/
-
-        String resu = null;
-        FileInputStream fis;
-        BufferedInputStream bis;
-        DataInputStream dis;
-        String strLine;
-
-        try {
-            fis = new FileInputStream(configFile);
-
-            // Here BufferedInputStream is added for fast reading.
-            bis = new BufferedInputStream(fis);
-            dis = new DataInputStream(bis);
-
-             while ((strLine = dis.readLine()) != null)   {
-                if(strLine.contains("Username")){
-                    resu = strLine.substring(10);
-                }
-
-            }
-
-
-
-         fis.close();
-         bis.close();
-         dis.close();
-
-        } catch (FileNotFoundException e) {
-            new DMessage("No config file found.").println();
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
-
-        return resu;
+        return this.prefs.getPreferences().get( Options.USERNAME, "");
+       
   }
 
     @Override
     public String toString(){
         return "Username: " + username;
+         
     }
 
 

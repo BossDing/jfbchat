@@ -10,9 +10,14 @@
  */
 
 package jfbchat.frames;
+
 import java.awt.Desktop;
+import javax.swing.ImageIcon;
 
 import jfbchat.resources.Options;
+import jfbchat.resources.Imgs;
+import jfbchat.debug.DebugMessage;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -25,6 +30,18 @@ public class JFrameAbout extends javax.swing.JFrame {
     /** Creates new form JFrameAbout */
     public JFrameAbout(String version) {
         initComponents();
+
+        //Set icon image
+        try{
+
+            //Load and set the icon.
+            setIconImage(new javax.swing.ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+
+        }catch(Exception e){
+
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
+
+        }
 
         projectWebpageLink = new JLinkButton(Options.PROJECT_WEBPAGE);
         jLabelVersion.setText(version);

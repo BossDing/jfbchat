@@ -35,7 +35,8 @@ import org.jivesoftware.smack.packet.Presence;
 import java.util.Iterator;
 import jfbchat.*;
 import jfbchat.debug.DebugMessage;
-import jfbchat.resources.Imgs;
+import jfbchat.resources.*;
+import jfbchat.frames.preferences.PreferencesFrame;
 
 
 import java.net.URI;
@@ -56,26 +57,39 @@ public class MainFrame extends javax.swing.JFrame {
 
     //Other Frames
     private JFrameAbout jFrameAbout;
+    private PreferencesFrame preferencesFrame;
     
     private User user;
 
     //Here will be stocked the value of the Status Combobox
     private boolean ComboBoxChoise;
 
+    private ChatPreferences prefs;
+
     public MainFrame() {
 
         jFrameAbout = new JFrameAbout(Application.VERSION);
+        preferencesFrame = new PreferencesFrame();
         initComponents();
 
+        this.prefs = new ChatPreferences();
         ComboBoxChoise = false;
 
         try{
-        //Load and set the icon.
-        setIconImage(new ImageIcon(Imgs.MAINICON).getImage());
-        new DebugMessage("Loading "+ new ImageIcon(Imgs.MAINICON).toString());
+
+            //Load and set the icon.
+            setIconImage(new javax.swing.ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+
         }catch(Exception e){
-            e.toString();
+
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
+
         }
+
+        //Init CheckBoxs
+        jCheckBoxAuto.setSelected(this.prefs.getPreferences().getBoolean(Options.AUTOLOGIN, false));
+        jCheckBoxRemUser.setSelected(this.prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false));
+
 
 
         //Hide the disconnect menu.
@@ -185,7 +199,10 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuChat = new javax.swing.JMenu();
         MenuDisconnect = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         MenuExit = new javax.swing.JMenuItem();
+        MenuEdit = new javax.swing.JMenu();
+        MenuItemPreferences = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
         MenuItemAbout = new javax.swing.JMenuItem();
 
@@ -469,7 +486,12 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenuChat.add(MenuDisconnect);
 
-        MenuExit.setText("Exit");
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jMenuChat.add(jSeparator1);
+
+        MenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        MenuExit.setText("Quit");
+        MenuExit.setToolTipText("Quit");
         MenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 MenuExitMousePressed(evt);
@@ -492,6 +514,21 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuChat.add(MenuExit);
 
         jMenuBar1.add(jMenuChat);
+
+        MenuEdit.setText("Edit");
+        MenuEdit.setToolTipText("Edit");
+
+        MenuItemPreferences.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        MenuItemPreferences.setText("Preferences");
+        MenuItemPreferences.setToolTipText("Preferences");
+        MenuItemPreferences.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuItemPreferencesMousePressed(evt);
+            }
+        });
+        MenuEdit.add(MenuItemPreferences);
+
+        jMenuBar1.add(MenuEdit);
 
         MenuHelp.setText("Help");
 
@@ -630,6 +667,8 @@ public class MainFrame extends javax.swing.JFrame {
 
                 connection.closeConnection();
                 
+                //Back to the loginPanel
+                setContactListVisible(false);
                 
             }
         }
@@ -707,6 +746,10 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxRemUserActionPerformed
 
+ /**
+ * Connect to the project webpage fr support
+ * @param evt
+ */
     private void questionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionButtonMouseClicked
         
         Desktop desktop = Desktop.getDesktop();
@@ -724,18 +767,25 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_questionButtonMouseClicked
 
+    private void MenuItemPreferencesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemPreferencesMousePressed
+        preferencesFrame.setVisible(true);
+    }//GEN-LAST:event_MenuItemPreferencesMousePressed
+
     public void checkBoxStatus(){
         
         //Check if the remeberuser or autologin are enabled
 
+        this.prefs.getPreferences().putBoolean(Options.REMEMBER_USER_AND_PASS, jCheckBoxRemUser.isSelected());
+        this.prefs.getPreferences().putBoolean(Options.AUTOLOGIN, jCheckBoxAuto.isSelected());
+
         if (jCheckBoxRemUser.isSelected()){
+
             user.saveUserAndPass();
             
         }
-
-        if (jCheckBoxAuto.isSelected()){
-            user.setAutologin();
-        }
+        
+        user.setAutologin(jCheckBoxAuto.isSelected());
+        
     }
     
 
@@ -750,9 +800,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuItem MenuDisconnect;
+    private javax.swing.JMenu MenuEdit;
     private javax.swing.JMenuItem MenuExit;
     private javax.swing.JMenu MenuHelp;
     private javax.swing.JMenuItem MenuItemAbout;
+    private javax.swing.JMenuItem MenuItemPreferences;
     private javax.swing.JPanel ScrollListpanel;
     private javax.swing.JLabel animationLogo;
     private javax.swing.JPanel comboPanel;
@@ -769,6 +821,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton questionButton;

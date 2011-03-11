@@ -40,14 +40,32 @@ package jfbchat.resources;
  * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
  */
 public class Options {
+
+    //---------CONNECTION-------------
     public static final int PORT = 5222;
     public static final String SERVER = "chat.facebook.com";
     public static final String SERVICE_NAME = "chat.facebook.com";
+
+    //---------DEBUG-------------
     public static boolean DEBUG_ENABLED = true;
+
+    //---------SYSTEM--------------
     public static String HOME_DIR = "";
     public static String CONFIGFILE = "config.cfg";
+    public static String USERNAME = "Username";
+    public static String PASSWORD = "Password";
+    public static String AUTOLOGIN = "Autologin";
+    public static String REMEMBER_USER_AND_PASS = "RememberUserandPass";
     public static boolean ShowEmptyGroups = false;
-    public static boolean DownloadImages = true;
+
+    //---------BEHAVIOR-------------
+    public static String DownloadImgs = "DownloadImages";
+
+    //---------WEBPAGES--------------
     public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
+
+    //---------NOTIFICATIONS-------------
+    public static String INCOMING_SOUND = "IncomingSnd";
+    public static String SENDED_SOUND = "SendedSnd";
 
 }

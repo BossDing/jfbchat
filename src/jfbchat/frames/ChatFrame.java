@@ -32,15 +32,19 @@ import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
 
-import jfbchat.Connection;
-import jfbchat.Contact;
+import jfbchat.*;
 import jfbchat.listeners.MyMessageListener;
 import jfbchat.panels.PanelMessage;
 import jfbchat.resources.Imgs;
+import jfbchat.debug.DebugMessage;
+
  /**
- *
- * @author peppe
+ *This class represent a ChatFrame
+  *
+ * @author digitex ( Giuseppe Federico - digitex3d@gmail.com )
+ * Webpage: http://www.digisoftware.org
  */
+
 public class ChatFrame extends javax.swing.JFrame {
 
     
@@ -60,8 +64,17 @@ public class ChatFrame extends javax.swing.JFrame {
         this.contact = contact;
         this.contactAdr = contact.getAdress();
        
-        //Load and set the icon.
-        setIconImage(new ImageIcon(Imgs.MAINICON).getImage());
+        //Set icon image
+        try{
+
+            //Load and set the icon.
+            setIconImage(new javax.swing.ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+
+        }catch(Exception e){
+
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
+
+        }
         
 
         chatmanager = connection.getConnection().getChatManager();

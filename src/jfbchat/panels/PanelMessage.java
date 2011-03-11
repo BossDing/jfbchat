@@ -23,19 +23,17 @@
 
 package jfbchat.panels;
 
-import java.net.URISyntaxException;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import jfbchat.Contact;
+
+import jfbchat.resources.*;
+
 import jfbchat.debug.DebugMessage;
-import javax.sound.sampled.*;
-import javax.sound.*;
-import java.io.*;
-import java.net.URL;
-import jfbchat.resources.MP3;
-import sun.audio.*;
+
+
  /**
  * A JPanel that represent a incoming/sended message in the ChatFrame
  * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
@@ -46,56 +44,59 @@ public class PanelMessage extends javax.swing.JPanel {
     private Date hour = new Date();
     private SimpleDateFormat formatter;
     private String formattedHour;
-    private InputStream audioStream;
-    private AudioFormat audioFormat;
-    private DataLine.Info audioInfo;
-    private Clip clip;
-    private MP3 mp3;
+
+    private MP3 incomingSnd;
+    private MP3 sendSnd;
+    private ChatPreferences prefs;
     
 
-    /** Creates new form PanelMessage */
+    /** Creates new messages form PanelMessage */
     public PanelMessage(boolean send,Contact contact, String text) {
-
         
-      
         //Time
         this.formatter = new SimpleDateFormat("HH:mm");
         this.formattedHour = formatter.format(hour);
 
-        
-        
+        //Init the JPanel components
         initComponents();
-        
 
+        //Init the chat preferences
+        this.prefs = new ChatPreferences();
+
+        //Load the incoming message sound
         try {
-           
+
+            incomingSnd = new MP3( Snds.INCOMING );
             
-            //audioStream = this.getClass().getResourceAsStream("/jfbchat/snds/incoming.mp3");
-            //audioFormat = audioStream.getFormat();
-            //audioInfo = new DataLine.Info(Clip.class, audioStream.getFormat());
-            //if(audioInfo.isFormatSupported(audioFormat)){
-               // clip = (Clip) AudioSystem.getLine(audioInfo);
+        } catch (Exception e)
 
-                //clip.open(audioStream);*
-            mp3 = new MP3("/jfbchat/snds/incoming.mp3");
-            mp3.play();
+        {
 
-           
+            new DebugMessage(this.getClass(), "Cannot load" + Snds.INCOMING );
 
+        }
 
+        //Load the sended message sound
+        try {
+
+            sendSnd = new MP3( Snds.SENDED );
 
         } catch (Exception e)
 
         {
 
-            e.printStackTrace();
+            new DebugMessage(this.getClass(), "Cannot load" + Snds.SENDED );
 
         }
 
         if (send){
 
             Labelfromto.setText(formattedHour + " Me: ");
-            mp3.play();
+            
+            //If SENDED_SOUND is enabled play a sound
+            if( prefs.getPreferences().getBoolean( ( Options.SENDED_SOUND ), true ) ){
+                sendSnd.play();
+            }
 
 
         }
@@ -105,12 +106,16 @@ public class PanelMessage extends javax.swing.JPanel {
             }else{
 
                 Labelfromto.setText(formattedHour + " " +contact.getUser() + " says: ");
-                mp3.play();
-                
-            
+
+                //If INCOMING_SOUND is enabled play a sound
+                 if( prefs.getPreferences().getBoolean( ( Options.INCOMING_SOUND ), true ) ){
+                    incomingSnd.play();
+                }
             }
         }
-
+            
+            
+        //Change the panel text
         LabelText.setText(text);
        
        

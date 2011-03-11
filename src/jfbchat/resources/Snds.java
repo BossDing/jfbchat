@@ -43,7 +43,7 @@ public class Snds {
 
 
     public static final String INCOMING = "/jfbchat/snds/incoming.mp3";
-
+    public static final String SENDED = "/jfbchat/snds/sending.mp3";
 
 
 }

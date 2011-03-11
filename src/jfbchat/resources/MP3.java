@@ -44,6 +44,8 @@ package jfbchat.resources;
 
 import java.io.InputStream;
 
+import jfbchat.debug.DebugMessage;
+
 
 import javazoom.jl.player.Player;
 
@@ -68,15 +70,16 @@ public class MP3 {
 
         }
         catch (Exception e) {
-            System.out.println("Problem playing file " + filename);
-            System.out.println(e);
+            new DebugMessage(this.getClass(), "Problem loading " + filename, e);
         }
 
         // run in new thread to play in background
         new Thread() {
             public void run() {
                 try { player.play(); }
-                catch (Exception e) { System.out.println(e); }
+                catch (Exception e) { 
+                    new DebugMessage(this.getClass(), "Problem playing " + filename, e);
+                }
             }
         }.start();
 

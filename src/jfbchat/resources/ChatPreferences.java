@@ -33,90 +33,48 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
-package jfbchat;
-
-import jfbchat.debug.DebugMessage;
-import jfbchat.resources.*;
-
-import org.jivesoftware.smackx.packet.VCard;
-import org.jivesoftware.smack.XMPPException;
+package jfbchat.resources;
 
 
+import java.util.prefs.Preferences;
 
-import javax.swing.ImageIcon;
 /**
+ * In this class there are stored the preferences of the chat
  *
  * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
  */
-public class MyVCard {
-    
-    private VCard vCard;
 
-    private ImageIcon avatar;    
-    private Contact contact;
-    private Connection connection;
+public class ChatPreferences {
 
-    private ChatPreferences prefs;
-    
-    public MyVCard(Connection connection, Contact contact){
-        
-       this.vCard = new VCard();
-       this.contact = contact;
-       this.connection = connection;
+	private Preferences prefs;
 
-       this.prefs = new ChatPreferences();
-       
-       
+        public ChatPreferences(){
 
-    }
+            // This will define a node in which the preferences can be stored
+            this.prefs = Preferences.userRoot().node(this.getClass().getName());
 
-    public MyVCard(){
+            // Init preferences
+            init_prefs();
 
-       this.vCard = new VCard();
-
-    }
-    /**
-     * Load the VCard and the avatar of the contact in a temporaney byte array and store it
-     * in avatar a ImageIcon
-     */
-    public void loadAvatar(){
-        if( prefs.getPreferences().getBoolean( Options.DownloadImgs, true) ){
-            
-            byte[] avatarBytes;
-
-            try{
-
-                vCard.load(connection.getConnection(), contact.getAdress());
-
-            }catch(XMPPException e){
-
-                new DebugMessage("MyVCard: Couldn't load the VCard of " + contact.getUser() + " : " + e.getMessage());
-
-            }
-
-            try{
-
-                avatarBytes = vCard.getAvatar();
-                this.avatar = new ImageIcon(avatarBytes);
-
-            }catch(Exception e){
-
-                new DebugMessage("MyVCard.loadAvatar: Couldn't load the Avatar of " + contact.getUser() + " : " + e.getMessage());
-
-            }
-        
         }
-    }
 
-    public ImageIcon getAvatar(){
+        private void init_prefs(){
 
-        return this.avatar;
+            // Init default value for preferences
+            prefs.getBoolean( Options.INCOMING_SOUND, true );
+            prefs.getBoolean( Options.SENDED_SOUND , true );
 
-    }
+        }
 
-    public String getNickName(){
-        
-        return vCard.getNickName();
-    }
+        /**
+         *
+         * @return The preferences
+         */
+        public Preferences getPreferences(){
+
+            return prefs;
+
+        }
 
 }
+
