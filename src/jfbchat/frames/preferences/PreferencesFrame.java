@@ -17,20 +17,31 @@ package jfbchat.frames.preferences;
  */
 public class PreferencesFrame extends javax.swing.JFrame {
 
+    private GeneralPanel generalPanel;
     private NotificationsPanel notificationPanel;
     private BehaviorPanel behaviorPanel;
+    private AspectPanel aspectPanel;
+
     /** Creates new form PreferencesFrame */
     public PreferencesFrame() {
         
         notificationPanel = new NotificationsPanel();
         behaviorPanel = new BehaviorPanel();
-
+        aspectPanel = new AspectPanel();
+        generalPanel = new GeneralPanel();
+        
         initComponents();
 
-        TabPreferences.addTab("Notifications", null,notificationPanel,
-                  "Edit notifications preferences");
+        TabPreferences.addTab("Aspect", null,aspectPanel,
+                  "Edit aspect preferences");
         TabPreferences.addTab("Behavior", null,behaviorPanel,
                   "Edit behavior preferences");
+        TabPreferences.addTab("General", null, generalPanel,
+                  "Edit general preferences");
+        TabPreferences.addTab("Notifications", null,notificationPanel,
+                  "Edit notifications preferences");
+        
+        
         
 
     }
@@ -45,9 +56,17 @@ public class PreferencesFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         MainPanel = new javax.swing.JPanel();
+        jButtonClose = new javax.swing.JButton();
         TabPreferences = new javax.swing.JTabbedPane();
 
         setTitle("Preferences");
+
+        jButtonClose.setText("Close");
+        jButtonClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCloseMouseClicked(evt);
+            }
+        });
 
         TabPreferences.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -55,11 +74,21 @@ public class PreferencesFrame extends javax.swing.JFrame {
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TabPreferences, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                    .addComponent(jButtonClose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TabPreferences, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TabPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonClose)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,6 +105,10 @@ public class PreferencesFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCloseMouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCloseMouseClicked
+
     /**
     * @param args the command line arguments
     */
@@ -90,6 +123,7 @@ public class PreferencesFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainPanel;
     private javax.swing.JTabbedPane TabPreferences;
+    private javax.swing.JButton jButtonClose;
     // End of variables declaration//GEN-END:variables
 
 }

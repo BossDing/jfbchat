@@ -51,12 +51,11 @@ public class Options {
 
     //---------SYSTEM--------------
     public static String HOME_DIR = "";
-    public static String CONFIGFILE = "config.cfg";
     public static String USERNAME = "Username";
     public static String PASSWORD = "Password";
     public static String AUTOLOGIN = "Autologin";
     public static String REMEMBER_USER_AND_PASS = "RememberUserandPass";
-    public static boolean ShowEmptyGroups = false;
+    public static String SHOW_EMPTY_GROUPS = "ShowEmptyGroups";
 
     //---------BEHAVIOR-------------
     public static String DownloadImgs = "DownloadImages";

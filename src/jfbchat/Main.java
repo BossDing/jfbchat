@@ -25,7 +25,7 @@ package jfbchat;
 
 
 import jfbchat.resources.*;
-
+import jfbchat.debug.DebugMessage;
 
 
 public class Main {
@@ -36,13 +36,20 @@ public class Main {
        if(Sys.NAME_OS.equals("Linux")){
 
                Options.HOME_DIR = System.getProperty("user.home");
-               Options.CONFIGFILE = Options.HOME_DIR + "/.jfbchat/" + Options.CONFIGFILE;
-               
-       }
+              
+        }
           
     
         System.out.println("Starting IM client");
-        Application run = new Application();
+        try{
+
+            Application run = new Application();
+
+        }catch(Exception e){
+
+            new DebugMessage("Main : Cannot run the application :", e);
+
+        }
         
      
             

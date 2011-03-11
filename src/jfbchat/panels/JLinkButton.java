@@ -80,14 +80,6 @@ public class JLinkButton extends JButton {
 
   private boolean isLinkVisited;
 
-  public static void main(String[] a) {
-    JFrame f = new JFrame();
-    f.getContentPane().setLayout(new GridLayout(0,2));
-    f.getContentPane().add(new JLinkButton("www.java2s.com"));
-    f.getContentPane().add(new JLinkButton("www.java2s.com/ExampleCode/CatalogExampleCode.htm"));
-    f.setSize(600, 200);
-    f.setVisible(true);
-  }
 
   public JLinkButton() {
     this(null, null, null);

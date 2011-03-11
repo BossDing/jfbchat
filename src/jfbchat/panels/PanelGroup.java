@@ -12,7 +12,7 @@
 package jfbchat.panels;
 
 import jfbchat.Group;
-import jfbchat.resources.Options;
+import jfbchat.resources.*;
 
 /**
  *
@@ -21,10 +21,14 @@ import jfbchat.resources.Options;
 public class PanelGroup extends javax.swing.JPanel {
 
     private Group group;
+    private ChatPreferences prefs;
 
     /** Creates new form PanelGroup */
     public PanelGroup(String name, Group group) {
         initComponents();
+
+        this.prefs = new ChatPreferences();
+
         jLabelGroupName.setText(name);
         this.group = group;
         updatePanel();
@@ -33,9 +37,11 @@ public class PanelGroup extends javax.swing.JPanel {
 
     public void updatePanel(){
 
-        if(Options.ShowEmptyGroups){
+        if( this.prefs.getPreferences().getBoolean(Options.SHOW_EMPTY_GROUPS, false) ){
+
             this.collapseGroupLabel.setVisible( group.hasConnectedContacts() );
             this.setVisible(true);
+            
         }
         else{
                 this.setVisible(group.hasConnectedContacts());
