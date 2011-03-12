@@ -30,7 +30,8 @@ public class BehaviorPanel extends javax.swing.JPanel {
 
         prefs = new  ChatPreferences();
         //Init the options
-        CheckDownloadAvatar.setSelected( prefs.getPreferences().getBoolean( Options.DownloadImgs, true ) );
+        this.CheckDownloadAvatar.setSelected( prefs.getPreferences().getBoolean( Options.DownloadImgs, true ) );
+        this.checkSaveAvaToCache.setSelected( prefs.getPreferences().getBoolean( Options.SAVE_AVATARS_TO_CACHE, true ) );
 
         
     }
@@ -46,13 +47,25 @@ public class BehaviorPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         CheckDownloadAvatar = new javax.swing.JCheckBox();
+        checkSaveAvaToCache = new javax.swing.JCheckBox();
+
+        setMinimumSize(new java.awt.Dimension(432, 107));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Avatars"));
 
-        CheckDownloadAvatar.setText("Download avatars");
+        CheckDownloadAvatar.setText("Download avatars  (Restart needed)");
+        CheckDownloadAvatar.setToolTipText("Download avatar images at the login");
         CheckDownloadAvatar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CheckDownloadAvatarItemStateChanged(evt);
+            }
+        });
+
+        checkSaveAvaToCache.setText("Save avatars to a local directory (Restart needed) ");
+        checkSaveAvaToCache.setToolTipText("Save images to a local directory for better performances");
+        checkSaveAvaToCache.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkSaveAvaToCacheItemStateChanged(evt);
             }
         });
 
@@ -62,14 +75,17 @@ public class BehaviorPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(CheckDownloadAvatar)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CheckDownloadAvatar)
+                    .addComponent(checkSaveAvaToCache))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(CheckDownloadAvatar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(checkSaveAvaToCache))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -86,7 +102,7 @@ public class BehaviorPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,9 +116,18 @@ public class BehaviorPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_CheckDownloadAvatarItemStateChanged
 
+    private void checkSaveAvaToCacheItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkSaveAvaToCacheItemStateChanged
+        //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.SAVE_AVATARS_TO_CACHE, item.isSelected());
+    }//GEN-LAST:event_checkSaveAvaToCacheItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckDownloadAvatar;
+    private javax.swing.JCheckBox checkSaveAvaToCache;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

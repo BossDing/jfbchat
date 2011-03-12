@@ -26,7 +26,7 @@ package jfbchat;
 import java.io.*;
 
 import jfbchat.resources.*;
-import jfbchat.debug.DMessage;
+import jfbchat.debug.*;
 
 
 /**
@@ -50,6 +50,8 @@ public class User {
       
         this.vCard = new MyVCard();
         this.prefs = new ChatPreferences();
+
+        
 
     }
 
@@ -79,7 +81,29 @@ public class User {
         this.prefs.getPreferences().put( Options.USERNAME, username);
         this.prefs.getPreferences().put( Options.PASSWORD, password);
 
+    }
+    /**
+     *
+     *
+     * @return true if the user has some avatars in the cache false if he do not.
+     */
 
+    public boolean hasCachedAvatars(){
+
+        //TODO: Contidion for windows
+        if( Application.NAME_OS.equals("Linux") ){
+            
+            //Path of the directory where cached images are saved by default.
+            String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
+
+            new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");
+                      
+            return (new File( cache_dir_path) ).exists();
+
+        }
+
+        return false;
+        
     }
     
 

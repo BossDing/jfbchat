@@ -208,6 +208,12 @@ public class Connection {
         return contactList;
     }
 
+    public User getUser(){
+
+        return this.user;
+        
+    }
+
     public void setContactList(ContactList list){
         contactList = list;
     }

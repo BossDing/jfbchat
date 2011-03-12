@@ -28,8 +28,9 @@ import javax.swing.ImageIcon;
 import jfbchat.Connection;
 import jfbchat.Contact;
 
-import jfbchat.resources.Imgs;
+import jfbchat.resources.*;
 import jfbchat.debug.DebugMessage;
+
 
 /**
  * A JPanel that represent a contact in the ContactList
@@ -42,6 +43,7 @@ public class PanelContact extends javax.swing.JPanel {
     private Connection connection;
     private ImageIcon avatarIcon;
     private String groupName;
+    private ChatPreferences prefs;
    
 
 
@@ -54,10 +56,21 @@ public class PanelContact extends javax.swing.JPanel {
         this.avatarIcon = null;
         this.groupName = groupName;
 
+        this.prefs = new ChatPreferences();
+
         initComponents();
 
         //Init the contact username
         contactLabel.setText(contact.getUser());
+
+        //Init the avatar
+        if( prefs.getPreferences().getBoolean( Options.SHOW_AVATARS, true) ){
+
+            this.contactAvatar.setVisible(true);
+
+        }else{
+            this.contactAvatar.setVisible(false);
+        }
 
 
         //Update the status of the contact in the JPanel

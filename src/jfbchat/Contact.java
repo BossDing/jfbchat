@@ -57,6 +57,7 @@ public class Contact {
     //ChatFrame associated with the contact
     private ChatFrame chatFrame;
 
+    private String jID;
     private MyVCard vCard;
 
     public Contact(Connection connection, RosterEntry entry, Presence presence){
@@ -71,6 +72,8 @@ public class Contact {
         this.chatFrame = null;
         this.groups = new ArrayList();
         this.vCard = new MyVCard(connection, this);
+        this.id = ++contactId;
+        this.jID =  entry.getUser();
         init_groups();
 
     }
@@ -330,6 +333,9 @@ public class Contact {
         return this.id;
     }
 
+    public String getJID(){
+        return this.jID;
+    }
     public MyVCard getVCard(){
         return vCard;
 

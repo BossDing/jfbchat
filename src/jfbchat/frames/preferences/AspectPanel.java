@@ -30,6 +30,7 @@ public class AspectPanel extends javax.swing.JPanel {
         this.prefs = new ChatPreferences();
 
         checkShowEmptyGroups.setSelected( prefs.getPreferences().getBoolean( Options.SHOW_EMPTY_GROUPS, false ) );
+        checkShowAvatars.setSelected( prefs.getPreferences().getBoolean( Options.SHOW_AVATARS, true ));
     }
 
     /** This method is called from within the constructor to
@@ -42,14 +43,45 @@ public class AspectPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         contactListPanel = new javax.swing.JPanel();
+        avatarsPanel = new javax.swing.JPanel();
+        checkShowAvatars = new javax.swing.JCheckBox();
         groupsPanel = new javax.swing.JPanel();
         checkShowEmptyGroups = new javax.swing.JCheckBox();
 
+        setMinimumSize(new java.awt.Dimension(385, 237));
+
         contactListPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Contact list"));
+
+        avatarsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Avatars"));
+
+        checkShowAvatars.setText("Show avatars (Restart needed)");
+        checkShowAvatars.setToolTipText("Show avatars in the contact list (reconnection needed)");
+        checkShowAvatars.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkShowAvatarsItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout avatarsPanelLayout = new javax.swing.GroupLayout(avatarsPanel);
+        avatarsPanel.setLayout(avatarsPanelLayout);
+        avatarsPanelLayout.setHorizontalGroup(
+            avatarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(avatarsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkShowAvatars)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
+        avatarsPanelLayout.setVerticalGroup(
+            avatarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, avatarsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(checkShowAvatars)
+                .addContainerGap())
+        );
 
         groupsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Groups"));
 
-        checkShowEmptyGroups.setText("Show empty groups");
+        checkShowEmptyGroups.setText("Show empty groups (Restart needed)");
         checkShowEmptyGroups.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 checkShowEmptyGroupsItemStateChanged(evt);
@@ -63,7 +95,7 @@ public class AspectPanel extends javax.swing.JPanel {
             .addGroup(groupsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkShowEmptyGroups)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         groupsPanelLayout.setVerticalGroup(
             groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,21 +109,21 @@ public class AspectPanel extends javax.swing.JPanel {
         contactListPanel.setLayout(contactListPanelLayout);
         contactListPanelLayout.setHorizontalGroup(
             contactListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
-            .addGroup(contactListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contactListPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(groupsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contactListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(contactListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(groupsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(avatarsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         contactListPanelLayout.setVerticalGroup(
             contactListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 99, Short.MAX_VALUE)
-            .addGroup(contactListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(contactListPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(groupsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(contactListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(avatarsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(groupsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -120,8 +152,19 @@ public class AspectPanel extends javax.swing.JPanel {
         prefs.getPreferences().putBoolean(Options.SHOW_EMPTY_GROUPS, item.isSelected());
     }//GEN-LAST:event_checkShowEmptyGroupsItemStateChanged
 
+    private void checkShowAvatarsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkShowAvatarsItemStateChanged
+        //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.SHOW_AVATARS, item.isSelected());
+        
+    }//GEN-LAST:event_checkShowAvatarsItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel avatarsPanel;
+    private javax.swing.JCheckBox checkShowAvatars;
     private javax.swing.JCheckBox checkShowEmptyGroups;
     private javax.swing.JPanel contactListPanel;
     private javax.swing.JPanel groupsPanel;

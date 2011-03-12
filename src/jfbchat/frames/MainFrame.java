@@ -34,7 +34,7 @@ import java.awt.Desktop;
 import org.jivesoftware.smack.packet.Presence;
 import java.util.Iterator;
 import jfbchat.*;
-import jfbchat.debug.DebugMessage;
+import jfbchat.debug.*;
 import jfbchat.resources.*;
 import jfbchat.frames.preferences.PreferencesFrame;
 
@@ -204,6 +204,9 @@ public class MainFrame extends javax.swing.JFrame {
         MenuEdit = new javax.swing.JMenu();
         MenuItemPreferences = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
+        jMenuItemHelpOnline = new javax.swing.JMenuItem();
+        jMenuItemReportProblem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         MenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -214,6 +217,11 @@ public class MainFrame extends javax.swing.JFrame {
         MainPanel.setLayout(new java.awt.CardLayout());
 
         LoginPanel.setName("loginPanel"); // NOI18N
+        LoginPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                LoginPanelKeyTyped(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
@@ -344,7 +352,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxAuto)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonLogin)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         credentialsPanel.add(jPanel3);
@@ -365,7 +373,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -532,6 +540,25 @@ public class MainFrame extends javax.swing.JFrame {
 
         MenuHelp.setText("Help");
 
+        jMenuItemHelpOnline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItemHelpOnline.setText("Help Online");
+        jMenuItemHelpOnline.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItemHelpOnlineMousePressed(evt);
+            }
+        });
+        MenuHelp.add(jMenuItemHelpOnline);
+
+        jMenuItemReportProblem.setText("Report a problem...");
+        jMenuItemReportProblem.setToolTipText("Report any sort of problem to developers");
+        jMenuItemReportProblem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItemReportProblemMousePressed(evt);
+            }
+        });
+        MenuHelp.add(jMenuItemReportProblem);
+        MenuHelp.add(jSeparator2);
+
         MenuItemAbout.setText("About");
         MenuItemAbout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -564,20 +591,28 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonLoginMouseClicked
+        String password = EntryPass.getText();
+        String username = EntryUser.getText();
 
-                //Disable all the LoginPanel components
-                loginPanelComponentsSetEnabled(false);
+        if( !( password.isEmpty() && username.isEmpty() ) ){
+            //Disable all the LoginPanel components
+            loginPanelComponentsSetEnabled(false);
 
-                try{
-                    //Login to the chat
-                    javax.swing.SwingUtilities.invokeLater(loginRunnable);
-                    
-                    
-                }catch(Exception e){
+            try{
+                //Login to the chat
+                javax.swing.SwingUtilities.invokeLater(loginRunnable);
 
-                    new DebugMessage("ButtnLoginMouseThread: Can't invoke runnable thread");
 
-                }
+            }catch(Exception e){
+
+                new DebugMessage("ButtnLoginMouseThread: Can't invoke runnable thread");
+
+            }
+        }else{
+
+            new jfbchat.debug.Error(this.connection,1 , "Please enter an username or password");
+
+        }
 
                 
 
@@ -591,8 +626,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
                 Contact nextContact = iter.next();
+                try{
 
-                ContactListPanel.add(nextContact.getContactPanelbyGroup(contactList.getName()));
+                    ContactListPanel.add(nextContact.getContactPanelbyGroup(contactList.getName()));
+
+                }catch(Exception e){
+
+
+                    new DebugMessage(this.getClass(), "Cannot add " + nextContact + " to the contactList" );
+                    
+
+                }
 
 
         }
@@ -756,7 +800,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         URI uri = null;
         try {
-            uri = new URI("http://digisoftware.org");
+            uri = new URI(Options.USERNAME_ONLINE_HELP);
             desktop.browse(uri);
         }
         catch(IOException ioe) {
@@ -770,6 +814,42 @@ public class MainFrame extends javax.swing.JFrame {
     private void MenuItemPreferencesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemPreferencesMousePressed
         preferencesFrame.setVisible(true);
     }//GEN-LAST:event_MenuItemPreferencesMousePressed
+
+    private void jMenuItemHelpOnlineMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineMousePressed
+        Desktop desktop = Desktop.getDesktop();
+
+        URI uri = null;
+        try {
+            uri = new URI(Options.ONLINE_HELP);
+            desktop.browse(uri);
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        catch(URISyntaxException use) {
+            use.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItemHelpOnlineMousePressed
+
+    private void LoginPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginPanelKeyTyped
+      
+    }//GEN-LAST:event_LoginPanelKeyTyped
+
+    private void jMenuItemReportProblemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemMousePressed
+        Desktop desktop = Desktop.getDesktop();
+
+        URI uri = null;
+        try {
+            uri = new URI( Options.WEBPAGE_BUG_TRACKER );
+            desktop.browse(uri);
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        catch(URISyntaxException use) {
+            use.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItemReportProblemMousePressed
 
     public void checkBoxStatus(){
         
@@ -817,11 +897,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuChat;
+    private javax.swing.JMenuItem jMenuItemHelpOnline;
+    private javax.swing.JMenuItem jMenuItemReportProblem;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton questionButton;

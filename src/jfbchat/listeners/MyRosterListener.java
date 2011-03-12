@@ -50,31 +50,34 @@ public class MyRosterListener implements RosterListener {
         this.connection = connection;
     }
 
-
-
-
     public void entriesDeleted(Collection<String> addresses) {}
     public void entriesAdded(Collection<String> addresses) {}
     public void entriesUpdated(Collection<String> addresses) {}
     public void presenceChanged(Presence presence) {
-        try{
-            Contact contact =  connection.getContactList().getContact(presence.getFrom());
-     
-            contact.setPresence(presence);
-            new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-            contact.updateContactPanels();
+        if(this.connection.isConnected()){
 
-            //TODO: update only the group associated to the contact 
-            connection.getContactList().updateGroupPanels();
-            
-            //If a chat with the contact is already opened update his status
-            if(contact.getChatFrame() != null){
-                contact.getChatFrame().update();
+            try{
+                Contact contact =  connection.getContactList().getContact(presence.getFrom());
+
+                contact.setPresence(presence);
+                new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
+                contact.updateContactPanels();
+
+                //TODO: update only the group associated to the contact
+                connection.getContactList().updateGroupPanels();
+
+                //If a chat with the contact is already opened update his status
+                if(contact.getChatFrame() != null){
+                    contact.getChatFrame().update();
+                }
+
+            }catch (Exception e){
+
+                System.err.println("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString() + " " + e.getMessage());
+
             }
 
-        }catch (Exception e){
-            System.err.println("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString() + " " + e.getMessage());
-                  }
+        }
 
     }
 

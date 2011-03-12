@@ -57,8 +57,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="webPagePanel" pref="30" max="32767" attributes="1"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jButtonClose" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jButtonClose" alignment="0" max="32767" attributes="1"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelVersion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/jfbchat/imgs/icon1.png"/>
+              <Image iconType="3" name="/jfbchat/imgs/Logo_Text.png"/>
             </Property>
           </Properties>
           <Constraints>

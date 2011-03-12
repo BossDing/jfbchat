@@ -63,6 +63,18 @@ public class ChatPreferences {
             // Init default value for preferences
             prefs.getBoolean( Options.INCOMING_SOUND, true );
             prefs.getBoolean( Options.SENDED_SOUND , true );
+            prefs.getBoolean( Options.AUTOLOGIN, false );
+            prefs.getBoolean( Options.REMEMBER_USER_AND_PASS , false );
+            prefs.get( Options.PASSWORD, "" );
+            prefs.get( Options.USERNAME , "" );
+            prefs.getBoolean( Options.SHOW_EMPTY_GROUPS, false);
+            prefs.getBoolean( Options.DownloadImgs , true );
+
+            //-------------ASPECT--------------
+            prefs.getBoolean( Options.SHOW_AVATARS , true );
+
+            //-------------BEHAVIOR------------
+            prefs.getBoolean( Options.SAVE_AVATARS_TO_CACHE , true );
 
         }
 
