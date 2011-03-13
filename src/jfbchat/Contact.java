@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * @author Digitex(digitex3d@gmail.com Giuseppe Federico)
  */
 
-public class Contact {
+public class Contact implements Comparable<Contact>{
     private static int contactId = 0;
 
     private Connection connection;
@@ -78,6 +78,13 @@ public class Contact {
 
     }
 
+    public int compareTo(Contact c_contact){
+
+        return this.name.compareTo(c_contact.name); 
+
+    }
+
+
     /**
      * initialize the groups of the contact
      */
@@ -110,6 +117,7 @@ public class Contact {
 
         }
 }
+
 
 
     /**
