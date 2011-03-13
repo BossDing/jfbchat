@@ -37,9 +37,12 @@
 package jfbchat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import jfbchat.frames.ChatFrame;
 import jfbchat.debug.DebugMessage;
+
+
 
 /**
  * A ChatManager is a list with all the active conversations
@@ -89,7 +92,20 @@ public class MyChatManager {
      * clear the chatManager array
      */
     public void clear(){
+
+
+        //Hide all the opened windows
+        for(Iterator<ChatFrame> iter = this.chatManager.iterator(); iter.hasNext();){
+
+            ChatFrame nextChatFrame = iter.next();
+
+            nextChatFrame.setVisible(false);
+
+        }
+
+        //clear the ArrayList
         this.chatManager.clear();
+        
     }
 
 }
