@@ -77,12 +77,13 @@ public class ChatFrame extends javax.swing.JFrame {
         }
         
 
-        chatmanager = connection.getConnection().getChatManager();
+        this.chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
-        this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
-        this.setTitle("Conversation with "+ contact.getUser());
+
         
+        this.setTitle("Conversation with "+ contact.getUser());
+        this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
 
         
         newChat = chatmanager.createChat(contactAdr ,
@@ -101,14 +102,17 @@ public class ChatFrame extends javax.swing.JFrame {
 
 
           }catch(Exception e){
-            System.out.println( e.getMessage());
-            }
+
+                System.out.println( e.getMessage());
+                
+          }
 
            setVisible(true);
        
     }
 
     public ChatFrame(Connection connection, String contactAdr) {
+        
         this.connection = connection;
         this.contactAdr = contactAdr;
 
@@ -116,9 +120,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
         initComponents();
         this.setTitle("Conversation with "+ contactAdr);
-        
-
-
+      
         newChat = chatmanager.createChat(contactAdr, new MessageListener() {
             public void processMessage(Chat chat, Message message) {
 
@@ -134,17 +136,7 @@ public class ChatFrame extends javax.swing.JFrame {
             
             }
            });
-
-           
-
-    }
-
-    public void addMessageToPanel(boolean sr, Contact contact, Message message){
-
-        PanelMessages.add(new PanelMessage(sr, contact, message.getBody()));
-        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-        
-
+         
     }
 
     /** This method is called from within the constructor to
@@ -252,7 +244,10 @@ public class ChatFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /**
+     * Send a message to the contact associated to the ChatFrame
+     * @param texttosend
+     */
     public void SendMessage(String texttosend){
 
         //If texttosend is not empty
@@ -260,31 +255,24 @@ public class ChatFrame extends javax.swing.JFrame {
 
             try {
           
-                PanelMessages.add(new PanelMessage(true, null,
+                addPanelMessage(new PanelMessage(true, null,
                                                    texttosend));
 
-                messageField.setText("");                                               // Clear the TextField
-                new DebugMessage(this.getClass(),"Sending \""+ texttosend +"\" to " + contact.getUser());
-
+                // Clear the TextField
+                messageField.setText("");                                               
+                
                 newChat.sendMessage(texttosend);
 
-                //Validate the JFrame
-                validate();
-
-                /* Set the scrollbar at the maximum position for every incoming or
-                outcoming message.message*/
-                verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-
-                //Validate the JFrame
-                validate();
+                new DebugMessage(this.getClass(),"Sended \""+ texttosend +"\" to " + contact.getUser());
 
             }catch (XMPPException e) {
-            System.out.println("Error Delivering block");
-        }
+
+                new DebugMessage(this.getClass(), "Cannot send message to " + contact.getUser(), e);
+
+            }
 
         }
-        
-
+     
     }
 
     /**
