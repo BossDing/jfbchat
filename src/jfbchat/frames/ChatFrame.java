@@ -162,7 +162,8 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuClose = new javax.swing.JMenuItem();
 
         setTitle("Conversation with ...");
         setMinimumSize(new java.awt.Dimension(200, 200));
@@ -254,17 +255,25 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuItemClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemClear.setText("Clear");
         jMenuItemClear.setToolTipText("Clear the conversation");
-        jMenuItemClear.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItemClearMousePressed(evt);
+        jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClearActionPerformed(evt);
             }
         });
         jMenuConversation.add(jMenuItemClear);
+        jMenuConversation.add(jSeparator1);
+
+        jMenuClose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuClose.setText("Close");
+        jMenuClose.setToolTipText("Close the window");
+        jMenuClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCloseActionPerformed(evt);
+            }
+        });
+        jMenuConversation.add(jMenuClose);
 
         jMenuBar.add(jMenuConversation);
-
-        jMenu2.setText("Edit");
-        jMenuBar.add(jMenu2);
 
         setJMenuBar(jMenuBar);
 
@@ -366,20 +375,46 @@ public class ChatFrame extends javax.swing.JFrame {
      * When the item Clear is MousePressed
      * @param evt
      */
-    private void jMenuItemClearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemClearMousePressed
+    /**
+     * When the item Close is MousePressed
+     * @param evt
+     */
+    /**
+     * MenuItem Close action
+     * @param evt
+     */
+    private void jMenuCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCloseActionPerformed
 
-        //Clear all the sended and received messages
-        this.PanelMessages.removeAll();
+        //Hide the window
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuCloseActionPerformed
 
-        //Validate the PanelMessages
-        this.PanelMessages.validate();
-        
-        //Repaint the PanelMessages
-        this.PanelMessages.repaint();
+    /**
+     * MenuItem Clear action
+     * @param evt
+     */
+    private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClearActionPerformed
 
-          
-        
-    }//GEN-LAST:event_jMenuItemClearMousePressed
+        try{
+
+            //Clear all the sended and received messages
+            this.PanelMessages.removeAll();
+
+            //Validate the PanelMessages
+            this.PanelMessages.validate();
+
+            //Repaint the PanelMessages
+            this.PanelMessages.repaint();
+
+            new DebugMessage(this.getClass(), "PanelMessages cleared");
+
+        }catch(Exception e){
+
+            new DebugMessage(this.getClass(), "Cannot clear PanelMessages ", e);
+
+        }
+
+    }//GEN-LAST:event_jMenuItemClearActionPerformed
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -390,11 +425,12 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollMessages;
     private javax.swing.JLabel avatar;
     private javax.swing.JPanel avatarPanel;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
     private javax.swing.JMenuItem jMenuItemClear;
     private javax.swing.JPanel jPanelScrollMessages;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextField messageField;
     // End of variables declaration//GEN-END:variables
 
