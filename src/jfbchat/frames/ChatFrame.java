@@ -395,27 +395,45 @@ public class ChatFrame extends javax.swing.JFrame {
      */
     private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClearActionPerformed
 
-        try{
-
-            //Clear all the sended and received messages
-            this.PanelMessages.removeAll();
-
-            //Validate the PanelMessages
-            this.PanelMessages.validate();
-
-            //Repaint the PanelMessages
-            this.PanelMessages.repaint();
-
-            new DebugMessage(this.getClass(), "PanelMessages cleared");
-
-        }catch(Exception e){
-
-            new DebugMessage(this.getClass(), "Cannot clear PanelMessages ", e);
-
-        }
+        //Clear all the messages in the PanelMessages
+        this.clearAllMessages();
 
     }//GEN-LAST:event_jMenuItemClearActionPerformed
      
+    /**
+     * This method clears all the messages in the PanelMessages
+     */
+    public void clearAllMessages(){
+
+        //If PanelMessages is not empty
+        if ( !(this.PanelMessages.getComponents().length == 0) ){
+
+            try{
+
+                //Clear all the sended and received messages
+                this.PanelMessages.removeAll();
+
+                //Validate the PanelMessages
+                this.PanelMessages.validate();
+
+                //Repaint the PanelMessages
+                this.PanelMessages.repaint();
+
+                new DebugMessage(this.getClass(), "PanelMessages cleared");
+
+            }catch(Exception e){
+
+                new DebugMessage(this.getClass(), "Cannot clear PanelMessages ", e);
+
+            }
+
+        }else{
+
+            new DebugMessage(this.getClass(), "PanelMessages has nothing to clear");
+
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSend;
