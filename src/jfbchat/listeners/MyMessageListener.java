@@ -43,8 +43,21 @@ public class MyMessageListener implements  MessageListener{
     }
 
      public void processMessage(Chat chat, Message message) {
+
+         //If the message is not null
+         if(!(message.getBody() == null)){
+
+            //Add the message to the ChatFrame associated to the contact
             contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact , message.getBody()));
-            new DebugMessage("Received message by the message listener: " + message.getBody());
+            
+         }else{
+
+            //Add a "is typing" message
+            contact.getChatFrame().addTypingMsg( contact.getUser() );
+
+         }
+
+         new DebugMessage(this.getClass(), "Received message by the listener: " + message.getBody());
             
             
         if (contact.getChatFrame().isVisible() == false){
