@@ -15,11 +15,13 @@ import jfbchat.Group;
 import jfbchat.resources.*;
 
 /**
- *
- * @author peppe
+ *  A Panel with the associated group name
+ * 
+ * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com)
  */
 public class PanelGroup extends javax.swing.JPanel {
 
+    private final int MAX_DIMENSION = 32767;
     private Group group;
     private ChatPreferences prefs;
 
@@ -59,12 +61,12 @@ public class PanelGroup extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        collapseGroupLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelGroupName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
+        collapseGroupLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,26 +76,11 @@ public class PanelGroup extends javax.swing.JPanel {
         });
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel3MouseClicked(evt);
-            }
-        });
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
-
-        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        collapseGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        collapseGroupLabel.setText(" - ");
-        jPanel3.add(collapseGroupLabel);
-
-        add(jPanel3);
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabelGroupName.setBackground(new java.awt.Color(136, 136, 136));
-        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15));
         jLabelGroupName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelGroupName.setText("groupName");
         jPanel1.add(jLabelGroupName);
@@ -116,11 +103,35 @@ public class PanelGroup extends javax.swing.JPanel {
         );
 
         add(jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        collapseGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        collapseGroupLabel.setText(" - ");
+        jPanel3.add(collapseGroupLabel);
+
+        add(jPanel3);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-        
+        if (this.group.isVisible()){
+
+            this.collapseGroupLabel.setText(" + ");
+            this.group.hideContacts();
+
+        }else{
+            this.collapseGroupLabel.setText(" - ");
+            this.group.showContacts();
+
+        }
             
 
     }//GEN-LAST:event_formMouseClicked
@@ -139,6 +150,21 @@ public class PanelGroup extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jPanel3MouseClicked
 
+    /**
+     * This method fix the layout of the message and set the maximum Height
+     * @return
+     */
+    @Override
+    public java.awt.Dimension getMaximumSize() {
+
+        int fixed_height = (int) getPreferredSize().getHeight();
+        java.awt.Dimension fixedDimension;
+
+        fixedDimension = new java.awt.Dimension( MAX_DIMENSION ,fixed_height);
+
+        return fixedDimension;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel collapseGroupLabel;

@@ -39,6 +39,8 @@ import jfbchat.debug.DebugMessage;
 
 public class PanelContact extends javax.swing.JPanel {
 
+    private final int MAX_DIMENSION = 32767;
+
     private Contact contact;
     private Connection connection;
     private ImageIcon avatarIcon;
@@ -75,6 +77,22 @@ public class PanelContact extends javax.swing.JPanel {
 
         //Update the status of the contact in the JPanel
         update(contact);
+    }
+
+    /**
+     * This method fix the layout of the message and set the maximum Height
+     * @return
+     */
+    @Override
+    public java.awt.Dimension getMaximumSize() {
+
+        int fixed_height = (int) getPreferredSize().getHeight();
+        java.awt.Dimension fixedDimension;
+
+        fixedDimension = new java.awt.Dimension( MAX_DIMENSION ,fixed_height);
+
+        return fixedDimension;
+
     }
 
     /** This method is called from within the constructor to
