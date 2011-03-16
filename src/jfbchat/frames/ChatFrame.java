@@ -372,14 +372,6 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_messageFieldKeyTyped
 
     /**
-     * When the item Clear is MousePressed
-     * @param evt
-     */
-    /**
-     * When the item Close is MousePressed
-     * @param evt
-     */
-    /**
      * MenuItem Close action
      * @param evt
      */
