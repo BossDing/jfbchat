@@ -28,6 +28,8 @@ import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.ContactList;
 import jfbchat.MyChatManager;
+import jfbchat.panels.*;
+
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
@@ -59,7 +61,7 @@ public class MyPacketListener implements PacketListener{
 
 
               new DebugMessage("processPacket: \"" + msg + "\""
-                + " recived from "  + contact.getUser());
+                + " received from "  + contact.getUser());
 
 
             if (contact.isActive()){
@@ -75,7 +77,10 @@ public class MyPacketListener implements PacketListener{
                     //Create a new Chatframe and show it
                     contact.setActive(true);
                     contact.addToChatManager();
-                    contact.getChatFrame().addMessageToPanel(false, contact, msg);
+                    contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact,
+                                                   msg.getBody()));
+
+
                     new DebugMessage("processPacket:Adding a new panel to "
                             + "the chatframe :" + msg.getBody());
                 }
