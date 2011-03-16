@@ -34,12 +34,15 @@ import jfbchat.resources.*;
 import jfbchat.debug.DebugMessage;
 
 
+
  /**
  * A JPanel that represent a incoming/sended message in the ChatFrame
  * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
  */
 
 public class PanelMessage extends javax.swing.JPanel {
+
+    private final int MAX_DIMENSION = 32767;
 
     private Date hour = new Date();
     private SimpleDateFormat formatter;
@@ -123,6 +126,23 @@ public class PanelMessage extends javax.swing.JPanel {
 
     }
 
+    /**
+     * This method fix the layout of the message and set the maximum Height
+     * @return
+     */
+    @Override
+    public java.awt.Dimension getMaximumSize() {
+
+        int fixed_height = (int) getPreferredSize().getHeight();
+        java.awt.Dimension fixedDimension;
+
+        fixedDimension = new java.awt.Dimension( MAX_DIMENSION ,fixed_height);
+
+        return fixedDimension;
+        
+    }
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -142,17 +162,23 @@ public class PanelMessage extends javax.swing.JPanel {
         Labelfromto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 254, 254));
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
+        setAlignmentY(0.0F);
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setAlignmentY(0.0F);
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelMain.setAlignmentY(0.0F);
 
         jPanelTextField.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelTextField.setAlignmentY(0.0F);
 
         LabelText.setBackground(new java.awt.Color(255, 255, 255));
         LabelText.setEditable(false);
         LabelText.setText("Message here");
+        LabelText.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout jPanelTextFieldLayout = new javax.swing.GroupLayout(jPanelTextField);
         jPanelTextField.setLayout(jPanelTextFieldLayout);
@@ -166,14 +192,15 @@ public class PanelMessage extends javax.swing.JPanel {
         );
 
         jPanelFromTo.setBackground(new java.awt.Color(208, 239, 238));
+        jPanelFromTo.setAlignmentY(0.0F);
 
         Labelfromto.setBackground(new java.awt.Color(208, 239, 238));
         Labelfromto.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         Labelfromto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Labelfromto.setText("... say: / me:");
         Labelfromto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Labelfromto.setAlignmentY(0.0F);
         Labelfromto.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        Labelfromto.setMaximumSize(new java.awt.Dimension(3780, 13338));
 
         javax.swing.GroupLayout jPanelFromToLayout = new javax.swing.GroupLayout(jPanelFromTo);
         jPanelFromTo.setLayout(jPanelFromToLayout);
@@ -183,7 +210,7 @@ public class PanelMessage extends javax.swing.JPanel {
         );
         jPanelFromToLayout.setVerticalGroup(
             jPanelFromToLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Labelfromto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Labelfromto)
         );
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
@@ -202,20 +229,7 @@ public class PanelMessage extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jPanelMain);
 
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
