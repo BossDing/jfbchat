@@ -24,6 +24,7 @@
 package jfbchat.panels;
 
 
+import java.awt.Color;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -47,14 +48,14 @@ public class PanelMessage extends javax.swing.JPanel {
     private Date hour = new Date();
     private SimpleDateFormat formatter;
     private String formattedHour;
-
+    private String message;
     private MP3 incomingSnd;
     private MP3 sendSnd;
     private ChatPreferences prefs;
     
 
     /** Creates new messages form PanelMessage */
-    public PanelMessage(boolean send,Contact contact, String text) {
+    public PanelMessage(boolean send,Contact contact, String message) {
         
         //Time
         this.formatter = new SimpleDateFormat("HH:mm");
@@ -92,6 +93,8 @@ public class PanelMessage extends javax.swing.JPanel {
 
         }
 
+        this.message = message;
+
         if (send){
 
             Labelfromto.setText(formattedHour + " Me: ");
@@ -104,22 +107,23 @@ public class PanelMessage extends javax.swing.JPanel {
 
         }
         else{
-            if(text == null){
-                Labelfromto.setText(contact.getUser() + " is typing...");
-            }else{
+                
+            //Set the background color of the jPanelFromTo
+            jPanelFromTo.setBackground( Options.RECEIVED_MSG_PANEL_COLOR );
 
-                Labelfromto.setText(formattedHour + " " +contact.getUser() + " says: ");
+            Labelfromto.setText(formattedHour + " " +contact.getUser() + " says: ");
 
-                //If INCOMING_SOUND is enabled play a sound
-                 if( prefs.getPreferences().getBoolean( ( Options.INCOMING_SOUND ), true ) ){
-                    incomingSnd.play();
-                }
+            //If INCOMING_SOUND is enabled play a sound
+             if( prefs.getPreferences().getBoolean( ( Options.INCOMING_SOUND ), true ) ){
+
+                incomingSnd.play();
+               
             }
         }
             
             
         //Change the panel text
-        LabelText.setText(text);
+        LabelText.setText(message);
        
        
         setVisible(true);
@@ -140,6 +144,12 @@ public class PanelMessage extends javax.swing.JPanel {
 
         return fixedDimension;
         
+    }
+
+    public String getMessage(){
+
+        return this.message;
+
     }
 
 
@@ -225,8 +235,7 @@ public class PanelMessage extends javax.swing.JPanel {
             .addGroup(jPanelMainLayout.createSequentialGroup()
                 .addComponent(jPanelFromTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanelMain);
