@@ -60,7 +60,8 @@ public class Options {
     //---------ASPECT---------------
     public static String SHOW_EMPTY_GROUPS = "ShowEmptyGroups";
     public static String SHOW_AVATARS = "ShowAvatars";
-
+    //=====----------ChatFrame-----------
+    public static java.awt.Color RECEIVED_MSG_PANEL_COLOR = new java.awt.Color(255,242,161);
 
     //---------BEHAVIOR-------------
     public static String DownloadImgs = "DownloadImages";
@@ -69,7 +70,7 @@ public class Options {
     //---------WEBPAGES--------------
     public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
     public static String ONLINE_HELP = "http://www.digisoftware.org/phpBB/";
-    public static String USERNAME_ONLINE_HELP = "http://www.digisoftware.org";
+    public static String USERNAME_ONLINE_HELP = "http://www.digisoftware.org/phpBB/viewtopic.php?f=4&t=2";
     public static String WEBPAGE_BUG_TRACKER = "http://sourceforge.net/tracker/?group_id=405668&atid=1680548";
 
 
