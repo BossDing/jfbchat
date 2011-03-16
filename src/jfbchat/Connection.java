@@ -180,6 +180,8 @@ public class Connection {
 
         if (connection.isConnected()){
             try{
+                //Clear the chatManager
+                this.myChatManager.clear();
 
                 //Disconnect from the server
                 connection.disconnect(new Presence(Presence.Type.unavailable));
