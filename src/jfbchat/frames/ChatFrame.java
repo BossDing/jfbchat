@@ -84,7 +84,7 @@ public class ChatFrame extends javax.swing.JFrame {
         initComponents();
 
         
-        this.setTitle("Conversation with "+ contact.getUser());
+        this.setTitle( contact.getUser() );
         this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
 
         
