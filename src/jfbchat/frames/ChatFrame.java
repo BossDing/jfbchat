@@ -25,6 +25,8 @@ package jfbchat.frames;
 
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
+import javax.swing.Box;
+
 
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
@@ -170,7 +172,8 @@ public class ChatFrame extends javax.swing.JFrame {
         jPanelScrollMessages.setLayout(new java.awt.BorderLayout());
 
         PanelMessages.setBackground(new java.awt.Color(255, 255, 255));
-        PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.PAGE_AXIS));
+        PanelMessages.setAlignmentY(0.0F);
+        PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.Y_AXIS));
         ScrollMessages.setViewportView(PanelMessages);
 
         jPanelScrollMessages.add(ScrollMessages, java.awt.BorderLayout.CENTER);
@@ -216,8 +219,8 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
+                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(ButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -276,16 +279,30 @@ public class ChatFrame extends javax.swing.JFrame {
     }
 
     /**
+     * Add a "is typing" message to the PanelMessages
+     * @param A contact name
+     */
+
+    public void addTypingMsg(String contactName){
+
+            PanelMessages.add(new jfbchat.panels.PanelTypingMessage( contactName ) );
+            validate();
+            verticalScrollBar.setValue( verticalScrollBar.getMaximum() );
+            validate();
+
+    }
+
+    /**
      * Add a message to the PanelMessages
      * Set the scrollbar at the maximum position for every incoming or
      *  outcoming message.message
      */
     public void addPanelMessage(PanelMessage panel){
-
-        PanelMessages.add(panel);
-        validate();
-        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-        validate();
+        
+            PanelMessages.add(panel);
+            validate();
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+            validate();
 
     }
 
