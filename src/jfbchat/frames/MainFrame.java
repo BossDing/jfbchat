@@ -24,38 +24,36 @@
 package jfbchat.frames;
 
 
-
 import javax.swing.ImageIcon;
-
 
 import java.awt.CardLayout;
 import java.awt.Desktop;
+import java.util.Iterator;
 
 import org.jivesoftware.smack.packet.Presence;
-import java.util.Iterator;
+
 import jfbchat.*;
 import jfbchat.debug.*;
 import jfbchat.resources.*;
 import jfbchat.frames.preferences.PreferencesFrame;
-
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.io.IOException;
 
+/* The MainFrame of the program.
+ *
+ */
 public class MainFrame extends javax.swing.JFrame {
 
-    /* The MainFrame is a JFrame that manage the contact list and the login
-     * panel.
-     */
-
+    //A connection with the server
     private Connection connection;
 
     //Icon image
     private ImageIcon mainicon;
 
-    //Other Frames
+    //Frames
     private JFrameAbout jFrameAbout;
     private PreferencesFrame preferencesFrame;
     
@@ -64,21 +62,24 @@ public class MainFrame extends javax.swing.JFrame {
     //Here will be stocked the value of the Status Combobox
     private boolean ComboBoxChoise;
 
+    //Chat preferences
     private ChatPreferences prefs;
 
     public MainFrame() {
 
+        //Init frames
         jFrameAbout = new JFrameAbout(Application.VERSION);
         preferencesFrame = new PreferencesFrame();
+
         initComponents();
 
         this.prefs = new ChatPreferences();
         ComboBoxChoise = false;
 
+        //Load and set the icon.
         try{
-
-            //Load and set the icon.
-            setIconImage(new javax.swing.ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+         
+            setIconImage(new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
 
         }catch(Exception e){
 
@@ -89,8 +90,6 @@ public class MainFrame extends javax.swing.JFrame {
         //Init CheckBoxs
         jCheckBoxAuto.setSelected(this.prefs.getPreferences().getBoolean(Options.AUTOLOGIN, false));
         jCheckBoxRemUser.setSelected(this.prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false));
-
-
 
         //Hide the disconnect menu.
         MenuDisconnect.setVisible(false);
