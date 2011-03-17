@@ -166,7 +166,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuClose = new javax.swing.JMenuItem();
 
         setTitle("Conversation with ...");
-        setMinimumSize(new java.awt.Dimension(200, 200));
+        setMinimumSize(new java.awt.Dimension(300, 300));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
