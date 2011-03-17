@@ -751,24 +751,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxRemUserActionPerformed
 
  /**
- * Connect to the project webpage fr support
+ * Connect to the project webpage for support
  * @param evt
  */
     private void questionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionButtonMouseClicked
-        
-        Desktop desktop = Desktop.getDesktop();
-        
-        URI uri = null;
-        try {
-            uri = new URI(Options.USERNAME_ONLINE_HELP);
-            desktop.browse(uri);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        catch(URISyntaxException use) {
-            use.printStackTrace();
-        }
+        //Open Options.USERNAME_ONLINE_HELP
+        openURL(Options.USERNAME_ONLINE_HELP);
+            
     }//GEN-LAST:event_questionButtonMouseClicked
 
     private void LoginPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginPanelKeyTyped
