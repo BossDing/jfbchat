@@ -285,11 +285,11 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(passwordLabel)
                         .addContainerGap(260, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(usernameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EntryUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(questionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(questionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +318,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14));
         jCheckBoxAuto.setText("Auto login");
+        jCheckBoxAuto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxAutoItemStateChanged(evt);
+            }
+        });
 
         ButtonLogin.setText("Login");
         ButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -487,9 +492,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuChat.setText("Chat");
 
         MenuDisconnect.setText("Disconnect");
-        MenuDisconnect.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MenuDisconnectMousePressed(evt);
+        MenuDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuDisconnectActionPerformed(evt);
             }
         });
         jMenuChat.add(MenuDisconnect);
@@ -500,23 +505,9 @@ public class MainFrame extends javax.swing.JFrame {
         MenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         MenuExit.setText("Quit");
         MenuExit.setToolTipText("Quit");
-        MenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MenuExitMousePressed(evt);
-            }
-        });
         MenuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuExitActionPerformed(evt);
-            }
-        });
-        MenuExit.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
-            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
-            }
-            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
-                MenuExitMenuKeyReleased(evt);
-            }
-            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
             }
         });
         jMenuChat.add(MenuExit);
@@ -743,16 +734,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     
 
-    private void MenuExitMenuKeyReleased(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_MenuExitMenuKeyReleased
-  
-
-    }//GEN-LAST:event_MenuExitMenuKeyReleased
-
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuExitActionPerformed
-
-    private void MenuExitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuExitMousePressed
+        
         try{
             if(connection.isConnected()){
                 connection.closeConnection();
@@ -761,26 +744,11 @@ public class MainFrame extends javax.swing.JFrame {
         catch (NullPointerException e){
             System.out.println("Nothing to disconnect...");
         }
-        
+
         System.out.println("Stop the execution.");
         System.exit(0);
-    }//GEN-LAST:event_MenuExitMousePressed
 
-    private void MenuDisconnectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuDisconnectMousePressed
-        try{
-            if(connection.isConnected()){
-
-                connection.closeConnection();
-
-                setContactListVisible(false);
-
-                this.ContactListPanel.removeAll();
-            }
-        }
-        catch (NullPointerException e){
-            new DebugMessage("MainFrame.MenuDisconnectMousePressed : " + e.getMessage() );
-        }     
-    }//GEN-LAST:event_MenuDisconnectMousePressed
+    }//GEN-LAST:event_MenuExitActionPerformed
 
     private void ComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusActionPerformed
         // TODO add your handling code here:
@@ -851,6 +819,37 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemReportProblemMousePressed
 
+    private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAutoItemStateChanged
+         
+    }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
+
+    /**
+     *
+     * MenuItem disconnect pressed
+     *
+     * @param evt
+     */
+    private void MenuDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDisconnectActionPerformed
+        
+        try{
+
+            if( connection.isConnected() ){
+
+                connection.closeConnection();
+
+                setContactListVisible(false);
+
+                this.ContactListPanel.removeAll();
+
+            }
+        }
+        catch (NullPointerException e){
+
+            new DebugMessage("MainFrame.MenuDisconnectMousePressed : " + e.getMessage() );
+            
+        }     
+    }//GEN-LAST:event_MenuDisconnectActionPerformed
+
     public void checkBoxStatus(){
         
         //Check if the remeberuser or autologin are enabled
@@ -863,6 +862,7 @@ public class MainFrame extends javax.swing.JFrame {
             user.saveUserAndPass();
             
         }
+
         
         user.setAutologin(jCheckBoxAuto.isSelected());
         
