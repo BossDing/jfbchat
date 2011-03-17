@@ -520,9 +520,9 @@ public class MainFrame extends javax.swing.JFrame {
         MenuItemPreferences.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         MenuItemPreferences.setText("Preferences");
         MenuItemPreferences.setToolTipText("Preferences");
-        MenuItemPreferences.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MenuItemPreferencesMousePressed(evt);
+        MenuItemPreferences.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemPreferencesActionPerformed(evt);
             }
         });
         MenuEdit.add(MenuItemPreferences);
@@ -533,29 +533,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItemHelpOnline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItemHelpOnline.setText("Help Online");
-        jMenuItemHelpOnline.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItemHelpOnlineMousePressed(evt);
+        jMenuItemHelpOnline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHelpOnlineActionPerformed(evt);
             }
         });
         MenuHelp.add(jMenuItemHelpOnline);
 
-        jMenuItemReportProblem.setText("Report a problem...");
-        jMenuItemReportProblem.setToolTipText("Report any sort of problem to developers");
-        jMenuItemReportProblem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItemReportProblemMousePressed(evt);
+        jMenuItemReportProblem.setText("Report a problem");
+        jMenuItemReportProblem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReportProblemActionPerformed(evt);
             }
         });
         MenuHelp.add(jMenuItemReportProblem);
         MenuHelp.add(jSeparator2);
 
         MenuItemAbout.setText("About");
-        MenuItemAbout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MenuItemAboutMousePressed(evt);
-            }
-        });
         MenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemAboutActionPerformed(evt);
@@ -664,13 +658,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_EntryUserActionPerformed
 
     private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAboutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuItemAboutActionPerformed
-
-    private void MenuItemAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemAboutMousePressed
-        jFrameAbout.setVisible(true);
         
-    }//GEN-LAST:event_MenuItemAboutMousePressed
+        //Shows the jFrameAbout
+        showFrame(this.jFrameAbout);
+
+    }//GEN-LAST:event_MenuItemAboutActionPerformed
 
     private void ComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxStatusItemStateChanged
         
@@ -779,45 +771,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_questionButtonMouseClicked
 
-    private void MenuItemPreferencesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuItemPreferencesMousePressed
-        preferencesFrame.setVisible(true);
-    }//GEN-LAST:event_MenuItemPreferencesMousePressed
-
-    private void jMenuItemHelpOnlineMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineMousePressed
-        Desktop desktop = Desktop.getDesktop();
-
-        URI uri = null;
-        try {
-            uri = new URI(Options.ONLINE_HELP);
-            desktop.browse(uri);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        catch(URISyntaxException use) {
-            use.printStackTrace();
-        }
-    }//GEN-LAST:event_jMenuItemHelpOnlineMousePressed
-
     private void LoginPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginPanelKeyTyped
       
     }//GEN-LAST:event_LoginPanelKeyTyped
-
-    private void jMenuItemReportProblemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemMousePressed
-        Desktop desktop = Desktop.getDesktop();
-
-        URI uri = null;
-        try {
-            uri = new URI( Options.WEBPAGE_BUG_TRACKER );
-            desktop.browse(uri);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        catch(URISyntaxException use) {
-            use.printStackTrace();
-        }
-    }//GEN-LAST:event_jMenuItemReportProblemMousePressed
 
     private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAutoItemStateChanged
          
@@ -825,7 +781,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      *
-     * MenuItem disconnect pressed
+     * MenuItem Disconnect Action
      *
      * @param evt
      */
@@ -849,6 +805,70 @@ public class MainFrame extends javax.swing.JFrame {
             
         }     
     }//GEN-LAST:event_MenuDisconnectActionPerformed
+    /**
+     * MenuItem Preferences Action
+     * @param evt
+     */
+    private void MenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemPreferencesActionPerformed
+        
+        //Shows the preferencesFrame
+        showFrame(this.preferencesFrame);
+
+    }//GEN-LAST:event_MenuItemPreferencesActionPerformed
+
+    /**
+     * MenuItem Help Online Action
+     * @param evt
+     */
+    private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
+
+        //Open the ONLINE_HELP page.
+        openURL(Options.ONLINE_HELP);
+        
+    }//GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
+
+    private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemActionPerformed
+
+        //Open the Options.WEBPAGE_BUG_TRACKER page.
+        openURL( Options.WEBPAGE_BUG_TRACKER );
+        
+    }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
+
+    /**
+     * Open a webpage URL
+     * @param A webpage URL
+     */
+    public void openURL(String addr){
+
+        Desktop desktop = Desktop.getDesktop();
+
+        URI uri = null;
+        try {
+            uri = new URI(addr);
+            desktop.browse(uri);
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        catch(URISyntaxException use) {
+            use.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Shows the preferencesFrame
+     */
+    public void showFrame(javax.swing.JFrame frame){
+
+        //If the window is not visible
+        if ( !(frame.isVisible()) ){
+
+            //Show the preferences window
+            frame.setVisible(true);
+
+        }
+    }
 
     public void checkBoxStatus(){
         
