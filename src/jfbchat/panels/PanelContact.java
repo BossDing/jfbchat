@@ -212,14 +212,33 @@ public class PanelContact extends javax.swing.JPanel {
             }
 
             stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
-            setVisible(true);
 
+            //If the group is not collapsed show the contact
+          
+            if ( connection.getContactList().getGroupFromName(groupName) != null){
+                
+                if( connection.getContactList().getGroupFromName(groupName).isVisible() ){
+                    
+                    setVisible(true);
+                }
+            }
+            
 
         }else if ((contact.getPresence().isAvailable())){
 
             stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
-            setVisible(true);
+          
+           
+                if ( connection.getContactList().getGroupFromName(groupName) != null){
+                    
+                    if( connection.getContactList().getGroupFromName(groupName).isVisible() ){
+                        
+                        setVisible(true);
+                    }
+                 }
             
+            
+            //Update the avatar icon
             if ( avatarIcon == null){
 
                 try{
@@ -245,10 +264,10 @@ public class PanelContact extends javax.swing.JPanel {
             
 
        }
-
-            else{
-                setVisible(false);
-            }
+       //If the contact is unavailable
+        else{
+            setVisible(false);
+        }
 
         
     }
@@ -293,7 +312,7 @@ public class PanelContact extends javax.swing.JPanel {
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
 
-        Color onMouseOver_c = new Color(51,102,204);
+        Color onMouseOver_c = Options.COLOR_ON_MOUSE_OVER_CONTACT_PANEL;
 
         this.setBackground(onMouseOver_c);
         mainPanel.setBackground(onMouseOver_c);
