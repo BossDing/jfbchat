@@ -89,6 +89,9 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="editable" type="boolean" value="false"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="15" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Message here"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
@@ -122,7 +125,7 @@
                       <Color blue="ee" green="ef" red="d0" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="15" style="1"/>
+                      <Font name="Verdana" size="15" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
                     <Property name="text" type="java.lang.String" value="... say: / me:"/>

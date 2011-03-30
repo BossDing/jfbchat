@@ -144,9 +144,6 @@
           <Properties>
             <Property name="name" type="java.lang.String" value="loginPanel" noResource="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="LoginPanelKeyTyped"/>
-          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="loginPanel"/>
@@ -228,7 +225,7 @@
                                   <Component id="EntryPass" alignment="0" pref="331" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="260" max="32767" attributes="0"/>
+                                      <EmptySpace pref="244" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -264,20 +261,17 @@
                     <Component class="javax.swing.JLabel" name="usernameLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Ubuntu" size="16" style="1"/>
+                          <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Username"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="EntryUser">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EntryUserActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="questionButton">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Ubuntu" size="16" style="1"/>
+                          <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="?"/>
                         <Property name="toolTipText" type="java.lang.String" value="Click here if you have a connection problem."/>
@@ -290,15 +284,12 @@
                     <Component class="javax.swing.JLabel" name="passwordLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Ubuntu" size="16" style="1"/>
+                          <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Password"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JPasswordField" name="EntryPass">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EntryPassActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -314,7 +305,7 @@
                                   <Component id="jCheckBoxAuto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ButtonLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="81" max="32767" attributes="0"/>
+                              <EmptySpace pref="52" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -327,7 +318,7 @@
                               <Component id="jCheckBoxAuto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="ButtonLogin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="46" max="32767" attributes="0"/>
+                              <EmptySpace pref="38" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -336,31 +327,34 @@
                     <Component class="javax.swing.JCheckBox" name="jCheckBoxRemUser">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Ubuntu" size="14" style="0"/>
+                          <Font name="Verdana" size="14" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Remember username and password"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxRemUserActionPerformed"/>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCheckBoxRemUserItemStateChanged"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JCheckBox" name="jCheckBoxAuto">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Ubuntu" size="14" style="0"/>
+                          <Font name="Verdana" size="14" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Auto login"/>
                       </Properties>
                       <Events>
                         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCheckBoxAutoItemStateChanged"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxAutoActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="ButtonLogin">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Verdana" size="15" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Login"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonLoginMouseClicked"/>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonLoginActionPerformed"/>
                       </Events>
                     </Component>
@@ -493,7 +487,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ComboBoxStatusItemStateChanged"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboBoxStatusActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">

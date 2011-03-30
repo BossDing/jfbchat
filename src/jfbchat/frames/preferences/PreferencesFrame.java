@@ -40,9 +40,8 @@ public class PreferencesFrame extends javax.swing.JFrame {
                   "Edit general preferences");
         TabPreferences.addTab("Notifications", null,notificationPanel,
                   "Edit notifications preferences");
-        
-        
-        
+
+        setLocationRelativeTo(null);
 
     }
 

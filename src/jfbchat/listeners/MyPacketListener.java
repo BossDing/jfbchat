@@ -37,9 +37,10 @@ import jfbchat.debug.DebugMessage;
 
 public class MyPacketListener implements PacketListener{
 
-      private Connection connection;
-      private MyChatManager chatManager;
-      private ContactList contactList;
+    private final int TIMEOUT = 1000;
+    private Connection connection;
+    private MyChatManager chatManager;
+    private ContactList contactList;
 
 
       public MyPacketListener(Connection connection){
@@ -48,23 +49,22 @@ public class MyPacketListener implements PacketListener{
           this.contactList = connection.getContactList();
       }
 
+      //the packet is filtered as a message
       public void processPacket(Packet packet) {
    
             //Contact who sends thet packet
-
             Contact contact = connection.getContactList().getContact(packet.getFrom());
-            System.out.println(contact);
-
-
+         
             //Managing a message
             Message msg = (Message) packet;
 
 
-              new DebugMessage("processPacket: \"" + msg + "\""
+              new DebugMessage(this.getClass(), "processPacket: \"" + msg + "\""
                 + " received from "  + contact.getUser());
 
-
+            //If the contact has a chatFrame in the chatManager
             if (contact.isActive()){
+
                     if (!(contact.getChatFrame().isVisible())){
 
                         contact.getChatFrame().setVisible(true);
@@ -77,8 +77,20 @@ public class MyPacketListener implements PacketListener{
                     //Create a new Chatframe and show it
                     contact.setActive(true);
                     contact.addToChatManager();
+
                     contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact,
                                                    msg.getBody()));
+                    
+                    // do nothing for TIMEOUT miliseconds
+                    try
+                    {
+                        Thread.sleep(TIMEOUT);
+                    }
+                        catch(Exception e)
+                    {
+                        new DebugMessage(this.getClass(), "Cannot timeout for " + TIMEOUT + "miliseconds");
+                    }
+                    
 
 
                     new DebugMessage("processPacket:Adding a new panel to "

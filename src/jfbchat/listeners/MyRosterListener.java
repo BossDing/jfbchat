@@ -57,10 +57,13 @@ public class MyRosterListener implements RosterListener {
         if(this.connection.isConnected()){
 
             try{
+                //Get the contact associated with the Roaster update
                 Contact contact =  connection.getContactList().getContact(presence.getFrom());
 
                 contact.setPresence(presence);
+
                 new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
+
                 contact.updateContactPanels();
 
                 //TODO: update only the group associated to the contact

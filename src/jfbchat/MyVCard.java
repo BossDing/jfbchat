@@ -116,7 +116,7 @@ public class MyVCard {
 
                 byte[] avatarBytes;
 
-                //Load the vCard
+                //Load the vCard associated to the contact
                 try{
 
                     vCard.load(connection.getConnection(), contact.getAdress());
@@ -181,6 +181,9 @@ public class MyVCard {
 
     }
 
+    /**
+     * Save the contact associated avatar to the local cache directory
+     */
     public void saveAvatarToCache(){
 
         //If the cache directory does not exist

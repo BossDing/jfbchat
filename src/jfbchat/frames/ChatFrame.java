@@ -25,7 +25,7 @@ package jfbchat.frames;
 
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
-import javax.swing.Box;
+
 
 
 import org.jivesoftware.smack.ChatManager;
@@ -110,35 +110,8 @@ public class ChatFrame extends javax.swing.JFrame {
           }
 
            setVisible(true);
+           setLocationRelativeTo(null);
        
-    }
-
-    public ChatFrame(Connection connection, String contactAdr) {
-        
-        this.connection = connection;
-        this.contactAdr = contactAdr;
-
-        chatmanager = connection.getConnection().getChatManager();
-
-        initComponents();
-        this.setTitle("Conversation with "+ contactAdr);
-      
-        newChat = chatmanager.createChat(contactAdr, new MessageListener() {
-            public void processMessage(Chat chat, Message message) {
-
-                if (contact.getChatFrame().isVisible() == false){
-
-                    contact.getChatFrame().setVisible(true);
-
-                }
-                PanelMessages.add(new PanelMessage(false, contact , message.getBody()));
-                System.out.println("Ricevuto: " + message);
-                validate();
-                verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-            
-            }
-           });
-         
     }
 
     /** This method is called from within the constructor to
@@ -331,12 +304,14 @@ public class ChatFrame extends javax.swing.JFrame {
      *  outcoming message.message
      */
     public void addPanelMessage(PanelMessage panel){
-        
+       if(panel.getMessage() != null){
             PanelMessages.add(panel);
             validate();
             verticalScrollBar.setValue(verticalScrollBar.getMaximum());
             validate();
-
+       } else{
+           addTypingMsg(panel.getContact().getUser());
+       }
     }
 
     /**
@@ -350,7 +325,7 @@ public class ChatFrame extends javax.swing.JFrame {
     }
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-         //TODO: Send a message when enter is pressed
+       
     }//GEN-LAST:event_formKeyPressed
 
     private void ButtonSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonSendMouseClicked

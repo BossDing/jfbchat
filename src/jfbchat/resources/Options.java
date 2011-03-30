@@ -47,7 +47,7 @@ public class Options {
     public static final String SERVICE_NAME = "chat.facebook.com";
 
     //---------DEBUG-------------
-    public static boolean DEBUG_ENABLED = true;
+    public static boolean DEBUG_ENABLED = false;
 
     //---------SYSTEM--------------
     public static String HOME_DIR = "";
@@ -61,7 +61,10 @@ public class Options {
     public static String SHOW_EMPTY_GROUPS = "ShowEmptyGroups";
     public static String SHOW_AVATARS = "ShowAvatars";
     //=====----------ChatFrame-----------
-    public static java.awt.Color RECEIVED_MSG_PANEL_COLOR = new java.awt.Color(255,242,161);
+    public static java.awt.Color RECEIVED_MSG_PANEL_COLOR = new java.awt.Color(255, 242, 161);
+    //=====----------ContactPanel-------
+    //Move to a skin file
+    public static java.awt.Color COLOR_ON_MOUSE_OVER_CONTACT_PANEL = new java.awt.Color(109, 132, 180);
 
     //---------BEHAVIOR-------------
     public static String DownloadImgs = "DownloadImages";

@@ -30,7 +30,7 @@ import javax.swing.*;
 
 /**
  * this class represent a lifecycle
- * @author Digitex (digitex3d@gmail.com)
+ * @author Digitex (Giuseppe Federico - digitex3d@gmail.com)
  */
 
 public class Application {
@@ -38,7 +38,6 @@ public class Application {
     public final static String VERSION = "0.2.0";
 
     private MainFrame mainFrame;
-    private String os;
 
     public static final String NAME_OS = System.getProperty("os.name");
     public static final String VERSION_OS = System.getProperty("os.version");

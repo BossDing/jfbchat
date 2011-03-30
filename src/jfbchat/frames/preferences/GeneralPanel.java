@@ -28,7 +28,7 @@ public class GeneralPanel extends javax.swing.JPanel {
 
         this.prefs = new ChatPreferences();
         //Init the options
-        chackAutoLogin.setSelected( prefs.getPreferences().getBoolean( Options.AUTOLOGIN, true ) );
+        chackAutoLogin.setSelected( prefs.getPreferences().getBoolean( Options.AUTOLOGIN, false ) );
 
 
     }

@@ -37,34 +37,29 @@ import jfbchat.debug.DebugMessage;
 
 /**
  * This class represent a contact list.
- * @author Digitex
+ * @author Digitex Giuseppe Federico( digitex3d@gmail.com)
  */
-
 public class ContactList {
 
     protected Connection connection;
 
     protected ArrayList<Contact> contactList;
-    private Roster roster;
+    protected Roster roster;
     protected ArrayList<Group> groups;
 
     public ContactList(Connection connection){
         this.connection = connection;
         this.contactList = new ArrayList();
         this.groups = new ArrayList();
-        
-      
+
     }
 
     /**
-     * Get the contact list from the server, populate the contactList and sort it
-     * by name.
-     */
-    
+    * Get the contact list from the server, populate the contactList and sort it
+    * by name.
+    */
     public void getList(){
         try{
-
-
 
             this.roster = connection.getConnection().getRoster();
 
@@ -82,7 +77,8 @@ public class ContactList {
                 
             
             }
-            sortByName();
+           
+        
         }
 
         catch (Exception e){
@@ -94,37 +90,31 @@ public class ContactList {
     }
 
     /**
-     * Gets the contact associated at position index
-     * @param index - the position of the contact in the ArrayList
-     * @return a contact
-     */
-
+    * Gets the contact associated at position index
+    * @param index - the position of the contact in the ArrayList
+    * @return a contact
+    */
     public Contact getContact(int index){
-
         return contactList.get(index);
         
     }
 
     /**
-     * Gets an address and returns the associated contact from the list
-     * @param A contact address
-     * @return The contact address associated to the address
-     */
+    * Gets an address and returns the associated contact from the list
+    * @param A contact address
+    * @return The contact address associated to the address
+    */
     public Contact getContact(String addr){
 
-        if(!(contactList.isEmpty())){
-            
-
+        if(!(contactList.isEmpty())){        
             Iterator<Contact> iter = contactList.iterator();
 
             while(iter.hasNext()){
          
                 Contact nextContact = iter.next();
-                
-
+      
                 if (nextContact.getAdress().equals(addr)){
-                    
-                   return nextContact;
+                    return nextContact;
 
                }
             }
@@ -137,38 +127,39 @@ public class ContactList {
     }
 
     /**
-     * Gets a contact name and returns the associated contact from the list
-     * @param A contact name
-     * @return The contact in the list associated to the name
-     */
-
+    * Gets a contact name and returns the associated contact from the list
+    * @param A contact name
+    * @return The contact in the list associated to the name
+    */
     public Contact getContactFromName(String name){
-        
-        
-        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
-            Contact next = iter.next();
-            if (next.getUser().equals(name)){
-               return next;
-           }
+        if(!(contactList.isEmpty())){
+            for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
+                Contact next = iter.next();
+                if (next.getUser().equals(name)){
+                   return next;
+
+               }
+            }
         }
 
         new DebugMessage("ContactList.getContactFromName : Cannot find name " + name + " in the contact list.");
         return null;
 
     }
+               
     /**
-     * 
-     * @param A contact id
-     * @return  The contact in the list associated with the the id
-     */
+    *
+    * @param A contact id
+    * @return  The contact in the list associated with the the id
+    */
     public Contact getContactFromId(int id){
-
-
-        for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
-            Contact next = iter.next();
-            if (next.getId() == id ){
-               return next;
-           }
+        if(!(contactList.isEmpty())){
+            for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();){
+                Contact next = iter.next();
+                if (next.getId() == id ){
+                   return next;
+               }
+            }
         }
 
         new DebugMessage("ContactList.getContactFromId : Cannot find id " + id + " in the contact list.");
@@ -177,10 +168,9 @@ public class ContactList {
     }
 
     /**
-     *
-     * @return the iterato associated to this contact list
-     */
-
+    *
+    * @return the iterator associated to this contact list
+    */
     public Iterator iterator(){
         return contactList.iterator();
     }
@@ -194,12 +184,12 @@ public class ContactList {
         return contactList.size();
     }
 
+
     /**
-     * Sorts this contactlist by name
-     */
-
+    * Sorts this contactlist by name
+    */
     public void sortByName(){
-
+        //TODO: alternative to this function
         /**
          * In nameList we are going to stock the names
          */
@@ -261,13 +251,13 @@ public class ContactList {
         return contactList;
     }
 
-    /**
-     * This method defines the groups of a contactList
-     * For each group in the roster defines a new Group filled of all contacts
-     * in groups
-     *Should be called after getList
-     */
 
+    /**
+    * This method defines the groups of a contactList
+    * For each group in the roster defines a new Group filled of all contacts
+    * in groups
+    *Should be called after getList
+    */
     public void updateGroupPanels(){
         if( !(groups.isEmpty())){
 
@@ -291,10 +281,7 @@ public class ContactList {
         ArrayList<Contact> temp_g = new ArrayList();
         //A temporaney arraylist for the contacts
         List<Contact> temp_c = ((List) ((ArrayList) contactList).clone());
-        
 
-
-        //Sort the groups by name
 
         if ( !(roster.getGroups().isEmpty())){
 
@@ -345,6 +332,28 @@ public class ContactList {
             new DebugMessage("Cannot define groups: The roster is not defined, maybe call getList first or no groups...?");
 
         }
+
+    }
+
+    /**
+     * Get a group from the groupList by giving the name of this group.
+     * @param the name of a group
+     * @return the group associated with that name
+     */
+    public Group getGroupFromName(String name){
+
+        for (Iterator<Group> iter = groups.iterator() ; iter.hasNext();){
+            Group next = iter.next();
+            if (next.getName().equals(name)){
+
+               new DebugMessage(this.getClass(), "Found " + name + " in the group list.");
+               return next;
+           }
+        }
+
+        new DebugMessage(this.getClass(), "Cannot find group " + name + " in the group list.");
+        return null;
+
 
     }
 

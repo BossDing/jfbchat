@@ -36,6 +36,9 @@
 package jfbchat.resources;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -75,9 +78,8 @@ public class ChatPreferences {
 
             //-------------BEHAVIOR------------
             prefs.getBoolean( Options.SAVE_AVATARS_TO_CACHE , true );
-
-        }
-
+        
+    }
         /**
          *
          * @return The preferences

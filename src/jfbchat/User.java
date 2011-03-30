@@ -90,20 +90,13 @@ public class User {
 
     public boolean hasCachedAvatars(){
 
-        //TODO: Contidion for windows
-        if( Application.NAME_OS.equals("Linux") ){
-            
-            //Path of the directory where cached images are saved by default.
-            String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
+        //Path of the directory where cached images are saved by default.
+        String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
 
-            new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");
-                      
-            return (new File( cache_dir_path) ).exists();
+        new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");
 
-        }
+        return (new File( cache_dir_path) ).exists();
 
-        return false;
-        
     }
     
 

@@ -57,7 +57,7 @@ public class PacketListening{
             // Register the listener.
             connection.getConnection().addPacketListener(myListener, filter);
         }
-        catch (Exception ex) {                                            //TODO: gestire meglio le eccezzioni
+        catch (Exception ex) {                                         
 
             new Error(connection,1, "Cannot create a PacketCollector : " + ex.toString() + "." );
             

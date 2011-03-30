@@ -42,12 +42,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
+
+
 /**
  *  Represents a Facebook group list
  *
  * @author Digitex - Giuseppe Federico (digitex3d@gmail.com)
  */
-
 public class Group extends ContactList{
 
     public String name;
@@ -63,8 +64,7 @@ public class Group extends ContactList{
         this.isVisible = true;
 
         sortByName();
-
-        
+       
 
     }
 
@@ -150,6 +150,7 @@ public class Group extends ContactList{
                         this.isVisible = false;
         }
     }
+
 
     public boolean isVisible(){
         return isVisible;

@@ -67,7 +67,7 @@ public class PanelGroup extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         collapseGroupLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(230, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -75,26 +75,38 @@ public class PanelGroup extends javax.swing.JPanel {
         });
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanelMain.setBackground(new java.awt.Color(208, 239, 238));
+        jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(208, 239, 238));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel3MouseClicked(evt);
             }
         });
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabelGroupName.setBackground(new java.awt.Color(136, 136, 136));
-        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15));
+        jLabelGroupName.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         jLabelGroupName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelGroupName.setText("groupName");
-        jPanel3.add(jLabelGroupName);
 
-        jPanel1.setBackground(new java.awt.Color(208, 239, 238));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelGroupName)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelGroupName, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         collapseGroupLabel.setBackground(new java.awt.Color(208, 239, 238));
-        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18));
         collapseGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         collapseGroupLabel.setText(" - ");
 
@@ -114,13 +126,13 @@ public class PanelGroup extends javax.swing.JPanel {
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(77, 77, 77)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 

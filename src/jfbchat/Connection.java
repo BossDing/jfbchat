@@ -68,9 +68,6 @@ public class Connection {
 
     public void connect(){
 
-        /*Connect to the server and start the packet and roaster listening.
-         */
-
         new DMessage("Connection to " + Options.SERVER +
                             " as " + user.getUsername() + "...");
 
@@ -85,7 +82,7 @@ public class Connection {
             System.out.println("Logged in as " + user.getUsername()+ ".");
 
             //Set the user status presence available.
-            //TODO: Initial presence should be setted in the options
+            //TODO: Initial presence should be setted in the options 0.3.0
             updatePresence(new Presence(Presence.Type.available));
 
             //Get the contact list from the server
@@ -175,7 +172,6 @@ public class Connection {
     /**
      * Close the connection with the server
      */
-
     public void closeConnection(){
 
         if (connection.isConnected()){

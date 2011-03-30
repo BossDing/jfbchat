@@ -25,6 +25,7 @@ package jfbchat.frames;
 
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 import java.awt.CardLayout;
 import java.awt.Desktop;
@@ -46,6 +47,9 @@ import java.io.IOException;
  *
  */
 public class MainFrame extends javax.swing.JFrame {
+
+    //Enter key ID
+    final int K_ENTER_ID = 10;
 
     //A connection with the server
     private Connection connection;
@@ -87,19 +91,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
 
-        //Init CheckBoxs
+        //Init CheckBoxes
         jCheckBoxAuto.setSelected(this.prefs.getPreferences().getBoolean(Options.AUTOLOGIN, false));
         jCheckBoxRemUser.setSelected(this.prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false));
 
         //Hide the disconnect menu.
         MenuDisconnect.setVisible(false);
 
-         user = new User();
+        //Init a new user
+        //TODO: should be modified when there will be more users
+        user = new User();
 
         //Show the MainFrame at the center of the screen.
         setLocationRelativeTo( null );
         setVisible(true);
 
+
+        //If the option is enabled login automatically
         autologin();
 
     }
@@ -112,18 +120,34 @@ public class MainFrame extends javax.swing.JFrame {
 
             EntryUser.setText(user.getSavedUser());
             EntryPass.setText(user.getSavedPass());
-            ButtonLoginMouseClicked(null);
+            loginToServer();
 
-        }else if((user.getSavedUser() != null)){
+        }else{
+            
+            if ( prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false) ){
 
-            //Only remember user was pressed
-            EntryUser.setText(user.getSavedUser());
-            EntryPass.setText(user.getSavedPass());
+                //Only remember user was pressed
+                EntryUser.setText(user.getSavedUser());
+                EntryPass.setText(user.getSavedPass());
+            }
+
+            else{
+            
+                //Clear the save username and password
+                this.prefs.getPreferences().put( Options.USERNAME, "");
+                this.prefs.getPreferences().put( Options.PASSWORD, "");
+
+                //Init the entryboxes
+                EntryUser.setText("");
+                EntryPass.setText("");
+            
+            }
 
         }
-
     }
 
+
+    //Login procedure
     Runnable loginRunnable = new Runnable() {
      public void run() {
           //Create a new user
@@ -138,11 +162,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (connection.isConnected()){
 
-            //Check if remeberuser or autologin checkbox are selected.
-            checkBoxStatus();
-
             //Populate the contact list
             for(Iterator<Group> iterGroup = connection.getContactList().getGroups().iterator(); iterGroup.hasNext();){
+
                 Group nextGroup = iterGroup.next();
 
                 ContactListPanel.add(nextGroup.getPanel());
@@ -216,11 +238,6 @@ public class MainFrame extends javax.swing.JFrame {
         MainPanel.setLayout(new java.awt.CardLayout());
 
         LoginPanel.setName("loginPanel"); // NOI18N
-        LoginPanel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                LoginPanelKeyTyped(evt);
-            }
-        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
@@ -244,16 +261,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         credentialsPanel.setLayout(new javax.swing.BoxLayout(credentialsPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        usernameLabel.setFont(new java.awt.Font("Ubuntu", 1, 16));
+        usernameLabel.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         usernameLabel.setText("Username");
 
-        EntryUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EntryUserActionPerformed(evt);
-            }
-        });
-
-        questionButton.setFont(new java.awt.Font("Ubuntu", 1, 16));
+        questionButton.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         questionButton.setText("?");
         questionButton.setToolTipText("Click here if you have a connection problem.");
         questionButton.setFocusable(false);
@@ -263,14 +274,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        passwordLabel.setFont(new java.awt.Font("Ubuntu", 1, 16));
+        passwordLabel.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         passwordLabel.setText("Password");
-
-        EntryPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EntryPassActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -282,7 +287,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(EntryPass, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(passwordLabel)
-                        .addContainerGap(260, Short.MAX_VALUE))
+                        .addContainerGap(244, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,28 +312,29 @@ public class MainFrame extends javax.swing.JFrame {
 
         credentialsPanel.add(jPanel1);
 
-        jCheckBoxRemUser.setFont(new java.awt.Font("Ubuntu", 0, 14));
+        jCheckBoxRemUser.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jCheckBoxRemUser.setText("Remember username and password");
-        jCheckBoxRemUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxRemUserActionPerformed(evt);
+        jCheckBoxRemUser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxRemUserItemStateChanged(evt);
             }
         });
 
-        jCheckBoxAuto.setFont(new java.awt.Font("Ubuntu", 0, 14));
+        jCheckBoxAuto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jCheckBoxAuto.setText("Auto login");
         jCheckBoxAuto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxAutoItemStateChanged(evt);
             }
         });
-
-        ButtonLogin.setText("Login");
-        ButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonLoginMouseClicked(evt);
+        jCheckBoxAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxAutoActionPerformed(evt);
             }
         });
+
+        ButtonLogin.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        ButtonLogin.setText("Login");
         ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonLoginActionPerformed(evt);
@@ -345,7 +351,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
                     .addComponent(ButtonLogin))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +362,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxAuto)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonLogin)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         credentialsPanel.add(jPanel3);
@@ -422,11 +428,6 @@ public class MainFrame extends javax.swing.JFrame {
         ComboBoxStatus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxStatusItemStateChanged(evt);
-            }
-        });
-        ComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxStatusActionPerformed(evt);
             }
         });
 
@@ -574,7 +575,11 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonLoginMouseClicked
+    /**
+     * Login to the server
+     */
+    public void loginToServer(){
+
         String password = EntryPass.getText();
         String username = EntryUser.getText();
 
@@ -583,6 +588,10 @@ public class MainFrame extends javax.swing.JFrame {
             loginPanelComponentsSetEnabled(false);
 
             try{
+                 // Write username and password to  preferences
+                this.prefs.getPreferences().put( Options.USERNAME, username);
+                this.prefs.getPreferences().put( Options.PASSWORD, password);
+                
                 //Login to the chat
                 javax.swing.SwingUtilities.invokeLater(loginRunnable);
 
@@ -598,15 +607,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
 
-                
 
-    }//GEN-LAST:event_ButtonLoginMouseClicked
-
+    }
 
    
-
+    /**
+     * Ad a group to the Contact List
+     * @param A group
+     */
     private void addContactsToPanel(Group contactList){
-        //Populate the ContactListPanel with all the contacts
+        //Populate the ContactListPanel with all the contacts of a group
 
         for(Iterator<Contact> iter = contactList.iterator(); iter.hasNext();){
                 Contact nextContact = iter.next();
@@ -627,7 +637,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Disable all the login panel components except the progressbar
+     * Disable all the login panel components 
      */
 
     public void loginPanelComponentsSetEnabled(boolean value){
@@ -643,18 +653,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
 
-
-    private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonLoginActionPerformed
-
-    private void EntryPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntryPassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EntryPassActionPerformed
-
-    private void EntryUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntryUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EntryUserActionPerformed
 
     private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAboutActionPerformed
         
@@ -741,14 +739,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuExitActionPerformed
 
-    private void ComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxStatusActionPerformed
-
-    private void jCheckBoxRemUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxRemUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxRemUserActionPerformed
-
  /**
  * Connect to the project webpage for support
  * @param evt
@@ -758,14 +748,6 @@ public class MainFrame extends javax.swing.JFrame {
         openURL(Options.USERNAME_ONLINE_HELP);
             
     }//GEN-LAST:event_questionButtonMouseClicked
-
-    private void LoginPanelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginPanelKeyTyped
-      
-    }//GEN-LAST:event_LoginPanelKeyTyped
-
-    private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAutoItemStateChanged
-         
-    }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
 
     /**
      *
@@ -823,6 +805,53 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
 
     /**
+     * CheckBox Autologin Action Performed
+     * @param evt
+     */
+    /**
+     * ButtonLogin Action Performed
+     * @param evt
+     */
+    private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
+
+        //Login to the server
+        loginToServer();
+        
+    }//GEN-LAST:event_ButtonLoginActionPerformed
+
+    private void jCheckBoxAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAutoActionPerformed
+
+        //Set the jCheckBoxRemUser selected
+        jCheckBoxRemUser.setSelected(true);
+    }//GEN-LAST:event_jCheckBoxAutoActionPerformed
+
+    /**
+     * CheckBox Remember user and password state changed
+     * @param evt
+     */
+    private void jCheckBoxRemUserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxRemUserItemStateChanged
+
+        //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.REMEMBER_USER_AND_PASS, item.isSelected());
+
+    }//GEN-LAST:event_jCheckBoxRemUserItemStateChanged
+
+    /**
+     * CheckBox Autologin state changed
+     * @param evt
+     */
+    private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAutoItemStateChanged
+         //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.AUTOLOGIN, item.isSelected());
+    }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
+
+    /**
      * Open a webpage URL
      * @param A webpage URL
      */
@@ -858,23 +887,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    public void checkBoxStatus(){
-        
-        //Check if the remeberuser or autologin are enabled
-
-        this.prefs.getPreferences().putBoolean(Options.REMEMBER_USER_AND_PASS, jCheckBoxRemUser.isSelected());
-        this.prefs.getPreferences().putBoolean(Options.AUTOLOGIN, jCheckBoxAuto.isSelected());
-
-        if (jCheckBoxRemUser.isSelected()){
-
-            user.saveUserAndPass();
-            
-        }
-
-        
-        user.setAutologin(jCheckBoxAuto.isSelected());
-        
-    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

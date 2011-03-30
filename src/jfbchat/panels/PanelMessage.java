@@ -51,6 +51,8 @@ public class PanelMessage extends javax.swing.JPanel {
     private String message;
     private MP3 incomingSnd;
     private MP3 sendSnd;
+
+    private Contact contact;
     private ChatPreferences prefs;
     
 
@@ -66,6 +68,8 @@ public class PanelMessage extends javax.swing.JPanel {
 
         //Init the chat preferences
         this.prefs = new ChatPreferences();
+
+        this.contact = contact;
 
         //Load the incoming message sound
         try {
@@ -152,6 +156,10 @@ public class PanelMessage extends javax.swing.JPanel {
 
     }
 
+    public Contact getContact(){
+        return contact;
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -187,6 +195,7 @@ public class PanelMessage extends javax.swing.JPanel {
 
         LabelText.setBackground(new java.awt.Color(255, 255, 255));
         LabelText.setEditable(false);
+        LabelText.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         LabelText.setText("Message here");
         LabelText.setAlignmentY(0.0F);
 
@@ -205,7 +214,7 @@ public class PanelMessage extends javax.swing.JPanel {
         jPanelFromTo.setAlignmentY(0.0F);
 
         Labelfromto.setBackground(new java.awt.Color(208, 239, 238));
-        Labelfromto.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        Labelfromto.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         Labelfromto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Labelfromto.setText("... say: / me:");
         Labelfromto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
