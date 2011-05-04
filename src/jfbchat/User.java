@@ -62,8 +62,8 @@ public class User {
     }
     
     /** 
-     * @return the user password
-     */
+    * @return the user password
+    */
     public String getPassword(){
         if(password.isEmpty()){
             new DebugMessage(this.getClass(), "Password is empty");
@@ -75,9 +75,9 @@ public class User {
     }
 
     /**
-     * 
-     * @return the user username 
-     */
+    * 
+    * @return the user username 
+    */
     public String getUsername(){
         if(username.isEmpty()){
             new DebugMessage(this.getClass(), "Username is empty");
@@ -112,9 +112,9 @@ public class User {
     }
 
     /**
-     * 
-     * @return true if Autologin preference is enabled, otherwise return false. 
-     */
+    * 
+    * @return true if Autologin preference is enabled, otherwise return false. 
+    */
     public boolean isAutoLogin(){
 
         return this.prefs.getPreferences().getBoolean( Options.AUTOLOGIN, false);
