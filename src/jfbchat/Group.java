@@ -96,7 +96,7 @@ public class Group extends ContactList{
                         Contact nextContact = iterContact.next();
 
                         //Update the contact panel to normal status
-                        nextContact.getContactPanelbyGroup(name).update(nextContact);
+                        nextContact.getContactPanelbyGroup(name).update();
 
                         this.isVisible = true;
 

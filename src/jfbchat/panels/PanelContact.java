@@ -76,7 +76,7 @@ public class PanelContact extends javax.swing.JPanel {
 
 
         //Update the status of the contact in the JPanel
-        update(contact);
+        update();
     }
 
     /**
@@ -176,17 +176,12 @@ public class PanelContact extends javax.swing.JPanel {
         add(mainPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+
     /**
-     * Update the status of the contact in the JPanel
-     * @param the contact associated to this JPanel
-     */
-
-    public void update(Contact contact){
-
-
-
-        this.contact = contact;
-
+    * Update the status of the contact in the JPanel
+    * @param the contact associated to this JPanel
+    */
+    public void update(){
         if (contact.getPresence().isAway()){
 
             if ( avatarIcon == null){
