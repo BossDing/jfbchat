@@ -224,50 +224,56 @@ public class Contact {
    }
 
     /**
-     * Returns true if the contact is available and false if not
-     * @return a boolean
-     */
+    * Returns true if the contact is available and false if not
+    * @return a boolean
+    */
     public boolean isAvailable(){
         return presence.isAvailable();
     }
      
     /**
-     * Returns true if a chat is active with this contact
-     * @return a boolean
-     */
+    * Returns true if a chat is active with this contact
+    * @return a boolean
+    */
     public boolean isActive(){
         return chatActive;
     }
 
     /**
-     * Set it true if a chat with this contact is active and false if not
-     *
-     */
+    * Set it true if a chat with this contact is active and false if not
+    *
+    */
     public void setActive(boolean active){
         chatActive = active;
     }
 
     /**
-     * Add a contactPanel to the contactPanels ArrayList
-     * @param A contactPanel
-     */
+    * Add a contactPanel to the contactPanels ArrayList
+    * @param A contactPanel
+    */
     public void addContactPanel(PanelContact contactPanel){
-        this.contactPanels.add(contactPanel);
+        try{
+            this.contactPanels.add(contactPanel);
+            
+        }catch(Exception e){
+            new DebugMessage(this.getClass(), " Cannot add contact to the contactPanels " + e);
+            
+        }
     }
 
     /**
-     *
-     * @return A list with all the contactPanels associated with this contact
-     */
+    *
+    * @return A list with all the contactPanels associated with this contact
+    */
     public ArrayList<PanelContact> getContactPanel(){
         return contactPanels;
     }
 
     /**
-     *
-     * @param groupName
-     * @return The PanelContact associated with this name
-     */
+    *
+    * @param groupName
+    * @return The PanelContact associated with this name
+    */
     public PanelContact getContactPanelbyGroup(String groupName){
 
          try{
