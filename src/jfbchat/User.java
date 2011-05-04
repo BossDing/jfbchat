@@ -30,29 +30,28 @@ import jfbchat.debug.*;
 
 
 /**
- * A User
+ * Contains the informations of the user
  * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
  */
 
 public class User {
-
     
     private String username;
     private String password;
-    private MyVCard vCard;
+
     private ChatPreferences prefs;
 
     public User(String username, String password){
 
-
         this.username = username;
         this.password = password;
       
-        this.vCard = new MyVCard();
         this.prefs = new ChatPreferences();
-
         
-
+        /* Write username and password to  preferences for autologin*/
+        this.prefs.getPreferences().put( Options.USERNAME, username);
+        this.prefs.getPreferences().put( Options.PASSWORD, password);
+ 
     }
 
     public User(){
@@ -61,34 +60,38 @@ public class User {
         this.password = null;
         this.prefs = new ChatPreferences();
     }
-
-    public String getNickName(){
-        return vCard.getNickName();
-    }
-
+    
+    /** 
+     * @return the user password
+     */
     public String getPassword(){
+        if(password.isEmpty()){
+            new DebugMessage(this.getClass(), "Password is empty");
+            
+        }
+        
         return password;
+        
     }
 
+    /**
+     * 
+     * @return the user username 
+     */
     public String getUsername(){
+        if(username.isEmpty()){
+            new DebugMessage(this.getClass(), "Username is empty");
+            
+        }
         return username;
     }
 
-
-    public void saveUserAndPass(){
-
-        /* Write username and password to  preferences for autologin*/
-        this.prefs.getPreferences().put( Options.USERNAME, username);
-        this.prefs.getPreferences().put( Options.PASSWORD, password);
-
-    }
     /**
      *
      *
-     * @return true if the user has some avatars in the cache false if he do not.
+     * @return true if the user has some avatars in the cache otherwise return false.
      */
-
-    public boolean hasCachedAvatars(){
+     public boolean hasCachedAvatars(){
 
         //Path of the directory where cached images are saved by default.
         String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
@@ -99,39 +102,47 @@ public class User {
 
     }
     
-
+    /**
+    * Set the autologin preference
+    * @param value 
+    */
     public void setAutologin(boolean value){
 
         this.prefs.getPreferences().putBoolean( Options.AUTOLOGIN, value);
-     
     }
 
+    /**
+     * 
+     * @return true if Autologin preference is enabled, otherwise return false. 
+     */
     public boolean isAutoLogin(){
 
         return this.prefs.getPreferences().getBoolean( Options.AUTOLOGIN, false);
-      
-  }
+    }
 
-    
-
+    /**
+    * 
+    * @return the saved password. 
+    */
     public String getSavedPass(){
-
+        
         return this.prefs.getPreferences().get( Options.PASSWORD, "");
+    }
 
-      
-  }
-
+    /**
+    * 
+    * @return the saved username. 
+    */
     public String getSavedUser(){
+
         return this.prefs.getPreferences().get( Options.USERNAME, "");
-       
-  }
+    }
 
     @Override
     public String toString(){
         return "Username: " + username;
-         
-    }
 
+    }
 
 }
 
