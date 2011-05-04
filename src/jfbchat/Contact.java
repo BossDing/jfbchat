@@ -76,7 +76,7 @@ public class Contact {
         this.id = ++contactId;
         this.jID =  entry.getUser();
 
-        init_groups();
+        add_to_groups();
 
     }
     
@@ -87,9 +87,9 @@ public class Contact {
 
 
     /**
-     * initialize the panels and groups of the contact
-     */
-    private void init_groups(){
+    * Add the contact to the group and initialize his panels
+    */
+    private void add_to_groups(){
        
         //If the contact is in a group
         if (!(entry.getGroups().isEmpty())){
@@ -103,24 +103,31 @@ public class Contact {
             }
             catch(Exception e){
 
-                new DebugMessage("Contact.init_groups: can't initialize groups :" + e.getMessage());
+                new DebugMessage(this.getClass()," Can't add the contact to a group :", e);
 
             }
 
 
         }else{
+            //Add the contact to "Other Friends" group.
+            try{
+                this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
+                
+            }
+            catch(Exception e){
 
-            this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
-            new DebugMessage( " Contact.init_groups: no groups --" + entry.getName());
+                new DebugMessage(this.getClass()," Can't add the contact to Other Friends :", e);
 
+            }
+            
         }
         
     }
 
     /**
-     * Returns the name of the contact displayed in the contact list
-     * @return the name of the contact
-     */
+    * Returns the name of the contact displayed in the contact list
+    * @return the name of the contact
+    */
     public String getUser(){
         /* returns the name of the contact displayed in the contact list*/
         return this.name;
@@ -128,26 +135,26 @@ public class Contact {
     }
 
     /**
-     *
-     * @return an ArrayList with all the groups of the contact
-     */
+    *
+    * @return an ArrayList with all the groups of the contact
+    */
     public ArrayList<String> getGroups(){
         return this.groups;
 
     }
 
     /**
-     * Get the ChatFrame associated to this contact
-     * @return the ChatFrame associated to the contact
-     */
+    * Get the ChatFrame associated to this contact
+    * @return the ChatFrame associated to the contact
+    */
     public ChatFrame getChatFrame(){
         return chatFrame;
     }
 
     /**
-     * Returns the presence associated to this contact
-     * @return the presence of the contact
-     */
+    * Returns the presence associated to this contact
+    * @return the presence of the contact
+    */
     public Presence getPresence(){
         return this.presence;    
     
@@ -159,18 +166,21 @@ public class Contact {
     */
     public String getAdress(){
         return this.entry.getUser();
+        
     }
 
     /**
-     *
-     * @return The id associated to the contact
-     */
+    *
+    * @return The id associated to the contact
+    */
     public int getId(){
         return this.id;
+        
     }
 
     public String getJID(){
         return this.jID;
+        
     }
     public MyVCard getVCard(){
         return vCard;
@@ -178,18 +188,21 @@ public class Contact {
     }
 
     /**
-     * Sets the presence of this contact
-     *
-     */
+    * Sets the presence of this contact
+    *
+    */
     public void setPresence(Presence p){
-        this.presence = p;
+        try{
+            this.presence = p;
+        }catch (Exception e){
+            new DebugMessage(this.getClass(), "Cannot set Presence " + p.toString() + ".", e);
+        }
     }
 
     /**
-     * Update the contactPanels associated to the contact, normally called after
-     * some contact changes.
-     */
-    
+    * Update the contactPanels associated to the contact, normally called after
+    * some contact changes.
+    */
     public void updateContactPanels(){
 
         try{
@@ -198,7 +211,7 @@ public class Contact {
                 for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
                     PanelContact nextContactPanel = iterContactPanel.next();
 
-                    nextContactPanel.update(this);
+                    nextContactPanel.update();
 
                 }
             }
