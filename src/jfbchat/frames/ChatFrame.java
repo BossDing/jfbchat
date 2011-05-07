@@ -184,9 +184,9 @@ public class ChatFrame extends javax.swing.JFrame {
         );
 
         ButtonSend.setText("Send");
-        ButtonSend.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonSendMouseClicked(evt);
+        ButtonSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSendActionPerformed(evt);
             }
         });
 
@@ -327,10 +327,6 @@ public class ChatFrame extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        
     }//GEN-LAST:event_formKeyPressed
-
-    private void ButtonSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonSendMouseClicked
-        SendMessage( messageField.getText() );
-}//GEN-LAST:event_ButtonSendMouseClicked
     
     /**
      * Send the messageField text when Enter is pressed
@@ -366,6 +362,16 @@ public class ChatFrame extends javax.swing.JFrame {
         this.clearAllMessages();
 
     }//GEN-LAST:event_jMenuItemClearActionPerformed
+    
+    /**
+    * Button send action performed
+    * @param An Action event 
+    */
+    private void ButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSendActionPerformed
+        //Send the message in the messageField to the destinator.
+        SendMessage( messageField.getText() );
+        
+    }//GEN-LAST:event_ButtonSendActionPerformed
      
     /**
      * This method clears all the messages in the PanelMessages
