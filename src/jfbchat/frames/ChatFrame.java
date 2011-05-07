@@ -109,9 +109,9 @@ public class ChatFrame extends javax.swing.JFrame {
                 
           }
 
-           setVisible(true);
-           setLocationRelativeTo(null);
-       
+           
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /** This method is called from within the constructor to
