@@ -30,8 +30,6 @@ import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
 
 import jfbchat.*;
@@ -42,7 +40,7 @@ import jfbchat.debug.DebugMessage;
 
  /**
  *This class represent a ChatFrame
-  *
+ *
  * @author digitex ( Giuseppe Federico - digitex3d@gmail.com )
  * Webpage: http://www.digisoftware.org
  */
@@ -66,15 +64,23 @@ public class ChatFrame extends javax.swing.JFrame {
         this.contact = contact;
         this.contactAdr = contact.getAdress();
        
-        //Set icon image
+        //Set window icon image
+        java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
+        
         try{
-
-            //Load and set the icon.
-            setIconImage(new javax.swing.ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+            if (contactIcon != null) 
+                //Set the contact avatar as window icon
+                setIconImage( contactIcon );
+                    
+            else{
+                //Set the default icon
+                setIconImage( new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
+                new DebugMessage(this.getClass(), "Cannot set the window icon " + new ImageIcon( contactIcon ).toString() + " : null pointer.");
+                
+            }
 
         }catch(Exception e){
-
-            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon( contactIcon ).toString(), e);
 
         }
         
