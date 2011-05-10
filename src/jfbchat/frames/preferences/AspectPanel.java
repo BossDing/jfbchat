@@ -69,7 +69,7 @@ public class AspectPanel extends javax.swing.JPanel {
             .addGroup(avatarsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkShowAvatars)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         avatarsPanelLayout.setVerticalGroup(
             avatarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,7 +81,7 @@ public class AspectPanel extends javax.swing.JPanel {
 
         groupsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Groups"));
 
-        checkShowEmptyGroups.setText("Show empty groups (Restart needed)");
+        checkShowEmptyGroups.setLabel("Show empty groups");
         checkShowEmptyGroups.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 checkShowEmptyGroupsItemStateChanged(evt);
@@ -95,7 +95,7 @@ public class AspectPanel extends javax.swing.JPanel {
             .addGroup(groupsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkShowEmptyGroups)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         groupsPanelLayout.setVerticalGroup(
             groupsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

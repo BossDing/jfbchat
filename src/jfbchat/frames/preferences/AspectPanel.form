@@ -89,7 +89,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkShowAvatars" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -130,7 +130,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkShowEmptyGroups" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="137" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -147,7 +147,7 @@
           <SubComponents>
             <Component class="javax.swing.JCheckBox" name="checkShowEmptyGroups">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Show empty groups (Restart needed)"/>
+                <Property name="label" type="java.lang.String" value="Show empty groups"/>
               </Properties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="checkShowEmptyGroupsItemStateChanged"/>
