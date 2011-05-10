@@ -95,9 +95,10 @@ public class Group extends ContactList{
          for(Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();){
                         Contact nextContact = iterContact.next();
 
-                        //Update the contact panel to normal status
-                        nextContact.getContactPanelbyGroup(name).update();
-
+                        //Update the contact panel to normal status                   
+                        nextContact.getContactPanelbyGroup(name).uncollapse();
+                        nextContact.getContactPanelbyGroup(name).validate();
+                        
                         this.isVisible = true;
 
         }
@@ -143,7 +144,7 @@ public class Group extends ContactList{
          for(Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();){
                         Contact nextContact = iterContact.next();
 
-                        //Hode the contact
+                        //Hide the contact
                         nextContact.getContactPanelbyGroup(name).setVisible(false);
                         nextContact.getContactPanelbyGroup(name).validate();
                         
