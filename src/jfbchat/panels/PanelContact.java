@@ -27,6 +27,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import jfbchat.Connection;
 import jfbchat.Contact;
+import jfbchat.Group;
 
 import jfbchat.resources.*;
 import jfbchat.debug.DebugMessage;
@@ -46,7 +47,7 @@ public class PanelContact extends javax.swing.JPanel {
     private ImageIcon avatarIcon;
     private String groupName;
     private ChatPreferences prefs;
-   
+    private Group group;
 
 
     /** Creates new form PanelContact */
@@ -81,7 +82,7 @@ public class PanelContact extends javax.swing.JPanel {
 
     /**
      * This method fix the layout of the message and set the maximum Height
-     * @return
+     * @return The fixed dimension
      */
     @Override
     public java.awt.Dimension getMaximumSize() {
@@ -175,13 +176,27 @@ public class PanelContact extends javax.swing.JPanel {
 
         add(mainPanel);
     }// </editor-fold>//GEN-END:initComponents
-
-
+    
+    //TODO:Improve this function 
+    /**
+     * !!Temporaney function!!: This function show the panel only if the contact
+     * is online
+     */
+    public void uncollapse(){
+        if (contact.getPresence().isAway() || (contact.getPresence().isAvailable())){
+            setVisible(true);  
+            
+        }
+    }
+    
     /**
     * Update the status of the contact in the JPanel
     * @param the contact associated to this JPanel
     */
     public void update(){
+        
+        this.group = connection.getContactList().getGroupFromName(groupName);
+        
         if (contact.getPresence().isAway()){
 
             if ( avatarIcon == null){
@@ -209,12 +224,14 @@ public class PanelContact extends javax.swing.JPanel {
             stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
 
             //If the group is not collapsed show the contact
-          
-            if ( connection.getContactList().getGroupFromName(groupName) != null){
+            
+            if ( this.group != null){
                 
-                if( connection.getContactList().getGroupFromName(groupName).isVisible() ){
+                if( this.group.isVisible() ){
                     
                     setVisible(true);
+                }else{
+                    setVisible(false);
                 }
             }
             
@@ -224,11 +241,13 @@ public class PanelContact extends javax.swing.JPanel {
             stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
           
            
-                if ( connection.getContactList().getGroupFromName(groupName) != null){
+                if ( this.group != null){
                     
-                    if( connection.getContactList().getGroupFromName(groupName).isVisible() ){
+                    if( this.group.isVisible() ){
                         
                         setVisible(true);
+                    }else{
+                        setVisible(false);
                     }
                  }
             
