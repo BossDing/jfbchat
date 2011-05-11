@@ -23,6 +23,8 @@
 
 package jfbchat.frames;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 
@@ -30,6 +32,7 @@ import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
 
 import jfbchat.*;
@@ -37,6 +40,8 @@ import jfbchat.listeners.MyMessageListener;
 import jfbchat.panels.PanelMessage;
 import jfbchat.resources.Imgs;
 import jfbchat.debug.DebugMessage;
+import jfbchat.resources.Options;
+import jfbchat.resources.UtilFunctions;
 
  /**
  *This class represent a ChatFrame
@@ -143,6 +148,10 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuItemClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuClose = new javax.swing.JMenuItem();
+        MenuHelp = new javax.swing.JMenu();
+        jMenuItemHelpOnline = new javax.swing.JMenuItem();
+        jMenuItemReportProblem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
 
         setTitle("Conversation with ...");
         setMinimumSize(new java.awt.Dimension(300, 300));
@@ -254,6 +263,28 @@ public class ChatFrame extends javax.swing.JFrame {
 
         jMenuBar.add(jMenuConversation);
 
+        MenuHelp.setText("Help");
+
+        jMenuItemHelpOnline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItemHelpOnline.setText("Help Online");
+        jMenuItemHelpOnline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHelpOnlineActionPerformed(evt);
+            }
+        });
+        MenuHelp.add(jMenuItemHelpOnline);
+
+        jMenuItemReportProblem.setText("Report a problem");
+        jMenuItemReportProblem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReportProblemActionPerformed(evt);
+            }
+        });
+        MenuHelp.add(jMenuItemReportProblem);
+        MenuHelp.add(jSeparator2);
+
+        jMenuBar.add(MenuHelp);
+
         setJMenuBar(jMenuBar);
 
         pack();
@@ -286,6 +317,12 @@ public class ChatFrame extends javax.swing.JFrame {
 
             }
 
+        }else{
+            try {
+                newChat.sendMessage(new Message(null));
+            } catch (XMPPException ex) {
+                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
      
     }
@@ -378,6 +415,18 @@ public class ChatFrame extends javax.swing.JFrame {
         SendMessage( messageField.getText() );
         
     }//GEN-LAST:event_ButtonSendActionPerformed
+
+    private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
+        
+        //Open the ONLINE_HELP page.
+        UtilFunctions.openURL( Options.ONLINE_HELP);
+    }//GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
+
+    private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemActionPerformed
+        
+        //Open the Options.WEBPAGE_BUG_TRACKER page.
+        UtilFunctions.openURL( Options.WEBPAGE_BUG_TRACKER );
+    }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
      
     /**
      * This method clears all the messages in the PanelMessages
@@ -417,6 +466,7 @@ public class ChatFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSend;
     private javax.swing.JPanel MainFrame;
+    private javax.swing.JMenu MenuHelp;
     private javax.swing.JPanel PanelMessages;
     private javax.swing.JPanel PanelSend;
     private javax.swing.JScrollPane ScrollMessages;
@@ -426,8 +476,11 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
     private javax.swing.JMenuItem jMenuItemClear;
+    private javax.swing.JMenuItem jMenuItemHelpOnline;
+    private javax.swing.JMenuItem jMenuItemReportProblem;
     private javax.swing.JPanel jPanelScrollMessages;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField messageField;
     // End of variables declaration//GEN-END:variables
 
