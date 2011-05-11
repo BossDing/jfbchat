@@ -62,10 +62,12 @@ public class PanelGroup extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelMain = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        groupNamePanel = new javax.swing.JPanel();
         jLabelGroupName = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        collapseButtonPanel = new javax.swing.JPanel();
         collapseGroupLabel = new javax.swing.JLabel();
+        barPanel = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,10 +79,10 @@ public class PanelGroup extends javax.swing.JPanel {
 
         jPanelMain.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        groupNamePanel.setBackground(new java.awt.Color(255, 255, 255));
+        groupNamePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel3MouseClicked(evt);
+                groupNamePanelMouseClicked(evt);
             }
         });
 
@@ -89,36 +91,50 @@ public class PanelGroup extends javax.swing.JPanel {
         jLabelGroupName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelGroupName.setText("groupName");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelGroupName)
-                .addContainerGap(32, Short.MAX_VALUE))
+        javax.swing.GroupLayout groupNamePanelLayout = new javax.swing.GroupLayout(groupNamePanel);
+        groupNamePanel.setLayout(groupNamePanelLayout);
+        groupNamePanelLayout.setHorizontalGroup(
+            groupNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groupNamePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelGroupName))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        groupNamePanelLayout.setVerticalGroup(
+            groupNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelGroupName, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        collapseButtonPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         collapseGroupLabel.setBackground(new java.awt.Color(208, 239, 238));
-        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18));
+        collapseGroupLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         collapseGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         collapseGroupLabel.setText(" - ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(collapseGroupLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+        javax.swing.GroupLayout collapseButtonPanelLayout = new javax.swing.GroupLayout(collapseButtonPanel);
+        collapseButtonPanel.setLayout(collapseButtonPanelLayout);
+        collapseButtonPanelLayout.setHorizontalGroup(
+            collapseButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(collapseGroupLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(collapseGroupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        collapseButtonPanelLayout.setVerticalGroup(
+            collapseButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(collapseGroupLabel)
+        );
+
+        barPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout barPanelLayout = new javax.swing.GroupLayout(barPanel);
+        barPanel.setLayout(barPanelLayout);
+        barPanelLayout.setHorizontalGroup(
+            barPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+        );
+        barPanelLayout.setVerticalGroup(
+            barPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
@@ -126,14 +142,17 @@ public class PanelGroup extends javax.swing.JPanel {
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(77, 77, 77)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(groupNamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(barPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(collapseButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(collapseButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(groupNamePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(barPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         add(jPanelMain);
@@ -155,7 +174,7 @@ public class PanelGroup extends javax.swing.JPanel {
 
     }//GEN-LAST:event_formMouseClicked
 
-    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+    private void groupNamePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_groupNamePanelMouseClicked
 
        if (this.group.isVisible()){
 
@@ -167,7 +186,7 @@ public class PanelGroup extends javax.swing.JPanel {
             this.group.showContacts();
 
         }
-    }//GEN-LAST:event_jPanel3MouseClicked
+    }//GEN-LAST:event_groupNamePanelMouseClicked
 
     /**
      * This method fix the layout of the message and set the maximum Height
@@ -186,11 +205,13 @@ public class PanelGroup extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barPanel;
+    private javax.swing.JPanel collapseButtonPanel;
     private javax.swing.JLabel collapseGroupLabel;
+    private javax.swing.JPanel groupNamePanel;
     private javax.swing.JLabel jLabelGroupName;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelMain;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
 }
