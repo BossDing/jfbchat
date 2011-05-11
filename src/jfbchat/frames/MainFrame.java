@@ -28,7 +28,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
 import java.awt.CardLayout;
-import java.awt.Desktop;
 import java.util.Iterator;
 
 import org.jivesoftware.smack.packet.Presence;
@@ -37,11 +36,6 @@ import jfbchat.*;
 import jfbchat.debug.*;
 import jfbchat.resources.*;
 import jfbchat.frames.preferences.PreferencesFrame;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.io.IOException;
 
 /* The MainFrame of the program.
  *
@@ -626,7 +620,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAboutActionPerformed
         
         //Shows the jFrameAbout
-        showFrame(this.jFrameAbout);
+        UtilFunctions.showFrame(this.jFrameAbout);
 
     }//GEN-LAST:event_MenuItemAboutActionPerformed
 
@@ -714,7 +708,7 @@ public class MainFrame extends javax.swing.JFrame {
  */
     private void questionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionButtonMouseClicked
         //Open Options.USERNAME_ONLINE_HELP
-        openURL(Options.USERNAME_ONLINE_HELP);
+        UtilFunctions.openURL(Options.USERNAME_ONLINE_HELP);
             
     }//GEN-LAST:event_questionButtonMouseClicked
 
@@ -751,7 +745,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void MenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemPreferencesActionPerformed
         
         //Shows the preferencesFrame
-        showFrame(this.preferencesFrame);
+        UtilFunctions.showFrame(this.preferencesFrame);
 
     }//GEN-LAST:event_MenuItemPreferencesActionPerformed
 
@@ -762,14 +756,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
 
         //Open the ONLINE_HELP page.
-        openURL(Options.ONLINE_HELP);
+        UtilFunctions.openURL(Options.ONLINE_HELP);
         
     }//GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
 
     private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemActionPerformed
 
         //Open the Options.WEBPAGE_BUG_TRACKER page.
-        openURL( Options.WEBPAGE_BUG_TRACKER );
+        UtilFunctions.openURL( Options.WEBPAGE_BUG_TRACKER );
         
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
 
@@ -819,43 +813,6 @@ public class MainFrame extends javax.swing.JFrame {
         //Change the value in the preferences with the value of the checkbox
         prefs.getPreferences().putBoolean(Options.AUTOLOGIN, item.isSelected());
     }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
-
-    /**
-     * Open a webpage URL
-     * @param A webpage URL
-     */
-    public void openURL(String addr){
-
-        Desktop desktop = Desktop.getDesktop();
-
-        URI uri = null;
-        try {
-            uri = new URI(addr);
-            desktop.browse(uri);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        catch(URISyntaxException use) {
-            use.printStackTrace();
-        }
-
-    }
-    
-    /**
-     * Shows a frame
-     */
-    public void showFrame(javax.swing.JFrame frame){
-
-        //If the window is not visible
-        if ( !(frame.isVisible()) ){
-
-            //Show the preferences window
-            frame.setVisible(true);
-
-        }
-    }
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
