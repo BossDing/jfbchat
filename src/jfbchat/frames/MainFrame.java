@@ -106,7 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         user = new User();
 
         //Set the minimum size the same as the scrollListpanel
-        this.setMinimumSize( this.ScrollListpanel.getSize() );
+        this.setMinimumSize( this.ContactListPanel.getSize() );
         
         //Show the MainFrame at the center of the screen.
         setLocationRelativeTo( null );
@@ -599,6 +599,10 @@ public class MainFrame extends javax.swing.JFrame {
 
 
         }
+        
+        //Set the minimum size the same as the scrollListpanel
+        this.setMinimumSize( new java.awt.Dimension(this.ContactListPanel.getSize().height, this.ContactListPanel.getSize().width));
+        
     }
     
     /**
