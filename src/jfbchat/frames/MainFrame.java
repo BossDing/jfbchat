@@ -231,8 +231,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         MainPanel.setLayout(new java.awt.CardLayout());
 
+        LoginPanel.setBackground(new java.awt.Color(255, 255, 255));
         LoginPanel.setName("loginPanel"); // NOI18N
 
+        logoPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/icon1.png"))); // NOI18N
 
@@ -254,6 +258,8 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         credentialsPanel.setLayout(new javax.swing.BoxLayout(credentialsPanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         usernameLabel.setFont(new java.awt.Font("Verdana", 1, 16));
         usernameLabel.setText("Username");
@@ -305,6 +311,8 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         credentialsPanel.add(jPanel1);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jCheckBoxRemUser.setFont(new java.awt.Font("Verdana", 0, 14));
         jCheckBoxRemUser.setText("Remember username and password");
