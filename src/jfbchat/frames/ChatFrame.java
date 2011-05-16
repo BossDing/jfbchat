@@ -23,11 +23,14 @@
 
 package jfbchat.frames;
 
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
-
+import java.awt.event.*;
+import javax.swing.text.*;
 
 
 import org.jivesoftware.smack.ChatManager;
@@ -148,6 +151,10 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuItemClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuClose = new javax.swing.JMenuItem();
+        jMenuEdit = new javax.swing.JMenu();
+        jMenuItemCut = new javax.swing.JMenuItem();
+        jMenuItemCopy = new javax.swing.JMenuItem();
+        jMenuItemPaste = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
         jMenuItemHelpOnline = new javax.swing.JMenuItem();
         jMenuItemReportProblem = new javax.swing.JMenuItem();
@@ -262,6 +269,29 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuConversation.add(jMenuClose);
 
         jMenuBar.add(jMenuConversation);
+
+        jMenuEdit.setMnemonic(KeyEvent.VK_E);
+        jMenuEdit.setText("Edit");
+
+        jMenuItemCut.setAction(new DefaultEditorKit.CutAction());
+        jMenuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/cut.png"))); // NOI18N
+        jMenuItemCut.setText("Cut");
+        jMenuEdit.add(jMenuItemCut);
+
+        jMenuItemCopy.setAction(new DefaultEditorKit.CopyAction());
+        jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/copy_page.png"))); // NOI18N
+        jMenuItemCopy.setText("Copy");
+        jMenuEdit.add(jMenuItemCopy);
+
+        jMenuItemPaste.setAction(new DefaultEditorKit.PasteAction());
+        jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/paste.png"))); // NOI18N
+        jMenuItemPaste.setText("Paste");
+        jMenuEdit.add(jMenuItemPaste);
+
+        jMenuBar.add(jMenuEdit);
 
         MenuHelp.setText("Help");
 
@@ -475,8 +505,12 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
+    private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenuItem jMenuItemClear;
+    private javax.swing.JMenuItem jMenuItemCopy;
+    private javax.swing.JMenuItem jMenuItemCut;
     private javax.swing.JMenuItem jMenuItemHelpOnline;
+    private javax.swing.JMenuItem jMenuItemPaste;
     private javax.swing.JMenuItem jMenuItemReportProblem;
     private javax.swing.JPanel jPanelScrollMessages;
     private javax.swing.JPopupMenu.Separator jSeparator1;
