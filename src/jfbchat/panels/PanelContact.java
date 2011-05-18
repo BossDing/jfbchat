@@ -191,99 +191,58 @@ public class PanelContact extends javax.swing.JPanel {
     
     /**
     * Update the status of the contact in the JPanel
-    * @param the contact associated to this JPanel
+    * 
     */
-    public void update(){
-        
+    public void update(){    
         this.group = connection.getContactList().getGroupFromName(groupName);
-        
-        if (contact.getPresence().isAway()){
 
+        if (contact.getPresence().isAvailable() || 
+            contact.getPresence().isAway()){
+
+            //Avatar test
             if ( avatarIcon == null){
-
                 try{
-
-                    //Load the avatar
-                    contact.getVCard().loadAvatar();
                     //Store the icon in avatarIcon
                     avatarIcon = contact.getVCard().getAvatar();
+
                     if (avatarIcon != null){
-                        //Set the icon
+                        //Set the avatar
                         contactAvatar.setIcon(avatarIcon);
                     }
 
-                }
-
-                catch(Exception e){
-
+                }catch(Exception e){
                     System.out.printf(e.getMessage());
 
                 }
             }
-
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
-
-            //If the group is not collapsed show the contact
-            
+            //Group Test
             if ( this.group != null){
-                
+
                 if( this.group.isVisible() ){
-                    
+
                     setVisible(true);
                 }else{
                     setVisible(false);
                 }
+             }
+            //Available test
+            if ( contact.getPresence().isAvailable() ){
+                stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
+
             }
-            
+            //Away test
+            if ( contact.getPresence().isAway() ){
+                stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
 
-        }else if ((contact.getPresence().isAvailable())){
-
-            stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
-          
-           
-                if ( this.group != null){
-                    
-                    if( this.group.isVisible() ){
-                        
-                        setVisible(true);
-                    }else{
-                        setVisible(false);
-                    }
-                 }
-            
-            
-            //Update the avatar icon
-            if ( avatarIcon == null){
-
-                try{
-
-                    //Load the avatar
-                    contact.getVCard().loadAvatar();
-                    //Store the icon in avatarIcon
-                    avatarIcon = contact.getVCard().getAvatar();
-                    if (avatarIcon != null){
-                        //Set the icon
-                        contactAvatar.setIcon(avatarIcon);
-                    }
-
-                }
-
-                catch(Exception e){
-
-                    System.out.printf(e.getMessage());
-
-                }
             }
 
-            
-
-       }
-       //If the contact is unavailable
+        }
+        //If the contact is unavailable
         else{
             setVisible(false);
+            
         }
 
-        
     }
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
