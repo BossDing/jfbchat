@@ -96,7 +96,7 @@ public class MyVCard {
      * load the VCard and the avatar of the contact in a temporaney byte array and store it
      * in avatar as ImageIcon
      */
-    public void loadAvatar(){
+    private void loadAvatar(){
 
         File tmp_image;
 
@@ -225,14 +225,25 @@ public class MyVCard {
         
     }
 
+    /**
+    * Return the avatar of the VCard if is already loaded, otherwise try to load
+    * it
+    * @return An ImageIcon or null
+    */
     public ImageIcon getAvatar(){
-
-        if(this.avatar != null){
-            
+        //Test if the avatar is already loaded.
+        if(this.avatar != null){            
             return this.avatar;
 
-        }
-
+        }else{
+            //Load the avatar
+            loadAvatar();
+            //Test if the avatar is loaded.
+            if(this.avatar != null){            
+                return this.avatar;
+                
+            }
+        }       
         return null;
 
     }
