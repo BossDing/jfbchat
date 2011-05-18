@@ -250,7 +250,7 @@ public class PanelContact extends javax.swing.JPanel {
     /**
      * Scale an ImageIcon
      * @param Image to scale
-     * @param scale coefficent
+     * @param scale coefficient
      * @return An ImageIcon scaled 
      */ 
     private ImageIcon scale(Image src, double scale) {
