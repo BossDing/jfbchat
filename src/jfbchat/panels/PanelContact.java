@@ -23,8 +23,9 @@
 
 package jfbchat.panels;
 
-import java.awt.Color;
-import javax.swing.ImageIcon;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.Group;
@@ -243,6 +244,24 @@ public class PanelContact extends javax.swing.JPanel {
             
         }
 
+    }
+    
+    //TODO: for the scale option in the preferences
+    /**
+     * Scale an ImageIcon
+     * @param Image to scale
+     * @param scale coefficent
+     * @return An ImageIcon scaled 
+     */ 
+    private ImageIcon scale(Image src, double scale) {
+        int w = (int)(scale*src.getWidth(this));
+        int h = (int)(scale*src.getHeight(this));
+        int type = BufferedImage.TYPE_INT_RGB;
+        BufferedImage dst = new BufferedImage(w, h, type);
+        Graphics2D g2 = dst.createGraphics();
+        g2.drawImage(src, 0, 0, w, h, this);
+        g2.dispose();
+        return new ImageIcon(dst);
     }
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
