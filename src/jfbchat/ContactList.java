@@ -272,6 +272,9 @@ public class ContactList {
 
                 }
 
+        }else{
+            new DebugMessage(this.getClass(), "Cannot update groupPanels : groups are empty.");
+            
         }
     }
 
@@ -336,26 +339,32 @@ public class ContactList {
     }
 
     /**
-     * Get a group from the groupList by giving the name of this group.
-     * @param the name of a group
-     * @return the group associated with that name
-     */
+    * Get a group from the groupList by giving the name of this group.
+    * @param the name of a group
+    * @return the group associated with that name
+    */
     public Group getGroupFromName(String name){
+        
+        if(groups.isEmpty()){
+            new DebugMessage(this.getClass(), " There is no groups in the contactList. ");
+            return null;
+            
+        }else{
 
-        for (Iterator<Group> iter = groups.iterator() ; iter.hasNext();){
-            Group next = iter.next();
-            if (next.getName().equals(name)){
+            for (Iterator<Group> iter = groups.iterator() ; iter.hasNext();){
+                Group next = iter.next();
+                if (next.getName().equals(name)){
 
-               new DebugMessage(this.getClass(), "Found " + name + " in the group list.");
-               return next;
-           }
+                   new DebugMessage(this.getClass(), "Found " + name + " in the group list.");
+                   return next;
+               }
+            }
+
+            new DebugMessage(this.getClass(), "Cannot find group " + name + " in the group list.");
+            return null;
+            
         }
-
-        new DebugMessage(this.getClass(), "Cannot find group " + name + " in the group list.");
-        return null;
-
-
-    }
+   }
 
 
     /**
