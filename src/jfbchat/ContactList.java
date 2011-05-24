@@ -330,9 +330,11 @@ public class ContactList {
                 this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
             }
 
-        }else{
-
-            new DebugMessage("Cannot define groups: The roster is not defined, maybe call getList first or no groups...?");
+        }else{        
+            //Add all the contacts to a new group
+            this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
+            
+            new DebugMessage(this.getClass(), "There are no groups in the ContactList.");
 
         }
 
