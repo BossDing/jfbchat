@@ -165,13 +165,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="PanelSend" pref="368" max="32767" attributes="0"/>
-                      <Component id="jPanelScrollMessages" alignment="0" pref="368" max="32767" attributes="0"/>
+                      <Component id="PanelSend" pref="367" max="32767" attributes="0"/>
+                      <Component id="jPanelScrollMessages" alignment="0" pref="367" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="ButtonSend" max="32767" attributes="1"/>
-                      <Component id="avatarPanel" alignment="1" pref="61" max="32767" attributes="1"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="avatarPanel" max="32767" attributes="1"/>
+                      <Component id="ButtonSend" alignment="0" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -180,12 +180,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                           <Component id="jPanelScrollMessages" pref="302" max="32767" attributes="1"/>
                       </Group>
-                      <Component id="avatarPanel" alignment="1" max="32767" attributes="1"/>
+                      <Component id="avatarPanel" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -253,9 +253,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="avatar" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="avatar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanelUnderAvatar" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -264,7 +267,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="avatar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="252" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanelUnderAvatar" min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace pref="235" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -277,6 +282,33 @@
                 </Property>
               </Properties>
             </Component>
+            <Container class="javax.swing.JPanel" name="jPanelUnderAvatar">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="54" max="32767" attributes="0"/>
+                          <Component id="jIsWritingImg" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jIsWritingImg" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jIsWritingImg">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/jfbchat/imgs/Conversation/iswriting.gif"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="ButtonSend">

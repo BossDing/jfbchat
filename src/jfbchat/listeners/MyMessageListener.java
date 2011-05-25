@@ -32,8 +32,7 @@ import jfbchat.panels.PanelMessage;
 import jfbchat.debug.DebugMessage;
 
 public class MyMessageListener implements  MessageListener{
-    //private final String RECEIVEDMSGWAV = "/media/3318a757-b8d0-406b-97db-4ced8ba7ccdf/Progetti/jfbchat/src/jfbchat/receivingmsg.wav";
-    
+  
     private Contact contact;
     
 
@@ -51,9 +50,8 @@ public class MyMessageListener implements  MessageListener{
             contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact , message.getBody()));
             
          }else{
-
-            //Add a "is typing" message
-            contact.getChatFrame().addTypingMsg( contact.getUser() );
+            //The contact is writing
+            contact.getChatFrame().setIsWriting(true);
 
          }
 

@@ -64,6 +64,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private String contactAdr;
     private JScrollBar verticalScrollBar;
     private ImageIcon avatarIcon;
+    private boolean isWriting;
 
     /** Creates new form ChatFrame */
     public ChatFrame(Connection connection, Contact contact) {
@@ -71,10 +72,11 @@ public class ChatFrame extends javax.swing.JFrame {
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
+        this.isWriting = false;
        
-        //Set window icon image
+        //Init window icon image
         java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
-        
+            
         try{
             if (contactIcon != null) 
                 //Set the contact avatar as window icon
@@ -97,6 +99,8 @@ public class ChatFrame extends javax.swing.JFrame {
 
         initComponents();
 
+        //Init jIsWritingImg as not visible
+        this.jIsWritingImg.setVisible(false);
         
         this.setTitle( contact.getUser() );
         this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
@@ -145,6 +149,8 @@ public class ChatFrame extends javax.swing.JFrame {
         messageField = new javax.swing.JTextField();
         avatarPanel = new javax.swing.JPanel();
         avatar = new javax.swing.JLabel();
+        jPanelUnderAvatar = new javax.swing.JPanel();
+        jIsWritingImg = new javax.swing.JLabel();
         ButtonSend = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
@@ -189,20 +195,39 @@ public class ChatFrame extends javax.swing.JFrame {
 
         avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/facebook_avatar.png"))); // NOI18N
 
+        jIsWritingImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/Conversation/iswriting.gif"))); // NOI18N
+
+        javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
+        jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
+        jPanelUnderAvatarLayout.setHorizontalGroup(
+            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUnderAvatarLayout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addComponent(jIsWritingImg))
+        );
+        jPanelUnderAvatarLayout.setVerticalGroup(
+            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jIsWritingImg)
+        );
+
         javax.swing.GroupLayout avatarPanelLayout = new javax.swing.GroupLayout(avatarPanel);
         avatarPanel.setLayout(avatarPanelLayout);
         avatarPanelLayout.setHorizontalGroup(
             avatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, avatarPanelLayout.createSequentialGroup()
+            .addGroup(avatarPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(avatar))
+                .addGroup(avatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(avatar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         avatarPanelLayout.setVerticalGroup(
             avatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(avatarPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(avatar)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         ButtonSend.setText("Send");
@@ -219,22 +244,22 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(ButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(avatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(avatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainFrameLayout.createSequentialGroup()
-                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(MainFrameLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
-                    .addComponent(avatarPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(avatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonSend)
@@ -358,33 +383,26 @@ public class ChatFrame extends javax.swing.JFrame {
     }
 
     /**
-     * Add a "is typing" message to the PanelMessages
-     * @param A contact name
-     */
-
-    public void addTypingMsg(String contactName){
-
-            PanelMessages.add(new jfbchat.panels.PanelTypingMessage( contactName ) );
-            validate();
-            verticalScrollBar.setValue( verticalScrollBar.getMaximum() );
-            validate();
-
-    }
-
-    /**
-     * Add a message to the PanelMessages
-     * Set the scrollbar at the maximum position for every incoming or
-     *  outcoming message.message
-     */
+    * Add a message to the PanelMessages.
+    * Set the scrollbar at the maximum position for every incoming or
+    * outgoing message.
+    * Set isWriting to false.
+    */
     public void addPanelMessage(PanelMessage panel){
-       if(panel.getMessage() != null){
+        if(panel.getMessage() != null){
             PanelMessages.add(panel);
             validate();
             verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+
+            //The contact is not writing
+            setIsWriting(false);
             validate();
-       } else{
-           addTypingMsg(panel.getContact().getUser());
-       }
+            
+        }else{
+            //The contact is writing
+            setIsWriting(true);
+             
+        }
     }
 
     /**
@@ -396,6 +414,18 @@ public class ChatFrame extends javax.swing.JFrame {
         ButtonSend.setEnabled( contact.isAvailable() );
         
     }
+     
+     /**
+      * Set the value of isWriting
+      * 
+      */
+     public void setIsWriting(boolean isWriting){
+         
+         this.jIsWritingImg.setVisible(isWriting);
+         this.jIsWritingImg.validate();
+         this.isWriting = isWriting;
+         
+     }
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        
@@ -457,7 +487,17 @@ public class ChatFrame extends javax.swing.JFrame {
         //Open the Options.WEBPAGE_BUG_TRACKER page.
         UtilFunctions.openURL( Options.WEBPAGE_BUG_TRACKER );
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
-     
+    
+    /**
+    * 
+    *
+    * @return The jIsWritingImg label 
+    */
+    public javax.swing.JLabel getjIsWritingImg(){
+        return this.jIsWritingImg;
+        
+    }
+    
     /**
      * This method clears all the messages in the PanelMessages
      */
@@ -502,6 +542,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollMessages;
     private javax.swing.JLabel avatar;
     private javax.swing.JPanel avatarPanel;
+    private javax.swing.JLabel jIsWritingImg;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
@@ -513,6 +554,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPaste;
     private javax.swing.JMenuItem jMenuItemReportProblem;
     private javax.swing.JPanel jPanelScrollMessages;
+    private javax.swing.JPanel jPanelUnderAvatar;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField messageField;
