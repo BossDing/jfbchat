@@ -50,8 +50,9 @@ public class MyMessageListener implements  MessageListener{
             contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact , message.getBody()));
             
          }else{
-            //The contact is writing
-            contact.getChatFrame().setIsWriting(true);
+            //The contact is writing        
+            contact.getChatFrame()
+                   .getjIsWritingLabel().setIsWriting(true);
 
          }
 

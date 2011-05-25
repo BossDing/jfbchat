@@ -45,6 +45,7 @@ import jfbchat.resources.Imgs;
 import jfbchat.debug.DebugMessage;
 import jfbchat.resources.Options;
 import jfbchat.resources.UtilFunctions;
+import jfbchat.labels.IsWritingLabel;
 
  /**
  *This class represent a ChatFrame
@@ -72,8 +73,8 @@ public class ChatFrame extends javax.swing.JFrame {
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
-        this.isWriting = false;
-       
+        this.isWriting = false;       
+        
         //Init window icon image
         java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
             
@@ -99,8 +100,8 @@ public class ChatFrame extends javax.swing.JFrame {
 
         initComponents();
 
-        //Init jIsWritingImg as not visible
-        this.jIsWritingImg.setVisible(false);
+        //Init isWritingLabel1 as not visible
+        this.isWritingLabel1.setIsWriting(false);
         
         this.setTitle( contact.getUser() );
         this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
@@ -150,7 +151,7 @@ public class ChatFrame extends javax.swing.JFrame {
         avatarPanel = new javax.swing.JPanel();
         avatar = new javax.swing.JLabel();
         jPanelUnderAvatar = new javax.swing.JPanel();
-        jIsWritingImg = new javax.swing.JLabel();
+        isWritingLabel1 = new jfbchat.labels.IsWritingLabel();
         ButtonSend = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
@@ -195,19 +196,17 @@ public class ChatFrame extends javax.swing.JFrame {
 
         avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/facebook_avatar.png"))); // NOI18N
 
-        jIsWritingImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/Conversation/iswriting.gif"))); // NOI18N
-
         javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
         jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
         jPanelUnderAvatarLayout.setHorizontalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUnderAvatarLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addComponent(jIsWritingImg))
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelUnderAvatarLayout.setVerticalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jIsWritingImg)
+            .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout avatarPanelLayout = new javax.swing.GroupLayout(avatarPanel);
@@ -226,7 +225,7 @@ public class ChatFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(avatar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
         );
 
@@ -244,8 +243,8 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(avatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -393,14 +392,14 @@ public class ChatFrame extends javax.swing.JFrame {
             PanelMessages.add(panel);
             validate();
             verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-
-            //The contact is not writing
-            setIsWriting(false);
             validate();
+            
+            //The contact is not writing
+            this.isWritingLabel1.setIsWriting(false);
             
         }else{
             //The contact is writing
-            setIsWriting(true);
+            this.isWritingLabel1.setIsWriting(true);
              
         }
     }
@@ -414,18 +413,6 @@ public class ChatFrame extends javax.swing.JFrame {
         ButtonSend.setEnabled( contact.isAvailable() );
         
     }
-     
-     /**
-      * Set the value of isWriting
-      * 
-      */
-     public void setIsWriting(boolean isWriting){
-         
-         this.jIsWritingImg.setVisible(isWriting);
-         this.jIsWritingImg.validate();
-         this.isWriting = isWriting;
-         
-     }
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        
@@ -489,12 +476,10 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
     
     /**
-    * 
-    *
-    * @return The jIsWritingImg label 
+    * @return The jIsWritingLabel label 
     */
-    public javax.swing.JLabel getjIsWritingImg(){
-        return this.jIsWritingImg;
+    public IsWritingLabel getjIsWritingLabel(){
+        return this.isWritingLabel1;
         
     }
     
@@ -542,7 +527,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollMessages;
     private javax.swing.JLabel avatar;
     private javax.swing.JPanel avatarPanel;
-    private javax.swing.JLabel jIsWritingImg;
+    private jfbchat.labels.IsWritingLabel isWritingLabel1;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
