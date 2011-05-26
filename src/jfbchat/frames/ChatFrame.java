@@ -37,6 +37,7 @@ import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.ChatStateManager;
 
 import jfbchat.*;
 import jfbchat.listeners.MyMessageListener;
@@ -46,6 +47,7 @@ import jfbchat.debug.DebugMessage;
 import jfbchat.resources.Options;
 import jfbchat.resources.UtilFunctions;
 import jfbchat.labels.IsWritingLabel;
+import org.jivesoftware.smackx.ChatState;
 
  /**
  *This class represent a ChatFrame
@@ -61,11 +63,12 @@ public class ChatFrame extends javax.swing.JFrame {
     private Contact contact;
     private Connection connection;
     private ChatManager chatmanager;
-    private Chat newChat;
+    private Chat relatedChat;
     private String contactAdr;
     private JScrollBar verticalScrollBar;
     private ImageIcon avatarIcon;
     private boolean isWriting;
+    private ChatStateManager chatStateManager;
 
     /** Creates new form ChatFrame */
     public ChatFrame(Connection connection, Contact contact) {
@@ -73,7 +76,10 @@ public class ChatFrame extends javax.swing.JFrame {
         this.connection = connection;
         this.contact = contact;
         this.contactAdr = contact.getAdress();
-        this.isWriting = false;       
+        this.isWriting = false;
+        //Get the chatStateManager of this connection
+        this.chatStateManager = ChatStateManager.
+                                getInstance(this.connection.getConnection()); 
         
         //Init window icon image
         java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
@@ -107,7 +113,7 @@ public class ChatFrame extends javax.swing.JFrame {
         this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
 
         
-        newChat = chatmanager.createChat(contactAdr ,
+        relatedChat = chatmanager.createChat(contactAdr ,
                                          new MyMessageListener(
                                          contact));
             
@@ -187,6 +193,11 @@ public class ChatFrame extends javax.swing.JFrame {
 
         PanelSend.setLayout(new java.awt.BorderLayout());
 
+        messageField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                messageFieldFocusLost(evt);
+            }
+        });
         messageField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 messageFieldKeyTyped(evt);
@@ -361,7 +372,7 @@ public class ChatFrame extends javax.swing.JFrame {
                 // Clear the TextField
                 messageField.setText("");                                               
                 
-                newChat.sendMessage(texttosend);
+                relatedChat.sendMessage(texttosend);
 
                 new DebugMessage(this.getClass(),"Sended \""+ texttosend +"\" to " + contact.getUser());
 
@@ -373,7 +384,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
         }else{
             try {
-                newChat.sendMessage(new Message(null));
+                relatedChat.sendMessage(new Message(null));
             } catch (XMPPException ex) {
                 Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -423,7 +434,15 @@ public class ChatFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyTyped
-
+        //Change the ChatState informing the server the user is composing
+        try {
+            this.chatStateManager.setCurrentState(ChatState.composing, relatedChat);
+            
+        } catch (XMPPException e) {
+            new DebugMessage(this.getClass(), "Cannot change chatState to composing.", e);
+            
+        }
+        
         if( (int) evt.getKeyChar() == K_ENTER_ID ){
 
              SendMessage( messageField.getText() );
@@ -474,6 +493,17 @@ public class ChatFrame extends javax.swing.JFrame {
         //Open the Options.WEBPAGE_BUG_TRACKER page.
         UtilFunctions.openURL( Options.WEBPAGE_BUG_TRACKER );
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
+
+    private void messageFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_messageFieldFocusLost
+        //Change the ChatState informing the server the user not composing anymore
+        try {
+            this.chatStateManager.setCurrentState(ChatState.paused, relatedChat);
+            
+        } catch (XMPPException e) {
+            new DebugMessage(this.getClass(), "Cannot change chatState to paused.", e);
+            
+        }
+    }//GEN-LAST:event_messageFieldFocusLost
     
     /**
     * @return The jIsWritingLabel label 
