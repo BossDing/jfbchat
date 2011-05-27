@@ -156,7 +156,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="credentialsPanel" alignment="0" max="32767" attributes="1"/>
+                          <Component id="credentialsPanel" alignment="0" pref="320" max="32767" attributes="1"/>
                           <Component id="logoPanel" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -168,7 +168,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="logoPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="credentialsPanel" pref="290" max="32767" attributes="0"/>
+                      <Component id="credentialsPanel" pref="287" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -187,7 +187,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" pref="279" max="32767" attributes="0"/>
+                          <Component id="jLabel3" pref="296" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -237,15 +237,15 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="202" max="32767" attributes="0"/>
+                                      <EmptySpace pref="221" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="EntryPass" alignment="0" pref="279" max="32767" attributes="0"/>
+                                          <Component id="EntryPass" alignment="0" pref="298" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="usernameLabel" min="-2" pref="128" max="-2" attributes="0"/>
-                                                  <Component id="EntryUser" pref="230" max="32767" attributes="0"/>
+                                                  <Component id="EntryUser" pref="270" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="questionButton" min="-2" max="-2" attributes="0"/>
@@ -328,7 +328,7 @@
                                   <Component id="jCheckBoxAuto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ButtonLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="10" max="32767" attributes="0"/>
+                              <EmptySpace pref="29" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -341,7 +341,7 @@
                               <Component id="jCheckBoxAuto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="ButtonLogin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <EmptySpace pref="38" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -407,7 +407,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="comboPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="1" pref="319" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="1" pref="344" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -415,7 +415,7 @@
                   <Group type="102" attributes="0">
                       <Component id="comboPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" pref="433" max="32767" attributes="0"/>
+                      <Component id="jPanel2" pref="431" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

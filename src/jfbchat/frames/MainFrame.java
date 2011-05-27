@@ -36,6 +36,7 @@ import jfbchat.*;
 import jfbchat.debug.*;
 import jfbchat.resources.*;
 import jfbchat.frames.preferences.PreferencesFrame;
+import jfbchat.debug.Error;
 
 /* The MainFrame of the program.
  *
@@ -554,23 +555,30 @@ public class MainFrame extends javax.swing.JFrame {
         String password = EntryPass.getText();
         String username = EntryUser.getText();
 
-        if( !( password.isEmpty() && username.isEmpty() ) ){
-            //Disable all the LoginPanel components
-            loginPanelComponentsSetEnabled(false);
-
-            try{
-                 // Write username and password to  preferences
-                this.prefs.getPreferences().put( Options.USERNAME, username);
-                this.prefs.getPreferences().put( Options.PASSWORD, password);
+        if( !( password.isEmpty() && username.isEmpty()) ){
+            if ( username.contains("@") ){
+                //Open Options.USERNAME_ONLINE_HELP
+                UtilFunctions.openURL(Options.USERNAME_ONLINE_HELP);
+                new Error(this.connection, 3, "Wrong username: Please use your Facebook username");
                 
-                //Login to the chat
-                javax.swing.SwingUtilities.invokeLater(loginRunnable);
+            }else{
+                //Disable all the LoginPanel components
+                loginPanelComponentsSetEnabled(false);
+
+                try{
+                     // Write username and password to  preferences
+                    this.prefs.getPreferences().put( Options.USERNAME, username);
+                    this.prefs.getPreferences().put( Options.PASSWORD, password);
+
+                    //Login to the chat
+                    javax.swing.SwingUtilities.invokeLater(loginRunnable);
 
 
-            }catch(Exception e){
+                }catch(Exception e){
 
-                new DebugMessage("ButtnLoginMouseThread: Can't invoke runnable thread");
+                    new DebugMessage("ButtnLoginMouseThread: Can't invoke runnable thread");
 
+                }
             }
         }else{
 
