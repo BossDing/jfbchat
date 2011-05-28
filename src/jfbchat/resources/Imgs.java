@@ -44,5 +44,6 @@ public class Imgs {
     public static final String MAINICON = "/jfbchat/imgs/icon1-48x48.gif";
     public static final String AVAILABLE_ICON = "/jfbchat/imgs/availableIcon.png";
     public static final String AWAY_ICON = "/jfbchat/imgs/awayIcon.png";
+    public static final String IS_WRITING_ICON = "/jfbchat/imgs/Conversation/iswriting.gif";
 
 }
