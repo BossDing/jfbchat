@@ -46,7 +46,7 @@ import jfbchat.resources.Imgs;
 import jfbchat.debug.DebugMessage;
 import jfbchat.resources.Options;
 import jfbchat.resources.UtilFunctions;
-import jfbchat.labels.IsWritingLabel;
+import jfbchat.labels.*;
 import org.jivesoftware.smackx.ChatState;
 
  /**
@@ -105,7 +105,9 @@ public class ChatFrame extends javax.swing.JFrame {
         this.chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
-
+        //Init the StatusLabel1
+        this.statusLabel1.updateLabel(this.contact);
+        
         //Init isWritingLabel1 as not visible
         this.isWritingLabel1.setIsWriting(false);
         
@@ -158,6 +160,7 @@ public class ChatFrame extends javax.swing.JFrame {
         avatar = new javax.swing.JLabel();
         jPanelUnderAvatar = new javax.swing.JPanel();
         isWritingLabel1 = new jfbchat.labels.IsWritingLabel();
+        statusLabel1 = new jfbchat.labels.StatusLabel();
         ButtonSend = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
@@ -211,12 +214,15 @@ public class ChatFrame extends javax.swing.JFrame {
         jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
         jPanelUnderAvatarLayout.setHorizontalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUnderAvatarLayout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelUnderAvatarLayout.setVerticalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -422,6 +428,8 @@ public class ChatFrame extends javax.swing.JFrame {
      public void update(){
 
         ButtonSend.setEnabled( contact.isAvailable() );
+        //Update the statusLabel icon
+        this.statusLabel1.updateLabel(this.contact);
         
     }
 
@@ -573,6 +581,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField messageField;
+    private jfbchat.labels.StatusLabel statusLabel1;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -288,20 +288,25 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="isWritingLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="statusLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="isWritingLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="statusLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="isWritingLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
                 <Component class="jfbchat.labels.IsWritingLabel" name="isWritingLabel1">
+                </Component>
+                <Component class="jfbchat.labels.StatusLabel" name="statusLabel1">
                 </Component>
               </SubComponents>
             </Container>
