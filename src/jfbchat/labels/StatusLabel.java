@@ -86,7 +86,9 @@ public class StatusLabel extends JLabel{
         }
         //If the contact is unavailable
         else{
-            setVisible(false);
+            //Update the icon
+            this.setIcon(new ImageIcon(getClass().
+                    getResource(Imgs.UNAVAILABLE_ICON)));
             //Change the status information
             this.status = "unavailable";
             //Update the ToolTipText
