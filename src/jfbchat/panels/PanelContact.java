@@ -111,7 +111,7 @@ public class PanelContact extends javax.swing.JPanel {
         contactPanel = new javax.swing.JPanel();
         contactLabel = new javax.swing.JLabel();
         iconPanel = new javax.swing.JPanel();
-        stateIcon = new javax.swing.JLabel();
+        statusLabel1 = new jfbchat.labels.StatusLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -139,7 +139,7 @@ public class PanelContact extends javax.swing.JPanel {
         contactPanel.setLayout(new javax.swing.BoxLayout(contactPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         contactLabel.setBackground(new java.awt.Color(255, 255, 255));
-        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        contactLabel.setFont(new java.awt.Font("Verdana", 1, 14));
         contactLabel.setForeground(new java.awt.Color(51, 102, 204));
         contactLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         contactLabel.setText("Cotact");
@@ -148,10 +148,7 @@ public class PanelContact extends javax.swing.JPanel {
 
         iconPanel.setBackground(new java.awt.Color(255, 255, 255));
         iconPanel.setLayout(new java.awt.BorderLayout());
-
-        stateIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        stateIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/availableIcon.png"))); // NOI18N
-        iconPanel.add(stateIcon, java.awt.BorderLayout.CENTER);
+        iconPanel.add(statusLabel1, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -216,6 +213,7 @@ public class PanelContact extends javax.swing.JPanel {
 
                 }
             }
+            
             //Group Test
             if ( this.group != null){
 
@@ -226,16 +224,8 @@ public class PanelContact extends javax.swing.JPanel {
                     setVisible(false);
                 }
              }
-            //Available test
-            if ( contact.getPresence().isAvailable() ){
-                stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AVAILABLE_ICON)));
-
-            }
-            //Away test
-            if ( contact.getPresence().isAway() ){
-                stateIcon.setIcon(new ImageIcon(getClass().getResource(Imgs.AWAY_ICON)));
-
-            }
+            //Update the StatusLabel
+            this.statusLabel1.updateLabel(contact);
 
         }
         //If the contact is unavailable
@@ -331,7 +321,7 @@ public class PanelContact extends javax.swing.JPanel {
     private javax.swing.JPanel contactPanel;
     private javax.swing.JPanel iconPanel;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel stateIcon;
+    private jfbchat.labels.StatusLabel statusLabel1;
     // End of variables declaration//GEN-END:variables
 
 }

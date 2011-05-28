@@ -120,13 +120,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="stateIcon">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/jfbchat/imgs/availableIcon.png"/>
-                </Property>
-              </Properties>
+            <Component class="jfbchat.labels.StatusLabel" name="statusLabel1">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                   <BorderConstraints direction="Center"/>
