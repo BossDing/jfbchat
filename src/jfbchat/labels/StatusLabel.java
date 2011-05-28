@@ -44,7 +44,8 @@ public class StatusLabel extends JLabel{
         this.contact = null;
         this.status = "unavailable";
         this.setIcon(new ImageIcon(getClass().
-                        getResource(Imgs.AVAILABLE_ICON)));        
+                        getResource(Imgs.AVAILABLE_ICON)));
+        this.setToolTipText(status);
         
     }
 
@@ -63,18 +64,22 @@ public class StatusLabel extends JLabel{
                  //Change the icon
                 this.setIcon(new ImageIcon(getClass().
                         getResource(Imgs.AVAILABLE_ICON)));
-                //Change the status information
+                //Update the status information
                 this.status = "available";
+                //Update the ToolTipText
+                this.setToolTipText(status);
                 validate();
 
             }
             //Away test
             if ( contactPresence.isAway() ){
-                //Change the icon
+                //Update the icon
                 this.setIcon(new ImageIcon(getClass().
                         getResource(Imgs.AWAY_ICON)));
-                //Change the status information
+                //Update the status information
                 this.status = "away";
+                //Update the ToolTipText
+                this.setToolTipText(status);
                 validate();
             }
 
@@ -84,6 +89,8 @@ public class StatusLabel extends JLabel{
             setVisible(false);
             //Change the status information
             this.status = "unavailable";
+            //Update the ToolTipText
+            this.setToolTipText(status);
             
         }
 
