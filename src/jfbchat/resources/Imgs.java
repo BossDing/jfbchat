@@ -46,5 +46,6 @@ public class Imgs {
     public static final String UNAVAILABLE_ICON = "/jfbchat/imgs/unavailableIcon.png";
     public static final String AWAY_ICON = "/jfbchat/imgs/awayIcon.png";
     public static final String IS_WRITING_ICON = "/jfbchat/imgs/Conversation/iswriting.gif";
+    public static final String NO_AVATAR_ICON = "/jfbchat/imgs/facebook_avatar.png";
 
 }
