@@ -44,10 +44,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="contactAvatar" min="-2" pref="56" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="avatarLabel1" min="-2" pref="58" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Component id="contactPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Component id="iconPanel" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -55,31 +55,16 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="contactPanel" alignment="0" pref="61" max="32767" attributes="1"/>
-              <Component id="contactAvatar" alignment="1" pref="61" max="32767" attributes="1"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="iconPanel" pref="37" max="32767" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
+              <Component id="avatarLabel1" alignment="1" pref="61" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="contactAvatar">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/jfbchat/imgs/facebook_avatar.png"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder/>
-              </Border>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[56, 56]"/>
-            </Property>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JPanel" name="contactPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -129,6 +114,8 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="jfbchat.labels.AvatarLabel" name="avatarLabel1">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

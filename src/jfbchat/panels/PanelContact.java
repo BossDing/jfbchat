@@ -70,10 +70,10 @@ public class PanelContact extends javax.swing.JPanel {
         //Init the avatar
         if( prefs.getPreferences().getBoolean( Options.SHOW_AVATARS, true) ){
 
-            this.contactAvatar.setVisible(true);
+            this.avatarLabel1.setVisible(true);
 
         }else{
-            this.contactAvatar.setVisible(false);
+            this.avatarLabel1.setVisible(false);
         }
 
 
@@ -107,11 +107,11 @@ public class PanelContact extends javax.swing.JPanel {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        contactAvatar = new javax.swing.JLabel();
         contactPanel = new javax.swing.JPanel();
         contactLabel = new javax.swing.JLabel();
         iconPanel = new javax.swing.JPanel();
         statusLabel1 = new jfbchat.labels.StatusLabel();
+        avatarLabel1 = new jfbchat.labels.AvatarLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -130,10 +130,6 @@ public class PanelContact extends javax.swing.JPanel {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        contactAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/facebook_avatar.png"))); // NOI18N
-        contactAvatar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        contactAvatar.setPreferredSize(new java.awt.Dimension(56, 56));
 
         contactPanel.setBackground(new java.awt.Color(255, 255, 255));
         contactPanel.setLayout(new javax.swing.BoxLayout(contactPanel, javax.swing.BoxLayout.LINE_AXIS));
@@ -156,20 +152,20 @@ public class PanelContact extends javax.swing.JPanel {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(contactAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(avatarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(contactPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(iconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(contactPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-            .addComponent(contactAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(iconPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(avatarLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
         );
 
         add(mainPanel);
@@ -196,23 +192,6 @@ public class PanelContact extends javax.swing.JPanel {
 
         if (contact.getPresence().isAvailable() || 
             contact.getPresence().isAway()){
-
-            //Avatar test
-            if ( avatarIcon == null){
-                try{
-                    //Store the icon in avatarIcon
-                    avatarIcon = contact.getVCard().getAvatar();
-
-                    if (avatarIcon != null){
-                        //Set the avatar
-                        contactAvatar.setIcon(avatarIcon);
-                    }
-
-                }catch(Exception e){
-                    System.out.printf(e.getMessage());
-
-                }
-            }
             
             //Group Test
             if ( this.group != null){
@@ -224,6 +203,9 @@ public class PanelContact extends javax.swing.JPanel {
                     setVisible(false);
                 }
              }
+        
+            //Update the avatarLabel
+            this.avatarLabel1.updateAvatarLabel(contact);
             //Update the StatusLabel
             this.statusLabel1.updateLabel(contact);
 
@@ -316,7 +298,7 @@ public class PanelContact extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel contactAvatar;
+    private jfbchat.labels.AvatarLabel avatarLabel1;
     private javax.swing.JLabel contactLabel;
     private javax.swing.JPanel contactPanel;
     private javax.swing.JPanel iconPanel;
