@@ -118,25 +118,10 @@ public class ChatFrame extends javax.swing.JFrame {
         relatedChat = chatmanager.createChat(contactAdr ,
                                          new MyMessageListener(
                                          contact));
-            
-
-         try{
-
-       
-             avatarIcon = contact.getVCard().getAvatar();
-             if (avatarIcon != null){
-                 //Set the icon
-                 this.avatar.setIcon(avatarIcon);
-          }
-
-
-          }catch(Exception e){
-
-                System.out.println( e.getMessage());
-                
-          }
-
-           
+        
+        //Update the AvatarLabel1
+        this.avatarLabel1.updateAvatarLabel(contact);
+         
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -157,10 +142,10 @@ public class ChatFrame extends javax.swing.JFrame {
         PanelSend = new javax.swing.JPanel();
         messageField = new javax.swing.JTextField();
         avatarPanel = new javax.swing.JPanel();
-        avatar = new javax.swing.JLabel();
         jPanelUnderAvatar = new javax.swing.JPanel();
         isWritingLabel1 = new jfbchat.labels.IsWritingLabel();
         statusLabel1 = new jfbchat.labels.StatusLabel();
+        avatarLabel1 = new jfbchat.labels.AvatarLabel();
         ButtonSend = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
@@ -208,8 +193,6 @@ public class ChatFrame extends javax.swing.JFrame {
         });
         PanelSend.add(messageField, java.awt.BorderLayout.CENTER);
 
-        avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/facebook_avatar.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
         jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
         jPanelUnderAvatarLayout.setHorizontalGroup(
@@ -233,14 +216,14 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(avatarPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(avatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(avatar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(avatarLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         avatarPanelLayout.setVerticalGroup(
             avatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(avatarPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(avatar)
+                .addComponent(avatarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(235, Short.MAX_VALUE))
@@ -260,8 +243,8 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(MainFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(avatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -563,7 +546,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMessages;
     private javax.swing.JPanel PanelSend;
     private javax.swing.JScrollPane ScrollMessages;
-    private javax.swing.JLabel avatar;
+    private jfbchat.labels.AvatarLabel avatarLabel1;
     private javax.swing.JPanel avatarPanel;
     private jfbchat.labels.IsWritingLabel isWritingLabel1;
     private javax.swing.JMenuBar jMenuBar;

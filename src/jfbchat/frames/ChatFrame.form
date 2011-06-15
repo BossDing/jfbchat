@@ -165,8 +165,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="PanelSend" pref="365" max="32767" attributes="0"/>
-                      <Component id="jPanelScrollMessages" alignment="0" pref="365" max="32767" attributes="0"/>
+                      <Component id="PanelSend" pref="367" max="32767" attributes="0"/>
+                      <Component id="jPanelScrollMessages" alignment="0" pref="367" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -257,8 +257,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="avatar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelUnderAvatar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="avatarLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -267,7 +267,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="avatar" min="-2" max="-2" attributes="0"/>
+                      <Component id="avatarLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanelUnderAvatar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="235" max="32767" attributes="0"/>
@@ -276,13 +276,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="avatar">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/jfbchat/imgs/facebook_avatar.png"/>
-                </Property>
-              </Properties>
-            </Component>
             <Container class="javax.swing.JPanel" name="jPanelUnderAvatar">
 
               <Layout>
@@ -310,6 +303,8 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="jfbchat.labels.AvatarLabel" name="avatarLabel1">
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="ButtonSend">
