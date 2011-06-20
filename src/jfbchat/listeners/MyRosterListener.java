@@ -36,18 +36,24 @@
 package jfbchat.listeners;
 
 import java.util.Collection;
+
 import jfbchat.Connection;
 import jfbchat.Contact;
+import jfbchat.frames.JFrameNotifications;
+
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
 import jfbchat.debug.DMessage;
 
 public class MyRosterListener implements RosterListener {
+    
     private Connection connection;
+    private JFrameNotifications notificationFrame;
 
     public MyRosterListener(Connection connection){
-
         this.connection = connection;
+        this.notificationFrame = null;
+        
     }
 
     public void entriesDeleted(Collection<String> addresses) {}
@@ -63,6 +69,12 @@ public class MyRosterListener implements RosterListener {
                 contact.setPresence(presence);
 
                 new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
+                //If the contact has become available
+                if (contact.getPresence().isAvailable()){
+                    //Show a NotificationFranme
+                    this.notificationFrame = new JFrameNotifications(contact);
+                    
+                }
 
                 contact.updateContactPanels();
 
