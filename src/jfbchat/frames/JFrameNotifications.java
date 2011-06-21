@@ -57,9 +57,6 @@ public class JFrameNotifications extends javax.swing.JFrame {
 
             this.contact = contact;
 
-            //Set the frame always on top
-            this.setAlwaysOnTop(true);
-
             //Set the location of the notification area to the right top corner
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             setLocation(screenSize.height - this.getHeight() , screenSize.width);
@@ -80,7 +77,7 @@ public class JFrameNotifications extends javax.swing.JFrame {
             try{
 
                 Thread.currentThread().sleep(ACTIVE_TIME);//sleep for ACTIVE_TIME ms
-                setVisible(false);
+                this.dispose();
             }
             catch(Exception e){
                 new DebugMessage(this.getClass(), "Cannot start thread", e); 
@@ -133,6 +130,7 @@ public class JFrameNotifications extends javax.swing.JFrame {
         jLabelIs = new javax.swing.JLabel();
         jTextPaneTitle = new javax.swing.JTextPane();
 
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(260, 120));
         setResizable(false);
         setUndecorated(true);
@@ -155,16 +153,16 @@ public class JFrameNotifications extends javax.swing.JFrame {
             }
         });
 
-        jLabelStatus.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jLabelStatus.setFont(new java.awt.Font("SansSerif", 1, 15));
         jLabelStatus.setText("avaiable");
 
-        jLabelIs.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        jLabelIs.setFont(new java.awt.Font("SansSerif", 0, 15));
         jLabelIs.setText("Is");
 
         jTextPaneTitle.setBackground(new java.awt.Color(109, 132, 180));
         jTextPaneTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(70, 60, 240)));
         jTextPaneTitle.setEditable(false);
-        jTextPaneTitle.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        jTextPaneTitle.setFont(new java.awt.Font("SansSerif", 1, 15));
         jTextPaneTitle.setForeground(new java.awt.Color(255, 255, 255));
         jTextPaneTitle.setText("Title");
 
