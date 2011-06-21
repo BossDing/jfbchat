@@ -21,14 +21,14 @@
 
 package jfbchat.frames;
 
-import java.awt.*;
-
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
 import jfbchat.resources.ChatPreferences;
 import jfbchat.resources.Options;
 import jfbchat.resources.MP3;
 import jfbchat.resources.Snds;
+
+import java.awt.*;
 
  /**
  * A NotificationFrame for notifications, status and new messages. 
@@ -66,6 +66,8 @@ public class JFrameNotifications extends javax.swing.JFrame {
                 this.notificationSnd = new MP3(Snds.NOTIFICATION_PANEL);
                 this.notificationSnd.play();
             }
+            //Change the cursor to the HAND_CURSOR
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
             //Show the frame
             validate();
