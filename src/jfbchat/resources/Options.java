@@ -81,5 +81,7 @@ public class Options {
     public static String INCOMING_SOUND = "IncomingSnd";
     public static String SENDED_SOUND = "SendedSnd";
     public static String NOTIFICATION_FRAME = "NotificationFrame";
+    public static String NOTIFICATION_FRAME_SND = "NotificationFrameSnd";
+    
 
 }

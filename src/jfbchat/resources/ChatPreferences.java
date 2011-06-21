@@ -81,6 +81,7 @@ public class ChatPreferences {
             
             //-------------NOTIFICATIONS-----------
             prefs.getBoolean( Options.NOTIFICATION_FRAME , true );
+            prefs.getBoolean( Options.NOTIFICATION_FRAME_SND, true);
         
     }
         /**

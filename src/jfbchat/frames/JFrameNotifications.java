@@ -27,6 +27,8 @@ import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
 import jfbchat.resources.ChatPreferences;
 import jfbchat.resources.Options;
+import jfbchat.resources.MP3;
+import jfbchat.resources.Snds;
 
  /**
  * A NotificationFrame for notifications, status and new messages. 
@@ -39,6 +41,7 @@ public class JFrameNotifications extends javax.swing.JFrame {
     
     private Contact contact;
     private ChatPreferences prefs;
+    private MP3 notificationSnd;
     
     
     public JFrameNotifications(Contact contact) {
@@ -47,7 +50,7 @@ public class JFrameNotifications extends javax.swing.JFrame {
         if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME, true) ){
             //Init Components
             initComponents();
-
+            
             jTextPaneTitle.setText(" " + contact.getUser());
 
             avatarLabel1.updateAvatarLabel(contact);
@@ -60,6 +63,12 @@ public class JFrameNotifications extends javax.swing.JFrame {
             //Set the location of the notification area to the right top corner
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             setLocation(screenSize.height - this.getHeight() , screenSize.width);
+            
+            //Play a sound
+            if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME_SND, true) ){
+                this.notificationSnd = new MP3(Snds.NOTIFICATION_PANEL);
+                this.notificationSnd.play();
+            }
 
             //Show the frame
             validate();

@@ -44,6 +44,8 @@ public class Snds {
 
     public static final String INCOMING = "/jfbchat/snds/incoming.mp3";
     public static final String SENDED = "/jfbchat/snds/sending.mp3";
+    public static final String NOTIFICATION_PANEL = "/jfbchat/snds/notificationpanel.mp3";
+    
 
 
 }
