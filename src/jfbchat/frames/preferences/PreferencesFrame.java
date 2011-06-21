@@ -1,19 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+ /* ###########################################################################
+  *
+  *  JFBChat it's a simple software written in Java that let you in contact
+  *  with yours Facebook friends without your browser.
+  *  Copyright (C) 2011  Digitex (Giuseppe Federico)
+  *
+  *  This program is free software: you can redistribute it and/or modify
+  *  it under the terms of the GNU General Public License as published by
+  *  the Free Software Foundation, either version 3 of the License, or
+  *  (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  *
+  *###########################################################################
+  *
+  */
 
-/*
- * PreferencesFrame.java
- *
- * Created on 10 mars 2011, 15:52:49
- */
 
 package jfbchat.frames.preferences;
 
+import jfbchat.resources.*;
+import jfbchat.debug.DebugMessage;
+
+import javax.swing.ImageIcon;
 /**
- *
- * @author peppe
+ * The Preferences Frame
+ * @author digitex3d (Giuseppe Federico support@digisoftware.org)
  */
 public class PreferencesFrame extends javax.swing.JFrame {
 
@@ -29,6 +46,17 @@ public class PreferencesFrame extends javax.swing.JFrame {
         behaviorPanel = new BehaviorPanel();
         aspectPanel = new AspectPanel();
         generalPanel = new GeneralPanel();
+        
+        //Load and set the icon.
+        try{
+         
+            setIconImage(new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
+
+        }catch(Exception e){
+
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
+
+        }
         
         initComponents();
 
@@ -107,17 +135,6 @@ public class PreferencesFrame extends javax.swing.JFrame {
     private void jButtonCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCloseMouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCloseMouseClicked
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PreferencesFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainPanel;
