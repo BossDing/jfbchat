@@ -33,6 +33,7 @@ public class NotificationsPanel extends javax.swing.JPanel {
         //Init the options
         CheckEnableIncomingMsgSnd.setSelected( prefs.getPreferences().getBoolean( Options.INCOMING_SOUND, true ) );
         CheckSendedMsgSnd.setSelected( prefs.getPreferences().getBoolean( Options.SENDED_SOUND, true ) );
+        jCheckBoxShow.setSelected( prefs.getPreferences().getBoolean( Options.NOTIFICATION_FRAME, true ) );
         
     }
 
@@ -48,6 +49,8 @@ public class NotificationsPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         CheckEnableIncomingMsgSnd = new javax.swing.JCheckBox();
         CheckSendedMsgSnd = new javax.swing.JCheckBox();
+        jPanelNotificationsFrames = new javax.swing.JPanel();
+        jCheckBoxShow = new javax.swing.JCheckBox();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Sounds"));
 
@@ -74,7 +77,7 @@ public class NotificationsPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CheckEnableIncomingMsgSnd)
                     .addComponent(CheckSendedMsgSnd))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,20 +88,49 @@ public class NotificationsPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanelNotificationsFrames.setBorder(javax.swing.BorderFactory.createTitledBorder("Frames"));
+
+        jCheckBoxShow.setText("Show a notification frame when a contact goes online");
+        jCheckBoxShow.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxShowItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelNotificationsFramesLayout = new javax.swing.GroupLayout(jPanelNotificationsFrames);
+        jPanelNotificationsFrames.setLayout(jPanelNotificationsFramesLayout);
+        jPanelNotificationsFramesLayout.setHorizontalGroup(
+            jPanelNotificationsFramesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNotificationsFramesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxShow)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelNotificationsFramesLayout.setVerticalGroup(
+            jPanelNotificationsFramesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNotificationsFramesLayout.createSequentialGroup()
+                .addComponent(jCheckBoxShow)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelNotificationsFrames, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelNotificationsFrames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -123,12 +155,22 @@ public class NotificationsPanel extends javax.swing.JPanel {
         prefs.getPreferences().putBoolean(Options.SENDED_SOUND, item.isSelected());
     }//GEN-LAST:event_CheckSendedMsgSndItemStateChanged
 
+    private void jCheckBoxShowItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxShowItemStateChanged
+        //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.NOTIFICATION_FRAME, item.isSelected());
+    }//GEN-LAST:event_jCheckBoxShowItemStateChanged
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckEnableIncomingMsgSnd;
     private javax.swing.JCheckBox CheckSendedMsgSnd;
+    private javax.swing.JCheckBox jCheckBoxShow;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelNotificationsFrames;
     // End of variables declaration//GEN-END:variables
 
 }
