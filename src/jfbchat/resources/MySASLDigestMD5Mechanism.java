@@ -13,7 +13,7 @@ import org.jivesoftware.smack.sasl.SASLMechanism;
 import org.jivesoftware.smack.util.Base64;
 
 /**
- * My Implementation of the SASL DIGEST-MD5 mechanism
+ * SASL DIGEST-MD5 mechanism
  *
  */
 public class MySASLDigestMD5Mechanism extends SASLMechanism {
@@ -79,6 +79,7 @@ public class MySASLDigestMD5Mechanism extends SASLMechanism {
 		stanza.append("<response xmlns=\"urn:ietf:params:xml:ns:xmpp-sasl\">");
 		stanza.append(authenticationText);
 		stanza.append("</response>");
+                
 
 		// Send the authentication to the server
 		getSASLAuthentication().send(stanza.toString());
