@@ -40,22 +40,22 @@ import java.util.Collection;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.frames.JFrameNotifications;
-import jfbchat.resources.ChatPreferences;
+
 
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
 import jfbchat.debug.DMessage;
-import jfbchat.resources.Options;
+
 
 public class MyRosterListener implements RosterListener {
     private Connection connection;
     private JFrameNotifications notificationFrame;
-    private ChatPreferences prefs;
+    
 
     public MyRosterListener(Connection connection){
         this.connection = connection;
         this.notificationFrame = null;
-        this.prefs = new ChatPreferences();
+        
         
     }
 
@@ -73,14 +73,11 @@ public class MyRosterListener implements RosterListener {
 
                 new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
                 //If the contact has become available
-                if (contact.getPresence().isAvailable()){
-                    if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME, true) ){
+                if (contact.getPresence().isAvailable()){             
                         //Show a NotificationFrame
                         this.notificationFrame = new JFrameNotifications(contact);
                         
                     }
-                    
-                }
 
                 contact.updateContactPanels();
 

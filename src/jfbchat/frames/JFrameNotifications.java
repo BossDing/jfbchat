@@ -25,6 +25,8 @@ import java.awt.*;
 
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
+import jfbchat.resources.ChatPreferences;
+import jfbchat.resources.Options;
 
  /**
  * A NotificationFrame for notifications, status and new messages. 
@@ -35,42 +37,48 @@ import jfbchat.debug.DebugMessage;
 public class JFrameNotifications extends javax.swing.JFrame {
     private final int ACTIVE_TIME = 5000;
     
-    private Contact contact; 
+    private Contact contact;
+    private ChatPreferences prefs;
+    
     
     public JFrameNotifications(Contact contact) {
-        //Init Components
-        initComponents();
+        this.prefs = new ChatPreferences();
         
-        jTextPaneTitle.setText(" " + contact.getUser());
-        
-        avatarLabel1.updateAvatarLabel(contact);
-       
-        this.contact = contact;
-        
-        //Set the frame always on top
-        this.setAlwaysOnTop(true);
-              
-        //Set the location of the notification area to the right top corner
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation(screenSize.height - this.getHeight() , screenSize.width);
-        
-        //Show the frame
-        validate();
-        setVisible(true);
-        
-        //Set the window not focusable
-        this.setFocusableWindowState(false);
-        
-        try{
-            
-            Thread.currentThread().sleep(ACTIVE_TIME);//sleep for ACTIVE_TIME ms
-            setVisible(false);
+        if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME, true) ){
+            //Init Components
+            initComponents();
+
+            jTextPaneTitle.setText(" " + contact.getUser());
+
+            avatarLabel1.updateAvatarLabel(contact);
+
+            this.contact = contact;
+
+            //Set the frame always on top
+            this.setAlwaysOnTop(true);
+
+            //Set the location of the notification area to the right top corner
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            setLocation(screenSize.height - this.getHeight() , screenSize.width);
+
+            //Show the frame
+            validate();
+            setVisible(true);
+
+            //Set the window not focusable
+            this.setFocusableWindowState(false);
+
+            try{
+
+                Thread.currentThread().sleep(ACTIVE_TIME);//sleep for ACTIVE_TIME ms
+                setVisible(false);
+            }
+            catch(Exception e){
+                new DebugMessage(this.getClass(), "Cannot start thread", e); 
+
+            }
+
         }
-        catch(Exception e){
-            new DebugMessage(this.getClass(), "Cannot start thread", e); 
-            
-        }
-                  
     }
     
     public void openConversation(Contact contact){
