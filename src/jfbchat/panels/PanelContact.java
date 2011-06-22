@@ -64,6 +64,9 @@ public class PanelContact extends javax.swing.JPanel {
 
         initComponents();
 
+        //Change the cursor to the HAND_CURSOR
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
         //Init the contact username
         contactLabel.setText(contact.getUser());
 

@@ -14,6 +14,8 @@ package jfbchat.panels;
 import jfbchat.Group;
 import jfbchat.resources.*;
 
+import java.awt.*;
+
 /**
  *  A Panel with the associated group name
  * 
@@ -30,6 +32,9 @@ public class PanelGroup extends javax.swing.JPanel {
         initComponents();
 
         this.prefs = new ChatPreferences();
+        
+        //Change the cursor to the HAND_CURSOR
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         jLabelGroupName.setText(name);
         this.group = group;
