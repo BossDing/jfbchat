@@ -247,7 +247,7 @@ public class MainFrame extends javax.swing.JFrame {
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                 .addContainerGap())
         );
         logoPanelLayout.setVerticalGroup(
@@ -265,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
         usernameLabel.setFont(new java.awt.Font("Verdana", 1, 16));
         usernameLabel.setText("Username");
 
-        questionButton.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
+        questionButton.setFont(new java.awt.Font("Verdana", 1, 16));
         questionButton.setText("?");
         questionButton.setToolTipText("Click here if you have a connection problem.");
         questionButton.setFocusable(false);
@@ -287,14 +287,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(passwordLabel)
-                        .addContainerGap(202, Short.MAX_VALUE))
+                        .addContainerGap(221, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(questionButton)))
                         .addGap(10, 10, 10))))
@@ -328,16 +328,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jCheckBoxAuto.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBoxAuto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jCheckBoxAuto.setFont(new java.awt.Font("Verdana", 0, 14));
         jCheckBoxAuto.setText("Auto login");
         jCheckBoxAuto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxAutoItemStateChanged(evt);
-            }
-        });
-        jCheckBoxAuto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxAutoActionPerformed(evt);
             }
         });
 
@@ -359,7 +354,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
                     .addComponent(ButtonLogin))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,7 +365,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxAuto)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonLogin)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         credentialsPanel.add(jPanel3);
@@ -382,7 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                     .addComponent(logoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -391,7 +386,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -449,14 +444,14 @@ public class MainFrame extends javax.swing.JFrame {
         ConnectedPanelLayout.setHorizontalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(comboPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
         );
         ConnectedPanelLayout.setVerticalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConnectedPanelLayout.createSequentialGroup()
                 .addComponent(comboPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
         );
 
         MainPanel.add(ConnectedPanel, "connectedPanel");
@@ -801,12 +796,6 @@ public class MainFrame extends javax.swing.JFrame {
         loginToServer();
         
     }//GEN-LAST:event_ButtonLoginActionPerformed
-
-    private void jCheckBoxAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAutoActionPerformed
-
-        //Set the jCheckBoxRemUser selected
-        jCheckBoxRemUser.setSelected(true);
-    }//GEN-LAST:event_jCheckBoxAutoActionPerformed
 
     /**
      * CheckBox Remember user and password state changed
