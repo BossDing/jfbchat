@@ -411,6 +411,7 @@ public class ChatFrame extends javax.swing.JFrame {
      public void update(){
 
         ButtonSend.setEnabled( contact.isAvailable() );
+        messageField.setEnabled( contact.isAvailable() );
         //Update the statusLabel icon
         this.statusLabel1.updateLabel(this.contact);
         
