@@ -285,6 +285,9 @@ public class Contact {
                     if (nextContactPanel.getGroupName().equals(groupName)){
 
                         return nextContactPanel;
+                    } else{
+                        new DebugMessage(this.getClass(), "Cannot find the PanelContact "
+                                                    + groupName);
                     }
                 }
 
