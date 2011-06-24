@@ -23,12 +23,10 @@ package jfbchat.frames;
 
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
-import jfbchat.resources.ChatPreferences;
-import jfbchat.resources.Options;
-import jfbchat.resources.MP3;
-import jfbchat.resources.Snds;
+import jfbchat.resources.*;
 
 import java.awt.*;
+import javax.swing.ImageIcon;
 
  /**
  * A NotificationFrame for notifications, status and new messages. 
@@ -36,7 +34,7 @@ import java.awt.*;
  * @author digitex ( Giuseppe Federico - support@digisoftware.com )
  * Webpage: http://www.digisoftware.org
  */
-public class JFrameNotifications extends javax.swing.JFrame {
+public class JFrameNotifications extends javax.swing.JDialog{
     private final int ACTIVE_TIME = 5000;
     
     private Contact contact;
@@ -47,9 +45,33 @@ public class JFrameNotifications extends javax.swing.JFrame {
     public JFrameNotifications(Contact contact) {
         this.prefs = new ChatPreferences();
         
+        //If NOTIFICATION_FRAME is enabled in preferences
         if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME, true) ){
             //Init Components
             initComponents();
+            
+            //Init title
+            this.setTitle(contact.getUser());
+            
+            //Init window icon image
+            java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
+
+            try{
+                if (contactIcon != null) 
+                    //Set the contact avatar as window icon
+                    setIconImage( contactIcon );
+
+                else{
+                    //Set the default icon
+                    setIconImage( new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
+                    new DebugMessage(this.getClass(), "Cannot set the window icon " + new ImageIcon( contactIcon ).toString() + " : null pointer.");
+
+                }
+
+            }catch(Exception e){
+                new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon( contactIcon ).toString(), e);
+
+            }
             
             jTextPaneTitle.setText(" " + contact.getUser());
 
