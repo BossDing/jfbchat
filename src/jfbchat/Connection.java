@@ -56,7 +56,10 @@ public class Connection {
 
         this.contactList = new ContactList(this);
         this.myChatManager = new MyChatManager();
-
+        
+        //Smack debug
+        //this.connection.DEBUG_ENABLED = true;
+        
         this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
                                                            ,Options.PORT,Options.SERVICE_NAME));
     }
