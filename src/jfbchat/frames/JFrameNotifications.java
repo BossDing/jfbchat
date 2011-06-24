@@ -81,7 +81,7 @@ public class JFrameNotifications extends javax.swing.JDialog{
 
             //Set the location of the notification area to the right top corner
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            setLocation(screenSize.height - this.getHeight() , screenSize.width);
+            setLocation(screenSize.width-this.getWidth(), screenSize.height-this.getHeight());
             
             //Play a sound
             if ( prefs.getPreferences().getBoolean(Options.NOTIFICATION_FRAME_SND, true) ){
