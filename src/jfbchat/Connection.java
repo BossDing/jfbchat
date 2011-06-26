@@ -98,7 +98,7 @@ public class Connection {
 
             } catch (XMPPException ex) {
             
-                new Error(this,1, ex.getMessage());
+                new Error(this,1,"Wrong Username or Password");
             
             }
 
