@@ -90,18 +90,21 @@ public class JFrameNotifications extends javax.swing.JDialog{
             }
             //Change the cursor to the HAND_CURSOR
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            
+            //Set the window not focusable
+            this.setFocusableWindowState(false);
 
             //Show the frame
-            validate();
+            validate();         
             setVisible(true);
 
             //Set the window not focusable
             this.setFocusableWindowState(false);
 
             try{
-
                 Thread.currentThread().sleep(ACTIVE_TIME);//sleep for ACTIVE_TIME ms
                 this.dispose();
+                
             }
             catch(Exception e){
                 new DebugMessage(this.getClass(), "Cannot start thread", e); 
