@@ -23,113 +23,64 @@
 
 package jfbchat.panels;
 
-
-import java.awt.Color;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import jfbchat.Contact;
-
-import jfbchat.resources.*;
-
 import jfbchat.debug.DebugMessage;
+import jfbchat.resources.ChatPreferences;
+import jfbchat.resources.MP3;
+import jfbchat.resources.Options;
+import jfbchat.resources.Snds;
 
-
-
- /**
- * A JPanel that represent a incoming/sended message in the ChatFrame
- * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
+/**
+ * A JPanel that represent an incoming message in the ChatFrame
+ * @author Digitex ( Giuseppe Federico - support@digisoftware.org )
  */
-
 public class PanelMessage extends javax.swing.JPanel {
-
     private final int MAX_DIMENSION = 32767;
-
     private Date hour = new Date();
     private SimpleDateFormat formatter;
     private String formattedHour;
     private String message;
     private MP3 incomingSnd;
     private MP3 sendSnd;
-
     private Contact contact;
     private ChatPreferences prefs;
     
-
     /** Creates new messages form PanelMessage */
     public PanelMessage(boolean send,Contact contact, String message) {
-        
         //Time
         this.formatter = new SimpleDateFormat("HH:mm");
         this.formattedHour = formatter.format(hour);
-
         //Init the JPanel components
         initComponents();
-
         //Init the chat preferences
         this.prefs = new ChatPreferences();
-
+        //Init the contact that sends the message
         this.contact = contact;
-
         //Load the incoming message sound
         try {
-
             incomingSnd = new MP3( Snds.INCOMING );
             
-        } catch (Exception e)
-
-        {
-
+        } catch (Exception e){
             new DebugMessage(this.getClass(), "Cannot load" + Snds.INCOMING );
 
         }
-
-        //Load the sended message sound
-        try {
-
-            sendSnd = new MP3( Snds.SENDED );
-
-        } catch (Exception e)
-
-        {
-
-            new DebugMessage(this.getClass(), "Cannot load" + Snds.SENDED );
-
-        }
-
+        //The message recived
         this.message = message;
 
-        if (send){
+        Labelfromto.setText(formattedHour);
 
-            Labelfromto.setText(formattedHour + " Me: ");
-            
-            //If SENDED_SOUND is enabled play a sound
-            if( prefs.getPreferences().getBoolean( ( Options.SENDED_SOUND ), true ) ){
-                sendSnd.play();
-            }
-
+        //If INCOMING_SOUND is enabled play a sound
+        if( prefs.getPreferences().getBoolean( ( Options.INCOMING_SOUND ), true ) ){
+            incomingSnd.play();
 
         }
-        else{
-                
-            //Set the background color of the jPanelFromTo
-            jPanelFromTo.setBackground( Options.RECEIVED_MSG_PANEL_COLOR );
-
-            Labelfromto.setText(formattedHour + " " +contact.getUser() + " says: ");
-
-            //If INCOMING_SOUND is enabled play a sound
-             if( prefs.getPreferences().getBoolean( ( Options.INCOMING_SOUND ), true ) ){
-
-                incomingSnd.play();
-               
-            }
-        }
-            
-            
+        //Load the avatar image
+        this.avatarLabel1.updateAvatarLabel(this.contact);
         //Change the panel text
         LabelText.setText(message);
-       
-       
+        
         setVisible(true);
 
     }
@@ -149,13 +100,21 @@ public class PanelMessage extends javax.swing.JPanel {
         return fixedDimension;
         
     }
-
+    
+    /**
+     * Get the message to send
+     * @return a String of the message sended
+     */
     public String getMessage(){
 
         return this.message;
 
     }
-
+    
+    /**
+     * Return the contact that sends the message
+     * @return the contact that sends the message
+     */
     public Contact getContact(){
         return contact;
     }
@@ -175,8 +134,8 @@ public class PanelMessage extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanelMain = new javax.swing.JPanel();
         jPanelTextField = new javax.swing.JPanel();
+        avatarLabel1 = new jfbchat.labels.AvatarLabel();
         LabelText = new javax.swing.JTextPane();
-        jPanelFromTo = new javax.swing.JPanel();
         Labelfromto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 254, 254));
@@ -191,6 +150,7 @@ public class PanelMessage extends javax.swing.JPanel {
         jPanelMain.setAlignmentY(0.0F);
 
         jPanelTextField.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(249, 200, 67), 2, true));
         jPanelTextField.setAlignmentY(0.0F);
 
         LabelText.setBackground(new java.awt.Color(255, 255, 255));
@@ -199,52 +159,55 @@ public class PanelMessage extends javax.swing.JPanel {
         LabelText.setText("Message here");
         LabelText.setAlignmentY(0.0F);
 
-        javax.swing.GroupLayout jPanelTextFieldLayout = new javax.swing.GroupLayout(jPanelTextField);
-        jPanelTextField.setLayout(jPanelTextFieldLayout);
-        jPanelTextFieldLayout.setHorizontalGroup(
-            jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-        );
-        jPanelTextFieldLayout.setVerticalGroup(
-            jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabelText)
-        );
-
-        jPanelFromTo.setBackground(new java.awt.Color(208, 239, 238));
-        jPanelFromTo.setAlignmentY(0.0F);
-
-        Labelfromto.setBackground(new java.awt.Color(208, 239, 238));
+        Labelfromto.setBackground(new java.awt.Color(254, 254, 254));
         Labelfromto.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         Labelfromto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Labelfromto.setText("... say: / me:");
+        Labelfromto.setText("xx:xx");
         Labelfromto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         Labelfromto.setAlignmentY(0.0F);
         Labelfromto.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        javax.swing.GroupLayout jPanelFromToLayout = new javax.swing.GroupLayout(jPanelFromTo);
-        jPanelFromTo.setLayout(jPanelFromToLayout);
-        jPanelFromToLayout.setHorizontalGroup(
-            jPanelFromToLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Labelfromto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelTextFieldLayout = new javax.swing.GroupLayout(jPanelTextField);
+        jPanelTextField.setLayout(jPanelTextFieldLayout);
+        jPanelTextFieldLayout.setHorizontalGroup(
+            jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTextFieldLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTextFieldLayout.createSequentialGroup()
+                        .addComponent(avatarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LabelText, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                    .addComponent(Labelfromto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanelFromToLayout.setVerticalGroup(
-            jPanelFromToLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Labelfromto)
+        jPanelTextFieldLayout.setVerticalGroup(
+            jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTextFieldLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTextFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(avatarLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Labelfromto)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFromTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMainLayout.createSequentialGroup()
-                .addComponent(jPanelFromTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.add(jPanelMain);
@@ -252,15 +215,11 @@ public class PanelMessage extends javax.swing.JPanel {
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
     
-   
-   
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane LabelText;
     private javax.swing.JLabel Labelfromto;
+    private jfbchat.labels.AvatarLabel avatarLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanelFromTo;
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JPanel jPanelTextField;
     // End of variables declaration//GEN-END:variables
