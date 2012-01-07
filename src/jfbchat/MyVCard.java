@@ -35,25 +35,25 @@
 
 package jfbchat;
 
-import jfbchat.debug.DebugMessage;
-import jfbchat.resources.*;
-
-import org.jivesoftware.smackx.packet.VCard;
-import org.jivesoftware.smack.XMPPException;
-
-import java.io.*;
-
-
-import javax.swing.ImageIcon;
-import java.awt.Image;
-import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import jfbchat.debug.DebugMessage;
+import jfbchat.resources.ChatPreferences;
+import jfbchat.resources.Options;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.packet.VCard;
 
 
 /**
  *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+ * Author Digitex (Giuseppe Federico support@digisoftware.org)
  */
 public class MyVCard {
     
@@ -68,22 +68,13 @@ public class MyVCard {
    
     
     public MyVCard(Connection connection, Contact contact){
-
-
        this.vCard = new VCard();
        this.contact = contact;
        this.connection = connection;
-
-
        //The path where avatars are saved for this user
        cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
-
-
        this.prefs = new ChatPreferences();
-
-
        
-
     }
 
     public MyVCard(){
@@ -91,17 +82,32 @@ public class MyVCard {
        this.vCard = new VCard();
 
     }
+    
+    //Constructor for the user's vCard 
+    public MyVCard(Connection connection){
+        this.connection = connection;
+        this.vCard = new VCard();
+
+       //The path where avatars are saved for this user
+       cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
+
+       this.prefs = new ChatPreferences();
+
+    }
+    
     /**
-     * If the contact is saved in the cache directory load it , if not
-     * load the VCard and the avatar of the contact in a temporaney byte array and store it
+     * If the contact is saved in the cache directory, load it , if not
+     * load the VCard and the avatar of the contact in a temp byte array and store it
      * in avatar as ImageIcon
      */
     private void loadAvatar(){
-
         File tmp_image;
-
-        //The contact JID associated to the avatar.
-        String jID = this.contact.getJID();
+        String jID = null;
+                
+        if(this.contact != null){
+            //The contact JID associated to CONTACT the avatar.
+            jID = this.contact.getJID();
+        }
 
         //If the avatar exists in the cached avatars directory
         if(  new File( cache_dir_path + jID + ".jpg" ).exists() ){
@@ -113,16 +119,21 @@ public class MyVCard {
 
             //if DownloadImgs option is enabled
             if( prefs.getPreferences().getBoolean( Options.DownloadImgs, true) ){
-
                 byte[] avatarBytes;
 
-                //Load the vCard associated to the contact
+                //Load the vCard associated to the contact or user
                 try{
-
-                    vCard.load(connection.getConnection(), contact.getAdress());
-
+                    if(this.contact != null){                                         
+                        //The vCard associated to the CONTACT
+                        vCard.load(connection.getConnection(), contact.getAdress());
+            
+                    }else{                   
+                        //The vCard associated to the USER
+                        vCard.load(connection.getConnection());
+            
+                    }    
+                    
                 }catch(XMPPException e){
-
                     new DebugMessage(this.getClass(), "Couldn't load the VCard of " + contact.getUser(), e);
 
                 }
@@ -148,6 +159,7 @@ public class MyVCard {
             }
         }
     }
+    
 
     //TODO: if the image changes the avatar loaded is still the avatar from the cache
     /**
