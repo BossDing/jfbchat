@@ -23,18 +23,16 @@
 
 package jfbchat;
 
-import jfbchat.resources.FBConnectionConfiguration;
-import jfbchat.listeners.PacketListening;
-import jfbchat.listeners.MyRosterListener;
-
-import org.jivesoftware.smack.packet.Presence;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.XMPPConnection;
-
-import jfbchat.resources.Options;
-import jfbchat.debug.Error;
 import jfbchat.debug.DMessage;
 import jfbchat.debug.DebugMessage;
+import jfbchat.debug.Error;
+import jfbchat.listeners.MyRosterListener;
+import jfbchat.listeners.PacketListening;
+import jfbchat.resources.FBConnectionConfiguration;
+import jfbchat.resources.Options;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Presence;
 
 /**
  * This class represent a connection with the server
@@ -42,13 +40,13 @@ import jfbchat.debug.DebugMessage;
  * @author Digitex (Giuseppe Federico - digitex3d@gmail.com)
  */
 public class Connection {
-
     private User user;
     private Presence presence;
     private XMPPConnection connection;
     private ContactList contactList;
     private MyChatManager myChatManager;
     private PacketListening packetListening;
+    private MyVCard vCard;
 
     public Connection(User user){
               
@@ -62,6 +60,9 @@ public class Connection {
         
         this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
                                                            ,Options.PORT,Options.SERVICE_NAME));
+        
+        //Init The user vCard
+        vCard = null; 
     }
 
     /**
@@ -95,12 +96,15 @@ public class Connection {
             
             //Start listen to incoming packets
             startPacketListening();
-
+           
             } catch (XMPPException ex) {
             
                 new Error(this,1,"Wrong Username or Password");
             
             }
+        
+            //Get the user vCard
+            vCard = new MyVCard(this);
 
     }
 
@@ -214,6 +218,18 @@ public class Connection {
         return this.user;
         
     }
+    
+    public MyVCard getVCard(){      
+        return this.vCard;
+        
+    }
+    
+    public String getJID(){
+        return this.connection.getUser().replaceAll("/.*", "");
+        
+    }
+    
+    
 
     public void setContactList(ContactList list){
         contactList = list;
