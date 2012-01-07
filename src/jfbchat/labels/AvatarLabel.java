@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package jfbchat.labels;
 
-import jfbchat.resources.Imgs;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
-        
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
+import jfbchat.resources.Imgs;
 
 /**
  * An avatar label
@@ -38,12 +38,12 @@ public class AvatarLabel extends JLabel{
     public AvatarLabel(){
         super("");
         this.icon = null;
+        //Set the defaul facebook icon
         this.setIcon(new javax.swing.ImageIcon(getClass().getResource(Imgs.NO_AVATAR_ICON)));
         
     }
     
     public void updateAvatarLabel(Contact contact){
-        
         if (contact.getPresence().isAvailable() || 
             contact.getPresence().isAway()){
 
@@ -52,15 +52,14 @@ public class AvatarLabel extends JLabel{
                 try{
                     //Store the icon in avatarIcon
                     this.icon = contact.getVCard().getAvatar();
-
                     if ( this.icon != null){
                         //Set the avatar icon
                         this.setIcon( this.icon );
                         
                     }else{
-                        new DebugMessage(this.getClass(), "Cannot get the Avatar");
+                        new DebugMessage(this.getClass(), "Cannot set the Avatar");
+                        
                     }
-
                 }catch(Exception e){
                     new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
 
@@ -71,5 +70,32 @@ public class AvatarLabel extends JLabel{
         //Set the tool tip text
         this.setToolTipText(contact.getUser());
     }
-    
+        
+    public void updateAvatarLabel(Connection connection){    
+        //Avatar test
+        if ( this.icon == null){
+            try{
+                //Store the icon in avatarIcon
+                this.icon = connection.getVCard().getAvatar();
+
+                if ( this.icon != null){
+                    //Set the avatar icon
+                    this.setIcon( this.icon );
+
+                }else{
+                    new DebugMessage(this.getClass(), "Cannot get the Avatar");
+                }
+
+            }catch(Exception e){
+                new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
+
+            }
+        }
+        //Set the tool tip text
+        this.setToolTipText("Me");
+
+    }
+       
 }
+    
+
