@@ -72,8 +72,8 @@ public class Options {
 
     //---------WEBPAGES--------------
     public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
-    public static String ONLINE_HELP = "http://www.digisoftware.org/phpBB/";
-    public static String USERNAME_ONLINE_HELP = "http://www.digisoftware.org/phpBB/viewtopic.php?f=4&t=2";
+    public static String ONLINE_HELP = "http://www.digisoftware.org/forum/";
+    public static String USERNAME_ONLINE_HELP = "http://www.digisoftware.org/forum/discussion/1/login-with-your-facebook-username.";
     public static String WEBPAGE_BUG_TRACKER = "http://sourceforge.net/tracker/?group_id=405668&atid=1680548";
 
 
