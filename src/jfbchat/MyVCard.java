@@ -260,11 +260,18 @@ public class MyVCard {
 
     }
 
-    public String getNickName(){
+    public String getNickName(){        
+        return this.vCard.getNickName();
         
-        return vCard.getNickName();
-
     }
+    
+    public String getFirstName(){
+        String fn = this.vCard.toXML().replaceFirst("^.*<FN>", "");
+        fn = fn.replaceFirst("<.*\n.*\n.*", "");
+        return fn;
+        
+    }
+    
 
     public static byte[] getBytesFromFile(File file) throws IOException {
         InputStream is = new FileInputStream(file);
@@ -296,5 +303,7 @@ public class MyVCard {
         is.close();
         return bytes;
     }
+    
+   
 
 }
