@@ -74,6 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         preferencesFrame = new PreferencesFrame();
 
         initComponents();
+     
 
         this.prefs = new ChatPreferences();
         ComboBoxChoise = false;
@@ -161,7 +162,8 @@ public class MainFrame extends javax.swing.JFrame {
         connection.connect();
 
         if (connection.isConnected()){
-
+            
+        
             //Populate the contact list
             for(Iterator<Group> iterGroup = connection.getContactList().getGroups().iterator(); iterGroup.hasNext();){
 
@@ -176,6 +178,13 @@ public class MainFrame extends javax.swing.JFrame {
 
                 }
             }
+        
+        //Init avatar user label
+        avatarLabelUser.updateAvatarLabel(connection);
+        avatarLabelUser.updateAvatarLabel(connection);
+        //Init user name
+        jLabelUser.setText(connection.getVCard().getFirstName());
+        
         
         loginPanelComponentsSetEnabled(true);
      }
@@ -207,6 +216,9 @@ public class MainFrame extends javax.swing.JFrame {
         ButtonLogin = new javax.swing.JButton();
         ConnectedPanel = new javax.swing.JPanel();
         comboPanel = new javax.swing.JPanel();
+        jPanelUserInfo = new javax.swing.JPanel();
+        avatarLabelUser = new jfbchat.labels.AvatarLabel();
+        jLabelUser = new javax.swing.JLabel();
         ComboBoxStatus = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -247,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         logoPanelLayout.setVerticalGroup(
@@ -262,10 +274,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        usernameLabel.setFont(new java.awt.Font("Verdana", 1, 16));
+        usernameLabel.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         usernameLabel.setText("Username");
 
-        questionButton.setFont(new java.awt.Font("Verdana", 1, 16));
+        questionButton.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         questionButton.setText("?");
         questionButton.setToolTipText("Click here if you have a connection problem.");
         questionButton.setFocusable(false);
@@ -275,7 +287,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        passwordLabel.setFont(new java.awt.Font("Verdana", 1, 16));
+        passwordLabel.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         passwordLabel.setText("Password");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -328,7 +340,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jCheckBoxAuto.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBoxAuto.setFont(new java.awt.Font("Verdana", 0, 14));
+        jCheckBoxAuto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jCheckBoxAuto.setText("Auto login");
         jCheckBoxAuto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -336,7 +348,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        ButtonLogin.setFont(new java.awt.Font("Verdana", 0, 15));
+        ButtonLogin.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         ButtonLogin.setText("Login");
         ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +389,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -386,13 +398,37 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(LoginPanelLayout.createSequentialGroup()
                 .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         MainPanel.add(LoginPanel, "loginPanel");
 
         ConnectedPanel.setName("connectedPanel"); // NOI18N
+
+        jLabelUser.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        jLabelUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelUser.setText("USER NAME");
+
+        javax.swing.GroupLayout jPanelUserInfoLayout = new javax.swing.GroupLayout(jPanelUserInfo);
+        jPanelUserInfo.setLayout(jPanelUserInfoLayout);
+        jPanelUserInfoLayout.setHorizontalGroup(
+            jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelUserInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(avatarLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelUserInfoLayout.setVerticalGroup(
+            jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelUserInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(avatarLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         ComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Offline" }));
         ComboBoxStatus.addItemListener(new java.awt.event.ItemListener() {
@@ -413,13 +449,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ComboBoxStatus, 0, 264, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanelUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         comboPanelLayout.setVerticalGroup(
             comboPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(comboPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanelUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(comboPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboBoxStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(ComboBoxStatus)
                     .addComponent(jLabel5))
                 .addContainerGap())
         );
@@ -451,7 +489,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(ConnectedPanelLayout.createSequentialGroup()
                 .addComponent(comboPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
         );
 
         MainPanel.add(ConnectedPanel, "connectedPanel");
@@ -536,7 +574,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -841,12 +879,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemAbout;
     private javax.swing.JMenuItem MenuItemPreferences;
     private javax.swing.JPanel ScrollListpanel;
+    private jfbchat.labels.AvatarLabel avatarLabelUser;
     private javax.swing.JPanel comboPanel;
     private javax.swing.JPanel credentialsPanel;
     private javax.swing.JCheckBox jCheckBoxAuto;
     private javax.swing.JCheckBox jCheckBoxRemUser;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelUser;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuChat;
     private javax.swing.JMenuItem jMenuItemHelpOnline;
@@ -854,6 +894,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelUserInfo;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPanel logoPanel;
