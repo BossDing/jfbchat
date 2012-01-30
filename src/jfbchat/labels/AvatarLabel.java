@@ -95,7 +95,15 @@ public class AvatarLabel extends JLabel{
         this.setToolTipText("Me");
 
     }
-       
+    
+    /**
+     * Set the icon null
+     * 
+     */
+     public void clearIcon(){
+         this.icon = null;
+         
+     }
 }
     
 
