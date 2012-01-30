@@ -780,7 +780,12 @@ public class MainFrame extends javax.swing.JFrame {
                 connection.closeConnection();
 
                 setContactListVisible(false);
-
+                
+                //Clear avatarLabelUser
+                this.avatarLabelUser.clearIcon();
+                //Clear jLabelUser
+                this.jLabelUser.setText(null);
+                
                 this.ContactListPanel.removeAll();
 
             }
