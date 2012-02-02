@@ -25,6 +25,7 @@ package jfbchat.frames;
 
 
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
@@ -75,7 +76,18 @@ public class ChatFrame extends javax.swing.JFrame {
         }
 
         initComponents();
-       
+        
+        //Color the jPanelButtons in the top
+        this.jPanelButtons.setBackground(jfbchat
+                                                .resources
+                                                .Options
+                                                .FCBK_BLUE_COLOR);
+
+        //Set the jButtonCloseTab transparent
+        this.jButtonCloseTab.setOpaque(false);
+        this.jButtonCloseTab.setContentAreaFilled(false);
+        this.jButtonCloseTab.setBorderPainted(false);
+  
         setLocationRelativeTo(null);
         setVisible(false);
     }
@@ -107,6 +119,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
 
         setTitle("Conversations");
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(300, 300));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -114,12 +127,15 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
+        jTabbedPaneChats.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
         jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
         getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
 
         jButtonCloseTab.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jButtonCloseTab.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCloseTab.setText("x");
+        jButtonCloseTab.setToolTipText("Close this tab");
         jButtonCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButtonCloseTabMousePressed(evt);
@@ -131,7 +147,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jPanelButtonsLayout.setHorizontalGroup(
             jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
-                .addGap(0, 428, Short.MAX_VALUE)
+                .addGap(0, 440, Short.MAX_VALUE)
                 .addComponent(jButtonCloseTab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelButtonsLayout.setVerticalGroup(
@@ -230,8 +246,9 @@ public class ChatFrame extends javax.swing.JFrame {
         int tabCount = this.jTabbedPaneChats.getTabCount();
         
         panelChat.setTabIndex(tabCount);
+        
         this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
-             
+
     }
     
     /**
