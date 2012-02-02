@@ -23,13 +23,12 @@
 
 package jfbchat.listeners;
 
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.packet.Message;
-
 import jfbchat.Contact;
-import jfbchat.panels.PanelMessage;
 import jfbchat.debug.DebugMessage;
+import jfbchat.panels.PanelMessage;
+import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.packet.Message;
 
 public class MyMessageListener implements  MessageListener{
   
@@ -46,12 +45,16 @@ public class MyMessageListener implements  MessageListener{
          //If the message is not null
          if(!(message.getBody() == null)){
 
-            //Add the message to the ChatFrame associated to the contact
-            contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact , message.getBody()));
+            //Add the message to the PanelChat associated to the contact
+            contact.getPanelChat()
+                    .addPanelMessage(new PanelMessage(false
+                                                           , contact 
+                                                           , message.getBody()));
+            
             
          }else{
             //The contact is writing        
-            contact.getChatFrame()
+            contact.getPanelChat()
                    .getjIsWritingLabel().setIsWriting(true);
 
          }
@@ -59,9 +62,9 @@ public class MyMessageListener implements  MessageListener{
          new DebugMessage(this.getClass(), "Received message by the listener: " + message.getBody());
             
             
-        if (contact.getChatFrame().isVisible() == false){
+        if (contact.getPanelChat().isVisible() == false){
 
-            contact.getChatFrame().setVisible(true);
+            contact.getPanelChat().setVisible(true);
 
         }
             

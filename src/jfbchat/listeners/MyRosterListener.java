@@ -36,15 +36,12 @@
 package jfbchat.listeners;
 
 import java.util.Collection;
-
 import jfbchat.Connection;
 import jfbchat.Contact;
+import jfbchat.debug.DMessage;
 import jfbchat.frames.JFrameNotifications;
-
-
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
-import jfbchat.debug.DMessage;
 
 
 public class MyRosterListener implements RosterListener {
@@ -85,8 +82,8 @@ public class MyRosterListener implements RosterListener {
                 connection.getContactList().updateGroupPanels();
 
                 //If a chat with the contact is already opened update his status
-                if(contact.getChatFrame() != null){
-                    contact.getChatFrame().update();
+                if(contact.getPanelChat() != null){
+                    contact.getPanelChat().update();
                 }
 
             }catch (Exception e){

@@ -26,26 +26,19 @@ package jfbchat.frames;
 
 
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
+import javax.swing.JTabbedPane;
 import javax.swing.text.DefaultEditorKit;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
-import jfbchat.labels.IsWritingLabel;
-import jfbchat.listeners.MyMessageListener;
-import jfbchat.panels.PanelMessage;
-import jfbchat.panels.PanelMessageSent;
+import jfbchat.panels.PanelChat;
 import jfbchat.resources.Imgs;
 import jfbchat.resources.Options;
 import jfbchat.resources.UtilFunctions;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateManager;
 
  /**
@@ -69,58 +62,22 @@ public class ChatFrame extends javax.swing.JFrame {
     private ChatStateManager chatStateManager;
 
     /** Creates new form ChatFrame */
-    public ChatFrame(Connection connection, Contact contact) {
-
+    public ChatFrame(Connection connection) {
         this.connection = connection;
-        this.contact = contact;
-        this.contactAdr = contact.getAdress();
-        this.isWriting = false;
-        //Get the chatStateManager of this connection
-        this.chatStateManager = ChatStateManager.
-                                getInstance(this.connection.getConnection()); 
         
-        //Init window icon image
-        java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
-            
-        try{
-            if (contactIcon != null) 
-                //Set the contact avatar as window icon
-                setIconImage( contactIcon );
-                    
-            else{
-                //Set the default icon
-                setIconImage( new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
-                new DebugMessage(this.getClass(), "Cannot set the window icon " + new ImageIcon( contactIcon ).toString() + " : null pointer.");
-                
-            }
+        //Load and set the icon.
+        try{        
+            setIconImage(new ImageIcon( getClass().getResource( Imgs.MAINICON ) ).getImage() );
 
         }catch(Exception e){
-            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon( contactIcon ).toString(), e);
+            new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
 
         }
-        
-
-        this.chatmanager = connection.getConnection().getChatManager();
 
         initComponents();
-        //Init the StatusLabel1
-        this.statusLabel1.updateLabel(this.contact);
-        
-        //Init isWritingLabel1 as not visible
-        this.isWritingLabel1.setIsWriting(false);
-        
-        this.setTitle( contact.getUser() );
-        this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
-
-        
-        relatedChat = chatmanager.createChat(contactAdr ,
-                                         new MyMessageListener(
-                                         contact));
-        
-        
-         
+       
         setLocationRelativeTo(null);
-        setVisible(true);
+        setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -132,15 +89,9 @@ public class ChatFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        MainFrame = new javax.swing.JPanel();
-        jPanelScrollMessages = new javax.swing.JPanel();
-        ScrollMessages = new javax.swing.JScrollPane();
-        PanelMessages = new javax.swing.JPanel();
-        PanelSend = new javax.swing.JPanel();
-        messageField = new javax.swing.JTextField();
-        jPanelUnderAvatar = new javax.swing.JPanel();
-        isWritingLabel1 = new jfbchat.labels.IsWritingLabel();
-        statusLabel1 = new jfbchat.labels.StatusLabel();
+        jTabbedPaneChats = new javax.swing.JTabbedPane();
+        jPanelButtons = new javax.swing.JPanel();
+        jButtonCloseTab = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
@@ -155,7 +106,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jMenuItemReportProblem = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
 
-        setTitle("Conversation with ...");
+        setTitle("Conversations");
         setMinimumSize(new java.awt.Dimension(300, 300));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -163,71 +114,34 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
-        jPanelScrollMessages.setMinimumSize(new java.awt.Dimension(50, 50));
-        jPanelScrollMessages.setLayout(new java.awt.BorderLayout());
+        jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+        jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
+        getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
 
-        PanelMessages.setBackground(new java.awt.Color(255, 255, 255));
-        PanelMessages.setAlignmentY(0.0F);
-        PanelMessages.setLayout(new javax.swing.BoxLayout(PanelMessages, javax.swing.BoxLayout.Y_AXIS));
-        ScrollMessages.setViewportView(PanelMessages);
-
-        jPanelScrollMessages.add(ScrollMessages, java.awt.BorderLayout.CENTER);
-
-        PanelSend.setLayout(new java.awt.BorderLayout());
-
-        messageField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                messageFieldFocusLost(evt);
+        jButtonCloseTab.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jButtonCloseTab.setText("x");
+        jButtonCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonCloseTabMousePressed(evt);
             }
         });
-        messageField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                messageFieldKeyTyped(evt);
-            }
-        });
-        PanelSend.add(messageField, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
-        jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
-        jPanelUnderAvatarLayout.setHorizontalGroup(
-            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
-                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(391, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
+        jPanelButtons.setLayout(jPanelButtonsLayout);
+        jPanelButtonsLayout.setHorizontalGroup(
+            jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
+                .addGap(0, 428, Short.MAX_VALUE)
+                .addComponent(jButtonCloseTab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanelUnderAvatarLayout.setVerticalGroup(
-            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanelButtonsLayout.setVerticalGroup(
+            jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonCloseTab))
         );
 
-        javax.swing.GroupLayout MainFrameLayout = new javax.swing.GroupLayout(MainFrame);
-        MainFrame.setLayout(MainFrameLayout);
-        MainFrameLayout.setHorizontalGroup(
-            MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        MainFrameLayout.setVerticalGroup(
-            MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-
-        getContentPane().add(MainFrame, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanelButtons, java.awt.BorderLayout.PAGE_START);
 
         jMenuConversation.setText("Conversation");
         jMenuConversation.setToolTipText("Conversation");
@@ -304,128 +218,35 @@ public class ChatFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+    
+        
     /**
-     * Send a message to the contact associated to the ChatFrame
-     * @param texttosend
+     * This method add a chatPanel to the jTabbedPaneChats
+     * @param connection
+     * @param contact 
      */
-    public void SendMessage(String texttosend){
-
-        //If texttosend is not empty
-        if ( ! ( texttosend.equals("") ) ){
-
-            try {
-          
-                addPanelMessage(new PanelMessageSent(this.connection,
-                                                   texttosend));
-
-                // Clear the TextField
-                messageField.setText("");                                               
-                
-                relatedChat.sendMessage(texttosend);
-
-                new DebugMessage(this.getClass(),"Sended \""+ texttosend +"\" to " + contact.getUser());
-
-            }catch (XMPPException e) {
-
-                new DebugMessage(this.getClass(), "Cannot send message to " + contact.getUser(), e);
-
-            }
-
-        }else{
-            try {
-                relatedChat.sendMessage(new Message(null));
-            } catch (XMPPException ex) {
-                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-     
-    }
-
-    /**
-    * Add a message to the PanelMessages.
-    * Set the scrollbar at the maximum position for every incoming or
-    * outgoing message.
-    * Set isWriting to false.
-    */
-    public void addPanelMessage(PanelMessage panel){
-        if(panel.getMessage() != null){
-            PanelMessages.add(panel);
-            validate();
-            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-            validate();
-            
-            //The contact is not writing
-            this.isWritingLabel1.setIsWriting(false);
-            
-        }else{
-            //The contact is writing
-            this.isWritingLabel1.setIsWriting(true);
+    public void addTab(Connection connection, Contact contact, PanelChat panelChat){
+        int tabCount = this.jTabbedPaneChats.getTabCount();
+        
+        panelChat.setTabIndex(tabCount);
+        this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
              
-        }
     }
     
-        /**
-    * Add a message to the PanelMessages.
-    * Set the scrollbar at the maximum position for every incoming or
-    * outgoing message.
-    * Set isWriting to false.
-    */
-    public void addPanelMessage(PanelMessageSent panel){
-        if(panel.getMessage() != null){
-            PanelMessages.add(panel);
-            validate();
-            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-            validate();
-            
-            //The contact is not writing
-            this.isWritingLabel1.setIsWriting(false);
-            
-        }else{
-            //The contact is writing
-            this.isWritingLabel1.setIsWriting(true);
-             
-        }
-    }
     /**
-     * Update the chatframe (the contact might be disconnected after a roster up
-     * date)
+     * 
+     * @return the jTabbedPaneChats
      */
-     public void update(){
-
-       
-        messageField.setEnabled( contact.isAvailable() );
-        //Update the statusLabel icon
-        this.statusLabel1.updateLabel(this.contact);
+    public JTabbedPane getjTabbedPaneChats(){
+        return this.jTabbedPaneChats;
         
     }
-
+    
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        
     }//GEN-LAST:event_formKeyPressed
     
-    /**
-     * Send the messageField text when Enter is pressed
-     * @param evt
-     */
-    private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyTyped
-        //Change the ChatState informing the server the user is composing
-        try {
-            this.chatStateManager.setCurrentState(ChatState.composing, relatedChat);
-            
-        } catch (XMPPException e) {
-            new DebugMessage(this.getClass(), "Cannot change chatState to composing.", e);
-            
-        }
-        
-        if( (int) evt.getKeyChar() == K_ENTER_ID ){
-
-             SendMessage( messageField.getText() );
-
-         }
-
-    }//GEN-LAST:event_messageFieldKeyTyped
-
     /**
      * MenuItem Close action
      * @param evt
@@ -433,7 +254,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private void jMenuCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCloseActionPerformed
 
         //Hide the window
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jMenuCloseActionPerformed
 
     /**
@@ -441,9 +262,7 @@ public class ChatFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClearActionPerformed
-
-        //Clear all the messages in the PanelMessages
-        this.clearAllMessages();
+        this.clearActiveTabMsgs();
 
     }//GEN-LAST:event_jMenuItemClearActionPerformed
     
@@ -459,68 +278,52 @@ public class ChatFrame extends javax.swing.JFrame {
         UtilFunctions.openURL( Options.WEBPAGE_BUG_TRACKER );
     }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
 
-    private void messageFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_messageFieldFocusLost
-        //Change the ChatState informing the server the user not composing anymore
-        try {
-            this.chatStateManager.setCurrentState(ChatState.paused, relatedChat);
-            
-        } catch (XMPPException e) {
-            new DebugMessage(this.getClass(), "Cannot change chatState to paused.", e);
-            
-        }
-    }//GEN-LAST:event_messageFieldFocusLost
-
-   
-    /**
-    * @return The jIsWritingLabel label 
-    */
-    public IsWritingLabel getjIsWritingLabel(){
-        return this.isWritingLabel1;
+    private void jButtonCloseTabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCloseTabMousePressed
+        this.closeActiveTab();
+        if(this.jTabbedPaneChats.getTabCount() == 0 ) this.dispose();
         
-    }
+    }//GEN-LAST:event_jButtonCloseTabMousePressed
     
     /**
-     * This method clears all the messages in the PanelMessages
+     * Close active tab
      */
-    public void clearAllMessages(){
-
-        //If PanelMessages is not empty
-        if ( !(this.PanelMessages.getComponents().length == 0) ){
-
-            try{
-
-                //Clear all the sended and received messages
-                this.PanelMessages.removeAll();
-
-                //Validate the PanelMessages
-                this.PanelMessages.validate();
-
-                //Repaint the PanelMessages
-                this.PanelMessages.repaint();
-
-                new DebugMessage(this.getClass(), "PanelMessages cleared");
-
-            }catch(Exception e){
-
-                new DebugMessage(this.getClass(), "Cannot clear PanelMessages ", e);
-
-            }
-
-        }else{
-
-            new DebugMessage(this.getClass(), "PanelMessages has nothing to clear");
-
+    public void closeActiveTab(){
+        PanelChat activePanel;
+        try{
+            activePanel = (PanelChat) this.jTabbedPaneChats
+                                                    .getSelectedComponent();
+            activePanel.getContact().setActive(false);
+            
+        }catch(NullPointerException e){
+            new DebugMessage(this.getClass()
+                                , "Cannot get the SelectedComponent"
+                                , e);
         }
-
+        
+        this.jTabbedPaneChats.removeTabAt(this.jTabbedPaneChats.getSelectedIndex());
+        
     }
-
+    /**
+     * Clear all the messages in the active panel
+     */
+    public void clearActiveTabMsgs(){
+        PanelChat activePanel;
+        try{
+            activePanel = (PanelChat) this.jTabbedPaneChats
+                                                    .getSelectedComponent();
+            activePanel.clearAllMessages();
+            
+        }catch(NullPointerException e){
+            new DebugMessage(this.getClass()
+                                , "Cannot get the SelectedComponent"
+                                , e);
+        }
+               
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel MainFrame;
     private javax.swing.JMenu MenuHelp;
-    private javax.swing.JPanel PanelMessages;
-    private javax.swing.JPanel PanelSend;
-    private javax.swing.JScrollPane ScrollMessages;
-    private jfbchat.labels.IsWritingLabel isWritingLabel1;
+    private javax.swing.JButton jButtonCloseTab;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
@@ -531,12 +334,10 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemHelpOnline;
     private javax.swing.JMenuItem jMenuItemPaste;
     private javax.swing.JMenuItem jMenuItemReportProblem;
-    private javax.swing.JPanel jPanelScrollMessages;
-    private javax.swing.JPanel jPanelUnderAvatar;
+    private javax.swing.JPanel jPanelButtons;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JTextField messageField;
-    private jfbchat.labels.StatusLabel statusLabel1;
+    private javax.swing.JTabbedPane jTabbedPaneChats;
     // End of variables declaration//GEN-END:variables
 
 }

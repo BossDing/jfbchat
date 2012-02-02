@@ -23,16 +23,14 @@
 
 package jfbchat;
 
-import jfbchat.panels.PanelContact;
-import jfbchat.frames.ChatFrame;
+import java.util.ArrayList;
+import java.util.Iterator;
 import jfbchat.debug.DebugMessage;
-
-import org.jivesoftware.smack.packet.Presence;
+import jfbchat.panels.PanelChat;
+import jfbchat.panels.PanelContact;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
-
-import java.util.Iterator;
-import java.util.ArrayList;
+import org.jivesoftware.smack.packet.Presence;
 
 /**
  * Represents a contact
@@ -55,8 +53,8 @@ public class Contact {
     //Panel associated with the contact
     private ArrayList<PanelContact> contactPanels;
 
-    //ChatFrame associated with the contact
-    private ChatFrame chatFrame;
+    //PanelChat associated with the contact
+    private PanelChat panelChat;
 
     private String jID;
     private MyVCard vCard;
@@ -70,7 +68,7 @@ public class Contact {
         this.entry = entry;
         this.chatActive = false;
         this.contactPanels = new ArrayList();
-        this.chatFrame = null;
+        this.panelChat = null;
         this.groups = new ArrayList();
         this.vCard = new MyVCard(connection, this);
         this.id = ++contactId;
@@ -144,11 +142,11 @@ public class Contact {
     }
 
     /**
-    * Get the ChatFrame associated to this contact
-    * @return the ChatFrame associated to the contact
+    * Get the PanelChat associated to this contact
+    * @return the ChatP associated to the contact
     */
-    public ChatFrame getChatFrame(){
-        return chatFrame;
+    public PanelChat getPanelChat(){
+        return panelChat;
     }
 
     /**
@@ -177,7 +175,7 @@ public class Contact {
         return this.id;
         
     }
-
+    
     public String getJID(){
         return this.jID;
         
@@ -309,19 +307,46 @@ public class Contact {
     }
 
     /**
-     * Adds the ChatFrame associated to this contact to the ChatManager
+     * Init the chat with the contact and show the conversation
+     * 
      */
-    public void addToChatManager(){
-       try{
-            this.chatFrame =  new ChatFrame(connection, this);
-            connection.getChatManager().add(this.chatFrame);
+    public void initChat(){
+        //If the chat is active in the chatmanager show it.
+        if (!(this.isActive())){
+            try{           
+                this.setActive(true);
+                if(this.panelChat==null){
+                    this.panelChat =  new PanelChat(connection, this);              
+                    connection.getChatManager().add(this.panelChat);
+                    connection.getChatFrame().addTab(connection, this , this.panelChat);
 
-        }catch (Exception e){
-            new DebugMessage(this.getClass(), "Cannot add the chatFrame to the ChatManager", e);
+                }else{
+                    connection.getChatFrame().addTab(connection, this , this.panelChat);
+
+                }
+                }catch (Exception e){
+                    new DebugMessage(this.getClass(), "Cannot init the chat with " + this.getUser(), e);
+
+                }
             
         }
-       
+        try{
+            //Focus the contact tab
+            connection
+                    .getChatFrame()
+                    .getjTabbedPaneChats()
+                    .setSelectedIndex(this
+                                            .getPanelChat()
+                                            .getTabIndex());
+            //Show the ChatFrame
+            connection.getChatFrame().setVisible(true);
+        }catch (Exception e){
+                new DebugMessage(this.getClass(), "Cannot show the chat with " + this.getUser(), e);
+
+            }
+           
     }
+    
 
     /**
     * Remove a contact from groups

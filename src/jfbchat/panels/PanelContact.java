@@ -23,15 +23,18 @@
 
 package jfbchat.panels;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.Group;
-
-import jfbchat.resources.*;
 import jfbchat.debug.DebugMessage;
+import jfbchat.resources.ChatPreferences;
+import jfbchat.resources.Options;
 
 
 /**
@@ -240,31 +243,10 @@ public class PanelContact extends javax.swing.JPanel {
     }
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
-        if (contact.isActive()){
-
-            //If the chat is present in the chatmanager show it.
-            if (contact.getChatFrame().isVisible() == false){
-
-                  contact.getChatFrame().setVisible(true);
-
-                        
-            }
-
-            new DebugMessage("Contact clicked: The chat is already "
-                    + "present in the chat manager");
-            
-        }
-        else{
-
-            /**If the chat is NOT present in the chatmanager then add it and
-             * set the contact active true
-             */
-
-            contact.setActive(true);
-            contact.addToChatManager();
-            
-        }
+        //If the chat is active in the chatmanager show it.
+        contact.initChat(); 
+  
+   
     }//GEN-LAST:event_formMouseClicked
 
     /**

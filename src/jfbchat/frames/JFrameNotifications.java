@@ -115,31 +115,8 @@ public class JFrameNotifications extends javax.swing.JDialog{
     }
     
     public void openConversation(Contact contact){
-        //Add a new conversation in the ChatManager
-        if (contact.isActive()){
-
-            //If the chat is present in the chatmanager show it.
-            if (contact.getChatFrame().isVisible() == false){
-
-                  contact.getChatFrame().setVisible(true);
-
-                        
-            }
-
-            new DebugMessage("Contact clicked: The chat is already "
-                    + "present in the chat manager");
-            
-        }
-        else{
-
-            /**If the chat is NOT present in the chatmanager then add it and
-             * set the contact active true
-             */
-
-            contact.setActive(true);
-            contact.addToChatManager();
-            
-        }
+        contact.initChat();
+        
     }
     /** This method is called from within the constructor to
      * initialize the form.

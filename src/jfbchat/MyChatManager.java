@@ -38,9 +38,8 @@ package jfbchat;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import jfbchat.frames.ChatFrame;
 import jfbchat.debug.DebugMessage;
+import jfbchat.panels.PanelChat;
 
 
 
@@ -50,7 +49,7 @@ import jfbchat.debug.DebugMessage;
  */
 public class MyChatManager {
 
-    private ArrayList<ChatFrame> chatManager;
+    private ArrayList<PanelChat> chatManager;
     
     public MyChatManager(){
 
@@ -62,7 +61,7 @@ public class MyChatManager {
      * Add a ChatFrame to this chatManager
      * @param A ChatFrame
      */
-    public void add(ChatFrame c){
+    public void add(PanelChat c){
         /* Add a chatframe at the specified index */
 
         try{
@@ -83,7 +82,7 @@ public class MyChatManager {
         return chatManager.size();
     }
 
-    public ChatFrame getChat(int index){
+    public PanelChat getChat(int index){
         return chatManager.get(index);
     }
 
@@ -95,9 +94,9 @@ public class MyChatManager {
 
 
         //Hide all the opened windows
-        for(Iterator<ChatFrame> iter = this.chatManager.iterator(); iter.hasNext();){
+        for(Iterator<PanelChat> iter = this.chatManager.iterator(); iter.hasNext();){
 
-            ChatFrame nextChatFrame = iter.next();
+            PanelChat nextChatFrame = iter.next();
 
             nextChatFrame.setVisible(false);
 

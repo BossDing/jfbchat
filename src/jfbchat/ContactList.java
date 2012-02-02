@@ -330,7 +330,7 @@ public class ContactList {
                 this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
             }
 
-        }else{        
+        }else{       
             //Add all the contacts to a new group
             this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
             

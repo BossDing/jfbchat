@@ -24,19 +24,19 @@
 package jfbchat.frames;
 
 
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-
 import java.awt.CardLayout;
 import java.util.Iterator;
-
-import org.jivesoftware.smack.packet.Presence;
-
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import jfbchat.*;
-import jfbchat.debug.*;
-import jfbchat.resources.*;
-import jfbchat.frames.preferences.PreferencesFrame;
+import jfbchat.debug.DebugMessage;
 import jfbchat.debug.Error;
+import jfbchat.frames.preferences.PreferencesFrame;
+import jfbchat.resources.ChatPreferences;
+import jfbchat.resources.Imgs;
+import jfbchat.resources.Options;
+import jfbchat.resources.UtilFunctions;
+import org.jivesoftware.smack.packet.Presence;
 
 /* The MainFrame of the program.
  *
@@ -58,6 +58,7 @@ public class MainFrame extends javax.swing.JFrame {
     //Frames
     private JFrameAbout jFrameAbout;
     private PreferencesFrame preferencesFrame;
+
     
     private User user;
 
@@ -73,6 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         jFrameAbout = new JFrameAbout(Application.VERSION);
         preferencesFrame = new PreferencesFrame();
 
+        
         initComponents();
      
 
@@ -735,6 +737,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         }
     }
+
 
 
     

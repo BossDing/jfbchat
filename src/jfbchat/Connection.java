@@ -26,6 +26,7 @@ package jfbchat;
 import jfbchat.debug.DMessage;
 import jfbchat.debug.DebugMessage;
 import jfbchat.debug.Error;
+import jfbchat.frames.ChatFrame;
 import jfbchat.listeners.MyRosterListener;
 import jfbchat.listeners.PacketListening;
 import jfbchat.resources.FBConnectionConfiguration;
@@ -47,6 +48,7 @@ public class Connection {
     private MyChatManager myChatManager;
     private PacketListening packetListening;
     private MyVCard vCard;
+    private ChatFrame chatFrame;
 
     public Connection(User user){
               
@@ -60,6 +62,8 @@ public class Connection {
         
         this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
                                                            ,Options.PORT,Options.SERVICE_NAME));
+        
+        chatFrame = new ChatFrame(this);
         
         //Init The user vCard
         vCard = null; 
@@ -229,8 +233,15 @@ public class Connection {
         
     }
     
+     /**
+     * 
+     * @return the ChatFrame
+     */
+    public ChatFrame getChatFrame(){
+        return this.chatFrame;
+        
+    }
     
-
     public void setContactList(ContactList list){
         contactList = list;
     }

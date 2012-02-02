@@ -28,12 +28,11 @@ import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.ContactList;
 import jfbchat.MyChatManager;
-import jfbchat.panels.*;
-
+import jfbchat.debug.DebugMessage;
+import jfbchat.panels.PanelMessage;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
-import jfbchat.debug.DebugMessage;
 
 public class MyPacketListener implements PacketListener{
 
@@ -50,55 +49,58 @@ public class MyPacketListener implements PacketListener{
       }
 
       //the packet is filtered as a message
-      public void processPacket(Packet packet) {
-   
+      public void processPacket(Packet packet) { 
             //Contact who sends thet packet
             Contact contact = connection.getContactList().getContact(packet.getFrom());
          
             //Managing a message
             Message msg = (Message) packet;
 
-
               new DebugMessage(this.getClass(), "processPacket: \"" + msg + "\""
                 + " received from "  + contact.getUser());
 
-            //If the contact has a chatFrame in the chatManager
-            if (contact.isActive()){
-
-                    if (!(contact.getChatFrame().isVisible())){
-
-                        contact.getChatFrame().setVisible(true);
-
-                    }
+            //If the contact has a conversation active in the chatManager
+            if (!(contact.isActive())){
+                //Create a new PanelChat and show it                    
+                contact.initChat();
+                //Add the message in the PanelMessage
+                contact.getPanelChat().
+                        addPanelMessage(new PanelMessage(
+                                                        false, 
+                                                        contact,
+                                                        msg.getBody()));
+                
+            }               
+            
+            //Focus the contact tab
+            connection
+                    .getChatFrame()
+                    .getjTabbedPaneChats()
+                    .setSelectedIndex(contact
+                                            .getPanelChat()
+                                            .getTabIndex());
+            //Show the ChatFrame
+            connection.getChatFrame().setVisible(true);
+                    
+                    
+            // do nothing for TIMEOUT miliseconds
+            try
+            {
+                Thread.sleep(TIMEOUT);
+            }
+                catch(Exception e)
+            {
+                new DebugMessage(this.getClass(), "Cannot timeout for " + TIMEOUT + "miliseconds");
             }
 
-                else{
-
-                    //Create a new Chatframe and show it
-                    contact.setActive(true);
-                    contact.addToChatManager();
-
-                    contact.getChatFrame().addPanelMessage(new PanelMessage(false, contact,
-                                                   msg.getBody()));
-                    
-                    // do nothing for TIMEOUT miliseconds
-                    try
-                    {
-                        Thread.sleep(TIMEOUT);
-                    }
-                        catch(Exception e)
-                    {
-                        new DebugMessage(this.getClass(), "Cannot timeout for " + TIMEOUT + "miliseconds");
-                    }
-                    
 
 
-                    new DebugMessage("processPacket:Adding a new panel to "
-                            + "the chatframe :" + msg.getBody());
-                }
+            new DebugMessage("processPacket:Adding a new panel to "
+                    + "the chatframe :" + msg.getBody());
+        }
 
 
     }
 
-}
+
 
