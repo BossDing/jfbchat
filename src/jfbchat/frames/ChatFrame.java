@@ -128,7 +128,7 @@ public class ChatFrame extends javax.swing.JFrame {
         });
 
         jTabbedPaneChats.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+        jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
         getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
 

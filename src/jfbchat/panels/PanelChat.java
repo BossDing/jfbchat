@@ -285,11 +285,10 @@ public class PanelChat extends javax.swing.JPanel {
         jPanelScrollMessages = new javax.swing.JPanel();
         ScrollMessages = new javax.swing.JScrollPane();
         PanelMessages = new javax.swing.JPanel();
-        PanelSend = new javax.swing.JPanel();
-        messageField = new javax.swing.JTextField();
         jPanelUnderAvatar = new javax.swing.JPanel();
         isWritingLabel1 = new jfbchat.labels.IsWritingLabel();
         statusLabel1 = new jfbchat.labels.StatusLabel();
+        messageField = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(470, 410));
 
@@ -303,7 +302,24 @@ public class PanelChat extends javax.swing.JPanel {
 
         jPanelScrollMessages.add(ScrollMessages, java.awt.BorderLayout.CENTER);
 
-        PanelSend.setLayout(new java.awt.BorderLayout());
+        javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
+        jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
+        jPanelUnderAvatarLayout.setHorizontalGroup(
+            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
+                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(442, Short.MAX_VALUE))
+        );
+        jPanelUnderAvatarLayout.setVerticalGroup(
+            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
+                .addGroup(jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         messageField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -315,48 +331,30 @@ public class PanelChat extends javax.swing.JPanel {
                 messageFieldKeyTyped(evt);
             }
         });
-        PanelSend.add(messageField, java.awt.BorderLayout.CENTER);
-
-        javax.swing.GroupLayout jPanelUnderAvatarLayout = new javax.swing.GroupLayout(jPanelUnderAvatar);
-        jPanelUnderAvatar.setLayout(jPanelUnderAvatarLayout);
-        jPanelUnderAvatarLayout.setHorizontalGroup(
-            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
-                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(443, Short.MAX_VALUE))
-        );
-        jPanelUnderAvatarLayout.setVerticalGroup(
-            jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
 
         javax.swing.GroupLayout MainFrameLayout = new javax.swing.GroupLayout(MainFrame);
         MainFrame.setLayout(MainFrameLayout);
         MainFrameLayout.setHorizontalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(messageField)
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainFrameLayout.createSequentialGroup()
-                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(messageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 469, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -365,7 +363,7 @@ public class PanelChat extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -405,7 +403,6 @@ public class PanelChat extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainFrame;
     private javax.swing.JPanel PanelMessages;
-    private javax.swing.JPanel PanelSend;
     private javax.swing.JScrollPane ScrollMessages;
     private jfbchat.labels.IsWritingLabel isWritingLabel1;
     private javax.swing.JPanel jPanelScrollMessages;
