@@ -23,6 +23,7 @@
 
 package jfbchat;
 
+import jfbchat.facebook.JFBClient;
 import jfbchat.debug.DMessage;
 import jfbchat.debug.DebugMessage;
 import jfbchat.debug.Error;
@@ -109,7 +110,7 @@ public class Connection {
         
             //Get the user vCard
             vCard = new MyVCard(this);
-
+            
     }
 
     /**

@@ -394,6 +394,20 @@ public class ContactList {
 
 
     }
+    
+    public void updateAvatars(){
+        if(!(contactList.isEmpty())){        
+            Iterator<Contact> iter = contactList.iterator();
+
+            while(iter.hasNext()){      
+                Contact nextContact = iter.next();
+                nextContact.updateAvatar();
+
+               }
+            
+            }
+        
+    }
 
     @Override
     public String toString(){

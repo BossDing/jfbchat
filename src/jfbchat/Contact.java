@@ -209,8 +209,8 @@ public class Contact {
                 for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
                     PanelContact nextContactPanel = iterContactPanel.next();
 
-                    nextContactPanel.update();
-
+                    nextContactPanel.updateStatus();
+                    nextContactPanel.updateAvatar();
                 }
             }
         }catch(Exception e){
@@ -263,7 +263,7 @@ public class Contact {
     *
     * @return A list with all the contactPanels associated with this contact
     */
-    public ArrayList<PanelContact> getContactPanel(){
+    public ArrayList<PanelContact> getContactPanels(){
         return contactPanels;
     }
 
@@ -407,6 +407,20 @@ public class Contact {
             return false;
         }else{
             return true;
+        }
+    }
+    /**
+     * Update all the avatar of all contactPanels
+     */
+    public void updateAvatar(){
+        if(!(this.contactPanels.isEmpty())){        
+            Iterator<PanelContact> iter = this.contactPanels.iterator();
+
+            while(iter.hasNext()){      
+                PanelContact nextPanel = iter.next();
+                nextPanel.updateAvatar();
+  
+               }
         }
     }
 

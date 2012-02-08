@@ -23,10 +23,11 @@
 
 package jfbchat;
 
-import jfbchat.frames.MainFrame;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import jfbchat.frames.MainFrame;
 
 /**
  * this class represent a lifecycle
@@ -54,8 +55,7 @@ public class Application {
     }
 
     private void run(){
-
-        //Show the MainFrame
+        //Show the MainFrame     
         mainFrame = new MainFrame();
 
     }

@@ -164,8 +164,15 @@ public class MainFrame extends javax.swing.JFrame {
         connection.connect();
 
         if (connection.isConnected()){
+            //Init avatar user label
+            avatarLabelUser.updateAvatarLabel(connection);
+            avatarLabelUser.updateAvatarLabel(connection);
+            //Init user name
+            jLabelUser.setText(connection.getVCard().getFirstName());         
+           
             
-        
+            //Show the contactlist in the MainFrame
+            setContactListVisible(true);
             //Populate the contact list
             for(Iterator<Group> iterGroup = connection.getContactList().getGroups().iterator(); iterGroup.hasNext();){
 
@@ -174,21 +181,18 @@ public class MainFrame extends javax.swing.JFrame {
                 ContactListPanel.add(nextGroup.getPanel());
 
                 addContactsToPanel(nextGroup);
-
-                 //Show the contactlist in the MainFrame
-                setContactListVisible(true);
-
+                
+                ContactListPanel.validate();
+               
                 }
+            
+            //Load Avatars for the first time
+            connection.getContactList().updateAvatars();
+            
             }
         
-        //Init avatar user label
-        avatarLabelUser.updateAvatarLabel(connection);
-        avatarLabelUser.updateAvatarLabel(connection);
-        //Init user name
-        jLabelUser.setText(connection.getVCard().getFirstName());
-        
-        
         loginPanelComponentsSetEnabled(true);
+        
      }
  };
 
@@ -420,15 +424,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(avatarLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
         );
         jPanelUserInfoLayout.setVerticalGroup(
             jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelUserInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(avatarLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(avatarLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -491,7 +495,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(ConnectedPanelLayout.createSequentialGroup()
                 .addComponent(comboPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
         );
 
         MainPanel.add(ConnectedPanel, "connectedPanel");
@@ -607,7 +611,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     //Login to the chat
                     javax.swing.SwingUtilities.invokeLater(loginRunnable);
-
+             
 
                 }catch(Exception e){
 
