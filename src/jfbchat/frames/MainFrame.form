@@ -237,15 +237,15 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="221" max="32767" attributes="0"/>
+                                      <EmptySpace pref="231" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="EntryPass" alignment="0" pref="298" max="32767" attributes="0"/>
+                                          <Component id="EntryPass" alignment="0" pref="308" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="usernameLabel" min="-2" pref="128" max="-2" attributes="0"/>
-                                                  <Component id="EntryUser" pref="270" max="32767" attributes="0"/>
+                                                  <Component id="EntryUser" pref="280" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="questionButton" min="-2" max="-2" attributes="0"/>
@@ -328,7 +328,7 @@
                                   <Component id="jCheckBoxAuto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ButtonLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="29" max="32767" attributes="0"/>
+                              <EmptySpace pref="39" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -394,6 +394,9 @@
         </Container>
         <Container class="javax.swing.JPanel" name="ConnectedPanel">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="98" green="59" red="3b" type="rgb"/>
+            </Property>
             <Property name="name" type="java.lang.String" value="connectedPanel" noResource="true"/>
           </Properties>
           <Constraints>
@@ -406,7 +409,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="comboPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="1" pref="344" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="1" pref="354" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -421,6 +424,11 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="comboPanel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d3" green="81" red="58" type="rgb"/>
+                </Property>
+              </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -451,6 +459,11 @@
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="jPanelUserInfo">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="d3" green="81" red="58" type="rgb"/>
+                    </Property>
+                  </Properties>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -459,7 +472,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="avatarLabelUser" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabelUser" pref="270" max="32767" attributes="0"/>
+                              <Component id="jLabelUser" pref="280" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -482,7 +495,10 @@
                     <Component class="javax.swing.JLabel" name="jLabelUser">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="15" style="1"/>
+                          <Font name="Verdana" size="15" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
                         <Property name="text" type="java.lang.String" value="USER NAME"/>
@@ -506,6 +522,12 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Status"/>
                   </Properties>
                 </Component>

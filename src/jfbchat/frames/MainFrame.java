@@ -25,6 +25,7 @@ package jfbchat.frames;
 
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -76,7 +77,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         
         initComponents();
-     
+        //Set Backgrounds colors
+        this.comboPanel.setBackground(Options.FCBK_BLUE_COLOR);
+        this.jPanelUserInfo.setBackground(Options.FCBK_BLUE_COLOR);
+        this.ComboBoxStatus.setBackground(Options.FCBK_BLUE_COLOR);
 
         this.prefs = new ChatPreferences();
         ComboBoxChoise = false;
@@ -305,14 +309,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(passwordLabel)
-                        .addContainerGap(221, Short.MAX_VALUE))
+                        .addContainerGap(231, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(questionButton)))
                         .addGap(10, 10, 10))))
@@ -372,7 +376,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
                     .addComponent(ButtonLogin))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,9 +414,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         MainPanel.add(LoginPanel, "loginPanel");
 
+        ConnectedPanel.setBackground(new java.awt.Color(59, 89, 152));
         ConnectedPanel.setName("connectedPanel"); // NOI18N
 
-        jLabelUser.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        comboPanel.setBackground(new java.awt.Color(88, 129, 211));
+
+        jPanelUserInfo.setBackground(new java.awt.Color(88, 129, 211));
+
+        jLabelUser.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jLabelUser.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelUser.setText("USER NAME");
 
@@ -424,7 +434,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(avatarLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
         );
         jPanelUserInfoLayout.setVerticalGroup(
             jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,6 +453,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Status");
 
         javax.swing.GroupLayout comboPanelLayout = new javax.swing.GroupLayout(comboPanel);
@@ -488,7 +500,7 @@ public class MainFrame extends javax.swing.JFrame {
         ConnectedPanelLayout.setHorizontalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(comboPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
         );
         ConnectedPanelLayout.setVerticalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
