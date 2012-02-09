@@ -30,6 +30,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultEditorKit;
 import jfbchat.Connection;
 import jfbchat.Contact;
@@ -74,7 +76,7 @@ public class ChatFrame extends javax.swing.JFrame {
             new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
 
         }
-
+        
         initComponents();
         
         //Color the jPanelButtons in the top
@@ -82,7 +84,30 @@ public class ChatFrame extends javax.swing.JFrame {
                                                 .resources
                                                 .Options
                                                 .FCBK_BLUE_COLOR);
-
+        //Init jLabelTitle
+        //Color the jLabelTitle in the top
+        this.jLabelTitle.setBackground(jfbchat
+                                                .resources
+                                                .Options
+                                                .FCBK_WHITE_COLOR);
+        
+       
+        // Register a change listener when a tab is changed
+        this.jTabbedPaneChats.addChangeListener(new ChangeListener() {
+            //Set the title as the name of the selected tab
+            public void stateChanged(ChangeEvent evt) {
+                if(getSelectedPanelChat() != null){
+                    JTabbedPane pane = (JTabbedPane)evt.getSource();
+                    jLabelTitle.setText(getSelectedPanelChat()
+                                            .getContact()
+                                            .getUser());
+                    
+                }
+                            
+            }
+            
+        });
+          
         //Set the jButtonCloseTab transparent
         this.jButtonCloseTab.setOpaque(false);
         this.jButtonCloseTab.setContentAreaFilled(false);
@@ -91,6 +116,8 @@ public class ChatFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(false);
     }
+    
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -104,6 +131,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jTabbedPaneChats = new javax.swing.JTabbedPane();
         jPanelButtons = new javax.swing.JPanel();
         jButtonCloseTab = new javax.swing.JButton();
+        jLabelTitle = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuConversation = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
@@ -132,6 +160,8 @@ public class ChatFrame extends javax.swing.JFrame {
         jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
         getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
 
+        jPanelButtons.setBackground(new java.awt.Color(49, 112, 167));
+
         jButtonCloseTab.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         jButtonCloseTab.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCloseTab.setText("x");
@@ -142,19 +172,28 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabelTitle.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelTitle.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitle.setText("jLabel1");
+
         javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
         jPanelButtons.setLayout(jPanelButtonsLayout);
         jPanelButtonsLayout.setHorizontalGroup(
             jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
-                .addGap(0, 440, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabelTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                 .addComponent(jButtonCloseTab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelButtonsLayout.setVerticalGroup(
             jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonCloseTab))
+                .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCloseTab)
+                    .addComponent(jLabelTitle)))
         );
 
         getContentPane().add(jPanelButtons, java.awt.BorderLayout.PAGE_START);
@@ -250,7 +289,7 @@ public class ChatFrame extends javax.swing.JFrame {
         this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
 
     }
-    
+
     /**
      * 
      * @return the jTabbedPaneChats
@@ -259,6 +298,7 @@ public class ChatFrame extends javax.swing.JFrame {
         return this.jTabbedPaneChats;
         
     }
+ 
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
        
@@ -304,43 +344,43 @@ public class ChatFrame extends javax.swing.JFrame {
     /**
      * Close active tab
      */
-    public void closeActiveTab(){
-        PanelChat activePanel;
-        try{
-            activePanel = (PanelChat) this.jTabbedPaneChats
-                                                    .getSelectedComponent();
-            activePanel.getContact().setActive(false);
-            
-        }catch(NullPointerException e){
-            new DebugMessage(this.getClass()
-                                , "Cannot get the SelectedComponent"
-                                , e);
-        }
-        
+    public void closeActiveTab(){       
+        this.getSelectedPanelChat().getContact().setActive(false);
         this.jTabbedPaneChats.removeTabAt(this.jTabbedPaneChats.getSelectedIndex());
         
     }
     /**
-     * Clear all the messages in the active panel
+     * Return the selected Panel chat in the jTabbedPaneChats
+     * @return The selected PanelChat
      */
-    public void clearActiveTabMsgs(){
-        PanelChat activePanel;
+    public PanelChat getSelectedPanelChat(){       
         try{
+            PanelChat activePanel=null;
             activePanel = (PanelChat) this.jTabbedPaneChats
                                                     .getSelectedComponent();
-            activePanel.clearAllMessages();
-            
-        }catch(NullPointerException e){
+            return activePanel;
+        }catch(Exception e){
             new DebugMessage(this.getClass()
                                 , "Cannot get the SelectedComponent"
                                 , e);
-        }
-               
+            
+        }                
+        return null;
+        
+    }
+    
+    /**
+     * Clear all the messages in the active panel
+     */
+    public void clearActiveTabMsgs(){
+            getSelectedPanelChat().clearAllMessages();
+                      
     }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuHelp;
     private javax.swing.JButton jButtonCloseTab;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuClose;
     private javax.swing.JMenu jMenuConversation;
