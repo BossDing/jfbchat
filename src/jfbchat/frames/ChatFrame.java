@@ -287,6 +287,12 @@ public class ChatFrame extends javax.swing.JFrame {
         panelChat.setTabIndex(tabCount);
         
         this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
+        //Set the associated contact status as label
+        this.jTabbedPaneChats.setIconAt(tabCount
+                                                , this
+                                                        .getSelectedPanelChat()
+                                                        .getStatusLabel()
+                                                        .getIcon());
 
     }
 

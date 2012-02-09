@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
+import javax.swing.JTabbedPane;
 import jfbchat.Connection;
 import jfbchat.Contact;
 import jfbchat.debug.DebugMessage;
@@ -41,6 +42,7 @@ public class PanelChat extends javax.swing.JPanel {
     private boolean isWriting;
     private ChatStateManager chatStateManager;
     private int tabIndex;
+    
 
       /** Creates new form ChatFrame */
     public PanelChat(Connection connection, Contact contact) {
@@ -64,6 +66,7 @@ public class PanelChat extends javax.swing.JPanel {
         initComponents();
         //Init the StatusLabel1
         this.statusLabel1.updateLabel(this.contact);
+        this.statusLabel1.setVisible(false);
         
         //Init isWritingLabel1 as not visible
         this.isWritingLabel1.setIsWriting(false);
@@ -167,10 +170,14 @@ public class PanelChat extends javax.swing.JPanel {
      */
      public void update(){
         messageField.setEnabled( contact.isAvailable() );
-        //Update the statusLabel icon
         this.statusLabel1.updateLabel(this.contact);
+        //Update the statusLabel icon
+        this.getTabbedChat().setIconAt(this.getTabIndex()
+                                                        ,  this
+                                                                .statusLabel1
+                                                                .getIcon());
         
-    }
+        }
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {                                
        
@@ -271,6 +278,13 @@ public class PanelChat extends javax.swing.JPanel {
         return this.contact;
         
     }
+    
+    
+    public JTabbedPane getTabbedChat(){
+        return this.connection.getChatFrame().getjTabbedPaneChats();
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,18 +321,19 @@ public class PanelChat extends javax.swing.JPanel {
         jPanelUnderAvatarLayout.setHorizontalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelUnderAvatarLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanelUnderAvatarLayout.setVerticalGroup(
             jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelUnderAvatarLayout.createSequentialGroup()
-                .addGroup(jPanelUnderAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(isWritingLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         messageField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -336,25 +351,27 @@ public class PanelChat extends javax.swing.JPanel {
         MainFrame.setLayout(MainFrameLayout);
         MainFrameLayout.setHorizontalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(messageField)
+            .addGroup(MainFrameLayout.createSequentialGroup()
+                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(messageField, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
         );
         MainFrameLayout.setVerticalGroup(
             MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainFrameLayout.createSequentialGroup()
-                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                .addComponent(jPanelScrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(MainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(messageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelUnderAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -363,7 +380,7 @@ public class PanelChat extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -382,7 +399,7 @@ public class PanelChat extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_messageFieldFocusLost
-
+    
     private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyTyped
         //Change the ChatState informing the server the user is composing
         try {
@@ -399,7 +416,10 @@ public class PanelChat extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_messageFieldKeyTyped
-
+    public jfbchat.labels.StatusLabel getStatusLabel(){
+        return this.statusLabel1;
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainFrame;
     private javax.swing.JPanel PanelMessages;
