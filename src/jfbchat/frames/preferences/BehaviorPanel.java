@@ -32,7 +32,7 @@ public class BehaviorPanel extends javax.swing.JPanel {
         //Init the options
         this.CheckDownloadAvatar.setSelected( prefs.getPreferences().getBoolean( Options.DownloadImgs, true ) );
         this.checkSaveAvaToCache.setSelected( prefs.getPreferences().getBoolean( Options.SAVE_AVATARS_TO_CACHE, true ) );
-
+        this.jCheckBoxSendIsTyping.setSelected( prefs.getPreferences().getBoolean( Options.SEND_TYPING_MESSAGE , true ) );
         
     }
 
@@ -48,6 +48,8 @@ public class BehaviorPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         CheckDownloadAvatar = new javax.swing.JCheckBox();
         checkSaveAvaToCache = new javax.swing.JCheckBox();
+        jPanelChat = new javax.swing.JPanel();
+        jCheckBoxSendIsTyping = new javax.swing.JCheckBox();
 
         setMinimumSize(new java.awt.Dimension(432, 107));
 
@@ -78,14 +80,38 @@ public class BehaviorPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CheckDownloadAvatar)
                     .addComponent(checkSaveAvaToCache))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(CheckDownloadAvatar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(checkSaveAvaToCache))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkSaveAvaToCache)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelChat.setBorder(javax.swing.BorderFactory.createTitledBorder("Chat"));
+
+        jCheckBoxSendIsTyping.setText("Send \"Is typing\" notification");
+        jCheckBoxSendIsTyping.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxSendIsTypingItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelChatLayout = new javax.swing.GroupLayout(jPanelChat);
+        jPanelChat.setLayout(jPanelChatLayout);
+        jPanelChatLayout.setHorizontalGroup(
+            jPanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelChatLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxSendIsTyping)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelChatLayout.setVerticalGroup(
+            jPanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jCheckBoxSendIsTyping)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -94,15 +120,18 @@ public class BehaviorPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jPanelChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,11 +153,22 @@ public class BehaviorPanel extends javax.swing.JPanel {
         prefs.getPreferences().putBoolean(Options.SAVE_AVATARS_TO_CACHE, item.isSelected());
     }//GEN-LAST:event_checkSaveAvaToCacheItemStateChanged
 
+    private void jCheckBoxSendIsTypingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxSendIsTypingItemStateChanged
+        //Get the item
+        JCheckBox item = (JCheckBox) evt.getItem();
+
+        //Change the value in the preferences with the value of the checkbox
+        prefs.getPreferences().putBoolean(Options.SEND_TYPING_MESSAGE, item.isSelected());
+        
+    }//GEN-LAST:event_jCheckBoxSendIsTypingItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckDownloadAvatar;
     private javax.swing.JCheckBox checkSaveAvaToCache;
+    private javax.swing.JCheckBox jCheckBoxSendIsTyping;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelChat;
     // End of variables declaration//GEN-END:variables
 
 }

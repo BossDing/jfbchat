@@ -15,6 +15,7 @@ import jfbchat.debug.DebugMessage;
 import jfbchat.frames.ChatFrame;
 import jfbchat.labels.IsWritingLabel;
 import jfbchat.listeners.MyMessageListener;
+import jfbchat.resources.ChatPreferences;
 import jfbchat.resources.Options;
 import jfbchat.resources.UtilFunctions;
 import org.jivesoftware.smack.Chat;
@@ -42,6 +43,7 @@ public class PanelChat extends javax.swing.JPanel {
     private boolean isWriting;
     private ChatStateManager chatStateManager;
     private int tabIndex;
+    private ChatPreferences prefs;
     
 
       /** Creates new form ChatFrame */
@@ -52,6 +54,7 @@ public class PanelChat extends javax.swing.JPanel {
         this.contactAdr = contact.getAdress();
         this.isWriting = false;
         this.tabIndex = -1;
+        this.prefs = new ChatPreferences();
         
         //Get the chatStateManager of this connection
         this.chatStateManager = ChatStateManager.
@@ -397,7 +400,10 @@ public class PanelChat extends javax.swing.JPanel {
     private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyTyped
         //Change the ChatState informing the server the user is composing
         try {
-            this.chatStateManager.setCurrentState(ChatState.composing, relatedChat);
+            if ( prefs.getPreferences().getBoolean(Options.SEND_TYPING_MESSAGE, true) ){
+                this.chatStateManager.setCurrentState(ChatState.composing, relatedChat);
+                
+            }
 
         } catch (XMPPException e) {
             new DebugMessage(this.getClass(), "Cannot change chatState to composing.", e);

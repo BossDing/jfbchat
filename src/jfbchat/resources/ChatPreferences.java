@@ -78,6 +78,7 @@ public class ChatPreferences {
 
             //-------------BEHAVIOR------------
             prefs.getBoolean( Options.SAVE_AVATARS_TO_CACHE , true );
+            prefs.getBoolean( Options.SEND_TYPING_MESSAGE , true );
             
             //-------------NOTIFICATIONS-----------
             prefs.getBoolean( Options.NOTIFICATION_FRAME , true );
