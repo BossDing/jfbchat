@@ -217,7 +217,7 @@ public class PanelContact extends javax.swing.JPanel {
     */
     public void updateStatus(){
         this.group = connection.getContactList().getGroupFromName(groupName);
-        System.out.println(this.connection.getContactList().getSearchMode());
+
         
         if (contact.getPresence().isAvailable() || 
             contact.getPresence().isAway()){
