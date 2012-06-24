@@ -220,6 +220,38 @@ public class Contact {
         }
             
    }
+    /**
+     * 
+     * Uncollapse all Panels
+     * 
+     */
+    public void uncollapseAll(){
+         for( Iterator<PanelContact> iterContactPanel  
+                            =  this.contactPanels.iterator(); 
+                            iterContactPanel.hasNext(); ){
+                        
+                    PanelContact nextContactPanel = iterContactPanel.next();
+
+                    nextContactPanel.uncollapse();
+                }
+    }
+    
+     /**
+     * 
+     * Collapse all Panels
+     * 
+     */
+    public void collapseAll(){
+         for( Iterator<PanelContact> iterContactPanel  
+                            =  this.contactPanels.iterator(); 
+                            iterContactPanel.hasNext(); ){
+                        
+                    PanelContact nextContactPanel = iterContactPanel.next();
+
+                    nextContactPanel.collapse();
+                    
+                }
+    }
 
     /**
     * Returns true if the contact is available and false if not

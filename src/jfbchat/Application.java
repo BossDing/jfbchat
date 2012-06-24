@@ -36,7 +36,7 @@ import jfbchat.frames.MainFrame;
 
 public class Application {
 
-    public final static String VERSION = "0.2.4";
+    public final static String VERSION = "0.2.5";
 
     private MainFrame mainFrame;
 

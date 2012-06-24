@@ -80,6 +80,7 @@ public class PanelContact extends javax.swing.JPanel {
 
         }else{
             this.avatarLabel1.setVisible(false);
+            
         }
 
 
@@ -188,6 +189,15 @@ public class PanelContact extends javax.swing.JPanel {
             
         }
     }
+        
+    public void collapse(){
+        if (contact.getPresence().isAway() || (contact.getPresence().isAvailable())){
+            setVisible(false);  
+            
+        }
+              
+    }
+       
     /**
      * Update the contact Avatar
      */
@@ -205,16 +215,17 @@ public class PanelContact extends javax.swing.JPanel {
     * Update the status and Avatar of the contact in the JPanel
     * 
     */
-    public void updateStatus(){    
+    public void updateStatus(){
         this.group = connection.getContactList().getGroupFromName(groupName);
-
+        System.out.println(this.connection.getContactList().getSearchMode());
+        
         if (contact.getPresence().isAvailable() || 
             contact.getPresence().isAway()){
             
             //Group Test
             if ( this.group != null){
-
-                if( this.group.isVisible() ){
+                if( this.group.isVisible()
+                        && !(this.connection.getContactList().getSearchMode())){
 
                     setVisible(true);
                 }else{

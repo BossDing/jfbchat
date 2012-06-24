@@ -156,7 +156,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="credentialsPanel" alignment="0" max="32767" attributes="1"/>
+                          <Component id="credentialsPanel" alignment="0" pref="0" max="32767" attributes="1"/>
                           <Component id="logoPanel" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -237,15 +237,15 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="231" max="32767" attributes="0"/>
+                                      <EmptySpace pref="204" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="EntryPass" alignment="0" pref="308" max="32767" attributes="0"/>
+                                          <Component id="EntryPass" alignment="0" pref="281" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="usernameLabel" min="-2" pref="128" max="-2" attributes="0"/>
-                                                  <Component id="EntryUser" pref="280" max="32767" attributes="0"/>
+                                                  <Component id="EntryUser" pref="253" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="questionButton" min="-2" max="-2" attributes="0"/>
@@ -328,7 +328,7 @@
                                   <Component id="jCheckBoxAuto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ButtonLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="39" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -341,7 +341,7 @@
                               <Component id="jCheckBoxAuto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="ButtonLogin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="38" max="32767" attributes="0"/>
+                              <EmptySpace pref="66" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -409,7 +409,8 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="comboPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="1" pref="354" max="32767" attributes="0"/>
+                  <Component id="jPanelContactList" alignment="1" pref="327" max="32767" attributes="0"/>
+                  <Component id="jPanelSearch" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -417,7 +418,9 @@
                   <Group type="102" attributes="0">
                       <Component id="comboPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" pref="363" max="32767" attributes="0"/>
+                      <Component id="jPanelContactList" pref="355" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanelSearch" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -437,7 +440,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="ComboBoxStatus" pref="264" max="32767" attributes="0"/>
+                          <Component id="ComboBoxStatus" pref="237" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanelUserInfo" alignment="0" max="32767" attributes="0"/>
@@ -452,7 +455,7 @@
                               <Component id="ComboBoxStatus" alignment="3" max="32767" attributes="0"/>
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -472,7 +475,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="avatarLabelUser" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabelUser" pref="280" max="32767" attributes="0"/>
+                              <Component id="jLabelUser" pref="253" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -533,7 +536,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Container class="javax.swing.JPanel" name="jPanelContactList">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
@@ -579,6 +582,48 @@
                     </Container>
                   </SubComponents>
                 </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanelSearch">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d3" green="81" red="58" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jTextFieldSearch" alignment="1" pref="327" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jTextFieldSearch" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JTextField" name="jTextFieldSearch">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="15" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="82" green="82" red="82" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Search"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldSearchFocusGained"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldSearchFocusLost"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldSearchKeyTyped"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldSearchKeyReleased"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

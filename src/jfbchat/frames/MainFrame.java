@@ -47,6 +47,9 @@ public class MainFrame extends javax.swing.JFrame {
     //Enter key ID
     final int K_ENTER_ID = 10;
     
+    //Search field value
+    private final String SEARCH_TEXT = "Search";
+    
     //Max window dimension
     private final int MAX_DIMENSION = 32767;
     
@@ -81,6 +84,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.comboPanel.setBackground(Options.FCBK_BLUE_COLOR);
         this.jPanelUserInfo.setBackground(Options.FCBK_BLUE_COLOR);
         this.ComboBoxStatus.setBackground(Options.FCBK_BLUE_COLOR);
+        this.jPanelSearch.setBackground( Options.FCBK_BLUE_COLOR );
 
         this.prefs = new ChatPreferences();
         ComboBoxChoise = false;
@@ -231,10 +235,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabelUser = new javax.swing.JLabel();
         ComboBoxStatus = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelContactList = new javax.swing.JPanel();
         ScrollListpanel = new javax.swing.JPanel();
         ContactListScrollPane = new javax.swing.JScrollPane();
         ContactListPanel = new javax.swing.JPanel();
+        jPanelSearch = new javax.swing.JPanel();
+        jTextFieldSearch = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuChat = new javax.swing.JMenu();
         MenuDisconnect = new javax.swing.JMenuItem();
@@ -309,14 +315,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(passwordLabel)
-                        .addContainerGap(231, Short.MAX_VALUE))
+                        .addContainerGap(204, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                            .addComponent(EntryPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                                    .addComponent(EntryUser, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(questionButton)))
                         .addGap(10, 10, 10))))
@@ -376,7 +382,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jCheckBoxRemUser)
                     .addComponent(jCheckBoxAuto)
                     .addComponent(ButtonLogin))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +393,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxAuto)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonLogin)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         credentialsPanel.add(jPanel3);
@@ -399,7 +405,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(credentialsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(logoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -434,7 +440,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(avatarLabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                .addComponent(jLabelUser, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
         );
         jPanelUserInfoLayout.setVerticalGroup(
             jPanelUserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,7 +471,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBoxStatus, 0, 264, Short.MAX_VALUE)
+                .addComponent(ComboBoxStatus, 0, 237, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanelUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -480,7 +486,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanelContactList.setLayout(new java.awt.BorderLayout());
 
         ScrollListpanel.setLayout(new java.awt.BorderLayout());
 
@@ -493,21 +499,59 @@ public class MainFrame extends javax.swing.JFrame {
 
         ScrollListpanel.add(ContactListScrollPane, java.awt.BorderLayout.CENTER);
 
-        jPanel2.add(ScrollListpanel, java.awt.BorderLayout.CENTER);
+        jPanelContactList.add(ScrollListpanel, java.awt.BorderLayout.CENTER);
+
+        jPanelSearch.setBackground(new java.awt.Color(88, 129, 211));
+
+        jTextFieldSearch.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        jTextFieldSearch.setForeground(new java.awt.Color(130, 130, 130));
+        jTextFieldSearch.setText("Search");
+        jTextFieldSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldSearchFocusLost(evt);
+            }
+        });
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelSearchLayout = new javax.swing.GroupLayout(jPanelSearch);
+        jPanelSearch.setLayout(jPanelSearchLayout);
+        jPanelSearchLayout.setHorizontalGroup(
+            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+        );
+        jPanelSearchLayout.setVerticalGroup(
+            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSearchLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout ConnectedPanelLayout = new javax.swing.GroupLayout(ConnectedPanel);
         ConnectedPanel.setLayout(ConnectedPanelLayout);
         ConnectedPanelLayout.setHorizontalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(comboPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+            .addComponent(jPanelContactList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+            .addComponent(jPanelSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         ConnectedPanelLayout.setVerticalGroup(
             ConnectedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConnectedPanelLayout.createSequentialGroup()
                 .addComponent(comboPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addComponent(jPanelContactList, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         MainPanel.add(ConnectedPanel, "connectedPanel");
@@ -884,6 +928,27 @@ public class MainFrame extends javax.swing.JFrame {
         //Change the value in the preferences with the value of the checkbox
         prefs.getPreferences().putBoolean(Options.AUTOLOGIN, item.isSelected());
     }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
+
+    private void jTextFieldSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyTyped
+        this.connection.getContactList().contactsFilterByPattern(
+                this.jTextFieldSearch.getText());
+        
+    }//GEN-LAST:event_jTextFieldSearchKeyTyped
+
+    private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
+        this.jTextFieldSearch.setText("");
+        
+    }//GEN-LAST:event_jTextFieldSearchFocusGained
+
+    private void jTextFieldSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusLost
+         this.jTextFieldSearch.setText( this.SEARCH_TEXT );
+    }//GEN-LAST:event_jTextFieldSearchFocusLost
+
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+        this.connection.getContactList()
+                   .setSearchMode(!(this.jTextFieldSearch.getText().isEmpty()));
+            
+    }//GEN-LAST:event_jTextFieldSearchKeyReleased
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -916,11 +981,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemHelpOnline;
     private javax.swing.JMenuItem jMenuItemReportProblem;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelContactList;
+    private javax.swing.JPanel jPanelSearch;
     private javax.swing.JPanel jPanelUserInfo;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JTextField jTextFieldSearch;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton questionButton;

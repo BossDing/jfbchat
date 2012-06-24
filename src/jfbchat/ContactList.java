@@ -22,18 +22,14 @@
   */
 
 package jfbchat;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.*;
+import jfbchat.debug.DebugMessage;
+import jfbchat.panels.PanelContact;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import jfbchat.debug.DebugMessage;
 
 /**
  * This class represent a contact list.
@@ -46,11 +42,14 @@ public class ContactList {
     protected ArrayList<Contact> contactList;
     protected Roster roster;
     protected ArrayList<Group> groups;
+    protected Boolean searchMode;
 
     public ContactList(Connection connection){
         this.connection = connection;
         this.contactList = new ArrayList();
         this.groups = new ArrayList();
+        //True when the user is searching a contact
+        this.searchMode = false;
 
     }
 
@@ -235,7 +234,7 @@ public class ContactList {
      * This method gets all the groups in the contact list
      * Should be called after getList
      */
-
+    
     public ArrayList<Group> getGroups(){
 
         if (groups != null){
@@ -408,10 +407,68 @@ public class ContactList {
             }
         
     }
+    
+    /**
+     *
+     * This method filter the contacts. Only the contacts that match the 
+     * pattern passed by argument are showed.
+     * 
+     * @param String pattern
+     * @return void
+     */
+    public void contactsFilterByPattern(String s_pattern){
+        //Define and init a new Pattern object with a case insensitive pattern
+        //and metacharacter disabled
+        Pattern pattern = Pattern.compile( s_pattern
+                                            , Pattern.CASE_INSENSITIVE 
+                                            | Pattern.LITERAL );
+        
+        //Define a matcher
+        Matcher matcher;
+        
+        //Enable or disable searchMode
+       // if( this.connection.get ) 
+       //     this.searchMode = false;
+       // else    this.searchMode = true;
+        
+        if( ( contactList.isEmpty() ) ){
+            new DebugMessage(this.getClass(), 
+                        "ContactList is empty. " );
+            return;
+        
+        }
+        
+        for ( Iterator<Contact> iter = contactList.iterator() ; 
+                iter.hasNext(); ){
+            Contact next = iter.next();
+            matcher = pattern.matcher( next.getUser() );
+
+            if ( matcher.find() ){
+                next.uncollapseAll();
+                new DebugMessage(this.getClass(), 
+                        "Found and uncollapsed " + next.getUser() );
+                
+            } else {
+                next.collapseAll();
+                
+            }
+                
+        }
+        
+    }
+    
+    public Boolean getSearchMode(){
+        return this.searchMode;
+        
+    }
+    
+    public void setSearchMode(Boolean value){
+        this.searchMode = value;
+        
+    }
 
     @Override
     public String toString(){
-
         return contactList.toString();
 
     }
