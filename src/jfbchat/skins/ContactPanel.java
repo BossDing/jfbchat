@@ -29,14 +29,14 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.skins;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
-public class ContactPanel extends DefaultSkin{
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
+public class ContactPanel extends DefaultSkin {
 
 }

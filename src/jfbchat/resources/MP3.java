@@ -29,14 +29,14 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.resources;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
 
 import java.io.InputStream;
 
@@ -50,33 +50,34 @@ public class MP3 {
 
   // constructor that takes the name of an MP3 file
   public MP3(String filename) {
-  this.filename = filename;
+    this.filename = filename;
   }
 
-  public void close() { if (player != null) player.close(); }
+  public void close() {
+    if (player != null) {
+      player.close();
+    }
+  }
 
   // play the MP3 file to the sound card
   public void play() {
-  try {
-    InputStream audioStream = this.getClass().getResourceAsStream(filename);
-
-    player = new Player(audioStream);
-
-  }
-  catch (Exception e) {
-    new DebugMessage(this.getClass(), "Problem loading " + filename, e);
-  }
-
-  // run in new thread to play in background
-  new Thread() {
-    public void run() {
-    try { player.play(); }
-    catch (Exception e) {
-      new DebugMessage(this.getClass(), "Problem playing " + filename, e);
+    try {
+      InputStream audioStream = this.getClass().getResourceAsStream(filename);
+      player = new Player(audioStream);
+    } catch (Exception e) {
+      new DebugMessage(this.getClass(), "Problem loading " + filename, e);
     }
-    }
-  }.start();
 
+    // run in new thread to play in background
+    new Thread() {
+      public void run() {
+        try {
+          player.play();
+        } catch (Exception e) {
+          new DebugMessage(this.getClass(), "Problem playing " + filename, e);
+        }
+      }
+    } .start();
   }
 
 }

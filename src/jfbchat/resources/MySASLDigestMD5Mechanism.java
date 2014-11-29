@@ -13,74 +13,72 @@ import org.jivesoftware.smack.sasl.SASLMechanism;
 import org.jivesoftware.smack.util.Base64;
 
 /**
- * SASL DIGEST-MD5 mechanism
- *
- */
+   SASL DIGEST-MD5 mechanism
+
+*/
 public class MySASLDigestMD5Mechanism extends SASLMechanism {
 
   public MySASLDigestMD5Mechanism(SASLAuthentication saslAuthentication) {
-  super(saslAuthentication);
+    super(saslAuthentication);
   }
 
   @Override
   protected void authenticate() throws IOException, XMPPException {
-  String[] mechanisms = { getName() };
-  Map<String, String> props = new HashMap<String, String>();
-  sc = Sasl.createSaslClient(mechanisms, null, "xmpp", hostname, props, this);
-
-  super.authenticate();
+    String[] mechanisms = { getName() };
+    Map<String, String> props = new HashMap<String, String>();
+    sc = Sasl.createSaslClient(mechanisms, null, "xmpp", hostname, props, this);
+    super.authenticate();
   }
 
   @Override
   public void authenticate(String username, String host, String password) throws IOException, XMPPException {
-  this.authenticationId = username;
-  this.password = password;
-  this.hostname = host;
-
-  String[] mechanisms = { getName() };
-  Map<String,String> props = new HashMap<String,String>();
-  sc = Sasl.createSaslClient(mechanisms, null, "xmpp", host, props, this);
-  super.authenticate();
+    this.authenticationId = username;
+    this.password = password;
+    this.hostname = host;
+    String[] mechanisms = { getName() };
+    Map<String, String> props = new HashMap<String, String>();
+    sc = Sasl.createSaslClient(mechanisms, null, "xmpp", host, props, this);
+    super.authenticate();
   }
 
   @Override
   public void authenticate(String username, String host, CallbackHandler cbh) throws IOException, XMPPException {
-  String[] mechanisms = { getName() };
-  Map<String,String> props = new HashMap<String,String>();
-  sc = Sasl.createSaslClient(mechanisms, null, "xmpp", host, props, cbh);
-  super.authenticate();
+    String[] mechanisms = { getName() };
+    Map<String, String> props = new HashMap<String, String>();
+    sc = Sasl.createSaslClient(mechanisms, null, "xmpp", host, props, cbh);
+    super.authenticate();
   }
 
   protected String getName() {
-  return "DIGEST-MD5";
+    return "DIGEST-MD5";
   }
 
   @Override
   public void challengeReceived(String challenge) throws IOException {
-  // Build the challenge response stanza encoding the response text
-  StringBuilder stanza = new StringBuilder();
+    // Build the challenge response stanza encoding the response text
+    StringBuilder stanza = new StringBuilder();
+    byte response[];
 
-  byte response[];
-  if (challenge != null) {
-  response = sc.evaluateChallenge(Base64.decode(challenge));
-  } else {
-  response = sc.evaluateChallenge(null);
-  }
+    if (challenge != null) {
+      response = sc.evaluateChallenge(Base64.decode(challenge));
+    } else {
+      response = sc.evaluateChallenge(null);
+    }
 
-  String authenticationText="";
+    String authenticationText = "";
 
-  if (response != null) { // fix from 3.1.1
-  authenticationText = Base64.encodeBytes(response, Base64.DONT_BREAK_LINES);
-  if (authenticationText.equals("")) {
-  authenticationText = "=";
-  }
-  }
+    if (response != null) { // fix from 3.1.1
+      authenticationText = Base64.encodeBytes(response, Base64.DONT_BREAK_LINES);
 
-  stanza.append("<response xmlns=\"urn:ietf:params:xml:ns:xmpp-sasl\">");
-  stanza.append(authenticationText);
-  stanza.append("</response>");
+      if (authenticationText.equals("")) {
+        authenticationText = "=";
+      }
+    }
 
-  // Send the authentication to the server
-  getSASLAuthentication().send(stanza.toString());
+    stanza.append("<response xmlns=\"urn:ietf:params:xml:ns:xmpp-sasl\">");
+    stanza.append(authenticationText);
+    stanza.append("</response>");
+    // Send the authentication to the server
+    getSASLAuthentication().send(stanza.toString());
   }
 }

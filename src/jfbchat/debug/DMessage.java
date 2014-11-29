@@ -29,34 +29,33 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.debug;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
 public class DMessage {
 
   protected String value;
 
   public DMessage(String value) {
-  this.value = value;
-
+    this.value = value;
   }
 
   public void println() {
-  System.out.println(value);
+    System.out.println(value);
   }
 
   public String getValue() {
-  return value;
+    return value;
   }
 
   @Override
   public String toString() {
-  return value;
+    return value;
   }
 
 }

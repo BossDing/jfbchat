@@ -29,7 +29,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################
+  ###################################################
 */
 
 package jfbchat;
@@ -40,66 +40,53 @@ import jfbchat.debug.DebugMessage;
 import jfbchat.panels.PanelChat;
 
 /**
- * A ChatManager is a list with all the active conversations
- * @author @author Digitex(digitex3d@gmail.com Giuseppe Federico)
- */
+   A ChatManager is a list with all the active conversations
+   @author @author Digitex(digitex3d@gmail.com Giuseppe Federico)
+*/
 public class MyChatManager {
 
   private ArrayList<PanelChat> chatManager;
 
   public MyChatManager() {
-
-  chatManager = new ArrayList();
-
+    chatManager = new ArrayList();
   }
 
   /**
-  * Add a ChatFrame to this chatManager
-  * @param A ChatFrame
+    Add a ChatFrame to this chatManager
+    @param A ChatFrame
   */
   public void add(PanelChat c) {
-  /* Add a chatframe at the specified index */
-
-  try {
-
-    chatManager.add(c);
-    new DebugMessage("Add a ChatFrame at[" + chatManager.size()+"]");
-
-  }
-  catch (Exception e) {
-
-    new DebugMessage("Cannot add a ChatFrame to the ChatManager: "
-        + e.getMessage());
-
-  }
+    /* Add a chatframe at the specified index */
+    try {
+      chatManager.add(c);
+      new DebugMessage("Add a ChatFrame at[" + chatManager.size() + "]");
+    } catch (Exception e) {
+      new DebugMessage("Cannot add a ChatFrame to the ChatManager: "
+                       + e.getMessage());
+    }
   }
 
   public int getSize() {
-  return chatManager.size();
+    return chatManager.size();
   }
 
   public PanelChat getChat(int index) {
-  return chatManager.get(index);
+    return chatManager.get(index);
   }
 
   /**
-  * This method should be called when the user disconnets
-  * clear the chatManager array
+    This method should be called when the user disconnets
+    clear the chatManager array
   */
   public void clear() {
+    // Hide all the opened windows
+    for (Iterator<PanelChat> iter = this.chatManager.iterator(); iter.hasNext();) {
+      PanelChat nextChatFrame = iter.next();
+      nextChatFrame.setVisible(false);
+    }
 
-  // Hide all the opened windows
-  for (Iterator<PanelChat> iter = this.chatManager.iterator(); iter.hasNext();) {
-
-    PanelChat nextChatFrame = iter.next();
-
-    nextChatFrame.setVisible(false);
-
-  }
-
-  // clear the ArrayList
-  this.chatManager.clear();
-
+    // clear the ArrayList
+    this.chatManager.clear();
   }
 
 }

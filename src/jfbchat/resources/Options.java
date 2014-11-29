@@ -29,14 +29,14 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.resources;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
 public class Options {
 
   // ---------CONNECTION-------------
@@ -69,13 +69,14 @@ public class Options {
 
   // ---------BEHAVIOR-------------
   public static String DownloadImgs = "DownloadImages";
-  public static String SAVE_AVATARS_TO_CACHE= "SaveAvatarsToCache";
+  public static String SAVE_AVATARS_TO_CACHE = "SaveAvatarsToCache";
   public static String SEND_TYPING_MESSAGE = "SendTypingMessage";
 
   // ---------WEBPAGES--------------
   public static String PROJECT_WEBPAGE = "http:// www.digisoftware.org";
   public static String ONLINE_HELP = "http:// www.digisoftware.org/forum/";
-  public static String USERNAME_ONLINE_HELP = "http:// www.digisoftware.org/forum/discussion/1/login-with-your-facebook-username.";
+  public static String USERNAME_ONLINE_HELP =
+    "http:// www.digisoftware.org/forum/discussion/1/login-with-your-facebook-username.";
   public static String WEBPAGE_BUG_TRACKER = "http:// sourceforge.net/tracker/?group_id=405668&atid=1680548";
 
   // ---------NOTIFICATIONS-------------

@@ -29,52 +29,56 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.debug;
 import jfbchat.resources.Options;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
-public class DebugMessage extends DMessage{
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
+public class DebugMessage extends DMessage {
 
   public DebugMessage(String value) {
-  super(value);
-  if (Options.DEBUG_ENABLED) {
-    System.out.println("# Debug --> " + value);
-  }
+    super(value);
+
+    if (Options.DEBUG_ENABLED) {
+      System.out.println("# Debug --> " + value);
+    }
   }
   /**
-  * Print a debug message with the caller class
-  * @param Caller class
-  * @param Debug message
+    Print a debug message with the caller class
+    @param Caller class
+    @param Debug message
   */
   public DebugMessage(Class msg_class, String value) {
-  super(value);
-  if (Options.DEBUG_ENABLED) {
-    System.out.println("# Debug --> " + msg_class.getName() + " :" + value);
-  }
+    super(value);
+
+    if (Options.DEBUG_ENABLED) {
+      System.out.println("# Debug --> " + msg_class.getName() + " :" + value);
+    }
   }
 
   public DebugMessage(Class msg_class, String value, Exception e) {
-  super(value);
-  if (Options.DEBUG_ENABLED) {
-    System.out.println("# Debug --> " + msg_class.getName() + " :" + value + " Message: " + e.getMessage());
-  }
+    super(value);
+
+    if (Options.DEBUG_ENABLED) {
+      System.out.println("# Debug --> " + msg_class.getName() + " :" + value + " Message: " + e.getMessage());
+    }
   }
 
   public DebugMessage(String value, Exception e) {
-  super(value);
-  if (Options.DEBUG_ENABLED) {
-    System.out.println(value + " Message: " + e.getMessage());
-  }
+    super(value);
+
+    if (Options.DEBUG_ENABLED) {
+      System.out.println(value + " Message: " + e.getMessage());
+    }
   }
 
   @Override
   public String toString() {
-  return "# Debug -->  " + value;
+    return "# Debug -->  " + value;
   }
 
 }

@@ -29,7 +29,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.listeners;
 
@@ -46,49 +46,41 @@ public class MyRosterListener implements RosterListener {
   private JFrameNotifications notificationFrame;
 
   public MyRosterListener(Connection connection) {
-  this.connection = connection;
-  this.notificationFrame = null;
-
+    this.connection = connection;
+    this.notificationFrame = null;
   }
 
   public void entriesDeleted(Collection<String> addresses) {}
   public void entriesAdded(Collection<String> addresses) {}
   public void entriesUpdated(Collection<String> addresses) {}
   public void presenceChanged(Presence presence) {
-  if (this.connection.isConnected()) {
+    if (this.connection.isConnected()) {
+      try {
+        // Get the contact associated with the Roaster update
+        Contact contact =  connection.getContactList().getContact(presence.getFrom());
+        contact.setPresence(presence);
+        new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() +
+                     ".").println();
 
-    try {
-    // Get the contact associated with the Roaster update
-    Contact contact =  connection.getContactList().getContact(presence.getFrom());
+        // If the contact has become available
+        if (contact.getPresence().isAvailable()) {
+          // Show a NotificationFrame
+          this.notificationFrame = new JFrameNotifications(contact);
+        }
 
-    contact.setPresence(presence);
+        contact.updateContactPanels();
+        // TODO: update only the group associated to the contact
+        connection.getContactList().updateGroupPanels();
 
-    new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-    // If the contact has become available
-    if (contact.getPresence().isAvailable()) {
-      // Show a NotificationFrame
-      this.notificationFrame = new JFrameNotifications(contact);
-
+        // If a chat with the contact is already opened update his status
+        if (contact.getPanelChat() != null) {
+          contact.getPanelChat().update();
+        }
+      } catch (Exception e) {
+        System.err.println("Roster close error. " + e.toString() + " is  " + connection.getContactList().getContact(
+                             presence.getFrom()).toString() + " " + e.getMessage());
       }
-
-    contact.updateContactPanels();
-
-    // TODO: update only the group associated to the contact
-    connection.getContactList().updateGroupPanels();
-
-    // If a chat with the contact is already opened update his status
-    if (contact.getPanelChat() != null) {
-      contact.getPanelChat().update();
     }
-
-    }catch (Exception e) {
-
-    System.err.println("Roster close error. " + e.toString() + " is  "+ connection.getContactList().getContact(presence.getFrom()).toString() + " " + e.getMessage());
-
-    }
-
-  }
-
   }
 
 }

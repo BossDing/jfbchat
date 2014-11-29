@@ -29,7 +29,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat;
 
@@ -40,113 +40,95 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *  Represents a Facebook group list
- *
- * @author Digitex - Giuseppe Federico (digitex3d@gmail.com)
- */
-public class Group extends ContactList{
+    Represents a Facebook group list
+
+   @author Digitex - Giuseppe Federico (digitex3d@gmail.com)
+*/
+public class Group extends ContactList {
 
   public String name;
   private PanelGroup panel;
   private boolean isVisible;
 
-  public Group(Connection connection ,String name ,ArrayList<Contact> contactList) {
-
-  super(connection);
-  this.name = name;
-  this.contactList = contactList;
-  this.panel = new PanelGroup(name, this);
-  this.isVisible = true;
-
-  sortByName();
-
+  public Group(Connection connection , String name , ArrayList<Contact> contactList) {
+    super(connection);
+    this.name = name;
+    this.contactList = contactList;
+    this.panel = new PanelGroup(name, this);
+    this.isVisible = true;
+    sortByName();
   }
 
   /**
-  *
-  * @return The name of the group
+
+    @return The name of the group
   */
 
   public String getName() {
-  return this.name;
+    return this.name;
   }
 
   /**
-  *
-  * @return The panel associated to the group
+
+    @return The panel associated to the group
   */
   public PanelGroup getPanel() {
-  return panel;
+    return panel;
   }
 
   /**
-  * show the contacts of this group
-  *
+    show the contacts of this group
+
   */
 
   public void showContacts() {
-
-  for (Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();) {
+    for (Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();) {
       Contact nextContact = iterContact.next();
-
       // Update the contact panel to normal status
       nextContact.getContactPanelbyGroup(name).uncollapse();
       nextContact.getContactPanelbyGroup(name).validate();
-
       this.isVisible = true;
+    }
+  }
+  /**
 
-  }
-  }
-/**
-  *
-  * @return true if the group has at least a contact availalbe.
+      @return true if the group has at least a contact availalbe.
   */
 
   public boolean hasConnectedContacts() {
+    // If the contact list is not empty
+    if (!(this.contactList.isEmpty())) {
+      Iterator<Contact> iterContact = this.contactList.iterator();
 
-  // If the contact list is not empty
-  if (!(this.contactList.isEmpty())) {
+      while (iterContact.hasNext()) {
+        Contact nextContact = iterContact.next();
 
-    Iterator<Contact> iterContact = this.contactList.iterator();
-
-    while (iterContact.hasNext()) {
-
-    Contact nextContact = iterContact.next();
-
-    // If a available contact has been found in the group return true
-    if (nextContact.isAvailable()) {
-      return true;
-
+        // If a available contact has been found in the group return true
+        if (nextContact.isAvailable()) {
+          return true;
+        }
+      }
     }
 
-    }
-
-  }
-
-  new DebugMessage("Group.hasConnectedContacts() : No connected contacts");
-
-  return false;
-
+    new DebugMessage("Group.hasConnectedContacts() : No connected contacts");
+    return false;
   }
   /**
-  * hide the contacts of this group
-  *
+    hide the contacts of this group
+
   */
   public void hideContacts() {
-
-  for (Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();) {
+    for (Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();) {
       Contact nextContact = iterContact.next();
-
       // Hide the contact
       nextContact.getContactPanelbyGroup(name).setVisible(false);
       nextContact.getContactPanelbyGroup(name).validate();
-
       this.isVisible = false;
-  }
+    }
   }
 
   public boolean isVisible() {
-  return isVisible;
+    return isVisible;
   }
 
 }

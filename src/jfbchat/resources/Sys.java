@@ -29,14 +29,14 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
- ###################################################*/
+  ###################################################*/
 
 package jfbchat.resources;
 
 /**
- *
- * Author Digitex (Giuseppe Federico digitex3d@gmail.com)
- */
+
+   Author Digitex (Giuseppe Federico digitex3d@gmail.com)
+*/
 public class Sys {
   public static final String NAME_OS = System.getProperty("os.name");
   public static final String VERSION_OS = System.getProperty("os.version");

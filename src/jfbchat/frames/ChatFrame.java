@@ -1,25 +1,25 @@
- /* ###########################################################################
-  *
-  *  JFBChat it's a simple software written in Java that let you int contact
-  *  with yours Facebook friends without your browser.
-  *  Copyright (C) 2011  Digitex (Giuseppe Federico)
-  *
-  *  This program is free software: you can redistribute it and/or modify
-  *  it under the terms of the GNU General Public License as published by
-  *  the Free Software Foundation, either version 3 of the License, or
-  *  (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
-  *
-  *###########################################################################
-  *
-  */
+/* ###########################################################################
+
+    JFBChat it's a simple software written in Java that let you int contact
+    with yours Facebook friends without your browser.
+    Copyright (C) 2011  Digitex (Giuseppe Federico)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http:// www.gnu.org/licenses/>.
+
+  ###########################################################################
+
+*/
 
 package jfbchat.frames;
 
@@ -42,12 +42,12 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smackx.ChatStateManager;
 
- /**
- *This class represent a ChatFrame
- *
- * @author digitex (Giuseppe Federico - digitex3d@gmail.com)
- * Webpage: http:// www.digisoftware.org
- */
+/**
+  This class represent a ChatFrame
+
+  @author digitex (Giuseppe Federico - digitex3d@gmail.com)
+  Webpage: http:// www.digisoftware.org
+*/
 public class ChatFrame extends javax.swing.JFrame {
 
   final int K_ENTER_ID = 10;
@@ -64,315 +64,283 @@ public class ChatFrame extends javax.swing.JFrame {
 
   /** Creates new form ChatFrame */
   public ChatFrame(Connection connection) {
-  this.connection = connection;
+    this.connection = connection;
 
-  // Load and set the icon.
-  try {
-    setIconImage(new ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
-
-  }catch (Exception e) {
-    new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
-
-  }
-
-  initComponents();
-
-  // Color the jPanelButtons in the top
-  this.jPanelButtons.setBackground(jfbchat
-            .resources
-            .Options
-            .FCBK_BLUE_COLOR);
-  // Init jLabelTitle
-  // Color the jLabelTitle in the top
-  this.jLabelTitle.setBackground(jfbchat
-            .resources
-            .Options
-            .FCBK_WHITE_COLOR);
-
-  // Register a change listener when a tab is changed
-  this.jTabbedPaneChats.addChangeListener(new ChangeListener() {
-    // Set the title as the name of the selected tab
-    public void stateChanged(ChangeEvent evt) {
-    if (getSelectedPanelChat() != null) {
-      JTabbedPane pane = (JTabbedPane)evt.getSource();
-      jLabelTitle.setText(getSelectedPanelChat()
-            .getContact()
-            .getUser());
-
+    // Load and set the icon.
+    try {
+      setIconImage(new ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
+    } catch (Exception e) {
+      new DebugMessage(this.getClass(), "Cannot load image " + new ImageIcon(Imgs.MAINICON).toString(), e);
     }
 
-    }
-
-  });
-
-  // Set the jButtonCloseTab transparent
-  this.jButtonCloseTab.setOpaque(false);
-  this.jButtonCloseTab.setContentAreaFilled(false);
-  this.jButtonCloseTab.setBorderPainted(false);
-
-  setLocationRelativeTo(null);
-  setVisible(false);
+    initComponents();
+    // Color the jPanelButtons in the top
+    this.jPanelButtons.setBackground(jfbchat
+                                     .resources
+                                     .Options
+                                     .FCBK_BLUE_COLOR);
+    // Init jLabelTitle
+    // Color the jLabelTitle in the top
+    this.jLabelTitle.setBackground(jfbchat
+                                   .resources
+                                   .Options
+                                   .FCBK_WHITE_COLOR);
+    // Register a change listener when a tab is changed
+    this.jTabbedPaneChats.addChangeListener(new ChangeListener() {
+      // Set the title as the name of the selected tab
+      public void stateChanged(ChangeEvent evt) {
+        if (getSelectedPanelChat() != null) {
+          JTabbedPane pane = (JTabbedPane)evt.getSource();
+          jLabelTitle.setText(getSelectedPanelChat()
+                              .getContact()
+                              .getUser());
+        }
+      }
+    });
+    // Set the jButtonCloseTab transparent
+    this.jButtonCloseTab.setOpaque(false);
+    this.jButtonCloseTab.setContentAreaFilled(false);
+    this.jButtonCloseTab.setBorderPainted(false);
+    setLocationRelativeTo(null);
+    setVisible(false);
   }
 
   /** This method is called from within the constructor to
-  * initialize the form.
-  * WARNING: Do NOT modify this code. The content of this method is
-  * always regenerated by the Form Editor.
+    initialize the form.
+    WARNING: Do NOT modify this code. The content of this method is
+    always regenerated by the Form Editor.
   */
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated Code">// GEN-BEGIN:initComponents
   private void initComponents() {
-
-  jTabbedPaneChats = new javax.swing.JTabbedPane();
-  jPanelButtons = new javax.swing.JPanel();
-  jButtonCloseTab = new javax.swing.JButton();
-  jLabelTitle = new javax.swing.JLabel();
-  jMenuBar = new javax.swing.JMenuBar();
-  jMenuConversation = new javax.swing.JMenu();
-  jMenuItemClear = new javax.swing.JMenuItem();
-  jSeparator1 = new javax.swing.JPopupMenu.Separator();
-  jMenuClose = new javax.swing.JMenuItem();
-  jMenuEdit = new javax.swing.JMenu();
-  jMenuItemCut = new javax.swing.JMenuItem();
-  jMenuItemCopy = new javax.swing.JMenuItem();
-  jMenuItemPaste = new javax.swing.JMenuItem();
-  MenuHelp = new javax.swing.JMenu();
-  jMenuItemHelpOnline = new javax.swing.JMenuItem();
-  jMenuItemReportProblem = new javax.swing.JMenuItem();
-  jSeparator2 = new javax.swing.JPopupMenu.Separator();
-
-  setTitle("Conversations");
-  setBackground(new java.awt.Color(255, 255, 255));
-  setMinimumSize(new java.awt.Dimension(300, 300));
-  addKeyListener(new java.awt.event.KeyAdapter() {
-    public void keyPressed(java.awt.event.KeyEvent evt) {
-    formKeyPressed(evt);
-    }
-  });
-
-  jTabbedPaneChats.setBackground(new java.awt.Color(255, 255, 255));
-  jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-  jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
-  getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
-
-  jPanelButtons.setBackground(new java.awt.Color(49, 112, 167));
-
-  jButtonCloseTab.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
-  jButtonCloseTab.setForeground(new java.awt.Color(255, 255, 255));
-  jButtonCloseTab.setText("x");
-  jButtonCloseTab.setToolTipText("Close this tab");
-  jButtonCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
-    public void mousePressed(java.awt.event.MouseEvent evt) {
-    jButtonCloseTabMousePressed(evt);
-    }
-  });
-
-  jLabelTitle.setBackground(new java.awt.Color(255, 255, 255));
-  jLabelTitle.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
-  jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
-  jLabelTitle.setText("jLabel1");
-
-  javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
-  jPanelButtons.setLayout(jPanelButtonsLayout);
-  jPanelButtonsLayout.setHorizontalGroup(
-    jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
-    .addContainerGap()
-    .addComponent(jLabelTitle)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
-    .addComponent(jButtonCloseTab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-);
-  jPanelButtonsLayout.setVerticalGroup(
-    jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
-    .addGap(0, 0, Short.MAX_VALUE)
-    .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-      .addComponent(jButtonCloseTab)
-      .addComponent(jLabelTitle)))
-);
-
-  getContentPane().add(jPanelButtons, java.awt.BorderLayout.PAGE_START);
-
-  jMenuConversation.setText("Conversation");
-  jMenuConversation.setToolTipText("Conversation");
-
-  jMenuItemClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-  jMenuItemClear.setText("Clear");
-  jMenuItemClear.setToolTipText("Clear the conversation");
-  jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItemClearActionPerformed(evt);
-    }
-  });
-  jMenuConversation.add(jMenuItemClear);
-  jMenuConversation.add(jSeparator1);
-
-  jMenuClose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-  jMenuClose.setText("Close");
-  jMenuClose.setToolTipText("Close the window");
-  jMenuClose.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuCloseActionPerformed(evt);
-    }
-  });
-  jMenuConversation.add(jMenuClose);
-
-  jMenuBar.add(jMenuConversation);
-
-  jMenuEdit.setMnemonic(KeyEvent.VK_E);
-  jMenuEdit.setText("Edit");
-
-  jMenuItemCut.setAction(new DefaultEditorKit.CutAction());
-  jMenuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-  jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/cut.png"))); // NOI18N
-  jMenuItemCut.setText("Cut");
-  jMenuEdit.add(jMenuItemCut);
-
-  jMenuItemCopy.setAction(new DefaultEditorKit.CopyAction());
-  jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-  jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/copy_page.png"))); // NOI18N
-  jMenuItemCopy.setText("Copy");
-  jMenuEdit.add(jMenuItemCopy);
-
-  jMenuItemPaste.setAction(new DefaultEditorKit.PasteAction());
-  jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-  jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/paste.png"))); // NOI18N
-  jMenuItemPaste.setText("Paste");
-  jMenuEdit.add(jMenuItemPaste);
-
-  jMenuBar.add(jMenuEdit);
-
-  MenuHelp.setText("Help");
-
-  jMenuItemHelpOnline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-  jMenuItemHelpOnline.setText("Help Online");
-  jMenuItemHelpOnline.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItemHelpOnlineActionPerformed(evt);
-    }
-  });
-  MenuHelp.add(jMenuItemHelpOnline);
-
-  jMenuItemReportProblem.setText("Report a problem");
-  jMenuItemReportProblem.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItemReportProblemActionPerformed(evt);
-    }
-  });
-  MenuHelp.add(jMenuItemReportProblem);
-  MenuHelp.add(jSeparator2);
-
-  jMenuBar.add(MenuHelp);
-
-  setJMenuBar(jMenuBar);
-
-  pack();
+    jTabbedPaneChats = new javax.swing.JTabbedPane();
+    jPanelButtons = new javax.swing.JPanel();
+    jButtonCloseTab = new javax.swing.JButton();
+    jLabelTitle = new javax.swing.JLabel();
+    jMenuBar = new javax.swing.JMenuBar();
+    jMenuConversation = new javax.swing.JMenu();
+    jMenuItemClear = new javax.swing.JMenuItem();
+    jSeparator1 = new javax.swing.JPopupMenu.Separator();
+    jMenuClose = new javax.swing.JMenuItem();
+    jMenuEdit = new javax.swing.JMenu();
+    jMenuItemCut = new javax.swing.JMenuItem();
+    jMenuItemCopy = new javax.swing.JMenuItem();
+    jMenuItemPaste = new javax.swing.JMenuItem();
+    MenuHelp = new javax.swing.JMenu();
+    jMenuItemHelpOnline = new javax.swing.JMenuItem();
+    jMenuItemReportProblem = new javax.swing.JMenuItem();
+    jSeparator2 = new javax.swing.JPopupMenu.Separator();
+    setTitle("Conversations");
+    setBackground(new java.awt.Color(255, 255, 255));
+    setMinimumSize(new java.awt.Dimension(300, 300));
+    addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        formKeyPressed(evt);
+      }
+    });
+    jTabbedPaneChats.setBackground(new java.awt.Color(255, 255, 255));
+    jTabbedPaneChats.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+    jTabbedPaneChats.setPreferredSize(new java.awt.Dimension(470, 410));
+    getContentPane().add(jTabbedPaneChats, java.awt.BorderLayout.CENTER);
+    jPanelButtons.setBackground(new java.awt.Color(49, 112, 167));
+    jButtonCloseTab.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+    jButtonCloseTab.setForeground(new java.awt.Color(255, 255, 255));
+    jButtonCloseTab.setText("x");
+    jButtonCloseTab.setToolTipText("Close this tab");
+    jButtonCloseTab.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mousePressed(java.awt.event.MouseEvent evt) {
+        jButtonCloseTabMousePressed(evt);
+      }
+    });
+    jLabelTitle.setBackground(new java.awt.Color(255, 255, 255));
+    jLabelTitle.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+    jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
+    jLabelTitle.setText("jLabel1");
+    javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
+    jPanelButtons.setLayout(jPanelButtonsLayout);
+    jPanelButtonsLayout.setHorizontalGroup(
+      jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
+                .addComponent(jButtonCloseTab, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+    );
+    jPanelButtonsLayout.setVerticalGroup(
+      jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelButtonsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                          .addComponent(jButtonCloseTab)
+                          .addComponent(jLabelTitle)))
+    );
+    getContentPane().add(jPanelButtons, java.awt.BorderLayout.PAGE_START);
+    jMenuConversation.setText("Conversation");
+    jMenuConversation.setToolTipText("Conversation");
+    jMenuItemClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L,
+                                  java.awt.event.InputEvent.CTRL_MASK));
+    jMenuItemClear.setText("Clear");
+    jMenuItemClear.setToolTipText("Clear the conversation");
+    jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemClearActionPerformed(evt);
+      }
+    });
+    jMenuConversation.add(jMenuItemClear);
+    jMenuConversation.add(jSeparator1);
+    jMenuClose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W,
+                              java.awt.event.InputEvent.CTRL_MASK));
+    jMenuClose.setText("Close");
+    jMenuClose.setToolTipText("Close the window");
+    jMenuClose.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuCloseActionPerformed(evt);
+      }
+    });
+    jMenuConversation.add(jMenuClose);
+    jMenuBar.add(jMenuConversation);
+    jMenuEdit.setMnemonic(KeyEvent.VK_E);
+    jMenuEdit.setText("Edit");
+    jMenuItemCut.setAction(new DefaultEditorKit.CutAction());
+    jMenuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X,
+                                java.awt.event.InputEvent.CTRL_MASK));
+    jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jfbchat/imgs/MenuIcons/cut.png"))); // NOI18N
+    jMenuItemCut.setText("Cut");
+    jMenuEdit.add(jMenuItemCut);
+    jMenuItemCopy.setAction(new DefaultEditorKit.CopyAction());
+    jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C,
+                                 java.awt.event.InputEvent.CTRL_MASK));
+    jMenuItemCopy.setIcon(new javax.swing.ImageIcon(
+                            getClass().getResource("/jfbchat/imgs/MenuIcons/copy_page.png"))); // NOI18N
+    jMenuItemCopy.setText("Copy");
+    jMenuEdit.add(jMenuItemCopy);
+    jMenuItemPaste.setAction(new DefaultEditorKit.PasteAction());
+    jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V,
+                                  java.awt.event.InputEvent.CTRL_MASK));
+    jMenuItemPaste.setIcon(new javax.swing.ImageIcon(
+                             getClass().getResource("/jfbchat/imgs/MenuIcons/paste.png"))); // NOI18N
+    jMenuItemPaste.setText("Paste");
+    jMenuEdit.add(jMenuItemPaste);
+    jMenuBar.add(jMenuEdit);
+    MenuHelp.setText("Help");
+    jMenuItemHelpOnline.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+    jMenuItemHelpOnline.setText("Help Online");
+    jMenuItemHelpOnline.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemHelpOnlineActionPerformed(evt);
+      }
+    });
+    MenuHelp.add(jMenuItemHelpOnline);
+    jMenuItemReportProblem.setText("Report a problem");
+    jMenuItemReportProblem.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemReportProblemActionPerformed(evt);
+      }
+    });
+    MenuHelp.add(jMenuItemReportProblem);
+    MenuHelp.add(jSeparator2);
+    jMenuBar.add(MenuHelp);
+    setJMenuBar(jMenuBar);
+    pack();
   }// </editor-fold>// GEN-END:initComponents
 
   /**
-  * This method add a chatPanel to the jTabbedPaneChats
-  * @param connection
-  * @param contact
+    This method add a chatPanel to the jTabbedPaneChats
+    @param connection
+    @param contact
   */
   public void addTab(Connection connection, Contact contact, PanelChat panelChat) {
-  int tabCount = this.jTabbedPaneChats.getTabCount();
-
-  panelChat.setTabIndex(tabCount);
-
-  this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
-  // Set the associated contact status as label
-  this.jTabbedPaneChats.setIconAt(tabCount
-            , this
-              .getSelectedPanelChat()
-              .getStatusLabel()
-              .getIcon());
-
+    int tabCount = this.jTabbedPaneChats.getTabCount();
+    panelChat.setTabIndex(tabCount);
+    this.jTabbedPaneChats.addTab(contact.getUser(), panelChat);
+    // Set the associated contact status as label
+    this.jTabbedPaneChats.setIconAt(tabCount
+                                    , this
+                                    .getSelectedPanelChat()
+                                    .getStatusLabel()
+                                    .getIcon());
   }
 
   /**
-  *
-  * @return the jTabbedPaneChats
+
+    @return the jTabbedPaneChats
   */
   public JTabbedPane getjTabbedPaneChats() {
-  return this.jTabbedPaneChats;
-
+    return this.jTabbedPaneChats;
   }
 
   private void formKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_formKeyPressed
-
   }// GEN-LAST:event_formKeyPressed
 
   /**
-  * MenuItem Close action
-  * @param evt
+    MenuItem Close action
+    @param evt
   */
   private void jMenuCloseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuCloseActionPerformed
-
-  // Hide the window
-  this.dispose();
+    // Hide the window
+    this.dispose();
   }// GEN-LAST:event_jMenuCloseActionPerformed
 
   /**
-  * MenuItem Clear action
-  * @param evt
+    MenuItem Clear action
+    @param evt
   */
-  private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemClearActionPerformed
-  this.clearActiveTabMsgs();
-
+  private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent
+      evt) {// GEN-FIRST:event_jMenuItemClearActionPerformed
+    this.clearActiveTabMsgs();
   }// GEN-LAST:event_jMenuItemClearActionPerformed
 
-  private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
-
-  // Open the ONLINE_HELP page.
-  UtilFunctions.openURL(Options.ONLINE_HELP);
+  private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent
+      evt) {// GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
+    // Open the ONLINE_HELP page.
+    UtilFunctions.openURL(Options.ONLINE_HELP);
   }// GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
 
-  private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemReportProblemActionPerformed
-
-  // Open the Options.WEBPAGE_BUG_TRACKER page.
-  UtilFunctions.openURL(Options.WEBPAGE_BUG_TRACKER);
+  private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent
+      evt) {// GEN-FIRST:event_jMenuItemReportProblemActionPerformed
+    // Open the Options.WEBPAGE_BUG_TRACKER page.
+    UtilFunctions.openURL(Options.WEBPAGE_BUG_TRACKER);
   }// GEN-LAST:event_jMenuItemReportProblemActionPerformed
 
   private void jButtonCloseTabMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonCloseTabMousePressed
-  this.closeActiveTab();
-  if (this.jTabbedPaneChats.getTabCount() == 0) this.dispose();
+    this.closeActiveTab();
 
+    if (this.jTabbedPaneChats.getTabCount() == 0) {
+      this.dispose();
+    }
   }// GEN-LAST:event_jButtonCloseTabMousePressed
 
   /**
-  * Close active tab
+    Close active tab
   */
   public void closeActiveTab() {
-  this.getSelectedPanelChat().getContact().setActive(false);
-  this.jTabbedPaneChats.removeTabAt(this.jTabbedPaneChats.getSelectedIndex());
-
+    this.getSelectedPanelChat().getContact().setActive(false);
+    this.jTabbedPaneChats.removeTabAt(this.jTabbedPaneChats.getSelectedIndex());
   }
   /**
-  * Return the selected Panel chat in the jTabbedPaneChats
-  * @return The selected PanelChat
+    Return the selected Panel chat in the jTabbedPaneChats
+    @return The selected PanelChat
   */
   public PanelChat getSelectedPanelChat() {
-  try {
-    PanelChat activePanel=null;
-    activePanel = (PanelChat) this.jTabbedPaneChats
-              .getSelectedComponent();
-    return activePanel;
-  }catch (Exception e) {
-    new DebugMessage(this.getClass()
-        , "Cannot get the SelectedComponent"
-        , e);
+    try {
+      PanelChat activePanel = null;
+      activePanel = (PanelChat) this.jTabbedPaneChats
+                    .getSelectedComponent();
+      return activePanel;
+    } catch (Exception e) {
+      new DebugMessage(this.getClass()
+                       , "Cannot get the SelectedComponent"
+                       , e);
+    }
 
-  }
-  return null;
-
+    return null;
   }
 
   /**
-  * Clear all the messages in the active panel
+    Clear all the messages in the active panel
   */
   public void clearActiveTabMsgs() {
     getSelectedPanelChat().clearAllMessages();
-
   }
 
   // Variables declaration - do not modify// GEN-BEGIN:variables
