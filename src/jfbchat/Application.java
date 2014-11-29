@@ -36,44 +36,42 @@ import jfbchat.frames.MainFrame;
 
 public class Application {
 
-    public final static String VERSION = "0.2.5";
+  public final static String VERSION = "0.2.5";
 
-    private MainFrame mainFrame;
+  private MainFrame mainFrame;
 
-    public static final String NAME_OS = System.getProperty("os.name");
-    public static final String VERSION_OS = System.getProperty("os.version");
-    public static final String ARCH_OS = System.getProperty("os.arch");
+  public static final String NAME_OS = System.getProperty("os.name");
+  public static final String VERSION_OS = System.getProperty("os.version");
+  public static final String ARCH_OS = System.getProperty("os.arch");
 
+  public Application() {
+  //Set system look and feel by default
+  //TODO: Add the feature to change the look in a option frame
 
-    public Application(){
-        //Set system look and feel by default
-        //TODO: Add the feature to change the look in a option frame
-        
-        setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        run();
+  setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  run();
 
-    }
+  }
 
-    private void run(){
-        //Show the MainFrame     
-        mainFrame = new MainFrame();
+  private void run() {
+  //Show the MainFrame
+  mainFrame = new MainFrame();
 
-    }
+  }
 
+  private void setLookAndFeel(String laf) {
+   try {
+    UIManager.setLookAndFeel(laf);
+  } catch (ClassNotFoundException ex) {
+    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+  } catch (InstantiationException ex) {
+    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+  } catch (IllegalAccessException ex) {
+    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+  } catch (UnsupportedLookAndFeelException ex) {
+    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+  }
 
-    private void setLookAndFeel(String laf){
-         try {
-            UIManager.setLookAndFeel(laf);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+  }
 
 }

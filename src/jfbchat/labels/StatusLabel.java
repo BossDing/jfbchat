@@ -1,7 +1,6 @@
 /*##############################################################################
 
-
-JFBChat it's a simple software written in Java that let you conncted with 
+JFBChat it's a simple software written in Java that let you conncted with
 yours Facebook friends without your browser.
 Copyright (C) 2011  Digitex (Giuseppe Federico)This program is free software:
 you can redistribute it and/or modify
@@ -19,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ##############################################################################*/
 
-
 package jfbchat.labels;
 
 import jfbchat.Contact;
@@ -32,78 +30,78 @@ import org.jivesoftware.smack.packet.Presence;
 
 /**
  * An Icon that informs about the relative contact status
- * 
+ *
  * Author Digitex (Giuseppe Federico support@digisoftware.org)
  */
-public class StatusLabel extends JLabel{    
-    private String status;
-    private Contact contact;
-    
-    public StatusLabel(){
-        super("");
-        this.contact = null;
-        this.status = "unavailable";
-        this.setIcon(new ImageIcon(getClass().
-                        getResource(Imgs.AVAILABLE_ICON)));
-        this.setToolTipText(status);
-        
-    }
+public class StatusLabel extends JLabel{
+  private String status;
+  private Contact contact;
 
-    /*
-     * Init or update the label icon 
-     */
-    public void updateLabel(Contact contact){
-        this.contact = contact;
-        Presence contactPresence = contact.getPresence();
-        
-        if (contactPresence.isAvailable() || 
-            contactPresence.isAway()){
+  public StatusLabel() {
+  super("");
+  this.contact = null;
+  this.status = "unavailable";
+  this.setIcon(new ImageIcon(getClass().
+      getResource(Imgs.AVAILABLE_ICON)));
+  this.setToolTipText(status);
 
-            //Available test
-            if ( contactPresence.isAvailable() ){
-                 //Change the icon
-                this.setIcon(new ImageIcon(getClass().
-                        getResource(Imgs.AVAILABLE_ICON)));
-                //Update the status information
-                this.status = "available";
-                //Update the ToolTipText
-                this.setToolTipText(status);
-                validate();
+  }
 
-            }
-            //Away test
-            if ( contactPresence.isAway() ){
-                //Update the icon
-                this.setIcon(new ImageIcon(getClass().
-                        getResource(Imgs.AWAY_ICON)));
-                //Update the status information
-                this.status = "away";
-                //Update the ToolTipText
-                this.setToolTipText(status);
-                validate();
-            }
+  /*
+   * Init or update the label icon
+   */
+  public void updateLabel(Contact contact) {
+  this.contact = contact;
+  Presence contactPresence = contact.getPresence();
 
-        }
-        //If the contact is unavailable
-        else{
-            //Update the icon
-            this.setIcon(new ImageIcon(getClass().
-                    getResource(Imgs.UNAVAILABLE_ICON)));
-            //Change the status information
-            this.status = "unavailable";
-            //Update the ToolTipText
-            this.setToolTipText(status);
-            
-        }
+  if (contactPresence.isAvailable() ||
+    contactPresence.isAway()) {
+
+    //Available test
+    if (contactPresence.isAvailable()) {
+     //Change the icon
+    this.setIcon(new ImageIcon(getClass().
+      getResource(Imgs.AVAILABLE_ICON)));
+    //Update the status information
+    this.status = "available";
+    //Update the ToolTipText
+    this.setToolTipText(status);
+    validate();
 
     }
-
-    /*
-     * Get the status of the contact
-     */
-    public String getStatus(){
-        return this.status;
-        
+    //Away test
+    if (contactPresence.isAway()) {
+    //Update the icon
+    this.setIcon(new ImageIcon(getClass().
+      getResource(Imgs.AWAY_ICON)));
+    //Update the status information
+    this.status = "away";
+    //Update the ToolTipText
+    this.setToolTipText(status);
+    validate();
     }
-    
+
+  }
+  //If the contact is unavailable
+  else{
+    //Update the icon
+    this.setIcon(new ImageIcon(getClass().
+      getResource(Imgs.UNAVAILABLE_ICON)));
+    //Change the status information
+    this.status = "unavailable";
+    //Update the ToolTipText
+    this.setToolTipText(status);
+
+  }
+
+  }
+
+  /*
+   * Get the status of the contact
+   */
+  public String getStatus() {
+  return this.status;
+
+  }
+
 }

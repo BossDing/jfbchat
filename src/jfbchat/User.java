@@ -28,124 +28,120 @@ import java.io.*;
 import jfbchat.resources.*;
 import jfbchat.debug.*;
 
-
 /**
  * Contains the informations of the user
- * @author Digitex ( Giuseppe Federico - digitex3d@gmail.com )
+ * @author Digitex (Giuseppe Federico - digitex3d@gmail.com)
  */
 
 public class User {
-    
-    private String username;
-    private String password;
 
-    private ChatPreferences prefs;
+  private String username;
+  private String password;
 
-    public User(String username, String password){
+  private ChatPreferences prefs;
 
-        this.username = username;
-        this.password = password;
-      
-        this.prefs = new ChatPreferences();
-        
-        /* Write username and password to  preferences for autologin*/
-        this.prefs.getPreferences().put( Options.USERNAME, username);
-        this.prefs.getPreferences().put( Options.PASSWORD, password);
- 
-    }
+  public User(String username, String password) {
 
-    public User(){
+  this.username = username;
+  this.password = password;
 
-        this.username = null;
-        this.password = null;
-        this.prefs = new ChatPreferences();
-    }
-    
-    /** 
-    * @return the user password
-    */
-    public String getPassword(){
-        if(password.isEmpty()){
-            new DebugMessage(this.getClass(), "Password is empty");
-            
-        }
-        
-        return password;
-        
-    }
+  this.prefs = new ChatPreferences();
 
-    /**
-    * 
-    * @return the user username 
-    */
-    public String getUsername(){
-        if(username.isEmpty()){
-            new DebugMessage(this.getClass(), "Username is empty");
-            
-        }
-        return username;
-    }
+  /* Write username and password to  preferences for autologin*/
+  this.prefs.getPreferences().put(Options.USERNAME, username);
+  this.prefs.getPreferences().put(Options.PASSWORD, password);
 
-    /**
-     *
-     *
-     * @return true if the user has some avatars in the cache otherwise return false.
-     */
-     public boolean hasCachedAvatars(){
+  }
 
-        //Path of the directory where cached images are saved by default.
-        String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
+  public User() {
 
-        new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");
+  this.username = null;
+  this.password = null;
+  this.prefs = new ChatPreferences();
+  }
 
-        return (new File( cache_dir_path) ).exists();
+  /**
+  * @return the user password
+  */
+  public String getPassword() {
+  if (password.isEmpty()) {
+    new DebugMessage(this.getClass(), "Password is empty");
 
-    }
-    
-    /**
-    * Set the autologin preference
-    * @param value 
-    */
-    public void setAutologin(boolean value){
+  }
 
-        this.prefs.getPreferences().putBoolean( Options.AUTOLOGIN, value);
-    }
+  return password;
 
-    /**
-    * 
-    * @return true if Autologin preference is enabled, otherwise return false. 
-    */
-    public boolean isAutoLogin(){
+  }
 
-        return this.prefs.getPreferences().getBoolean( Options.AUTOLOGIN, false);
-    }
+  /**
+  *
+  * @return the user username
+  */
+  public String getUsername() {
+  if (username.isEmpty()) {
+    new DebugMessage(this.getClass(), "Username is empty");
 
-    /**
-    * 
-    * @return the saved password. 
-    */
-    public String getSavedPass(){
-        
-        return this.prefs.getPreferences().get( Options.PASSWORD, "");
-    }
+  }
+  return username;
+  }
 
-    /**
-    * 
-    * @return the saved username. 
-    */
-    public String getSavedUser(){
+  /**
+   *
+   *
+   * @return true if the user has some avatars in the cache otherwise return false.
+   */
+   public boolean hasCachedAvatars() {
 
-        return this.prefs.getPreferences().get( Options.USERNAME, "");
-    }
+  //Path of the directory where cached images are saved by default.
+  String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
 
-    @Override
-    public String toString(){
-        return "Username: " + username;
+  new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");
 
-    }
+  return (new File(cache_dir_path)).exists();
+
+  }
+
+  /**
+  * Set the autologin preference
+  * @param value
+  */
+  public void setAutologin(boolean value) {
+
+  this.prefs.getPreferences().putBoolean(Options.AUTOLOGIN, value);
+  }
+
+  /**
+  *
+  * @return true if Autologin preference is enabled, otherwise return false.
+  */
+  public boolean isAutoLogin() {
+
+  return this.prefs.getPreferences().getBoolean(Options.AUTOLOGIN, false);
+  }
+
+  /**
+  *
+  * @return the saved password.
+  */
+  public String getSavedPass() {
+
+  return this.prefs.getPreferences().get(Options.PASSWORD, "");
+  }
+
+  /**
+  *
+  * @return the saved username.
+  */
+  public String getSavedUser() {
+
+  return this.prefs.getPreferences().get(Options.USERNAME, "");
+  }
+
+  @Override
+  public String toString() {
+  return "Username: " + username;
+
+  }
 
 }
-
-
-
 

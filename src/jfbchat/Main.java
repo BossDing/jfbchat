@@ -23,58 +23,49 @@
 
 package jfbchat;
 
-
 import jfbchat.resources.*;
 import jfbchat.debug.DebugMessage;
 
-
 public class Main {
- 
 
-    public static void main( String[] args ) {
+  public static void main(String[] args) {
 
- 
-       Options.HOME_DIR = System.getProperty("user.home");
-              
-       //Process arguments
-       for(int i = 0; i < args.length; i++){
-           // -d Enable debug messages
-           if( args[i].equals("-d") || args[i].equals("--debug") ){
+   Options.HOME_DIR = System.getProperty("user.home");
 
-               System.out.println("########  Debug mode  ########");
-               Options.DEBUG_ENABLED = true;
+   //Process arguments
+   for (int i = 0; i < args.length; i++) {
+     // -d Enable debug messages
+     if (args[i].equals("-d") || args[i].equals("--debug")) {
 
-           }
-           
-           if(args[i].equals("-h") || args[i].equals("--help")){
+     System.out.println("########  Debug mode  ########");
+     Options.DEBUG_ENABLED = true;
 
-               System.out.print("\nUsage:\n    jfbchat [OPTION...] \n\n"
-                                + "A simple facebook client\n\n"
-                                + "Debug Options:\n"
-                                + " -d, --debug                 Enable debug messages\n\n");
-               System.exit(0);
-               
-           }
+     }
 
-       }
-          
-    
-        System.out.println("Starting IM client");
-        try{
+     if (args[i].equals("-h") || args[i].equals("--help")) {
 
-            Application run = new Application();
+     System.out.print("\nUsage:\n  jfbchat [OPTION...] \n\n"
+        + "A simple facebook client\n\n"
+        + "Debug Options:\n"
+        + " -d, --debug     Enable debug messages\n\n");
+     System.exit(0);
 
-        }catch(Exception e){
+     }
 
-            new DebugMessage("Main : Cannot run the application :", e);
+   }
 
-        }
-                 
-    }
-   
+  System.out.println("Starting IM client");
+  try {
+
+    Application run = new Application();
+
+  }catch (Exception e) {
+
+    new DebugMessage("Main : Cannot run the application :", e);
+
+  }
+
+  }
+
 }
-   
-
-
-
 

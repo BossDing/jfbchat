@@ -21,7 +21,6 @@
   *
   */
 
-
 package jfbchat.listeners;
 
 import jfbchat.Connection;
@@ -36,71 +35,64 @@ import org.jivesoftware.smack.packet.Packet;
 
 public class MyPacketListener implements PacketListener{
 
-    private final int TIMEOUT = 1000;
-    private Connection connection;
-    private MyChatManager chatManager;
-    private ContactList contactList;
+  private final int TIMEOUT = 1000;
+  private Connection connection;
+  private MyChatManager chatManager;
+  private ContactList contactList;
 
+  public MyPacketListener(Connection connection) {
+    this.connection = connection;
+    this.chatManager = connection.getChatManager();
+    this.contactList = connection.getContactList();
+  }
 
-      public MyPacketListener(Connection connection){
-          this.connection = connection;
-          this.chatManager = connection.getChatManager();
-          this.contactList = connection.getContactList();
-      }
+  //the packet is filtered as a message
+  public void processPacket(Packet packet) {
+    //Contact who sends thet packet
+    Contact contact = connection.getContactList().getContact(packet.getFrom());
 
-      //the packet is filtered as a message
-      public void processPacket(Packet packet) { 
-            //Contact who sends thet packet
-            Contact contact = connection.getContactList().getContact(packet.getFrom());
-         
-            //Managing a message
-            Message msg = (Message) packet;
+    //Managing a message
+    Message msg = (Message) packet;
 
-              new DebugMessage(this.getClass(), "processPacket: \"" + msg + "\""
-                + " received from "  + contact.getUser());
+    new DebugMessage(this.getClass(), "processPacket: \"" + msg + "\""
+    + " received from "  + contact.getUser());
 
-            //If the contact has a conversation active in the chatManager
-            if (!(contact.isActive())){
-                //Create a new PanelChat and show it                    
-                contact.initChat();
-                //Add the message in the PanelMessage
-                contact.getPanelChat().
-                        addPanelMessage(new PanelMessage(
-                                                        false, 
-                                                        contact,
-                                                        msg.getBody()));
-                
-            }               
-            
-            //Focus the contact tab
-            connection
-                    .getChatFrame()
-                    .getjTabbedPaneChats()
-                    .setSelectedIndex(contact
-                                            .getPanelChat()
-                                            .getTabIndex());
-            //Show the ChatFrame
-            connection.getChatFrame().setVisible(true);
-                    
-                    
-            // do nothing for TIMEOUT miliseconds
-            try
-            {
-                Thread.sleep(TIMEOUT);
-            }
-                catch(Exception e)
-            {
-                new DebugMessage(this.getClass(), "Cannot timeout for " + TIMEOUT + "miliseconds");
-            }
-
-
-
-            new DebugMessage("processPacket:Adding a new panel to "
-                    + "the chatframe :" + msg.getBody());
-        }
-
+    //If the contact has a conversation active in the chatManager
+    if (!(contact.isActive())) {
+    //Create a new PanelChat and show it
+    contact.initChat();
+    //Add the message in the PanelMessage
+    contact.getPanelChat().
+      addPanelMessage(new PanelMessage(
+              false,
+              contact,
+              msg.getBody()));
 
     }
 
+    //Focus the contact tab
+    connection
+      .getChatFrame()
+      .getjTabbedPaneChats()
+      .setSelectedIndex(contact
+            .getPanelChat()
+            .getTabIndex());
+    //Show the ChatFrame
+    connection.getChatFrame().setVisible(true);
 
+    // do nothing for TIMEOUT miliseconds
+    try
+    {
+    Thread.sleep(TIMEOUT);
+    }
+    catch (Exception e)
+    {
+    new DebugMessage(this.getClass(), "Cannot timeout for " + TIMEOUT + "miliseconds");
+    }
+
+    new DebugMessage("processPacket:Adding a new panel to "
+      + "the chatframe :" + msg.getBody());
+  }
+
+  }
 

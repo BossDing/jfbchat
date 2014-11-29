@@ -1,7 +1,6 @@
 /*###################################################
 
-
-JFBChat it's a simple software written in Java that let you conncted with 
+JFBChat it's a simple software written in Java that let you conncted with
 yours Facebook friends without your browser.
 Copyright (C) 2011  Digitex (Giuseppe Federico)This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,8 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
-
-JFBChat it's a simple software written in Java that let you conncted with 
+JFBChat it's a simple software written in Java that let you conncted with
 yours Facebook friends without your browser.
 Copyright (C) 2011  Digitex (Giuseppe Federico)This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,41 +44,41 @@ import java.io.IOException;
  * Author Digitex (Giuseppe Federico support@digisoftware.org)
  */
 public class UtilFunctions {
-    
-    /**
-    * Shows a frame
-    */
-    public static void showFrame(javax.swing.JFrame frame){
 
-        //If the window is not visible
-        if ( !(frame.isVisible()) ){
+  /**
+  * Shows a frame
+  */
+  public static void showFrame(javax.swing.JFrame frame) {
 
-            //Show the preferences window
-            frame.setVisible(true);
+  //If the window is not visible
+  if (!(frame.isVisible())) {
 
-        }
-    }
-    
-    /**
-    * Open a webpage URL
-    * @param A webpage URL
-    */
-    public static void openURL(String addr){
+    //Show the preferences window
+    frame.setVisible(true);
 
-        Desktop desktop = Desktop.getDesktop();
+  }
+  }
 
-        URI uri = null;
-        try {
-            uri = new URI(addr);
-            desktop.browse(uri);
-        }
-        catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        catch(URISyntaxException use) {
-            use.printStackTrace();
-        }
+  /**
+  * Open a webpage URL
+  * @param A webpage URL
+  */
+  public static void openURL(String addr) {
 
-    }
-    
+  Desktop desktop = Desktop.getDesktop();
+
+  URI uri = null;
+  try {
+    uri = new URI(addr);
+    desktop.browse(uri);
+  }
+  catch (IOException ioe) {
+    ioe.printStackTrace();
+  }
+  catch (URISyntaxException use) {
+    use.printStackTrace();
+  }
+
+  }
+
 }

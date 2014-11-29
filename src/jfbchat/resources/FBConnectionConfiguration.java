@@ -32,14 +32,13 @@ import org.jivesoftware.smack.SASLAuthentication;
  */
 public class FBConnectionConfiguration extends ConnectionConfiguration {
 
+  public FBConnectionConfiguration(String host, int port, String domain) {
+  super(host, port,domain);
+  //this.setSecurityMode(SecurityMode.disabled);
+  SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
+  setSASLAuthenticationEnabled(true);
+  setRosterLoadedAtLogin (true);
 
-    public FBConnectionConfiguration(String host, int port, String domain){
-        super(host, port,domain);
-        //this.setSecurityMode(SecurityMode.disabled);
-        SASLAuthentication.registerSASLMechanism("DIGEST-MD5", MySASLDigestMD5Mechanism.class);
-        setSASLAuthenticationEnabled(true);
-        setRosterLoadedAtLogin (true);
-
-    }
+  }
 
 }

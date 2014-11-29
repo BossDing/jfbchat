@@ -42,235 +42,231 @@ import org.jivesoftware.smack.packet.Presence;
  * @author Digitex (Giuseppe Federico - digitex3d@gmail.com)
  */
 public class Connection {
-    private User user;
-    private Presence presence;
-    private XMPPConnection connection;
-    private ContactList contactList;
-    private MyChatManager myChatManager;
-    private PacketListening packetListening;
-    private MyVCard vCard;
-    private ChatFrame chatFrame;
+  private User user;
+  private Presence presence;
+  private XMPPConnection connection;
+  private ContactList contactList;
+  private MyChatManager myChatManager;
+  private PacketListening packetListening;
+  private MyVCard vCard;
+  private ChatFrame chatFrame;
 
-    public Connection(User user){
-              
-        this.user = user;
+  public Connection(User user) {
 
-        this.contactList = new ContactList(this);
-        this.myChatManager = new MyChatManager();
-        
-        //Smack debug
-        //this.connection.DEBUG_ENABLED = true;
-        
-        this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
-                                                           ,Options.PORT,Options.SERVICE_NAME));
-        
-        chatFrame = new ChatFrame(this);
-        
-        //Init The user vCard
-        vCard = null; 
-    }
+  this.user = user;
 
-    /**
-     * Connect to the server , login , set the presence avaiable, get the
-     * contact list and start the packege listening.
-     */
+  this.contactList = new ContactList(this);
+  this.myChatManager = new MyChatManager();
 
-    public void connect(){
+  //Smack debug
+  //this.connection.DEBUG_ENABLED = true;
 
-        new DMessage("Connection to " + Options.SERVER +
-                            " as " + user.getUsername() + "...");
+  this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
+                 ,Options.PORT,Options.SERVICE_NAME));
 
-        try {
+  chatFrame = new ChatFrame(this);
 
-            //Connect to the server
-            connection.connect();
-            System.out.println("Connected to " + connection.getHost());
+  //Init The user vCard
+  vCard = null;
+  }
 
-            //Login to the server
-            connection.login(user.getUsername(), user.getPassword());
-            System.out.println("Logged in as " + user.getUsername()+ ".");
+  /**
+   * Connect to the server , login , set the presence avaiable, get the
+   * contact list and start the packege listening.
+   */
 
-            //Set the user status presence available.
-            //TODO: Initial presence should be setted in the options 0.3.0
-            updatePresence(new Presence(Presence.Type.available));
+  public void connect() {
 
-            //Get the contact list from the server
-            contactList.getList();
+  new DMessage("Connection to " + Options.SERVER +
+        " as " + user.getUsername() + "...");
 
-            contactList.defineGroups();
-            
-            //Start listen to incoming packets
-            startPacketListening();
-           
-            } catch (XMPPException ex) {
-            
-                new Error(this,1,"Wrong Username or Password");
-            
-            }
-        
-            //Get the user vCard
-            vCard = new MyVCard(this);
-            
-    }
+  try {
 
-    /**
-     * Listen for incoming packets and roster
-     */
+    //Connect to the server
+    connection.connect();
+    System.out.println("Connected to " + connection.getHost());
 
-    public void startPacketListening(){
-        //Listen for incoming packets
+    //Login to the server
+    connection.login(user.getUsername(), user.getPassword());
+    System.out.println("Logged in as " + user.getUsername()+ ".");
 
-        try{
+    //Set the user status presence available.
+    //TODO: Initial presence should be setted in the options 0.3.0
+    updatePresence(new Presence(Presence.Type.available));
 
-            packetListening = new PacketListening(this);
-            contactList.getRoster().addRosterListener(new MyRosterListener(this));
+    //Get the contact list from the server
+    contactList.getList();
 
-        }
-        catch(Exception e){
+    contactList.defineGroups();
 
-            new Error(2, e.getMessage());
+    //Start listen to incoming packets
+    startPacketListening();
 
-        }
+    } catch (XMPPException ex) {
+
+    new Error(this,1,"Wrong Username or Password");
 
     }
 
-    /**
-     * Update the presence to the server
-     */
+    //Get the user vCard
+    vCard = new MyVCard(this);
 
-    public void updatePresence(Presence presence){
+  }
 
-        //Send the user presence to the server
-        try{
-            this.presence = presence;
-            connection.sendPacket(this.presence);
-            System.out.println("Presence is now " + this.presence.toString() + ".");
-        }
-        catch(Exception e){
-            new DebugMessage("Cannot update presence " + e.toString());
-        
-        }
+  /**
+   * Listen for incoming packets and roster
+   */
+
+  public void startPacketListening() {
+  //Listen for incoming packets
+
+  try {
+
+    packetListening = new PacketListening(this);
+    contactList.getRoster().addRosterListener(new MyRosterListener(this));
+
+  }
+  catch (Exception e) {
+
+    new Error(2, e.getMessage());
+
+  }
+
+  }
+
+  /**
+   * Update the presence to the server
+   */
+
+  public void updatePresence(Presence presence) {
+
+  //Send the user presence to the server
+  try {
+    this.presence = presence;
+    connection.sendPacket(this.presence);
+    System.out.println("Presence is now " + this.presence.toString() + ".");
+  }
+  catch (Exception e) {
+    new DebugMessage("Cannot update presence " + e.toString());
+
+  }
+
+  }
+
+  /**
+   * Should be called after a presence change
+   */
+
+  public void updatePresence() {
+
+  //Update the user presence to the server
+  try {
+
+    connection.sendPacket(presence);
+    System.out.println("Presence is now " + presence.toString() + ".");
+
+  }
+  catch (Exception e) {
+    new DebugMessage("Cannot update presence " + e.toString());
+
+  }
+
+  }
+
+  public XMPPConnection getConnection() {
+    return connection;
+  }
+
+  public Presence getPresence() {
+  return presence;
+  }
+
+  /**
+   * Close the connection with the server
+   */
+  public void closeConnection() {
+
+  if (connection.isConnected()) {
+    try {
+    //Clear the chatManager
+    this.myChatManager.clear();
+
+    //Disconnect from the server
+    connection.disconnect(new Presence(Presence.Type.unavailable));
+    connection.disconnect();
 
     }
+    catch (Exception e) {
 
-    /**
-     * Should be called after a presence change
-     */
-
-    public void updatePresence(){
-
-        //Update the user presence to the server
-        try{
-
-            connection.sendPacket(presence);
-            System.out.println("Presence is now " + presence.toString() + ".");
-
-        }
-        catch(Exception e){
-            new DebugMessage("Cannot update presence " + e.toString());
-
-        }
+    new DebugMessage("Cannot close connection: " + e.toString());
 
     }
+  }
+  else{
 
-    public XMPPConnection getConnection(){
-            return connection;
-    }
+    new DebugMessage("Cannot close connection, the client is disconnected...");
 
-    public Presence getPresence(){
-        return presence;
-    }
+  }
+  }
 
-    /**
-     * Close the connection with the server
-     */
-    public void closeConnection(){
+  public MyChatManager getChatManager() {
+  return myChatManager;
+  }
 
-        if (connection.isConnected()){
-            try{
-                //Clear the chatManager
-                this.myChatManager.clear();
+  public ContactList getContactList() {
+  return contactList;
+  }
 
-                //Disconnect from the server
-                connection.disconnect(new Presence(Presence.Type.unavailable));
-                connection.disconnect();
+  public User getUser() {
 
+  return this.user;
 
-            }
-            catch (Exception e){
+  }
 
-                new DebugMessage("Cannot close connection: " + e.toString());
+  public MyVCard getVCard() {
+  return this.vCard;
 
-            }
-        }
-        else{
+  }
 
-            new DebugMessage("Cannot close connection, the client is disconnected...");
-            
-        }
-    }
+  public String getJID() {
+  return this.connection.getUser().replaceAll("/.*", "");
 
-    public MyChatManager getChatManager(){
-        return myChatManager;
-    }
+  }
 
-    public ContactList getContactList(){
-        return contactList;
-    }
+   /**
+   *
+   * @return the ChatFrame
+   */
+  public ChatFrame getChatFrame() {
+  return this.chatFrame;
 
-    public User getUser(){
+  }
 
-        return this.user;
-        
-    }
-    
-    public MyVCard getVCard(){      
-        return this.vCard;
-        
-    }
-    
-    public String getJID(){
-        return this.connection.getUser().replaceAll("/.*", "");
-        
-    }
-    
-     /**
-     * 
-     * @return the ChatFrame
-     */
-    public ChatFrame getChatFrame(){
-        return this.chatFrame;
-        
-    }
-    
-    public void setContactList(ContactList list){
-        contactList = list;
-    }
-    
-    public boolean isConnected(){
-        return connection.isConnected();
-    }
+  public void setContactList(ContactList list) {
+  contactList = list;
+  }
 
-    @Override
-    public String toString(){
-        String msg = "";
+  public boolean isConnected() {
+  return connection.isConnected();
+  }
 
-        if (isConnected()){
-            msg += "Connected to " + Options.SERVER
-                    + " at port "
-                    + Options.PORT
-                    + " Status is "
-                    + presence.getStatus() + ".";
-        }
-        else{
-            msg += "Not connected.";
-        }
+  @Override
+  public String toString() {
+  String msg = "";
 
-        return msg;
-    }
+  if (isConnected()) {
+    msg += "Connected to " + Options.SERVER
+      + " at port "
+      + Options.PORT
+      + " Status is "
+      + presence.getStatus() + ".";
+  }
+  else{
+    msg += "Not connected.";
+  }
+
+  return msg;
+  }
 
 }
-
-    
-
 

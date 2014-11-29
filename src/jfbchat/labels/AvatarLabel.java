@@ -1,7 +1,6 @@
 /*##############################################################################
 
-
-JFBChat it's a simple software written in Java that let you conncted with 
+JFBChat it's a simple software written in Java that let you conncted with
 yours Facebook friends without your browser.
 Copyright (C) 2011  Digitex (Giuseppe Federico)This program is free software:
 you can redistribute it and/or modify
@@ -33,77 +32,76 @@ import jfbchat.resources.Imgs;
  * Author Digitex (Giuseppe Federico support@digisoftware.org)
  */
 public class AvatarLabel extends JLabel{
-    private ImageIcon icon;
-    
-    public AvatarLabel(){
-        super("");
-        this.icon = null;
-        //Set the defaul facebook icon
-        this.setIcon(new javax.swing.ImageIcon(getClass().getResource(Imgs.NO_AVATAR_ICON)));
-        
-    }
-    
-    public void updateAvatarLabel(Contact contact){
-        if (contact.getPresence().isAvailable() || 
-            contact.getPresence().isAway()){
+  private ImageIcon icon;
 
-            //Avatar test
-            if ( this.icon == null){
-                try{
-                    //Store the icon in avatarIcon
-                    this.icon = contact.getVCard().getAvatar();
-                    if ( this.icon != null){
-                        //Set the avatar icon
-                        this.setIcon( this.icon );
-                        
-                    }else{
-                        new DebugMessage(this.getClass(), "Cannot set the Avatar");
-                        
-                    }
-                }catch(Exception e){
-                    new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
+  public AvatarLabel() {
+  super("");
+  this.icon = null;
+  //Set the defaul facebook icon
+  this.setIcon(new javax.swing.ImageIcon(getClass().getResource(Imgs.NO_AVATAR_ICON)));
 
-                }
-            }
-        }
-        
-        //Set the tool tip text
-        this.setToolTipText(contact.getUser());
-    }
-        
-    public void updateAvatarLabel(Connection connection){    
-        //Avatar test
-        if ( this.icon == null){
-            try{
-                //Store the icon in avatarIcon
-                this.icon = connection.getVCard().getAvatar();
+  }
 
-                if ( this.icon != null){
-                    //Set the avatar icon
-                    this.setIcon( this.icon );
+  public void updateAvatarLabel(Contact contact) {
+  if (contact.getPresence().isAvailable() ||
+    contact.getPresence().isAway()) {
 
-                }else{
-                    new DebugMessage(this.getClass(), "Cannot get the Avatar");
-                }
+    //Avatar test
+    if (this.icon == null) {
+    try {
+      //Store the icon in avatarIcon
+      this.icon = contact.getVCard().getAvatar();
+      if (this.icon != null) {
+      //Set the avatar icon
+      this.setIcon(this.icon);
 
-            }catch(Exception e){
-                new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
+      } else {
+      new DebugMessage(this.getClass(), "Cannot set the Avatar");
 
-            }
-        }
-        //Set the tool tip text
-        this.setToolTipText("Me");
+      }
+    }catch (Exception e) {
+      new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
 
     }
-    
-    /**
-     * Set the icon null
-     * 
-     */
-     public void clearIcon(){
-         this.icon = null;
-         
-     }
+    }
+  }
+
+  //Set the tool tip text
+  this.setToolTipText(contact.getUser());
+  }
+
+  public void updateAvatarLabel(Connection connection) {
+  //Avatar test
+  if (this.icon == null) {
+    try {
+    //Store the icon in avatarIcon
+    this.icon = connection.getVCard().getAvatar();
+
+    if (this.icon != null) {
+      //Set the avatar icon
+      this.setIcon(this.icon);
+
+    } else {
+      new DebugMessage(this.getClass(), "Cannot get the Avatar");
+    }
+
+    }catch (Exception e) {
+    new DebugMessage(this.getClass(), "Cannot get the Avatar :", e);
+
+    }
+  }
+  //Set the tool tip text
+  this.setToolTipText("Me");
+
+  }
+
+  /**
+   * Set the icon null
+   *
+   */
+   public void clearIcon() {
+   this.icon = null;
+
+   }
 }
-    
 

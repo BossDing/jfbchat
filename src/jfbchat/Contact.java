@@ -39,427 +39,423 @@ import org.jivesoftware.smack.packet.Presence;
 
 public class Contact {
 
-    private static int contactId = 0;
+  private static int contactId = 0;
 
-    private Connection connection;
+  private Connection connection;
 
-    private String name;
-    private RosterEntry entry;
-    private Presence presence;
-    private boolean chatActive;
-    private int id;
-    //List of groups associated with the contact
-    private ArrayList<String> groups;
-    //Panel associated with the contact
-    private ArrayList<PanelContact> contactPanels;
+  private String name;
+  private RosterEntry entry;
+  private Presence presence;
+  private boolean chatActive;
+  private int id;
+  //List of groups associated with the contact
+  private ArrayList<String> groups;
+  //Panel associated with the contact
+  private ArrayList<PanelContact> contactPanels;
 
-    //PanelChat associated with the contact
-    private PanelChat panelChat;
+  //PanelChat associated with the contact
+  private PanelChat panelChat;
 
-    private String jID;
-    private MyVCard vCard;
+  private String jID;
+  private MyVCard vCard;
 
-    public Contact(Connection connection, RosterEntry entry, Presence presence){
-        
-        this.connection = connection;
-        this.name =  entry.getName();
-        this.presence = presence;
+  public Contact(Connection connection, RosterEntry entry, Presence presence) {
 
-        this.entry = entry;
-        this.chatActive = false;
-        this.contactPanels = new ArrayList();
-        this.panelChat = null;
-        this.groups = new ArrayList();
-        this.vCard = new MyVCard(connection, this);
-        this.id = ++contactId;
-        this.jID =  entry.getUser();
+  this.connection = connection;
+  this.name =  entry.getName();
+  this.presence = presence;
 
-        add_to_groups();
+  this.entry = entry;
+  this.chatActive = false;
+  this.contactPanels = new ArrayList();
+  this.panelChat = null;
+  this.groups = new ArrayList();
+  this.vCard = new MyVCard(connection, this);
+  this.id = ++contactId;
+  this.jID =  entry.getUser();
 
+  add_to_groups();
+
+  }
+
+  public boolean equals(Contact c_contact) {
+
+  return this.jID.equals(c_contact.jID);
+  }
+
+  /**
+  * Add the contact to the group and initialize his panels
+  */
+  private void add_to_groups() {
+
+  //If the contact is in a group
+  if (!(entry.getGroups().isEmpty())) {
+    try {
+    for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();) {
+      RosterGroup nextGroup = iter.next();
+
+      this.groups.add(nextGroup.getName());
+      this.contactPanels.add(new PanelContact(connection, this, nextGroup.getName()));
+     }
     }
-    
-    public boolean equals(Contact c_contact){
-        
-        return this.jID.equals(c_contact.jID);
-    }
+    catch (Exception e) {
 
-
-    /**
-    * Add the contact to the group and initialize his panels
-    */
-    private void add_to_groups(){
-       
-        //If the contact is in a group
-        if (!(entry.getGroups().isEmpty())){
-            try{
-                for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();){
-                    RosterGroup nextGroup = iter.next();
-
-                        this.groups.add(nextGroup.getName());
-                        this.contactPanels.add(new PanelContact(connection, this, nextGroup.getName()));
-                 }
-            }
-            catch(Exception e){
-
-                new DebugMessage(this.getClass()," Can't add the contact to a group :", e);
-
-            }
-
-
-        }else{
-            //Add the contact to "Other Friends" group.
-            try{
-                this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
-                
-            }
-            catch(Exception e){
-
-                new DebugMessage(this.getClass()," Can't add the contact to Other Friends :", e);
-
-            }
-            
-        }
-        
-    }
-
-    /**
-    * Returns the name of the contact displayed in the contact list
-    * @return the name of the contact
-    */
-    public String getUser(){
-        /* returns the name of the contact displayed in the contact list*/
-        return this.name;
+    new DebugMessage(this.getClass()," Can't add the contact to a group :", e);
 
     }
 
-    /**
-    *
-    * @return an ArrayList with all the groups of the contact
-    */
-    public ArrayList<String> getGroups(){
-        return this.groups;
+  } else {
+    //Add the contact to "Other Friends" group.
+    try {
+    this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
+
+    }
+    catch (Exception e) {
+
+    new DebugMessage(this.getClass()," Can't add the contact to Other Friends :", e);
 
     }
 
-    /**
-    * Get the PanelChat associated to this contact
-    * @return the ChatP associated to the contact
-    */
-    public PanelChat getPanelChat(){
-        return panelChat;
+  }
+
+  }
+
+  /**
+  * Returns the name of the contact displayed in the contact list
+  * @return the name of the contact
+  */
+  public String getUser() {
+  /* returns the name of the contact displayed in the contact list*/
+  return this.name;
+
+  }
+
+  /**
+  *
+  * @return an ArrayList with all the groups of the contact
+  */
+  public ArrayList<String> getGroups() {
+  return this.groups;
+
+  }
+
+  /**
+  * Get the PanelChat associated to this contact
+  * @return the ChatP associated to the contact
+  */
+  public PanelChat getPanelChat() {
+  return panelChat;
+  }
+
+  /**
+  * Returns the presence associated to this contact
+  * @return the presence of the contact
+  */
+  public Presence getPresence() {
+  return this.presence;
+
+  }
+
+  /**
+  * Get the Adress of the contact
+  * @return
+  */
+  public String getAdress() {
+  return this.entry.getUser();
+
+  }
+
+  /**
+  *
+  * @return The id associated to the contact
+  */
+  public int getId() {
+  return this.id;
+
+  }
+
+  public String getJID() {
+  return this.jID;
+
+  }
+  public MyVCard getVCard() {
+  return vCard;
+
+  }
+
+  /**
+  * Sets the presence of this contact
+  *
+  */
+  public void setPresence(Presence p) {
+  try {
+    this.presence = p;
+  }catch (Exception e) {
+    new DebugMessage(this.getClass(), "Cannot set Presence " + p.toString() + ".", e);
+  }
+  }
+
+  /**
+  * Update the contactPanels associated to the contact, normally called after
+  * some contact changes.
+  */
+  public void updateContactPanels() {
+
+  try {
+    if (!(this.contactPanels.isEmpty())) {
+
+    for (Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();) {
+      PanelContact nextContactPanel = iterContactPanel.next();
+
+      nextContactPanel.updateStatus();
+      nextContactPanel.updateAvatar();
     }
-
-    /**
-    * Returns the presence associated to this contact
-    * @return the presence of the contact
-    */
-    public Presence getPresence(){
-        return this.presence;    
-    
     }
+  }catch (Exception e) {
 
-    /**
-    * Get the Adress of the contact
-    * @return
-    */
-    public String getAdress(){
-        return this.entry.getUser();
-        
-    }
+     new DebugMessage(this.getClass(), " Cannot update the contact panels " + e.getMessage());
 
-    /**
-    *
-    * @return The id associated to the contact
-    */
-    public int getId(){
-        return this.id;
-        
-    }
-    
-    public String getJID(){
-        return this.jID;
-        
-    }
-    public MyVCard getVCard(){
-        return vCard;
+  }
 
-    }
-
-    /**
-    * Sets the presence of this contact
-    *
-    */
-    public void setPresence(Presence p){
-        try{
-            this.presence = p;
-        }catch (Exception e){
-            new DebugMessage(this.getClass(), "Cannot set Presence " + p.toString() + ".", e);
-        }
-    }
-
-    /**
-    * Update the contactPanels associated to the contact, normally called after
-    * some contact changes.
-    */
-    public void updateContactPanels(){
-
-        try{
-            if ( !(this.contactPanels.isEmpty()) ){
-
-                for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
-                    PanelContact nextContactPanel = iterContactPanel.next();
-
-                    nextContactPanel.updateStatus();
-                    nextContactPanel.updateAvatar();
-                }
-            }
-        }catch(Exception e){
-
-           new DebugMessage(this.getClass(), " Cannot update the contact panels " + e.getMessage());
-
-        }
-            
    }
-    /**
-     * 
-     * Uncollapse all Panels
-     * 
-     */
-    public void uncollapseAll(){
-         for( Iterator<PanelContact> iterContactPanel  
-                            =  this.contactPanels.iterator(); 
-                            iterContactPanel.hasNext(); ){
-                        
-                    PanelContact nextContactPanel = iterContactPanel.next();
+  /**
+   *
+   * Uncollapse all Panels
+   *
+   */
+  public void uncollapseAll() {
+   for (Iterator<PanelContact> iterContactPanel
+        =  this.contactPanels.iterator();
+        iterContactPanel.hasNext();) {
 
-                    nextContactPanel.uncollapse();
-                }
+      PanelContact nextContactPanel = iterContactPanel.next();
+
+      nextContactPanel.uncollapse();
     }
-    
-     /**
-     * 
-     * Collapse all Panels
-     * 
-     */
-    public void collapseAll(){
-         for( Iterator<PanelContact> iterContactPanel  
-                            =  this.contactPanels.iterator(); 
-                            iterContactPanel.hasNext(); ){
-                        
-                    PanelContact nextContactPanel = iterContactPanel.next();
+  }
 
-                    nextContactPanel.collapse();
-                    
-                }
-    }
+   /**
+   *
+   * Collapse all Panels
+   *
+   */
+  public void collapseAll() {
+   for (Iterator<PanelContact> iterContactPanel
+        =  this.contactPanels.iterator();
+        iterContactPanel.hasNext();) {
 
-    /**
-    * Returns true if the contact is available and false if not
-    * @return a boolean
-    */
-    public boolean isAvailable(){
-        return presence.isAvailable();
-    }
-     
-    /**
-    * Returns true if a chat is active with this contact
-    * @return a boolean
-    */
-    public boolean isActive(){
-        return chatActive;
-    }
+      PanelContact nextContactPanel = iterContactPanel.next();
 
-    /**
-    * Set it true if a chat with this contact is active and false if not
-    *
-    */
-    public void setActive(boolean active){
-        chatActive = active;
-    }
-
-    /**
-    * Add a contactPanel to the contactPanels ArrayList
-    * @param A contactPanel
-    */
-    public void addContactPanel(PanelContact contactPanel){
-        try{
-            this.contactPanels.add(contactPanel);
-            
-        }catch(Exception e){
-            new DebugMessage(this.getClass(), " Cannot add contact to the contactPanels " + e);
-            
-        }
-    }
-
-    /**
-    *
-    * @return A list with all the contactPanels associated with this contact
-    */
-    public ArrayList<PanelContact> getContactPanels(){
-        return contactPanels;
-    }
-
-    /**
-    *
-    * @param groupName
-    * @return The PanelContact associated with this name
-    */
-    public PanelContact getContactPanelbyGroup(String groupName){
-
-         try{
-            if ( !(this.contactPanels.isEmpty()) ){
-
-                for(Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();){
-                    PanelContact nextContactPanel = iterContactPanel.next();
-
-                    if (nextContactPanel.getGroupName().equals(groupName)){
-
-                        return nextContactPanel;
-                    } else{
-                        new DebugMessage(this.getClass(), "Cannot find the PanelContact "
-                                                    + groupName);
-                    }
-                }
-
-            }else{
-                new DebugMessage(this.getClass(), "Cannot find the PanelContact "
-                                                    + groupName +
-                                                    " :There are no contactPanels for this contact");
-            }
-        }catch(Exception e){
-
-           new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
-
-        }
-
-        new DebugMessage(this.getClass(), "Cannot find the PanelContact: " + groupName);
-
-        return null;
+      nextContactPanel.collapse();
 
     }
+  }
 
-    /**
-     * Init the chat with the contact and show the conversation
-     * 
-     */
-    public void initChat(){
-        //If the chat is active in the chatmanager show it.
-        if (!(this.isActive())){
-            try{           
-                this.setActive(true);
-                if(this.panelChat==null){
-                    this.panelChat =  new PanelChat(connection, this);              
-                    connection.getChatManager().add(this.panelChat);
-                    connection.getChatFrame().addTab(connection, this , this.panelChat);
+  /**
+  * Returns true if the contact is available and false if not
+  * @return a boolean
+  */
+  public boolean isAvailable() {
+  return presence.isAvailable();
+  }
 
-                }else{
-                    connection.getChatFrame().addTab(connection, this , this.panelChat);
+  /**
+  * Returns true if a chat is active with this contact
+  * @return a boolean
+  */
+  public boolean isActive() {
+  return chatActive;
+  }
 
-                }
-                }catch (Exception e){
-                    new DebugMessage(this.getClass(), "Cannot init the chat with " + this.getUser(), e);
+  /**
+  * Set it true if a chat with this contact is active and false if not
+  *
+  */
+  public void setActive(boolean active) {
+  chatActive = active;
+  }
 
-                }
-            
-        }
-        try{
-            //Focus the contact tab
-            connection
-                    .getChatFrame()
-                    .getjTabbedPaneChats()
-                    .setSelectedIndex(this
-                                            .getPanelChat()
-                                            .getTabIndex());
-            //Show the ChatFrame
-            connection.getChatFrame().setVisible(true);
-        }catch (Exception e){
-                new DebugMessage(this.getClass(), "Cannot show the chat with " + this.getUser(), e);
+  /**
+  * Add a contactPanel to the contactPanels ArrayList
+  * @param A contactPanel
+  */
+  public void addContactPanel(PanelContact contactPanel) {
+  try {
+    this.contactPanels.add(contactPanel);
 
-            }
-           
+  }catch (Exception e) {
+    new DebugMessage(this.getClass(), " Cannot add contact to the contactPanels " + e);
+
+  }
+  }
+
+  /**
+  *
+  * @return A list with all the contactPanels associated with this contact
+  */
+  public ArrayList<PanelContact> getContactPanels() {
+  return contactPanels;
+  }
+
+  /**
+  *
+  * @param groupName
+  * @return The PanelContact associated with this name
+  */
+  public PanelContact getContactPanelbyGroup(String groupName) {
+
+   try {
+    if (!(this.contactPanels.isEmpty())) {
+
+    for (Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();) {
+      PanelContact nextContactPanel = iterContactPanel.next();
+
+      if (nextContactPanel.getGroupName().equals(groupName)) {
+
+      return nextContactPanel;
+      } else {
+      new DebugMessage(this.getClass(), "Cannot find the PanelContact "
+              + groupName);
+      }
     }
-    
 
-    /**
-    * Remove a contact from groups
-    * @param A group to remove
-    */
-    public void removeFromGroup(String group){
-        boolean removed = false;
-
-        if(this.hasGroup()){
-            for (int i = 0; i < groups.size(); i++){
-                if (groups.get(i).equals(group) ){
-                   groups.remove(i);
-                   removed = true;
-                }
-            }
-        }
-
-        if (!removed){
-            new DebugMessage(this.getClass(), "Cannot remove the group " + group + " from the groups");
-        }
+    } else {
+    new DebugMessage(this.getClass(), "Cannot find the PanelContact "
+              + groupName +
+              " :There are no contactPanels for this contact");
     }
+  }catch (Exception e) {
 
-    
-    /**
-    *
-    * @param A group
-    * @return True if the contact is in the group, false if not
-    */
-    public boolean isInGroup(String group){
+     new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
 
-        //If the contact has a group
-        if( hasGroup() ){
-            for (Iterator<String> iter = groups.iterator() ; iter.hasNext();){
-                String nextGroup = iter.next();
-                if (nextGroup.equals(group)){
-                    return true;
-                    
-                }
-            }
-            //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
-            return false;
+  }
 
-        }else{
-            //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
-            return false;
+  new DebugMessage(this.getClass(), "Cannot find the PanelContact: " + groupName);
 
-        }
+  return null;
+
+  }
+
+  /**
+   * Init the chat with the contact and show the conversation
+   *
+   */
+  public void initChat() {
+  //If the chat is active in the chatmanager show it.
+  if (!(this.isActive())) {
+    try {
+    this.setActive(true);
+    if (this.panelChat==null) {
+      this.panelChat =  new PanelChat(connection, this);
+      connection.getChatManager().add(this.panelChat);
+      connection.getChatFrame().addTab(connection, this , this.panelChat);
+
+    } else {
+      connection.getChatFrame().addTab(connection, this , this.panelChat);
+
+    }
+    }catch (Exception e) {
+      new DebugMessage(this.getClass(), "Cannot init the chat with " + this.getUser(), e);
 
     }
 
-    /**
-    *
-    * @return true if the contact is in a group false if not
-    */
-    public boolean hasGroup(){
-
-        if ( this.groups.isEmpty() ){
-            return false;
-        }else{
-            return true;
-        }
-    }
-    /**
-     * Update all the avatar of all contactPanels
-     */
-    public void updateAvatar(){
-        if(!(this.contactPanels.isEmpty())){        
-            Iterator<PanelContact> iter = this.contactPanels.iterator();
-
-            while(iter.hasNext()){      
-                PanelContact nextPanel = iter.next();
-                nextPanel.updateAvatar();
-  
-               }
-        }
-    }
-
-    @Override
-    public String toString(){
-        return "Contact name: "+ name + " presence: " + presence.toString();
+  }
+  try {
+    //Focus the contact tab
+    connection
+      .getChatFrame()
+      .getjTabbedPaneChats()
+      .setSelectedIndex(this
+            .getPanelChat()
+            .getTabIndex());
+    //Show the ChatFrame
+    connection.getChatFrame().setVisible(true);
+  }catch (Exception e) {
+    new DebugMessage(this.getClass(), "Cannot show the chat with " + this.getUser(), e);
 
     }
+
+  }
+
+  /**
+  * Remove a contact from groups
+  * @param A group to remove
+  */
+  public void removeFromGroup(String group) {
+  boolean removed = false;
+
+  if (this.hasGroup()) {
+    for (int i = 0; i < groups.size(); i++) {
+    if (groups.get(i).equals(group)) {
+       groups.remove(i);
+       removed = true;
+    }
+    }
+  }
+
+  if (!removed) {
+    new DebugMessage(this.getClass(), "Cannot remove the group " + group + " from the groups");
+  }
+  }
+
+  /**
+  *
+  * @param A group
+  * @return True if the contact is in the group, false if not
+  */
+  public boolean isInGroup(String group) {
+
+  //If the contact has a group
+  if (hasGroup()) {
+    for (Iterator<String> iter = groups.iterator() ; iter.hasNext();) {
+    String nextGroup = iter.next();
+    if (nextGroup.equals(group)) {
+      return true;
+
+    }
+    }
+    //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
+    return false;
+
+  } else {
+    //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
+    return false;
+
+  }
+
+  }
+
+  /**
+  *
+  * @return true if the contact is in a group false if not
+  */
+  public boolean hasGroup() {
+
+  if (this.groups.isEmpty()) {
+    return false;
+  } else {
+    return true;
+  }
+  }
+  /**
+   * Update all the avatar of all contactPanels
+   */
+  public void updateAvatar() {
+  if (!(this.contactPanels.isEmpty())) {
+    Iterator<PanelContact> iter = this.contactPanels.iterator();
+
+    while (iter.hasNext()) {
+    PanelContact nextPanel = iter.next();
+    nextPanel.updateAvatar();
+
+     }
+  }
+  }
+
+  @Override
+  public String toString() {
+  return "Contact name: "+ name + " presence: " + presence.toString();
+
+  }
 
 }

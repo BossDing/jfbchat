@@ -29,45 +29,35 @@ import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.filter.*;
 
-
 public class PacketListening{
 
-    private Connection connection;
-    private PacketListener myListener;
-    private PacketCollector myCollector;
-    private PacketFilter filter;
+  private Connection connection;
+  private PacketListener myListener;
+  private PacketCollector myCollector;
+  private PacketFilter filter;
 
-    public PacketListening(Connection connection){
+  public PacketListening(Connection connection) {
 
-        this.connection = connection;
-        // Create a packet filter to listen for new messages from a particular
-        // user. We use an AndFilter to combine two other filters.
-        filter = new PacketTypeFilter(Message.class);
+  this.connection = connection;
+  // Create a packet filter to listen for new messages from a particular
+  // user. We use an AndFilter to combine two other filters.
+  filter = new PacketTypeFilter(Message.class);
 
+  try {
+    // First, register a packet collector using the filter we created.
+    myCollector = connection.getConnection().createPacketCollector(filter);
 
+    // Next, create a packet listener. We use an anonymous inner class for brevity.
+    myListener = new MyPacketListener(connection);
+    // Register the listener.
+    connection.getConnection().addPacketListener(myListener, filter);
+  }
+  catch (Exception ex) {
 
+    new Error(connection,1, "Cannot create a PacketCollector : " + ex.toString() + ".");
 
-     
-        try{
-            // First, register a packet collector using the filter we created.
-            myCollector = connection.getConnection().createPacketCollector(filter);
+  }
 
-            // Next, create a packet listener. We use an anonymous inner class for brevity.
-            myListener = new MyPacketListener(connection);
-            // Register the listener.
-            connection.getConnection().addPacketListener(myListener, filter);
-        }
-        catch (Exception ex) {                                         
-
-            new Error(connection,1, "Cannot create a PacketCollector : " + ex.toString() + "." );
-            
-           
-        }
-        
-        
-
-        
-
-    }
+  }
 
 }
