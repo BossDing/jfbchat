@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -39,25 +39,25 @@ public class MyMessageListener implements  MessageListener{
 
   }
 
-   public void processMessage(Chat chat, Message message) {
+  public void processMessage(Chat chat, Message message) {
 
-   //If the message is not null
-   if (!(message.getBody() == null)) {
+  // If the message is not null
+  if (!(message.getBody() == null)) {
 
-    //Add the message to the PanelChat associated to the contact
+    // Add the message to the PanelChat associated to the contact
     contact.getPanelChat()
       .addPanelMessage(new PanelMessage(false
                  , contact
                  , message.getBody()));
 
-   } else {
-    //The contact is writing
+  } else {
+    // The contact is writing
     contact.getPanelChat()
-       .getjIsWritingLabel().setIsWriting(true);
+      .getjIsWritingLabel().setIsWriting(true);
 
-   }
+  }
 
-   new DebugMessage(this.getClass(), "Received message by the listener: " + message.getBody());
+  new DebugMessage(this.getClass(), "Received message by the listener: " + message.getBody());
 
   if (contact.getPanelChat().isVisible() == false) {
 
@@ -65,7 +65,7 @@ public class MyMessageListener implements  MessageListener{
 
   }
 
-  //new AePlayWave(RECEIVEDMSGWAV).start();
+  // new AePlayWave(RECEIVEDMSGWAV).start();
   }
 
 }

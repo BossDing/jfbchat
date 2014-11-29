@@ -14,7 +14,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http:// www.gnu.org/licenses/>.
 
 ##############################################################################*/
 
@@ -48,8 +48,8 @@ public class StatusLabel extends JLabel{
   }
 
   /*
-   * Init or update the label icon
-   */
+  * Init or update the label icon
+  */
   public void updateLabel(Contact contact) {
   this.contact = contact;
   Presence contactPresence = contact.getPresence();
@@ -57,39 +57,39 @@ public class StatusLabel extends JLabel{
   if (contactPresence.isAvailable() ||
     contactPresence.isAway()) {
 
-    //Available test
+    // Available test
     if (contactPresence.isAvailable()) {
-     //Change the icon
+    // Change the icon
     this.setIcon(new ImageIcon(getClass().
       getResource(Imgs.AVAILABLE_ICON)));
-    //Update the status information
+    // Update the status information
     this.status = "available";
-    //Update the ToolTipText
+    // Update the ToolTipText
     this.setToolTipText(status);
     validate();
 
     }
-    //Away test
+    // Away test
     if (contactPresence.isAway()) {
-    //Update the icon
+    // Update the icon
     this.setIcon(new ImageIcon(getClass().
       getResource(Imgs.AWAY_ICON)));
-    //Update the status information
+    // Update the status information
     this.status = "away";
-    //Update the ToolTipText
+    // Update the ToolTipText
     this.setToolTipText(status);
     validate();
     }
 
   }
-  //If the contact is unavailable
+  // If the contact is unavailable
   else{
-    //Update the icon
+    // Update the icon
     this.setIcon(new ImageIcon(getClass().
       getResource(Imgs.UNAVAILABLE_ICON)));
-    //Change the status information
+    // Change the status information
     this.status = "unavailable";
-    //Update the ToolTipText
+    // Update the ToolTipText
     this.setToolTipText(status);
 
   }
@@ -97,8 +97,8 @@ public class StatusLabel extends JLabel{
   }
 
   /*
-   * Get the status of the contact
-   */
+  * Get the status of the contact
+  */
   public String getStatus() {
   return this.status;
 

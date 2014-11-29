@@ -55,22 +55,22 @@ public class PanelChat extends javax.swing.JPanel {
   this.tabIndex = -1;
   this.prefs = new ChatPreferences();
 
-  //Get the chatStateManager of this connection
+  // Get the chatStateManager of this connection
   this.chatStateManager = ChatStateManager.
         getInstance(this.connection.getConnection());
 
-  //TODO: Every tab should have this icon
-  //Init window icon image
-  //java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
+  // TODO: Every tab should have this icon
+  // Init window icon image
+  // java.awt.Image contactIcon = contact.getVCard().getAvatar().getImage();
 
   this.chatmanager = connection.getConnection().getChatManager();
 
   initComponents();
-  //Init the StatusLabel1
+  // Init the StatusLabel1
   this.statusLabel1.updateLabel(this.contact);
   this.statusLabel1.setVisible(false);
 
-  //Init isWritingLabel1 as not visible
+  // Init isWritingLabel1 as not visible
   this.isWritingLabel1.setIsWriting(false);
 
   this.verticalScrollBar = ScrollMessages.getVerticalScrollBar();
@@ -83,12 +83,12 @@ public class PanelChat extends javax.swing.JPanel {
   }
 
   /**
-   * Send a message to the contact associated to the ChatFrame
-   * @param texttosend
-   */
+  * Send a message to the contact associated to the ChatFrame
+  * @param texttosend
+  */
   public void SendMessage(String texttosend) {
 
-  //If texttosend is not empty
+  // If texttosend is not empty
   if (! (texttosend.equals(""))) {
 
     try {
@@ -132,11 +132,11 @@ public class PanelChat extends javax.swing.JPanel {
     verticalScrollBar.setValue(verticalScrollBar.getMaximum());
     validate();
 
-    //The contact is not writing
+    // The contact is not writing
     this.isWritingLabel1.setIsWriting(false);
 
   } else {
-    //The contact is writing
+    // The contact is writing
     this.isWritingLabel1.setIsWriting(true);
 
   }
@@ -155,23 +155,23 @@ public class PanelChat extends javax.swing.JPanel {
     verticalScrollBar.setValue(verticalScrollBar.getMaximum());
     validate();
 
-    //The contact is not writing
+    // The contact is not writing
     this.isWritingLabel1.setIsWriting(false);
 
   } else {
-    //The contact is writing
+    // The contact is writing
     this.isWritingLabel1.setIsWriting(true);
 
   }
   }
   /**
-   * Update the chatframe (the contact might be disconnected after a roster up
-   * date)
-   */
-   public void update() {
+  * Update the chatframe (the contact might be disconnected after a roster up
+  * date)
+  */
+  public void update() {
   messageField.setEnabled(contact.isAvailable());
   this.statusLabel1.updateLabel(this.contact);
-  //Update the statusLabel icon
+  // Update the statusLabel icon
   this.getTabbedChat().setIconAt(this.getTabIndex()
               ,  this
                 .statusLabel1
@@ -184,35 +184,35 @@ public class PanelChat extends javax.swing.JPanel {
   }
 
   /**
-   * MenuItem Close action
-   * @param evt
-   */
+  * MenuItem Close action
+  * @param evt
+  */
   private void jMenuCloseActionPerformed(java.awt.event.ActionEvent evt) {
 
-  //Hide the window
+  // Hide the window
   this.setVisible(false);
   }
 
   /**
-   * MenuItem Clear action
-   * @param evt
-   */
+  * MenuItem Clear action
+  * @param evt
+  */
   private void jMenuItemClearActionPerformed(java.awt.event.ActionEvent evt) {
 
-  //Clear all the messages in the PanelMessages
+  // Clear all the messages in the PanelMessages
   this.clearAllMessages();
 
   }
 
   private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {
 
-  //Open the ONLINE_HELP page.
+  // Open the ONLINE_HELP page.
   UtilFunctions.openURL(Options.ONLINE_HELP);
   }
 
   private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {
 
-  //Open the Options.WEBPAGE_BUG_TRACKER page.
+  // Open the Options.WEBPAGE_BUG_TRACKER page.
   UtilFunctions.openURL(Options.WEBPAGE_BUG_TRACKER);
   }
 
@@ -225,22 +225,22 @@ public class PanelChat extends javax.swing.JPanel {
   }
 
   /**
-   * This method clears all the messages in the PanelMessages
-   */
+  * This method clears all the messages in the PanelMessages
+  */
   public void clearAllMessages() {
 
-  //If PanelMessages is not empty
+  // If PanelMessages is not empty
   if (!(this.PanelMessages.getComponents().length == 0)) {
 
     try {
 
-    //Clear all the sended and received messages
+    // Clear all the sended and received messages
     this.PanelMessages.removeAll();
 
-    //Validate the PanelMessages
+    // Validate the PanelMessages
     this.PanelMessages.validate();
 
-    //Repaint the PanelMessages
+    // Repaint the PanelMessages
     this.PanelMessages.repaint();
 
     new DebugMessage(this.getClass(), "PanelMessages cleared");
@@ -270,8 +270,8 @@ public class PanelChat extends javax.swing.JPanel {
   }
 
   /**
-   * Get the contact
-   */
+  * Get the contact
+  */
   public Contact getContact() {
   return this.contact;
 
@@ -283,12 +283,12 @@ public class PanelChat extends javax.swing.JPanel {
   }
 
   /**
-   * This method is called from within the constructor to initialize the form.
-   * WARNING: Do NOT modify this code. The content of this method is always
-   * regenerated by the Form Editor.
-   */
+  * This method is called from within the constructor to initialize the form.
+  * WARNING: Do NOT modify this code. The content of this method is always
+  * regenerated by the Form Editor.
+  */
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  // <editor-fold defaultstate="collapsed" desc="Generated Code">// GEN-BEGIN:initComponents
   private void initComponents() {
 
   MainFrame = new javax.swing.JPanel();
@@ -377,10 +377,10 @@ public class PanelChat extends javax.swing.JPanel {
       .addComponent(MainFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       .addGap(0, 0, 0)))
 );
-  }// </editor-fold>//GEN-END:initComponents
+  }// </editor-fold>// GEN-END:initComponents
 
-  private void messageFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_messageFieldFocusLost
-  //Change the ChatState informing the server the user not composing anymore
+  private void messageFieldFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_messageFieldFocusLost
+  // Change the ChatState informing the server the user not composing anymore
   try {
     this.chatStateManager.setCurrentState(ChatState.paused, relatedChat);
 
@@ -388,10 +388,10 @@ public class PanelChat extends javax.swing.JPanel {
     new DebugMessage(this.getClass(), "Cannot change chatState to paused.", e);
 
   }
-  }//GEN-LAST:event_messageFieldFocusLost
+  }// GEN-LAST:event_messageFieldFocusLost
 
-  private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageFieldKeyTyped
-  //Change the ChatState informing the server the user is composing
+  private void messageFieldKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_messageFieldKeyTyped
+  // Change the ChatState informing the server the user is composing
   try {
     if (prefs.getPreferences().getBoolean(Options.SEND_TYPING_MESSAGE, true)) {
     this.chatStateManager.setCurrentState(ChatState.composing, relatedChat);
@@ -408,12 +408,12 @@ public class PanelChat extends javax.swing.JPanel {
     SendMessage(messageField.getText());
 
   }
-  }//GEN-LAST:event_messageFieldKeyTyped
+  }// GEN-LAST:event_messageFieldKeyTyped
   public jfbchat.labels.StatusLabel getStatusLabel() {
   return this.statusLabel1;
 
   }
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+  // Variables declaration - do not modify// GEN-BEGIN:variables
   private javax.swing.JPanel MainFrame;
   private javax.swing.JPanel PanelMessages;
   private javax.swing.JScrollPane ScrollMessages;
@@ -422,5 +422,5 @@ public class PanelChat extends javax.swing.JPanel {
   private javax.swing.JPanel jPanelUnderAvatar;
   private javax.swing.JTextField messageField;
   private jfbchat.labels.StatusLabel statusLabel1;
-  // End of variables declaration//GEN-END:variables
+  // End of variables declaration// GEN-END:variables
 }

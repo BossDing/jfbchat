@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat;
@@ -63,33 +63,33 @@ public class Group extends ContactList{
   }
 
   /**
-   *
-   * @return The name of the group
-   */
+  *
+  * @return The name of the group
+  */
 
   public String getName() {
   return this.name;
   }
 
   /**
-   *
-   * @return The panel associated to the group
-   */
+  *
+  * @return The panel associated to the group
+  */
   public PanelGroup getPanel() {
   return panel;
   }
 
   /**
-   * show the contacts of this group
-   *
-   */
+  * show the contacts of this group
+  *
+  */
 
-   public void showContacts() {
+  public void showContacts() {
 
-   for (Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();) {
+  for (Iterator<Contact> iterContact = contactList.iterator(); iterContact.hasNext();) {
       Contact nextContact = iterContact.next();
 
-      //Update the contact panel to normal status
+      // Update the contact panel to normal status
       nextContact.getContactPanelbyGroup(name).uncollapse();
       nextContact.getContactPanelbyGroup(name).validate();
 
@@ -98,13 +98,13 @@ public class Group extends ContactList{
   }
   }
 /**
-   *
-   * @return true if the group has at least a contact availalbe.
-   */
+  *
+  * @return true if the group has at least a contact availalbe.
+  */
 
   public boolean hasConnectedContacts() {
 
-  //If the contact list is not empty
+  // If the contact list is not empty
   if (!(this.contactList.isEmpty())) {
 
     Iterator<Contact> iterContact = this.contactList.iterator();
@@ -113,7 +113,7 @@ public class Group extends ContactList{
 
     Contact nextContact = iterContact.next();
 
-    //If a available contact has been found in the group return true
+    // If a available contact has been found in the group return true
     if (nextContact.isAvailable()) {
       return true;
 
@@ -129,15 +129,15 @@ public class Group extends ContactList{
 
   }
   /**
-   * hide the contacts of this group
-   *
-   */
-   public void hideContacts() {
+  * hide the contacts of this group
+  *
+  */
+  public void hideContacts() {
 
-   for (Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();) {
+  for (Iterator<Contact> iterContact = this.contactList.iterator(); iterContact.hasNext();) {
       Contact nextContact = iterContact.next();
 
-      //Hide the contact
+      // Hide the contact
       nextContact.getContactPanelbyGroup(name).setVisible(false);
       nextContact.getContactPanelbyGroup(name).validate();
 

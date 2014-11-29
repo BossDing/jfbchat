@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -48,7 +48,7 @@ public class ContactList {
   this.connection = connection;
   this.contactList = new ArrayList();
   this.groups = new ArrayList();
-  //True when the user is searching a contact
+  // True when the user is searching a contact
   this.searchMode = false;
 
   }
@@ -112,7 +112,7 @@ public class ContactList {
     if (nextContact.getAdress().equals(addr)) {
       return nextContact;
 
-     }
+    }
     }
   }
 
@@ -132,9 +132,9 @@ public class ContactList {
     for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();) {
     Contact next = iter.next();
     if (next.getUser().equals(name)) {
-       return next;
+      return next;
 
-     }
+    }
     }
   }
 
@@ -153,8 +153,8 @@ public class ContactList {
     for (Iterator<Contact> iter = contactList.iterator() ; iter.hasNext();) {
     Contact next = iter.next();
     if (next.getId() == id) {
-       return next;
-     }
+      return next;
+    }
     }
   }
 
@@ -172,11 +172,11 @@ public class ContactList {
   }
 
   /**
-   *
-   *
-   * @return Ths size of this contact list
-   */
-   public int getSize() {
+  *
+  *
+  * @return Ths size of this contact list
+  */
+  public int getSize() {
   return contactList.size();
   }
 
@@ -184,14 +184,14 @@ public class ContactList {
   * Sorts this contactlist by name
   */
   public void sortByName() {
-  //TODO: alternative to this function
+  // TODO: alternative to this function
   /**
-   * In nameList we are going to stock the names
-   */
+  * In nameList we are going to stock the names
+  */
 
   ArrayList<String> nameList = new ArrayList();
 
-  //Local Arraylist that will contain the sorted contact list
+  // Local Arraylist that will contain the sorted contact list
   ArrayList<Contact> newList = new ArrayList();
 
   for (Iterator<Contact> iter =  contactList.iterator(); iter.hasNext();) {
@@ -199,37 +199,37 @@ public class ContactList {
     nameList.add(next.getUser());
   }
 
-  //Sort the list of names by name
+  // Sort the list of names by name
   Collections.sort(nameList);
 
-  //Populate the newList sorted by name
+  // Populate the newList sorted by name
   for (Iterator<String> iter = nameList.iterator(); iter.hasNext();) {
     String next = iter.next();
 
     if (getContactFromName(next) != null) {
-     newList.add(getContactFromName(next));
+    newList.add(getContactFromName(next));
     }
   }
 
-  //Clear the list
+  // Clear the list
   contactList.clear();
 
-  //Copy newList to the instance variable
+  // Copy newList to the instance variable
   contactList = newList;
   }
 
   /**
-   *
-   * @return the roster associated to this connection
-   */
+  *
+  * @return the roster associated to this connection
+  */
   public Roster getRoster() {
   return roster;
   }
 
   /**
-   * This method gets all the groups in the contact list
-   * Should be called after getList
-   */
+  * This method gets all the groups in the contact list
+  * Should be called after getList
+  */
 
   public ArrayList<Group> getGroups() {
 
@@ -258,7 +258,7 @@ public class ContactList {
     for (Iterator<Group> iter = groups.iterator(); iter.hasNext();) {
       Group nextGroup = iter.next();
 
-      //If the contact has no group add to the temporaney group list
+      // If the contact has no group add to the temporaney group list
 
         nextGroup.getPanel().updatePanel();
 
@@ -272,39 +272,39 @@ public class ContactList {
 
   public void defineGroups() {
 
-  //A temporaney arraylist for the groups
+  // A temporaney arraylist for the groups
   ArrayList<Contact> temp_g = new ArrayList();
-  //A temporaney arraylist for the contacts
+  // A temporaney arraylist for the contacts
   List<Contact> temp_c = ((List) ((ArrayList) contactList).clone());
 
   if (!(roster.getGroups().isEmpty())) {
 
-    //Read all the groups
+    // Read all the groups
     for (Iterator<RosterGroup> iter = roster.getGroups().iterator(); iter.hasNext();) {
     RosterGroup nextGroup = iter.next();
 
     temp_g.clear();
 
-    //Read the contactList
+    // Read the contactList
     for (Iterator<Contact> iterContact = temp_c.iterator(); iterContact.hasNext();) {
       Contact nextContact = iterContact.next();
 
-      //If the contact is in the group
+      // If the contact is in the group
       if (nextContact.isInGroup(nextGroup.getName())) {
 
-      //Add to the temporaney contact list
+      // Add to the temporaney contact list
       temp_g.add(nextContact);
 
-      //Remove the contact from the temporaney group
+      // Remove the contact from the temporaney group
       nextContact.removeFromGroup(nextGroup.getName());
 
-      //Remove the contact has no groups
+      // Remove the contact has no groups
       if (!(nextContact.hasGroup())) {
 
-        //Remove it from the temporaney contact list
+        // Remove it from the temporaney contact list
         temp_c.remove(nextContact);
 
-        //Update the iterator
+        // Update the iterator
         iterContact = temp_c.iterator();
 
       }
@@ -312,17 +312,17 @@ public class ContactList {
 
     }
 
-    //Add the temporaney group to a new group
+    // Add the temporaney group to a new group
     this.groups.add(new Group(connection, nextGroup.getName(), temp_g));
 
     }
     if (! (temp_c.isEmpty())) {
-    //Add the temporaney group to a new group
+    // Add the temporaney group to a new group
     this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
     }
 
   } else {
-    //Add all the contacts to a new group
+    // Add all the contacts to a new group
     this.groups.add(new Group(connection, "Other Friends", (ArrayList) temp_c));
 
     new DebugMessage(this.getClass(), "There are no groups in the ContactList.");
@@ -348,20 +348,20 @@ public class ContactList {
     Group next = iter.next();
     if (next.getName().equals(name)) {
 
-       new DebugMessage(this.getClass(), "Found " + name + " in the group list.");
-       return next;
-     }
+      new DebugMessage(this.getClass(), "Found " + name + " in the group list.");
+      return next;
+    }
     }
 
     new DebugMessage(this.getClass(), "Cannot find group " + name + " in the group list.");
     return null;
 
   }
-   }
+  }
 
   /**
-   *
-   * @return True if the contact is in the contactlist and false if not.   */
+  *
+  * @return True if the contact is in the contactlist and false if not.   */
 
   public boolean isInList(int id) {
 
@@ -374,9 +374,9 @@ public class ContactList {
 
   }
   /**
-   * This method should be called when the user disconnects.
-   * Clear all the instance variables
-   */
+  * This method should be called when the user disconnects.
+  * Clear all the instance variables
+  */
   public void clear() {
 
   this.contactList.clear();
@@ -392,34 +392,34 @@ public class ContactList {
     Contact nextContact = iter.next();
     nextContact.updateAvatar();
 
-     }
+    }
 
     }
 
   }
 
   /**
-   *
-   * This method filter the contacts. Only the contacts that match the
-   * pattern passed by argument are showed.
-   *
-   * @param String pattern
-   * @return void
-   */
+  *
+  * This method filter the contacts. Only the contacts that match the
+  * pattern passed by argument are showed.
+  *
+  * @param String pattern
+  * @return void
+  */
   public void contactsFilterByPattern(String s_pattern) {
-  //Define and init a new Pattern object with a case insensitive pattern
-  //and metacharacter disabled
+  // Define and init a new Pattern object with a case insensitive pattern
+  // and metacharacter disabled
   Pattern pattern = Pattern.compile(s_pattern
             , Pattern.CASE_INSENSITIVE
             | Pattern.LITERAL);
 
-  //Define a matcher
+  // Define a matcher
   Matcher matcher;
 
-  //Enable or disable searchMode
-   // if (this.connection.get)
-   //   this.searchMode = false;
-   // else  this.searchMode = true;
+  // Enable or disable searchMode
+  // if (this.connection.get)
+  // this.searchMode = false;
+  // else  this.searchMode = true;
 
   if ((contactList.isEmpty())) {
     new DebugMessage(this.getClass(),

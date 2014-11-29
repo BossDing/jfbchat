@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -58,22 +58,22 @@ public class Connection {
   this.contactList = new ContactList(this);
   this.myChatManager = new MyChatManager();
 
-  //Smack debug
-  //this.connection.DEBUG_ENABLED = true;
+  // Smack debug
+  // this.connection.DEBUG_ENABLED = true;
 
   this.connection = new XMPPConnection(new FBConnectionConfiguration(Options.SERVER
                  ,Options.PORT,Options.SERVICE_NAME));
 
   chatFrame = new ChatFrame(this);
 
-  //Init The user vCard
+  // Init The user vCard
   vCard = null;
   }
 
   /**
-   * Connect to the server , login , set the presence avaiable, get the
-   * contact list and start the packege listening.
-   */
+  * Connect to the server , login , set the presence avaiable, get the
+  * contact list and start the packege listening.
+  */
 
   public void connect() {
 
@@ -82,24 +82,24 @@ public class Connection {
 
   try {
 
-    //Connect to the server
+    // Connect to the server
     connection.connect();
     System.out.println("Connected to " + connection.getHost());
 
-    //Login to the server
+    // Login to the server
     connection.login(user.getUsername(), user.getPassword());
     System.out.println("Logged in as " + user.getUsername()+ ".");
 
-    //Set the user status presence available.
-    //TODO: Initial presence should be setted in the options 0.3.0
+    // Set the user status presence available.
+    // TODO: Initial presence should be setted in the options 0.3.0
     updatePresence(new Presence(Presence.Type.available));
 
-    //Get the contact list from the server
+    // Get the contact list from the server
     contactList.getList();
 
     contactList.defineGroups();
 
-    //Start listen to incoming packets
+    // Start listen to incoming packets
     startPacketListening();
 
     } catch (XMPPException ex) {
@@ -108,17 +108,17 @@ public class Connection {
 
     }
 
-    //Get the user vCard
+    // Get the user vCard
     vCard = new MyVCard(this);
 
   }
 
   /**
-   * Listen for incoming packets and roster
-   */
+  * Listen for incoming packets and roster
+  */
 
   public void startPacketListening() {
-  //Listen for incoming packets
+  // Listen for incoming packets
 
   try {
 
@@ -135,12 +135,12 @@ public class Connection {
   }
 
   /**
-   * Update the presence to the server
-   */
+  * Update the presence to the server
+  */
 
   public void updatePresence(Presence presence) {
 
-  //Send the user presence to the server
+  // Send the user presence to the server
   try {
     this.presence = presence;
     connection.sendPacket(this.presence);
@@ -154,12 +154,12 @@ public class Connection {
   }
 
   /**
-   * Should be called after a presence change
-   */
+  * Should be called after a presence change
+  */
 
   public void updatePresence() {
 
-  //Update the user presence to the server
+  // Update the user presence to the server
   try {
 
     connection.sendPacket(presence);
@@ -182,16 +182,16 @@ public class Connection {
   }
 
   /**
-   * Close the connection with the server
-   */
+  * Close the connection with the server
+  */
   public void closeConnection() {
 
   if (connection.isConnected()) {
     try {
-    //Clear the chatManager
+    // Clear the chatManager
     this.myChatManager.clear();
 
-    //Disconnect from the server
+    // Disconnect from the server
     connection.disconnect(new Presence(Presence.Type.unavailable));
     connection.disconnect();
 
@@ -233,10 +233,10 @@ public class Connection {
 
   }
 
-   /**
-   *
-   * @return the ChatFrame
-   */
+  /**
+  *
+  * @return the ChatFrame
+  */
   public ChatFrame getChatFrame() {
   return this.chatFrame;
 

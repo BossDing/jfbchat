@@ -14,7 +14,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http:// www.gnu.org/licenses/>.
 
 ##############################################################################*/
 
@@ -37,7 +37,7 @@ public class AvatarLabel extends JLabel{
   public AvatarLabel() {
   super("");
   this.icon = null;
-  //Set the defaul facebook icon
+  // Set the defaul facebook icon
   this.setIcon(new javax.swing.ImageIcon(getClass().getResource(Imgs.NO_AVATAR_ICON)));
 
   }
@@ -46,13 +46,13 @@ public class AvatarLabel extends JLabel{
   if (contact.getPresence().isAvailable() ||
     contact.getPresence().isAway()) {
 
-    //Avatar test
+    // Avatar test
     if (this.icon == null) {
     try {
-      //Store the icon in avatarIcon
+      // Store the icon in avatarIcon
       this.icon = contact.getVCard().getAvatar();
       if (this.icon != null) {
-      //Set the avatar icon
+      // Set the avatar icon
       this.setIcon(this.icon);
 
       } else {
@@ -66,19 +66,19 @@ public class AvatarLabel extends JLabel{
     }
   }
 
-  //Set the tool tip text
+  // Set the tool tip text
   this.setToolTipText(contact.getUser());
   }
 
   public void updateAvatarLabel(Connection connection) {
-  //Avatar test
+  // Avatar test
   if (this.icon == null) {
     try {
-    //Store the icon in avatarIcon
+    // Store the icon in avatarIcon
     this.icon = connection.getVCard().getAvatar();
 
     if (this.icon != null) {
-      //Set the avatar icon
+      // Set the avatar icon
       this.setIcon(this.icon);
 
     } else {
@@ -90,18 +90,18 @@ public class AvatarLabel extends JLabel{
 
     }
   }
-  //Set the tool tip text
+  // Set the tool tip text
   this.setToolTipText("Me");
 
   }
 
   /**
-   * Set the icon null
-   *
-   */
-   public void clearIcon() {
-   this.icon = null;
+  * Set the icon null
+  *
+  */
+  public void clearIcon() {
+  this.icon = null;
 
-   }
+  }
 }
 

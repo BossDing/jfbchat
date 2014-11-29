@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat.resources;
@@ -39,15 +39,15 @@ package jfbchat.resources;
  */
 public class Options {
 
-  //---------CONNECTION-------------
+  // ---------CONNECTION-------------
   public static final int PORT = 5222;
   public static final String SERVER = "chat.facebook.com";
   public static final String SERVICE_NAME = "chat.facebook.com";
 
-  //---------DEBUG-------------
+  // ---------DEBUG-------------
   public static boolean DEBUG_ENABLED = true;
 
-  //---------SYSTEM--------------
+  // ---------SYSTEM--------------
   public static String HOME_DIR = "";
   public static String USERNAME = "Username";
   public static String PASSWORD = "Password";
@@ -55,30 +55,30 @@ public class Options {
   public static String REMEMBER_USER_AND_PASS = "RememberUserandPass";
   public static String CACHED_AVATARS_PATH = ".jfbchat/cache/avatars/";
 
-  //---------ASPECT---------------
+  // ---------ASPECT---------------
   public static String SHOW_EMPTY_GROUPS = "ShowEmptyGroups";
   public static String SHOW_AVATARS = "ShowAvatars";
-  //=====----------Colors-----------
+  // =====----------Colors-----------
   public static java.awt.Color RECEIVED_MSG_PANEL_COLOR = new java.awt.Color(255, 242, 161);
   public static java.awt.Color FCBK_BLUE_COLOR = new java.awt.Color(98, 123, 174);
   public static java.awt.Color FCBK_WHITE_COLOR = new java.awt.Color(255, 255, 255);
 
-  //=====----------ContactPanel-------
-  //Move to a skin file
+  // =====----------ContactPanel-------
+  // Move to a skin file
   public static java.awt.Color COLOR_ON_MOUSE_OVER_CONTACT_PANEL = new java.awt.Color(109, 132, 180);
 
-  //---------BEHAVIOR-------------
+  // ---------BEHAVIOR-------------
   public static String DownloadImgs = "DownloadImages";
   public static String SAVE_AVATARS_TO_CACHE= "SaveAvatarsToCache";
   public static String SEND_TYPING_MESSAGE = "SendTypingMessage";
 
-  //---------WEBPAGES--------------
-  public static String PROJECT_WEBPAGE = "http://www.digisoftware.org";
-  public static String ONLINE_HELP = "http://www.digisoftware.org/forum/";
-  public static String USERNAME_ONLINE_HELP = "http://www.digisoftware.org/forum/discussion/1/login-with-your-facebook-username.";
-  public static String WEBPAGE_BUG_TRACKER = "http://sourceforge.net/tracker/?group_id=405668&atid=1680548";
+  // ---------WEBPAGES--------------
+  public static String PROJECT_WEBPAGE = "http:// www.digisoftware.org";
+  public static String ONLINE_HELP = "http:// www.digisoftware.org/forum/";
+  public static String USERNAME_ONLINE_HELP = "http:// www.digisoftware.org/forum/discussion/1/login-with-your-facebook-username.";
+  public static String WEBPAGE_BUG_TRACKER = "http:// sourceforge.net/tracker/?group_id=405668&atid=1680548";
 
-  //---------NOTIFICATIONS-------------
+  // ---------NOTIFICATIONS-------------
   public static String INCOMING_SOUND = "IncomingSnd";
   public static String SENDED_SOUND = "SendedSnd";
   public static String NOTIFICATION_FRAME = "NotificationFrame";

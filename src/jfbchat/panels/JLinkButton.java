@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat.panels;

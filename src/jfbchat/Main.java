@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -30,29 +30,29 @@ public class Main {
 
   public static void main(String[] args) {
 
-   Options.HOME_DIR = System.getProperty("user.home");
+  Options.HOME_DIR = System.getProperty("user.home");
 
-   //Process arguments
-   for (int i = 0; i < args.length; i++) {
-     // -d Enable debug messages
-     if (args[i].equals("-d") || args[i].equals("--debug")) {
+  // Process arguments
+  for (int i = 0; i < args.length; i++) {
+    // -d Enable debug messages
+    if (args[i].equals("-d") || args[i].equals("--debug")) {
 
-     System.out.println("########  Debug mode  ########");
-     Options.DEBUG_ENABLED = true;
+    System.out.println("########  Debug mode  ########");
+    Options.DEBUG_ENABLED = true;
 
-     }
+    }
 
-     if (args[i].equals("-h") || args[i].equals("--help")) {
+    if (args[i].equals("-h") || args[i].equals("--help")) {
 
-     System.out.print("\nUsage:\n  jfbchat [OPTION...] \n\n"
+    System.out.print("\nUsage:\n  jfbchat [OPTION...] \n\n"
         + "A simple facebook client\n\n"
         + "Debug Options:\n"
         + " -d, --debug     Enable debug messages\n\n");
-     System.exit(0);
+    System.exit(0);
 
-     }
+    }
 
-   }
+  }
 
   System.out.println("Starting IM client");
   try {

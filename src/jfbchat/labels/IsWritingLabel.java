@@ -14,7 +14,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http:// www.gnu.org/licenses/>.
 
 ##############################################################################*/
 package jfbchat.labels;
@@ -37,15 +37,15 @@ public class IsWritingLabel extends JLabel{
   }
 
   /**
-   * Set the value of isWriting
-   *
-   */
-   public void setIsWriting(boolean isWriting) {
-   this.setVisible(isWriting);
-   this.validate();
-   this.isWriting = isWriting;
+  * Set the value of isWriting
+  *
+  */
+  public void setIsWriting(boolean isWriting) {
+  this.setVisible(isWriting);
+  this.validate();
+  this.isWriting = isWriting;
 
-   }
+  }
 
   public boolean getIsWriting() {
   return this.isWriting;

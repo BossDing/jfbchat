@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################
 */
 
@@ -54,9 +54,9 @@ public class MyChatManager {
   }
 
   /**
-   * Add a ChatFrame to this chatManager
-   * @param A ChatFrame
-   */
+  * Add a ChatFrame to this chatManager
+  * @param A ChatFrame
+  */
   public void add(PanelChat c) {
   /* Add a chatframe at the specified index */
 
@@ -83,12 +83,12 @@ public class MyChatManager {
   }
 
   /**
-   * This method should be called when the user disconnets
-   * clear the chatManager array
-   */
+  * This method should be called when the user disconnets
+  * clear the chatManager array
+  */
   public void clear() {
 
-  //Hide all the opened windows
+  // Hide all the opened windows
   for (Iterator<PanelChat> iter = this.chatManager.iterator(); iter.hasNext();) {
 
     PanelChat nextChatFrame = iter.next();
@@ -97,7 +97,7 @@ public class MyChatManager {
 
   }
 
-  //clear the ArrayList
+  // clear the ArrayList
   this.chatManager.clear();
 
   }

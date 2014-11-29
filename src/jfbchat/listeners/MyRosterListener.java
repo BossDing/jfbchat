@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat.listeners;
@@ -58,25 +58,25 @@ public class MyRosterListener implements RosterListener {
   if (this.connection.isConnected()) {
 
     try {
-    //Get the contact associated with the Roaster update
+    // Get the contact associated with the Roaster update
     Contact contact =  connection.getContactList().getContact(presence.getFrom());
 
     contact.setPresence(presence);
 
     new DMessage(contact.getUser() + " has changed status and he is now " + contact.getPresence().toString() + ".").println();
-    //If the contact has become available
+    // If the contact has become available
     if (contact.getPresence().isAvailable()) {
-      //Show a NotificationFrame
+      // Show a NotificationFrame
       this.notificationFrame = new JFrameNotifications(contact);
 
       }
 
     contact.updateContactPanels();
 
-    //TODO: update only the group associated to the contact
+    // TODO: update only the group associated to the contact
     connection.getContactList().updateGroupPanels();
 
-    //If a chat with the contact is already opened update his status
+    // If a chat with the contact is already opened update his status
     if (contact.getPanelChat() != null) {
       contact.getPanelChat().update();
     }

@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -46,22 +46,22 @@ public class MyPacketListener implements PacketListener{
     this.contactList = connection.getContactList();
   }
 
-  //the packet is filtered as a message
+  // the packet is filtered as a message
   public void processPacket(Packet packet) {
-    //Contact who sends thet packet
+    // Contact who sends thet packet
     Contact contact = connection.getContactList().getContact(packet.getFrom());
 
-    //Managing a message
+    // Managing a message
     Message msg = (Message) packet;
 
     new DebugMessage(this.getClass(), "processPacket: \"" + msg + "\""
     + " received from "  + contact.getUser());
 
-    //If the contact has a conversation active in the chatManager
+    // If the contact has a conversation active in the chatManager
     if (!(contact.isActive())) {
-    //Create a new PanelChat and show it
+    // Create a new PanelChat and show it
     contact.initChat();
-    //Add the message in the PanelMessage
+    // Add the message in the PanelMessage
     contact.getPanelChat().
       addPanelMessage(new PanelMessage(
               false,
@@ -70,14 +70,14 @@ public class MyPacketListener implements PacketListener{
 
     }
 
-    //Focus the contact tab
+    // Focus the contact tab
     connection
       .getChatFrame()
       .getjTabbedPaneChats()
       .setSelectedIndex(contact
             .getPanelChat()
             .getTabIndex());
-    //Show the ChatFrame
+    // Show the ChatFrame
     connection.getChatFrame().setVisible(true);
 
     // do nothing for TIMEOUT miliseconds

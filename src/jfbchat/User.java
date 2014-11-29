@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -86,13 +86,13 @@ public class User {
   }
 
   /**
-   *
-   *
-   * @return true if the user has some avatars in the cache otherwise return false.
-   */
-   public boolean hasCachedAvatars() {
+  *
+  *
+  * @return true if the user has some avatars in the cache otherwise return false.
+  */
+  public boolean hasCachedAvatars() {
 
-  //Path of the directory where cached images are saved by default.
+  // Path of the directory where cached images are saved by default.
   String cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + username;
 
   new DebugMessage(this.getClass(), " Searching for " + cache_dir_path + " for cached avatars");

@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -45,33 +45,29 @@ public class Application {
   public static final String ARCH_OS = System.getProperty("os.arch");
 
   public Application() {
-  //Set system look and feel by default
-  //TODO: Add the feature to change the look in a option frame
+    // Set system look and feel by default
+    // TODO: Add the feature to change the look in a option frame
 
-  setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-  run();
-
+    setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    run();
   }
 
   private void run() {
-  //Show the MainFrame
-  mainFrame = new MainFrame();
-
+    // Show the MainFrame
+    mainFrame = new MainFrame();
   }
 
   private void setLookAndFeel(String laf) {
-   try {
-    UIManager.setLookAndFeel(laf);
-  } catch (ClassNotFoundException ex) {
-    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-  } catch (InstantiationException ex) {
-    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-  } catch (IllegalAccessException ex) {
-    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
-  } catch (UnsupportedLookAndFeelException ex) {
-    Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+    try {
+      UIManager.setLookAndFeel(laf);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+      Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+      Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedLookAndFeelException ex) {
+      Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
-
-  }
-
 }

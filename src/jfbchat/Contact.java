@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -48,12 +48,12 @@ public class Contact {
   private Presence presence;
   private boolean chatActive;
   private int id;
-  //List of groups associated with the contact
+  // List of groups associated with the contact
   private ArrayList<String> groups;
-  //Panel associated with the contact
+  // Panel associated with the contact
   private ArrayList<PanelContact> contactPanels;
 
-  //PanelChat associated with the contact
+  // PanelChat associated with the contact
   private PanelChat panelChat;
 
   private String jID;
@@ -88,7 +88,7 @@ public class Contact {
   */
   private void add_to_groups() {
 
-  //If the contact is in a group
+  // If the contact is in a group
   if (!(entry.getGroups().isEmpty())) {
     try {
     for (Iterator<RosterGroup> iter = entry.getGroups().iterator(); iter.hasNext();) {
@@ -96,7 +96,7 @@ public class Contact {
 
       this.groups.add(nextGroup.getName());
       this.contactPanels.add(new PanelContact(connection, this, nextGroup.getName()));
-     }
+    }
     }
     catch (Exception e) {
 
@@ -105,7 +105,7 @@ public class Contact {
     }
 
   } else {
-    //Add the contact to "Other Friends" group.
+    // Add the contact to "Other Friends" group.
     try {
     this.contactPanels.add(new PanelContact(connection, this, "Other Friends"));
 
@@ -213,18 +213,18 @@ public class Contact {
     }
   }catch (Exception e) {
 
-     new DebugMessage(this.getClass(), " Cannot update the contact panels " + e.getMessage());
+    new DebugMessage(this.getClass(), " Cannot update the contact panels " + e.getMessage());
 
   }
 
-   }
+  }
   /**
-   *
-   * Uncollapse all Panels
-   *
-   */
+  *
+  * Uncollapse all Panels
+  *
+  */
   public void uncollapseAll() {
-   for (Iterator<PanelContact> iterContactPanel
+  for (Iterator<PanelContact> iterContactPanel
         =  this.contactPanels.iterator();
         iterContactPanel.hasNext();) {
 
@@ -234,13 +234,13 @@ public class Contact {
     }
   }
 
-   /**
-   *
-   * Collapse all Panels
-   *
-   */
+  /**
+  *
+  * Collapse all Panels
+  *
+  */
   public void collapseAll() {
-   for (Iterator<PanelContact> iterContactPanel
+  for (Iterator<PanelContact> iterContactPanel
         =  this.contactPanels.iterator();
         iterContactPanel.hasNext();) {
 
@@ -304,7 +304,7 @@ public class Contact {
   */
   public PanelContact getContactPanelbyGroup(String groupName) {
 
-   try {
+  try {
     if (!(this.contactPanels.isEmpty())) {
 
     for (Iterator<PanelContact> iterContactPanel = this.contactPanels.iterator(); iterContactPanel.hasNext();) {
@@ -326,7 +326,7 @@ public class Contact {
     }
   }catch (Exception e) {
 
-     new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
+    new DebugMessage("contact.updateContactPanel() exception: " + e.getMessage());
 
   }
 
@@ -337,11 +337,11 @@ public class Contact {
   }
 
   /**
-   * Init the chat with the contact and show the conversation
-   *
-   */
+  * Init the chat with the contact and show the conversation
+  *
+  */
   public void initChat() {
-  //If the chat is active in the chatmanager show it.
+  // If the chat is active in the chatmanager show it.
   if (!(this.isActive())) {
     try {
     this.setActive(true);
@@ -361,14 +361,14 @@ public class Contact {
 
   }
   try {
-    //Focus the contact tab
+    // Focus the contact tab
     connection
       .getChatFrame()
       .getjTabbedPaneChats()
       .setSelectedIndex(this
             .getPanelChat()
             .getTabIndex());
-    //Show the ChatFrame
+    // Show the ChatFrame
     connection.getChatFrame().setVisible(true);
   }catch (Exception e) {
     new DebugMessage(this.getClass(), "Cannot show the chat with " + this.getUser(), e);
@@ -387,8 +387,8 @@ public class Contact {
   if (this.hasGroup()) {
     for (int i = 0; i < groups.size(); i++) {
     if (groups.get(i).equals(group)) {
-       groups.remove(i);
-       removed = true;
+      groups.remove(i);
+      removed = true;
     }
     }
   }
@@ -405,7 +405,7 @@ public class Contact {
   */
   public boolean isInGroup(String group) {
 
-  //If the contact has a group
+  // If the contact has a group
   if (hasGroup()) {
     for (Iterator<String> iter = groups.iterator() ; iter.hasNext();) {
     String nextGroup = iter.next();
@@ -414,11 +414,11 @@ public class Contact {
 
     }
     }
-    //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
+    // new DebugMessage(this.getClass(), "The contact is not in the group " + group);
     return false;
 
   } else {
-    //new DebugMessage(this.getClass(), "The contact is not in the group " + group);
+    // new DebugMessage(this.getClass(), "The contact is not in the group " + group);
     return false;
 
   }
@@ -438,8 +438,8 @@ public class Contact {
   }
   }
   /**
-   * Update all the avatar of all contactPanels
-   */
+  * Update all the avatar of all contactPanels
+  */
   public void updateAvatar() {
   if (!(this.contactPanels.isEmpty())) {
     Iterator<PanelContact> iter = this.contactPanels.iterator();
@@ -448,7 +448,7 @@ public class Contact {
     PanelContact nextPanel = iter.next();
     nextPanel.updateAvatar();
 
-     }
+    }
   }
   }
 

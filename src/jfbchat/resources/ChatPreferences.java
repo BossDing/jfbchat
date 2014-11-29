@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat.resources;
@@ -70,22 +70,22 @@ public class ChatPreferences {
     prefs.getBoolean(Options.SHOW_EMPTY_GROUPS, false);
     prefs.getBoolean(Options.DownloadImgs , true);
 
-    //-------------ASPECT--------------
+    // -------------ASPECT--------------
     prefs.getBoolean(Options.SHOW_AVATARS , true);
 
-    //-------------BEHAVIOR------------
+    // -------------BEHAVIOR------------
     prefs.getBoolean(Options.SAVE_AVATARS_TO_CACHE , true);
     prefs.getBoolean(Options.SEND_TYPING_MESSAGE , true);
 
-    //-------------NOTIFICATIONS-----------
+    // -------------NOTIFICATIONS-----------
     prefs.getBoolean(Options.NOTIFICATION_FRAME , true);
     prefs.getBoolean(Options.NOTIFICATION_FRAME_SND, true);
 
   }
   /**
-   *
-   * @return The preferences
-   */
+  *
+  * @return The preferences
+  */
   public Preferences getPreferences() {
 
     return prefs;

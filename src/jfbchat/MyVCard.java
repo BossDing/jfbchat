@@ -13,7 +13,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. To change this template, choose Tools | Templates
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. To change this template, choose Tools | Templates
 
   JFBChat it's a simple software written in Java that let you conncted with
   yours Facebook friends without your browser.
@@ -28,7 +28,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>. and open the template in the editor.
+  along with this program.  If not, see <http:// www.gnu.org/licenses/>. and open the template in the editor.
  ###################################################*/
 
 package jfbchat;
@@ -63,67 +63,67 @@ public class MyVCard {
   private ChatPreferences prefs;
 
   public MyVCard(Connection connection, Contact contact) {
-   this.vCard = new VCard();
-   this.contact = contact;
-   this.connection = connection;
-   //The path where avatars are saved for this user
-   cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
-   this.prefs = new ChatPreferences();
+  this.vCard = new VCard();
+  this.contact = contact;
+  this.connection = connection;
+  // The path where avatars are saved for this user
+  cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
+  this.prefs = new ChatPreferences();
 
   }
 
   public MyVCard() {
 
-   this.vCard = new VCard();
+  this.vCard = new VCard();
 
   }
 
-  //Constructor for the user's vCard
+  // Constructor for the user's vCard
   public MyVCard(Connection connection) {
   this.connection = connection;
   this.vCard = new VCard();
 
-   //The path where avatars are saved for this user
-   cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
+  // The path where avatars are saved for this user
+  cache_dir_path = Options.HOME_DIR + "/" + Options.CACHED_AVATARS_PATH + this.connection.getUser().getUsername() + "/";
 
-   this.prefs = new ChatPreferences();
+  this.prefs = new ChatPreferences();
 
   }
 
   /**
-   * If the contact is saved in the cache directory, load it , if not
-   * load the VCard and the avatar of the contact in a temp byte array and store it
-   * in avatar as ImageIcon
-   */
+  * If the contact is saved in the cache directory, load it , if not
+  * load the VCard and the avatar of the contact in a temp byte array and store it
+  * in avatar as ImageIcon
+  */
   private void loadAvatar() {
   File tmp_image;
   String jID = null;
 
   if (this.contact != null) {
-    //The contact JID associated to CONTACT the avatar.
+    // The contact JID associated to CONTACT the avatar.
     jID = this.contact.getJID();
   }
 
-  //If the avatar exists in the cached avatars directory
+  // If the avatar exists in the cached avatars directory
   if (new File(cache_dir_path + jID + ".jpg").exists()) {
 
-     //Load the avatar from the cache directory
+    // Load the avatar from the cache directory
     load_cached_avatar(jID);
 
   } else {
 
-    //if DownloadImgs option is enabled
+    // if DownloadImgs option is enabled
     if (prefs.getPreferences().getBoolean(Options.DownloadImgs, true)) {
     byte[] avatarBytes;
 
-    //Load the vCard associated to the contact or user
+    // Load the vCard associated to the contact or user
     try {
       if (this.contact != null) {
-      //The vCard associated to the CONTACT
+      // The vCard associated to the CONTACT
       vCard.load(connection.getConnection(), contact.getAdress());
 
       } else {
-      //The vCard associated to the USER
+      // The vCard associated to the USER
       vCard.load(connection.getConnection());
 
       }
@@ -133,13 +133,13 @@ public class MyVCard {
 
     }
 
-    //Download the avatar and init the instance variable
+    // Download the avatar and init the instance variable
     try {
 
       avatarBytes = vCard.getAvatar();
       this.avatar = new ImageIcon(avatarBytes);
 
-      //Save avatars to a local directory if the option is enabled
+      // Save avatars to a local directory if the option is enabled
       if (this.prefs.getPreferences().getBoolean(Options.SAVE_AVATARS_TO_CACHE, true)) {
 
       saveAvatarToCache();
@@ -155,11 +155,11 @@ public class MyVCard {
   }
   }
 
-  //TODO: if the image changes the avatar loaded is still the avatar from the cache
+  // TODO: if the image changes the avatar loaded is still the avatar from the cache
   /**
-   * Load the avatar associated to the id in the vCard
-   * @param id of the avatar to load in the vCard
-   */
+  * Load the avatar associated to the id in the vCard
+  * @param id of the avatar to load in the vCard
+  */
   public void load_cached_avatar(String formatted_name) {
 
   File image = null;
@@ -188,11 +188,11 @@ public class MyVCard {
   }
 
   /**
-   * Save the contact associated avatar to the local cache directory
-   */
+  * Save the contact associated avatar to the local cache directory
+  */
   public void saveAvatarToCache() {
 
-  //If the cache directory does not exist
+  // If the cache directory does not exist
   if (! (this.connection.getUser().hasCachedAvatars())) {
 
     // Create multiple directories
@@ -237,14 +237,14 @@ public class MyVCard {
   * @return An ImageIcon or null
   */
   public ImageIcon getAvatar() {
-  //Test if the avatar is already loaded.
+  // Test if the avatar is already loaded.
   if (this.avatar != null) {
     return this.avatar;
 
   } else {
-    //Load the avatar
+    // Load the avatar
     loadAvatar();
-    //Test if the avatar is loaded.
+    // Test if the avatar is loaded.
     if (this.avatar != null) {
     return this.avatar;
 
@@ -283,7 +283,7 @@ public class MyVCard {
   int offset = 0;
   int numRead = 0;
   while (offset < bytes.length
-     && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+    && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
     offset += numRead;
   }
 

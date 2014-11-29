@@ -15,7 +15,7 @@
   * GNU General Public License for more details.
   *
   * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  * along with this program.  If not, see <http:// www.gnu.org/licenses/>.
   *
   *###########################################################################
   *
@@ -43,41 +43,41 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-  //Enter key ID
+  // Enter key ID
   final int K_ENTER_ID = 10;
 
-  //Search field value
+  // Search field value
   private final String SEARCH_TEXT = "Search";
 
-  //Max window dimension
+  // Max window dimension
   private final int MAX_DIMENSION = 32767;
 
-  //A connection with the server
+  // A connection with the server
   private Connection connection;
 
-  //Icon image
+  // Icon image
   private ImageIcon mainicon;
 
-  //Frames
+  // Frames
   private JFrameAbout jFrameAbout;
   private PreferencesFrame preferencesFrame;
 
   private User user;
 
-  //Here will be stocked the value of the Status Combobox
+  // Here will be stocked the value of the Status Combobox
   private boolean ComboBoxChoise;
 
-  //Chat preferences
+  // Chat preferences
   private ChatPreferences prefs;
 
   public MainFrame() {
 
-  //Init frames
+  // Init frames
   jFrameAbout = new JFrameAbout(Application.VERSION);
   preferencesFrame = new PreferencesFrame();
 
   initComponents();
-  //Set Backgrounds colors
+  // Set Backgrounds colors
   this.comboPanel.setBackground(Options.FCBK_BLUE_COLOR);
   this.jPanelUserInfo.setBackground(Options.FCBK_BLUE_COLOR);
   this.ComboBoxStatus.setBackground(Options.FCBK_BLUE_COLOR);
@@ -86,7 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
   this.prefs = new ChatPreferences();
   ComboBoxChoise = false;
 
-  //Load and set the icon.
+  // Load and set the icon.
   try {
 
     setIconImage(new ImageIcon(getClass().getResource(Imgs.MAINICON)).getImage());
@@ -97,32 +97,32 @@ public class MainFrame extends javax.swing.JFrame {
 
   }
 
-  //Init CheckBoxes
+  // Init CheckBoxes
   jCheckBoxAuto.setSelected(this.prefs.getPreferences().getBoolean(Options.AUTOLOGIN, false));
   jCheckBoxRemUser.setSelected(this.prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false));
 
-  //Hide the disconnect menu.
+  // Hide the disconnect menu.
   MenuDisconnect.setVisible(false);
 
-  //Init a new user
-  //TODO: should be modified when there will be more users
+  // Init a new user
+  // TODO: should be modified when there will be more users
   user = new User();
 
-  //Set the minimum size the same as the scrollListpanel
+  // Set the minimum size the same as the scrollListpanel
   this.setMinimumSize(this.ContactListPanel.getSize());
 
-  //Show the MainFrame at the center of the screen.
+  // Show the MainFrame at the center of the screen.
   setLocationRelativeTo(null);
   setVisible(true);
 
-  //If the option is enabled login automatically
+  // If the option is enabled login automatically
   autologin();
 
   }
 
   private void autologin() {
 
-  //If the user has selected autologin or remember username
+  // If the user has selected autologin or remember username
 
   if (user.isAutoLogin()) {
 
@@ -134,18 +134,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     if (prefs.getPreferences().getBoolean(Options.REMEMBER_USER_AND_PASS, false)) {
 
-    //Only remember user was pressed
+    // Only remember user was pressed
     EntryUser.setText(user.getSavedUser());
     EntryPass.setText(user.getSavedPass());
     }
 
     else{
 
-    //Clear the save username and password
+    // Clear the save username and password
     this.prefs.getPreferences().put(Options.USERNAME, "");
     this.prefs.getPreferences().put(Options.PASSWORD, "");
 
-    //Init the entryboxes
+    // Init the entryboxes
     EntryUser.setText("");
     EntryPass.setText("");
 
@@ -154,29 +154,29 @@ public class MainFrame extends javax.swing.JFrame {
   }
   }
 
-  //Login procedure
+  // Login procedure
   Runnable loginRunnable = new Runnable() {
-   public void run() {
-    //Create a new user
+  public void run() {
+    // Create a new user
 
   user = new User(EntryUser.getText(),EntryPass.getText());
 
-  //Create a new connection associated to the user
+  // Create a new connection associated to the user
   connection = new Connection(user);
 
-  //Connect to the server
+  // Connect to the server
   connection.connect();
 
   if (connection.isConnected()) {
-    //Init avatar user label
+    // Init avatar user label
     avatarLabelUser.updateAvatarLabel(connection);
     avatarLabelUser.updateAvatarLabel(connection);
-    //Init user name
+    // Init user name
     jLabelUser.setText(connection.getVCard().getFirstName());
 
-    //Show the contactlist in the MainFrame
+    // Show the contactlist in the MainFrame
     setContactListVisible(true);
-    //Populate the contact list
+    // Populate the contact list
     for (Iterator<Group> iterGroup = connection.getContactList().getGroups().iterator(); iterGroup.hasNext();) {
 
     Group nextGroup = iterGroup.next();
@@ -189,23 +189,23 @@ public class MainFrame extends javax.swing.JFrame {
 
     }
 
-    //Load Avatars for the first time
+    // Load Avatars for the first time
     connection.getContactList().updateAvatars();
 
     }
 
   loginPanelComponentsSetEnabled(true);
 
-   }
+  }
  };
 
   /** This method is called from within the constructor to
-   * initialize the form.
-   * WARNING: Do NOT modify this code. The content of this method is
-   * always regenerated by the Form Editor.
-   */
+  * initialize the form.
+  * WARNING: Do NOT modify this code. The content of this method is
+  * always regenerated by the Form Editor.
+  */
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  // <editor-fold defaultstate="collapsed" desc="Generated Code">// GEN-BEGIN:initComponents
   private void initComponents() {
 
   MainPanel = new javax.swing.JPanel();
@@ -635,11 +635,11 @@ public class MainFrame extends javax.swing.JFrame {
 );
 
   pack();
-  }// </editor-fold>//GEN-END:initComponents
+  }// </editor-fold>// GEN-END:initComponents
 
   /**
-   * Login to the server
-   */
+  * Login to the server
+  */
   public void loginToServer() {
 
   String password = EntryPass.getText();
@@ -647,20 +647,20 @@ public class MainFrame extends javax.swing.JFrame {
 
   if (!(password.isEmpty() && username.isEmpty())) {
     if (username.contains("@")) {
-    //Open Options.USERNAME_ONLINE_HELP
+    // Open Options.USERNAME_ONLINE_HELP
     UtilFunctions.openURL(Options.USERNAME_ONLINE_HELP);
     new Error(this.connection, 3, "Wrong username: Please use your Facebook username");
 
     } else {
-    //Disable all the LoginPanel components
+    // Disable all the LoginPanel components
     loginPanelComponentsSetEnabled(false);
 
     try {
-       // Write username and password to  preferences
+      // Write username and password to  preferences
       this.prefs.getPreferences().put(Options.USERNAME, username);
       this.prefs.getPreferences().put(Options.PASSWORD, password);
 
-      //Login to the chat
+      // Login to the chat
       javax.swing.SwingUtilities.invokeLater(loginRunnable);
 
     }catch (Exception e) {
@@ -678,11 +678,11 @@ public class MainFrame extends javax.swing.JFrame {
   }
 
   /**
-   * Ad a group to the Contact List
-   * @param A group
-   */
+  * Ad a group to the Contact List
+  * @param A group
+  */
   private void addContactsToPanel(Group contactList) {
-  //Populate the ContactListPanel with all the contacts of a group
+  // Populate the ContactListPanel with all the contacts of a group
 
   for (Iterator<Contact> iter = contactList.iterator(); iter.hasNext();) {
     Contact nextContact = iter.next();
@@ -698,14 +698,14 @@ public class MainFrame extends javax.swing.JFrame {
 
   }
 
-  //Set the minimum size the same as the scrollListpanel
+  // Set the minimum size the same as the scrollListpanel
   this.setMinimumSize(new java.awt.Dimension(this.ContactListPanel.getSize().height, this.ContactListPanel.getSize().width));
 
   }
 
   /**
-   * Disable all the login panel components
-   */
+  * Disable all the login panel components
+  */
 
   public void loginPanelComponentsSetEnabled(boolean value) {
 
@@ -718,21 +718,21 @@ public class MainFrame extends javax.swing.JFrame {
 
   }
 
-  private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAboutActionPerformed
+  private void MenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_MenuItemAboutActionPerformed
 
-  //Shows the jFrameAbout
+  // Shows the jFrameAbout
   UtilFunctions.showFrame(this.jFrameAbout);
 
-  }//GEN-LAST:event_MenuItemAboutActionPerformed
+  }// GEN-LAST:event_MenuItemAboutActionPerformed
 
-  private void ComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxStatusItemStateChanged
+  private void ComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_ComboBoxStatusItemStateChanged
 
-   String item = evt.getItem().toString();
+  String item = evt.getItem().toString();
 
-   if (ComboBoxChoise == false) {
-    //To avoid the repetition problem
+  if (ComboBoxChoise == false) {
+    // To avoid the repetition problem
     ComboBoxChoise = true;
-   }
+  }
   else{
     ComboBoxChoise = false;
 
@@ -748,24 +748,24 @@ public class MainFrame extends javax.swing.JFrame {
 
     } else {
 
-    //TODO: make the contactListPanel "addable" in order to manage more connections in the same time
-    //Remove everything in the contactlist
+    // TODO: make the contactListPanel "addable" in order to manage more connections in the same time
+    // Remove everything in the contactlist
     this.ContactListPanel.removeAll();
 
     connection.closeConnection();
 
-    //Back to the loginPanel
+    // Back to the loginPanel
     setContactListVisible(false);
 
     }
   }
-  }//GEN-LAST:event_ComboBoxStatusItemStateChanged
+  }// GEN-LAST:event_ComboBoxStatusItemStateChanged
 
   public void setContactListVisible(boolean visible) {
 
   if (visible) {
 
-    //Change the card in the MainPanel
+    // Change the card in the MainPanel
     CardLayout cl = (CardLayout)(MainPanel.getLayout());
     cl.show(MainPanel, "connectedPanel");
 
@@ -773,7 +773,7 @@ public class MainFrame extends javax.swing.JFrame {
   }
   else{
 
-    //Change the card in the MainPanel
+    // Change the card in the MainPanel
     CardLayout cl = (CardLayout)(MainPanel.getLayout());
     cl.show(MainPanel, "loginPanel");
 
@@ -783,7 +783,7 @@ public class MainFrame extends javax.swing.JFrame {
   }
   }
 
-  private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExitActionPerformed
+  private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_MenuExitActionPerformed
 
   try {
     if (connection.isConnected()) {
@@ -797,25 +797,25 @@ public class MainFrame extends javax.swing.JFrame {
   System.out.println("Stop the execution.");
   System.exit(0);
 
-  }//GEN-LAST:event_MenuExitActionPerformed
+  }// GEN-LAST:event_MenuExitActionPerformed
 
  /**
  * Connect to the project webpage for support
  * @param evt
  */
-  private void questionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionButtonMouseClicked
-  //Open Options.USERNAME_ONLINE_HELP
+  private void questionButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_questionButtonMouseClicked
+  // Open Options.USERNAME_ONLINE_HELP
   UtilFunctions.openURL(Options.USERNAME_ONLINE_HELP);
 
-  }//GEN-LAST:event_questionButtonMouseClicked
+  }// GEN-LAST:event_questionButtonMouseClicked
 
   /**
-   *
-   * MenuItem Disconnect Action
-   *
-   * @param evt
-   */
-  private void MenuDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDisconnectActionPerformed
+  *
+  * MenuItem Disconnect Action
+  *
+  * @param evt
+  */
+  private void MenuDisconnectActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_MenuDisconnectActionPerformed
 
   try {
 
@@ -825,9 +825,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     setContactListVisible(false);
 
-    //Clear avatarLabelUser
+    // Clear avatarLabelUser
     this.avatarLabelUser.clearIcon();
-    //Clear jLabelUser
+    // Clear jLabelUser
     this.jLabelUser.setText(null);
 
     this.ContactListPanel.removeAll();
@@ -839,99 +839,99 @@ public class MainFrame extends javax.swing.JFrame {
     new DebugMessage("MainFrame.MenuDisconnectMousePressed : " + e.getMessage());
 
   }
-  }//GEN-LAST:event_MenuDisconnectActionPerformed
+  }// GEN-LAST:event_MenuDisconnectActionPerformed
   /**
-   * MenuItem Preferences Action
-   * @param evt
-   */
-  private void MenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemPreferencesActionPerformed
+  * MenuItem Preferences Action
+  * @param evt
+  */
+  private void MenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_MenuItemPreferencesActionPerformed
 
-  //Shows the preferencesFrame
+  // Shows the preferencesFrame
   UtilFunctions.showFrame(this.preferencesFrame);
 
-  }//GEN-LAST:event_MenuItemPreferencesActionPerformed
+  }// GEN-LAST:event_MenuItemPreferencesActionPerformed
 
   /**
-   * MenuItem Help Online Action
-   * @param evt
-   */
-  private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
+  * MenuItem Help Online Action
+  * @param evt
+  */
+  private void jMenuItemHelpOnlineActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemHelpOnlineActionPerformed
 
-  //Open the ONLINE_HELP page.
+  // Open the ONLINE_HELP page.
   UtilFunctions.openURL(Options.ONLINE_HELP);
 
-  }//GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
+  }// GEN-LAST:event_jMenuItemHelpOnlineActionPerformed
 
-  private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportProblemActionPerformed
+  private void jMenuItemReportProblemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemReportProblemActionPerformed
 
-  //Open the Options.WEBPAGE_BUG_TRACKER page.
+  // Open the Options.WEBPAGE_BUG_TRACKER page.
   UtilFunctions.openURL(Options.WEBPAGE_BUG_TRACKER);
 
-  }//GEN-LAST:event_jMenuItemReportProblemActionPerformed
+  }// GEN-LAST:event_jMenuItemReportProblemActionPerformed
 
   /**
-   * CheckBox Autologin Action Performed
-   * @param evt
-   */
+  * CheckBox Autologin Action Performed
+  * @param evt
+  */
   /**
-   * ButtonLogin Action Performed
-   * @param evt
-   */
-  private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
+  * ButtonLogin Action Performed
+  * @param evt
+  */
+  private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ButtonLoginActionPerformed
 
-  //Login to the server
+  // Login to the server
   loginToServer();
 
-  }//GEN-LAST:event_ButtonLoginActionPerformed
+  }// GEN-LAST:event_ButtonLoginActionPerformed
 
   /**
-   * CheckBox Remember user and password state changed
-   * @param evt
-   */
-  private void jCheckBoxRemUserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxRemUserItemStateChanged
+  * CheckBox Remember user and password state changed
+  * @param evt
+  */
+  private void jCheckBoxRemUserItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_jCheckBoxRemUserItemStateChanged
 
-  //Get the item
+  // Get the item
   JCheckBox item = (JCheckBox) evt.getItem();
 
-  //Change the value in the preferences with the value of the checkbox
+  // Change the value in the preferences with the value of the checkbox
   prefs.getPreferences().putBoolean(Options.REMEMBER_USER_AND_PASS, item.isSelected());
 
-  }//GEN-LAST:event_jCheckBoxRemUserItemStateChanged
+  }// GEN-LAST:event_jCheckBoxRemUserItemStateChanged
 
   /**
-   * CheckBox Autologin state changed
-   * @param evt
-   */
-  private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxAutoItemStateChanged
-   //Get the item
+  * CheckBox Autologin state changed
+  * @param evt
+  */
+  private void jCheckBoxAutoItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_jCheckBoxAutoItemStateChanged
+  // Get the item
   JCheckBox item = (JCheckBox) evt.getItem();
 
-  //Change the value in the preferences with the value of the checkbox
+  // Change the value in the preferences with the value of the checkbox
   prefs.getPreferences().putBoolean(Options.AUTOLOGIN, item.isSelected());
-  }//GEN-LAST:event_jCheckBoxAutoItemStateChanged
+  }// GEN-LAST:event_jCheckBoxAutoItemStateChanged
 
-  private void jTextFieldSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyTyped
+  private void jTextFieldSearchKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextFieldSearchKeyTyped
   this.connection.getContactList().contactsFilterByPattern(
     this.jTextFieldSearch.getText());
 
-  }//GEN-LAST:event_jTextFieldSearchKeyTyped
+  }// GEN-LAST:event_jTextFieldSearchKeyTyped
 
-  private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusGained
+  private void jTextFieldSearchFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextFieldSearchFocusGained
   this.jTextFieldSearch.setText("");
 
-  }//GEN-LAST:event_jTextFieldSearchFocusGained
+  }// GEN-LAST:event_jTextFieldSearchFocusGained
 
-  private void jTextFieldSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusLost
-   this.jTextFieldSearch.setText(this.SEARCH_TEXT);
-  }//GEN-LAST:event_jTextFieldSearchFocusLost
+  private void jTextFieldSearchFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextFieldSearchFocusLost
+  this.jTextFieldSearch.setText(this.SEARCH_TEXT);
+  }// GEN-LAST:event_jTextFieldSearchFocusLost
 
-  private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+  private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextFieldSearchKeyReleased
   this.connection.getContactList()
-       .setSearchMode(!(this.jTextFieldSearch.getText().isEmpty()));
+      .setSearchMode(!(this.jTextFieldSearch.getText().isEmpty()));
 
-  }//GEN-LAST:event_jTextFieldSearchKeyReleased
+  }// GEN-LAST:event_jTextFieldSearchKeyReleased
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+  // Variables declaration - do not modify// GEN-BEGIN:variables
   private javax.swing.JButton ButtonLogin;
   private javax.swing.JComboBox ComboBoxStatus;
   private javax.swing.JPanel ConnectedPanel;
@@ -972,6 +972,6 @@ public class MainFrame extends javax.swing.JFrame {
   private javax.swing.JLabel passwordLabel;
   private javax.swing.JButton questionButton;
   private javax.swing.JLabel usernameLabel;
-  // End of variables declaration//GEN-END:variables
+  // End of variables declaration// GEN-END:variables
 
 }
